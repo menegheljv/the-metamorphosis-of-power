@@ -1,0 +1,12 @@
+node_modules/
+dist/
+*.tsbuildinfo
+.env
+.env.local
+*.log
+.DS_Store
+.Rhistory
+.RData
+.Rproj.user/
+data/*.csv
+!data/synthetic_public_data.csv
