@@ -42,13 +42,25 @@ disponível pelo link **Estudo completo**.
 ### Baixar o estudo em PDF
 
 O estudo publicado em `docs/index.html` e `docs/en/index.html` tem o botão
-**Baixar estudo em PDF**. Ele usa a impressão nativa do navegador, sem
-dependência de servidor ou ferramenta externa: clique no botão, selecione
-**Salvar como PDF** e use o nome `metamorfose-do-poder-2004-2024.pdf`.
-Essa abordagem mantém o deploy estático e inclui gráficos, tabelas e textos
-com o CSS específico de impressão. Após atualizar o estudo, regenere
-`output/case_study.html`/`output/case_study_en.html` com os scripts de build e
-copie-os para `docs/index.html`/`docs/en/index.html` antes de publicar.
+**Baixar estudo em PDF** abre o arquivo editorial estático
+`metamorfose-do-poder-2004-2024.pdf`. A versão web mantém gráficos
+interativos; o PDF usa imagens PNG estáticas em alta resolução, adequadas
+para impressão e compatibilidade. Para uma cópia local pela impressão do
+navegador, a instrução exibida é exatamente: `Na impressão, escolha “Salvar
+como PDF” e use **metamorfose-do-poder-2004-2024.pdf**.`
+
+Para regenerar o PDF após atualizar os dados ou textos:
+
+```bash
+python scripts/build_hires_charts.py
+python scripts/build_editorial_pdf.py
+```
+
+O segundo script usa `weasyprint` quando as bibliotecas nativas estão
+disponíveis e faz fallback para Chrome/Edge headless. Ele gera capa, nota
+editorial, cabeçalho/rodapé com paginação, margens A4, quebra de páginas e
+gráficos de `output/hires/` a 300 DPI. O workflow copia o arquivo gerado para
+`/study/`; regenere-o antes de publicar uma nova versão.
 
 ### PostgreSQL
 

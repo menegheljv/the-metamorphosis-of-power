@@ -10,6 +10,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import type { TooltipProps } from "recharts";
 import "./styles.css";
 
 type Indicator = "participacao" | "acesso_digital" | "transparencia";
@@ -47,6 +48,17 @@ const labels: Record<Indicator, string> = {
   acesso_digital: "Acesso digital",
   transparencia: "Transparência",
 };
+
+function ChartTooltip({ active, payload, label }: TooltipProps<number, string>) {
+  if (!active || !payload?.length) return null;
+  const point = payload[0];
+  return (
+    <div className="chart-tooltip" role="status">
+      <strong>{label}</strong>
+      <span>{point.value} pontos</span>
+    </div>
+  );
+}
 
 function App() {
   const [indicator, setIndicator] = useState<Indicator>("participacao");
@@ -143,7 +155,7 @@ function App() {
           <label>Região<select value={region} onChange={(event) => setRegion(event.target.value)}>{regions.map((item) => <option key={item}>{item}</option>)}</select></label>
         </div>
         <div className="explorer-grid">
-          <div className="chart-panel"><div className="panel-heading"><div><h3>{labels[indicator]}</h3><p id="chart-help">Passe o mouse para ver valores. Use a faixa inferior para ampliar o período.</p></div><strong className={change >= 0 ? "positive" : "negative"}>{change >= 0 ? "+" : ""}{change.toFixed(1)} p.p.</strong></div><div className="chart" role="img" aria-label={`Gráfico interativo de ${labels[indicator]} por região e período`} aria-describedby="chart-help"><ResponsiveContainer width="100%" height={350}><LineChart data={chart}><CartesianGrid strokeDasharray="3 3" stroke="#e5e9f0" /><XAxis dataKey="label" tick={{ fontSize: 11 }} /><YAxis domain={[0, 100]} tick={{ fontSize: 11 }} /><Tooltip cursor={{ stroke: "#ef7654", strokeDasharray: "3 3" }} /><Brush dataKey="label" height={24} stroke="#ef7654" travellerWidth={12} /><Line type="monotone" dataKey="value" stroke="#ef7654" strokeWidth={3} dot={{ r: 4, fill: "#ef7654" }} activeDot={{ r: 7 }} /></LineChart></ResponsiveContainer></div></div>
+          <div className="chart-panel"><div className="panel-heading"><div><h3>{labels[indicator]}</h3><p id="chart-help">Passe o mouse para destacar pontos. Use a faixa inferior para ampliar o período.</p></div><strong className={change >= 0 ? "positive" : "negative"}>{change >= 0 ? "+" : ""}{change.toFixed(1)} p.p.</strong></div><div className="chart" tabIndex={0} role="img" aria-label={`Gráfico interativo de ${labels[indicator]} por região e período`} aria-describedby="chart-help"><ResponsiveContainer width="100%" height={350}><LineChart data={chart}><CartesianGrid strokeDasharray="3 3" stroke="#e5e9f0" /><XAxis dataKey="label" tick={{ fontSize: 11 }} /><YAxis domain={[0, 100]} tick={{ fontSize: 11 }} /><Tooltip content={<ChartTooltip />} cursor={{ stroke: "#ef7654", strokeWidth: 1.5, strokeDasharray: "4 4" }} /><Brush dataKey="label" height={24} stroke="#ef7654" travellerWidth={12} /><Line type="monotone" dataKey="value" stroke="#ef7654" strokeWidth={3} dot={{ r: 4, fill: "#ef7654", strokeWidth: 2, stroke: "#fff" }} activeDot={{ r: 8, fill: "#ef7654", stroke: "#fff", strokeWidth: 3 }} animationDuration={700} animationEasing="ease-out" /></LineChart></ResponsiveContainer></div></div>
           <aside className="summary-panel"><span className="panel-label">RECORTE ATUAL</span><strong>{average.toFixed(1)}</strong><p>média no período de julho de 2024</p><div className="summary-rule" /><span className="panel-label">OBSERVAÇÕES</span><strong>{latest.length}</strong><p>regiões no filtro selecionado</p><a className="outline-button" href="study/">Ler o estudo completo ↗</a></aside>
         </div>
       </section>

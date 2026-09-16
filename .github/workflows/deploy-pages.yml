@@ -42,6 +42,7 @@ jobs:
           rm -rf site
           mkdir -p site/study
           cp -R docs/. site/study/
+          cp output/metamorfose-do-poder-2004-2024.pdf site/study/
           cp -R frontend/dist/. site/
 
       - name: Configurar Pages

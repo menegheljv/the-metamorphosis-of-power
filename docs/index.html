@@ -135,7 +135,7 @@
     color: var(--caption);
     font-size: 12.5px;
   }
-  .print-actions button {
+  .print-actions button, .print-actions .pdf-download {
     border: 1px solid var(--blue-deep);
     border-radius: 999px;
     padding: 9px 16px;
@@ -144,7 +144,7 @@
     cursor: pointer;
     font: 600 12.5px/1 "Bricolage Grotesque", sans-serif;
   }
-  .print-actions button:hover { background: var(--blue); }
+  .print-actions button:hover, .print-actions .pdf-download:hover { background: var(--blue); }
 
   /* ---------- Stat ribbon ---------- */
   .ribbon {
@@ -546,8 +546,8 @@
       <span><strong>Fonte:</strong> dadosabertos.tse.jus.br</span>
     </div>
     <div class="print-actions">
-      <button type="button" onclick="window.print()">Baixar estudo em PDF</button>
-      <span>Na impress?o, escolha ?Salvar como PDF? e use <strong>metamorfose-do-poder-2004-2024.pdf</strong>.</span>
+      <a class="pdf-download" href="metamorfose-do-poder-2004-2024.pdf" download>Baixar estudo em PDF</a>
+      <span>Na impressão, escolha “Salvar como PDF” e use <strong>metamorfose-do-poder-2004-2024.pdf</strong>.</span>
     </div>
 
     <div class="ribbon">
