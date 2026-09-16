@@ -32,8 +32,10 @@ Vite em `/`; o estudo editorial original permanece preservado em `/study/`
 (com a versão inglesa em `/study/en/`).
 
 Os gráficos da interface principal são renderizados no navegador pelo
-Recharts: têm tooltip, filtros por indicador/região, seleção de janela com
-Brush (zoom horizontal) e texto alternativo acessível. A página principal não
+Recharts a partir de `frontend/src/studyData.ts`, exportado dos CSVs do
+pipeline por `scripts/export_frontend_data.py`: são 25 gráficos com tooltip,
+filtro de catálogo, seleção de janela com Brush (zoom horizontal) e texto
+alternativo acessível. A página principal não
 usa `<img>`, PNG, SVG ou gráficos em base64. O estudo editorial legado em
 `/study/` preserva as imagens incorporadas do pipeline original para não
 alterar seu conteúdo publicado; ele é uma experiência separada e continua
@@ -122,7 +124,9 @@ de acessibilidade antes de publicar qualquer indicador.
 
 *"A metamorfose do poder em Alfredo Chaves: não vivemos mais como nossos pais"* (a nod to Belchior's "Como Nossos Pais"). A case study analyzing municipal election data in Alfredo Chaves, ES (Brazil), built entirely from official public data from the TSE (Brazil's Superior Electoral Court) and cross-referenced with IBGE population, sex, race/color and income data.
 
-**Live site: [Abrir a interface principal](https://menegheljv.github.io/the-metamorphosis-of-power/)** · **[Ler o estudo editorial em inglês](https://menegheljv.github.io/the-metamorphosis-of-power/study/en/)**
+**Visualização pública principal:** https://menegheljv.github.io/the-metamorphosis-of-power/
+
+**Estudo editorial:** https://menegheljv.github.io/the-metamorphosis-of-power/study/
 
 The public landing page includes the interactive dashboard; the original
 editorial study is preserved at `/study/`.

@@ -1,8 +1,9 @@
-import { StrictMode, useEffect, useMemo, useState } from "react";
+import { StrictMode, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import {
-  CartesianGrid,
   Brush,
+  CartesianGrid,
+  Legend,
   Line,
   LineChart,
   ResponsiveContainer,
@@ -11,156 +12,74 @@ import {
   YAxis,
 } from "recharts";
 import type { TooltipProps } from "recharts";
+import { studyCharts, type StudyChart } from "./studyData";
 import "./styles.css";
 
-type Indicator = "participacao" | "acesso_digital" | "transparencia";
-type Row = {
-  region: string;
-  period: string;
-  value: number;
-  participacao: number;
-  acesso_digital: number;
-  transparencia: number;
-};
-
-const fallback: Row[] = [
-  ["Aurora", "2024-01-01", 62, 76, 74],
-  ["Aurora", "2024-07-01", 68, 79, 77],
-  ["Brisa", "2024-01-01", 55, 68, 63],
-  ["Brisa", "2024-07-01", 59, 72, 68],
-  ["Cerrado", "2024-01-01", 71, 81, 82],
-  ["Cerrado", "2024-07-01", 73, 84, 85],
-  ["Dourado", "2024-01-01", 48, 61, 58],
-  ["Dourado", "2024-07-01", 54, 66, 64],
-  ["Estrela", "2024-01-01", 64, 73, 70],
-  ["Estrela", "2024-07-01", 69, 78, 75],
-].map(([region, period, participacao, acesso_digital, transparencia]) => ({
-  region: String(region),
-  period: String(period),
-  value: Number(participacao),
-  participacao: Number(participacao),
-  acesso_digital: Number(acesso_digital),
-  transparencia: Number(transparencia),
-}));
-
-const labels: Record<Indicator, string> = {
-  participacao: "Participação cívica",
-  acesso_digital: "Acesso digital",
-  transparencia: "Transparência",
-};
+const palette = ["#1f9d63", "#2f6690", "#c8433a", "#c9781f"];
 
 function ChartTooltip({ active, payload, label }: TooltipProps<number, string>) {
   if (!active || !payload?.length) return null;
-  const point = payload[0];
   return (
     <div className="chart-tooltip" role="status">
       <strong>{label}</strong>
-      <span>{point.value} pontos</span>
+      {payload.map((point) => <span key={String(point.dataKey)}>{String(point.dataKey)}: {String(point.value)}</span>)}
     </div>
   );
 }
 
+function InteractiveStudyChart({ chart }: { chart: StudyChart }) {
+  const keys = chart.rows.length
+    ? Object.keys(chart.rows[0]).filter((key) => chart.rows.some((row) => typeof row[key] === "number")).slice(0, 3)
+    : [];
+  const labelKey = chart.rows.length ? Object.keys(chart.rows[0])[0] : "label";
+  const data = chart.rows.map((row, index) => ({ ...row, label: String(row[labelKey] ?? index + 1) }));
+  return (
+    <article className="study-chart-card" id={`grafico-${chart.slug}`}>
+      <div className="study-chart-heading">
+        <div><span className="chart-index">{chart.slug.replace(/_/g, " ")}</span><h3>{chart.title}</h3><p>Fonte: {chart.source}</p></div>
+        <span className="interactive-badge">interativo</span>
+      </div>
+      <div className="study-chart" tabIndex={0} role="img" aria-label={`Gráfico interativo: ${chart.title}`} aria-describedby={`desc-${chart.slug}`}>
+        <p id={`desc-${chart.slug}`} className="sr-only">Use o mouse ou teclado para explorar os valores. A faixa inferior permite selecionar a janela visível.</p>
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart data={data} margin={{ top: 12, right: 14, left: 0, bottom: 16 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="rgba(23,23,26,.12)" />
+            <XAxis dataKey="label" tick={{ fontSize: 10 }} />
+            <YAxis tick={{ fontSize: 10 }} />
+            <Tooltip content={<ChartTooltip />} cursor={{ stroke: "#1f9d63", strokeDasharray: "4 4" }} />
+            <Legend wrapperStyle={{ fontSize: 10 }} />
+            <Brush dataKey="label" height={22} stroke="#1f9d63" travellerWidth={10} />
+            {keys.map((key, index) => <Line key={key} type="monotone" dataKey={key} stroke={palette[index]} strokeWidth={2.5} dot={{ r: 3, stroke: "#fff", strokeWidth: 1 }} activeDot={{ r: 7 }} animationDuration={650} animationEasing="ease-out" />)}
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+    </article>
+  );
+}
+
 function App() {
-  const [indicator, setIndicator] = useState<Indicator>("participacao");
-  const [region, setRegion] = useState("Todas");
-  const [rows, setRows] = useState<Row[]>(fallback);
-  const [source, setSource] = useState("fallback local");
-
-  useEffect(() => {
-    const api = import.meta.env.VITE_API_URL || "http://localhost:3001";
-    fetch(`${api}/api/observations?indicator=${indicator}`)
-      .then((response) => (response.ok ? response.json() : Promise.reject()))
-      .then((payload: { data: Row[] }) => {
-        setRows(payload.data);
-        setSource("API");
-      })
-      .catch(() => {
-        setRows(
-          fallback.map((row) => ({
-            ...row,
-            value: row[indicator],
-          })),
-        );
-        setSource("fallback local");
-      });
-  }, [indicator]);
-
-  const regions = ["Todas", ...Array.from(new Set(rows.map((row) => row.region)))];
-  const filtered = rows.filter((row) => region === "Todas" || row.region === region);
-  const latest = filtered.filter((row) => row.period === "2024-07-01");
-  const average = latest.length
-    ? latest.reduce((sum, row) => sum + row.value, 0) / latest.length
-    : 0;
-  const chart = filtered.map((row) => ({
-    ...row,
-    label: `${row.region} · ${row.period.slice(0, 7)}`,
-  }));
-  const change = useMemo(() => {
-    if (!latest.length) return 0;
-    const first = filtered.filter((row) => row.period === "2024-01-01");
-    const firstAverage = first.reduce((sum, row) => sum + row.value, 0) / first.length;
-    return average - firstAverage;
-  }, [average, filtered, latest.length]);
-
+  const [query, setQuery] = useState("");
+  const visibleCharts = useMemo(() => studyCharts.filter((chart) => `${chart.title} ${chart.source}`.toLocaleLowerCase().includes(query.toLocaleLowerCase())), [query]);
   return (
     <main>
       <nav className="topbar" aria-label="Navegação principal">
-        <a className="brand" href="./">
-          PDI <span>·</span> observatório
-        </a>
-        <div className="nav-links">
-          <a href="#explorar">Explorar dados</a>
-          <a href="study/">Estudo completo</a>
-          <a className="nav-cta" href="study/">Baixar estudo em PDF</a>
-        </div>
+        <a className="brand" href="./">A metamorfose <span>·</span> observatório</a>
+        <div className="nav-links"><a href="#graficos">Todos os gráficos</a><a href="study/">Estudo editorial</a><a className="nav-cta" href="study/metamorfose-do-poder-2004-2024.pdf">Baixar PDF</a></div>
       </nav>
-
       <header className="hero">
-        <div className="eyebrow">PUBLIC DATA INTELLIGENCE · 2004—2024</div>
-        <h1>A metamorfose do poder, <span>vista pelos dados.</span></h1>
-        <p className="hero-copy">
-          Um estudo aberto sobre Alfredo Chaves, ES, e uma camada exploratória
-          para entender como dados eleitorais e públicos podem contar histórias
-          com transparência.
-        </p>
-        <div className="hero-actions">
-          <a className="primary-button" href="study/">Baixar estudo em PDF <span>↗</span></a>
-          <a className="text-link" href="#explorar">Explorar o observatório ↓</a>
-        </div>
-        <div className="hero-meta">
-          <span><strong>6</strong> pleitos analisados</span>
-          <span><strong>42</strong> seções em 2024</span>
-          <span><strong>TSE + IBGE</strong> dados públicos</span>
-        </div>
+        <div className="eyebrow">ESTUDO DE CASO · ANÁLISE DE DADOS ELEITORAIS</div>
+        <h1>A metamorfose do poder em <span>Alfredo Chaves</span></h1>
+        <p className="hero-copy">Vinte anos de dados públicos do TSE e do IBGE, agora exploráveis em uma interface interativa que preserva a identidade editorial e os números do estudo original.</p>
+        <div className="hero-actions"><a className="primary-button" href="study/metamorfose-do-poder-2004-2024.pdf">Baixar estudo em PDF ↗</a><a className="text-link" href="#graficos">Explorar todos os gráficos ↓</a></div>
+        <div className="hero-meta"><span><strong>25</strong> gráficos do estudo</span><span><strong>6</strong> eleições municipais</span><span><strong>TSE + IBGE</strong> fontes públicas</span></div>
       </header>
-
-      <section className="notice" aria-label="Aviso sobre os dados">
-        <span className="notice-icon" aria-hidden="true">i</span>
-        <div><strong>Leitura responsável</strong><span> O estudo editorial usa dados oficiais; o explorador abaixo usa indicadores sintéticos para demonstração.</span></div>
+      <section className="notice" aria-label="Nota metodológica"><span className="notice-icon" aria-hidden="true">i</span><div><strong>Interface interativa</strong><span> Os gráficos abaixo são renderizados no navegador a partir dos CSVs do estudo; passe o mouse para tooltips e use o Brush para ampliar períodos. O PDF mantém imagens estáticas para impressão.</span></div></section>
+      <section id="graficos" className="explorer">
+        <div className="section-heading"><div><div className="eyebrow">EXPLORAÇÃO COMPLETA</div><h2>Todos os gráficos, em dados vivos</h2><p>Catálogo navegável com títulos, fontes e descrições preservados do pipeline publicado.</p></div><span className="status"><i /> {visibleCharts.length} de {studyCharts.length}</span></div>
+        <label className="search-label">Filtrar gráficos<input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Ex.: eleitorado, campanha, distrito" /></label>
+        <div className="chart-catalog">{visibleCharts.map((chart) => <InteractiveStudyChart key={chart.slug} chart={chart} />)}</div>
       </section>
-
-      <section className="metric-grid" aria-label="Métricas principais do estudo">
-        <article className="metric-card featured"><span>VIRADA ELEITORAL</span><strong>1 → 42</strong><p>seções vencidas pela candidatura, de 2020 para 2024</p></article>
-        <article className="metric-card"><span>VOTAÇÃO VÁLIDA</span><strong>37,8% → 56,4%</strong><p>participação do candidato no primeiro turno</p></article>
-        <article className="metric-card"><span>REPRESENTAÇÃO</span><strong>3/9 → 5/9</strong><p>cadeiras da chapa na Câmara Municipal</p></article>
-      </section>
-
-      <section id="explorar" className="explorer">
-        <div className="section-heading">
-          <div><div className="eyebrow">CAMADA EXPLORATÓRIA</div><h2>Explore os sinais</h2><p>Filtre a amostra didática e veja como uma API de dados pode alimentar uma narrativa pública.</p></div>
-          <span className="status" aria-live="polite"><i /> {source}</span>
-        </div>
-        <div className="controls" aria-label="Filtros do explorador">
-          <label>Indicador<select value={indicator} onChange={(event) => setIndicator(event.target.value as Indicator)}>{Object.entries(labels).map(([key, name]) => <option key={key} value={key}>{name}</option>)}</select></label>
-          <label>Região<select value={region} onChange={(event) => setRegion(event.target.value)}>{regions.map((item) => <option key={item}>{item}</option>)}</select></label>
-        </div>
-        <div className="explorer-grid">
-          <div className="chart-panel"><div className="panel-heading"><div><h3>{labels[indicator]}</h3><p id="chart-help">Passe o mouse para destacar pontos. Use a faixa inferior para ampliar o período.</p></div><strong className={change >= 0 ? "positive" : "negative"}>{change >= 0 ? "+" : ""}{change.toFixed(1)} p.p.</strong></div><div className="chart" tabIndex={0} role="img" aria-label={`Gráfico interativo de ${labels[indicator]} por região e período`} aria-describedby="chart-help"><ResponsiveContainer width="100%" height={350}><LineChart data={chart}><CartesianGrid strokeDasharray="3 3" stroke="#e5e9f0" /><XAxis dataKey="label" tick={{ fontSize: 11 }} /><YAxis domain={[0, 100]} tick={{ fontSize: 11 }} /><Tooltip content={<ChartTooltip />} cursor={{ stroke: "#ef7654", strokeWidth: 1.5, strokeDasharray: "4 4" }} /><Brush dataKey="label" height={24} stroke="#ef7654" travellerWidth={12} /><Line type="monotone" dataKey="value" stroke="#ef7654" strokeWidth={3} dot={{ r: 4, fill: "#ef7654", strokeWidth: 2, stroke: "#fff" }} activeDot={{ r: 8, fill: "#ef7654", stroke: "#fff", strokeWidth: 3 }} animationDuration={700} animationEasing="ease-out" /></LineChart></ResponsiveContainer></div></div>
-          <aside className="summary-panel"><span className="panel-label">RECORTE ATUAL</span><strong>{average.toFixed(1)}</strong><p>média no período de julho de 2024</p><div className="summary-rule" /><span className="panel-label">OBSERVAÇÕES</span><strong>{latest.length}</strong><p>regiões no filtro selecionado</p><a className="outline-button" href="study/">Ler o estudo completo ↗</a></aside>
-        </div>
-      </section>
-
-      <footer><span>PUBLIC DATA INTELLIGENCE</span><span>Projeto aberto para estudar dados públicos com responsabilidade.</span><a href="study/">Estudo editorial</a></footer>
+      <footer><span>PUBLIC DATA INTELLIGENCE</span><span>Dados e metodologia no estudo editorial.</span><a href="study/">Abrir estudo completo ↗</a></footer>
     </main>
   );
 }

@@ -38,6 +38,18 @@ main { max-width: 1180px; margin: 0 auto; padding: 0 40px; }
 .metric-card p { font-size: 12px; line-height: 1.45; color: #758279; margin: 0; max-width: 240px; }
 .metric-card.featured p { color: #b4c4b8; }
 .explorer { padding-bottom: 95px; }
+.search-label { display: flex; flex-direction: column; gap: 7px; max-width: 440px; margin: 0 0 18px; color: rgba(23,23,26,.72); font: 600 11px 'IBM Plex Mono'; }
+.search-label input { border: 1px solid rgba(23,23,26,.18); border-radius: 4px; background: #fff; padding: 11px 12px; color: #17171a; font: 14px 'Bricolage Grotesque'; }
+.chart-catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.study-chart-card { background: #fff; border: 1px solid rgba(23,23,26,.12); border-radius: 3px; padding: 22px; box-shadow: 0 4px 18px rgba(23,23,26,.04); }
+.study-chart-card:first-child { grid-column: 1 / -1; }
+.study-chart-heading { display: flex; justify-content: space-between; gap: 14px; align-items: flex-start; }
+.chart-index { color: #157a4d; font: 10px 'IBM Plex Mono'; letter-spacing: .08em; text-transform: uppercase; }
+.study-chart-heading h3 { margin: 8px 0 4px; color: #17171a; font: 600 20px 'Bricolage Grotesque'; }
+.study-chart-heading p { margin: 0; color: rgba(23,23,26,.5); font-size: 11px; }
+.interactive-badge { border: 1px solid rgba(31,157,99,.3); border-radius: 99px; padding: 5px 8px; color: #157a4d; font: 10px 'IBM Plex Mono'; white-space: nowrap; }
+.study-chart { margin-top: 16px; }
+.study-chart:focus-visible { outline: 3px solid #1f9d63; outline-offset: 7px; }
 .section-heading { display: flex; justify-content: space-between; gap: 20px; align-items: flex-end; margin-bottom: 28px; }
 .section-heading h2 { font: 600 34px 'Bricolage Grotesque'; letter-spacing: -1.5px; margin: 10px 0 7px; }
 .section-heading p { color: #748078; font-size: 14px; margin: 0; max-width: 570px; }
@@ -90,6 +102,8 @@ footer a { color: #53645a; font-weight: 700; text-decoration: none; }
   .metric-grid { grid-template-columns: 1fr; margin: 35px 0 65px; }
   .section-heading { align-items: flex-start; flex-direction: column; }
   .explorer-grid { grid-template-columns: 1fr; }
+  .chart-catalog { grid-template-columns: 1fr; }
+  .study-chart-card:first-child { grid-column: auto; }
   .summary-panel { display: grid; grid-template-columns: 1fr 1fr; column-gap: 20px; }
   .summary-rule { display: none; }
   .outline-button { grid-column: 1 / -1; }
