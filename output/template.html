@@ -120,6 +120,25 @@
     font-family: "IBM Plex Mono", monospace;
   }
   .meta-row strong { color: var(--ink-soft); font-weight: 500; }
+  .print-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 24px;
+    color: var(--caption);
+    font-size: 12.5px;
+  }
+  .print-actions button {
+    border: 1px solid var(--blue-deep);
+    border-radius: 999px;
+    padding: 9px 16px;
+    background: var(--blue-deep);
+    color: #fff;
+    cursor: pointer;
+    font: 600 12.5px/1 "Bricolage Grotesque", sans-serif;
+  }
+  .print-actions button:hover { background: var(--blue); }
 
   /* ---------- Stat ribbon ---------- */
   .ribbon {
@@ -494,6 +513,15 @@
     .meta-row { flex-direction: column; align-items: center; gap: 6px; }
     pre.code { font-size: 11.5px; }
   }
+  @media print {
+    @page { size: A4; margin: 14mm; }
+    .print-actions, .lang-switch { display: none !important; }
+    body { background: #fff; font-size: 11pt; }
+    .wrap { max-width: none; padding: 0; }
+    .masthead { padding-top: 0; }
+    section, figure, table, .card { break-inside: avoid; }
+    a { color: inherit; text-decoration: none; }
+  }
 </style>
 
 <div class="wrap">
@@ -507,6 +535,10 @@
       <span><strong>Município:</strong> Alfredo Chaves &ndash; ES</span>
       <span><strong>Eleições:</strong> Municipais 2004 a 2024 (seis pleitos)</span>
       <span><strong>Fonte:</strong> dadosabertos.tse.jus.br</span>
+    </div>
+    <div class="print-actions">
+      <button type="button" onclick="window.print()">Baixar estudo em PDF</button>
+      <span>Na impressão, escolha “Salvar como PDF” e use <strong>metamorfose-do-poder-2004-2024.pdf</strong>.</span>
     </div>
 
     <div class="ribbon">

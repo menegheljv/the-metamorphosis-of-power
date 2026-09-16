@@ -36,13 +36,21 @@ jobs:
         working-directory: frontend
         run: npm run build
 
+      - name: Montar site sem substituir o estudo
+        shell: bash
+        run: |
+          rm -rf site
+          mkdir -p site/study
+          cp -R docs/. site/study/
+          cp -R frontend/dist/. site/
+
       - name: Configurar Pages
         uses: actions/configure-pages@v5
 
       - name: Fazer upload do artefato
         uses: actions/upload-pages-artifact@v3
         with:
-          path: frontend/dist
+          path: site
 
   deploy:
     environment:

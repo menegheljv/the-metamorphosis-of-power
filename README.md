@@ -24,10 +24,31 @@ Em terminais separados, execute `npm run dev` em `api` (porta 3001) e em
 `frontend` (Vite, geralmente porta 5173). O dashboard funciona mesmo sem a API, usando um fallback embutido equivalente ao
 CSV sintético; com a API, busca `/api/observations`.
 
-O workflow `.github/workflows/deploy-pages.yml` publica automaticamente o
-dashboard no GitHub Pages a cada push na branch `main`. Depois de enviar o
-projeto para um repositório GitHub, habilite **Settings > Pages > GitHub
-Actions** como fonte de build.
+O workflow `.github/workflows/deploy-pages.yml` publica automaticamente a
+interface principal no GitHub Pages a cada push na branch `main`. Depois de
+enviar o projeto para um repositório GitHub, habilite **Settings > Pages >
+GitHub Actions** como fonte de build. A interface principal é o dashboard
+Vite em `/`; o estudo editorial original permanece preservado em `/study/`
+(com a versão inglesa em `/study/en/`).
+
+Os gráficos da interface principal são renderizados no navegador pelo
+Recharts: têm tooltip, filtros por indicador/região, seleção de janela com
+Brush (zoom horizontal) e texto alternativo acessível. A página principal não
+usa `<img>`, PNG, SVG ou gráficos em base64. O estudo editorial legado em
+`/study/` preserva as imagens incorporadas do pipeline original para não
+alterar seu conteúdo publicado; ele é uma experiência separada e continua
+disponível pelo link **Estudo completo**.
+
+### Baixar o estudo em PDF
+
+O estudo publicado em `docs/index.html` e `docs/en/index.html` tem o botão
+**Baixar estudo em PDF**. Ele usa a impressão nativa do navegador, sem
+dependência de servidor ou ferramenta externa: clique no botão, selecione
+**Salvar como PDF** e use o nome `metamorfose-do-poder-2004-2024.pdf`.
+Essa abordagem mantém o deploy estático e inclui gráficos, tabelas e textos
+com o CSS específico de impressão. Após atualizar o estudo, regenere
+`output/case_study.html`/`output/case_study_en.html` com os scripts de build e
+copie-os para `docs/index.html`/`docs/en/index.html` antes de publicar.
 
 ### PostgreSQL
 
@@ -89,7 +110,10 @@ de acessibilidade antes de publicar qualquer indicador.
 
 *"A metamorfose do poder em Alfredo Chaves: não vivemos mais como nossos pais"* (a nod to Belchior's "Como Nossos Pais"). A case study analyzing municipal election data in Alfredo Chaves, ES (Brazil), built entirely from official public data from the TSE (Brazil's Superior Electoral Court) and cross-referenced with IBGE population, sex, race/color and income data.
 
-**Live site: [Read it in Portuguese →](https://menegheljv.github.io/the-metamorphosis-of-power-2004-2024/)** · **[Read it in English →](https://menegheljv.github.io/the-metamorphosis-of-power-2004-2024/en/)**
+**Live site: [Abrir a interface principal](https://menegheljv.github.io/the-metamorphosis-of-power/)** · **[Ler o estudo editorial em inglês](https://menegheljv.github.io/the-metamorphosis-of-power/study/en/)**
+
+The public landing page includes the interactive dashboard; the original
+editorial study is preserved at `/study/`.
 
 Both are the same full case study — same sections, charts, and interactive map — kept in sync with each other.
 
