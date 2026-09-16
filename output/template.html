@@ -1,0 +1,1109 @@
+<title>A Metamorfose do Poder</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Anton&family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  :root {
+    --paper: #faf9f7;
+    --paper-raised: #ffffff;
+    --ink: #17171a;
+    --ink-soft: rgba(23,23,26,0.72);
+    --caption: rgba(23,23,26,0.5);
+    --border: rgba(23,23,26,0.12);
+    --blue: #1f9d63;
+    --blue-deep: #157a4d;
+    --blue-tint: rgba(31,157,99,0.1);
+    --red: #c8433a;
+    --red-tint: rgba(200,67,58,0.1);
+    --gold: #2f6690;
+    --gold-tint: rgba(47,102,144,0.1);
+    --orange: #c9781f;
+    --code-bg: #17171a;
+    --code-ink: #8fe4b8;
+  }
+
+  * { box-sizing: border-box; }
+  .exhibit-body img, figure.chart-block img {
+    display: block;
+    border-radius: 10px;
+    max-width: 100%;
+    height: auto;
+  }
+  figure.chart-block { margin: 32px 0; }
+  html { text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-size: 16.5px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--blue-tint); color: var(--blue-deep); }
+
+  a { color: var(--blue-deep); }
+  :not([data-theme="light"]) a, [data-theme="dark"] a { color: var(--blue); }
+
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px 120px; }
+
+  /* ---------- Masthead ---------- */
+  .masthead {
+    border-bottom: 1px solid var(--border);
+    padding: 56px 0 40px;
+  }
+  .lang-switch {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 999;
+    font: 600 12.5px/1 "Bricolage Grotesque", sans-serif;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 7px 14px;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    white-space: nowrap;
+  }
+  .kicker {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--blue-deep);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  :not([data-theme="light"]) .kicker, [data-theme="dark"] .kicker { color: var(--blue); }
+  .kicker::before {
+    content: "";
+    width: 22px; height: 1px;
+    background: currentColor;
+    display: inline-block;
+  }
+  h1.title {
+    font-family: "Anton", sans-serif; font-weight: 400;
+    font-size: clamp(1.3rem, 4.6vw, 2.35rem);
+    line-height: 1.22;
+    letter-spacing: 0.005em;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0 0 20px;
+    white-space: nowrap;
+  }
+  h1.title .subtitle{
+    display: block;
+    font-size: 1em;
+    color: inherit;
+    margin-top: 12px;
+    white-space: normal;
+  }
+  .dek {
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    margin: 0 0 28px;
+    text-align: justify;
+  }
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 28px;
+    font-size: 13.5px;
+    color: var(--caption);
+    font-family: "IBM Plex Mono", monospace;
+  }
+  .meta-row strong { color: var(--ink-soft); font-weight: 500; }
+
+  /* ---------- Stat ribbon ---------- */
+  .ribbon {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 40px 0 8px;
+  }
+  .stat {
+    background: var(--paper-raised);
+    padding: 22px 20px;
+  }
+  .stat .n {
+    font-family: "Anton", sans-serif; font-weight: 400;
+    font-size: 1.7rem;
+    line-height: 1;
+    color: var(--red);
+  }
+  .stat .n .after {
+    color: var(--blue);
+    font-size: 1.3em;
+    font-weight: 600;
+  }
+  .stat .l {
+    margin-top: 8px;
+    font-size: 12.5px;
+    color: var(--caption);
+    line-height: 1.35;
+  }
+
+  /* ---------- Sections ---------- */
+  section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+  section:last-of-type { border-bottom: none; }
+
+  .eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--caption);
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  h2 {
+    font-family: "Anton", sans-serif; font-weight: 400;
+    font-size: clamp(0.72rem, 3.4vw, 1.5rem);
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0 0 20px;
+    white-space: nowrap;
+  }
+  h3 {
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    text-align: center;
+    margin: 32px 0 12px;
+    color: var(--ink);
+  }
+  p { margin: 0 0 16px; color: var(--ink-soft); text-align: justify; }
+  p strong, li strong { color: var(--ink); font-weight: 600; }
+  ul.list, ol.list { padding-left: 22px; color: var(--ink-soft); }
+  ul.list li, ol.list li { margin-bottom: 8px; text-align: justify; }
+  figcaption, .callout { text-align: justify; }
+
+  /* ---------- Figuras (data/code/charts) ---------- */
+  .exhibit {
+    background: var(--paper-raised);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin: 40px 0;
+    overflow: hidden;
+  }
+  .exhibit-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    background: var(--blue-tint);
+  }
+  .exhibit-head .tag {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--blue-deep);
+    font-weight: 600;
+  }
+  :not([data-theme="light"]) .exhibit-head .tag, [data-theme="dark"] .exhibit-head .tag { color: var(--blue); }
+  .exhibit-head .cap { font-size: 13px; color: var(--ink-soft); }
+  .exhibit-body { padding: 28px; }
+  .exhibit-body.tight { padding: 0; }
+  .exhibit img { width: 100%; height: auto; display: block; border-radius: 4px; }
+  .exhibit figcaption {
+    padding: 12px 20px 18px;
+    font-size: 13px;
+    color: var(--caption);
+    border-top: 1px solid var(--border);
+  }
+
+  /* code */
+  pre.code {
+    margin: 0;
+    padding: 20px 22px;
+    background: var(--code-bg);
+    color: var(--code-ink);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    line-height: 1.65;
+    overflow-x: auto;
+  }
+  pre.code .c { color: #7FA79B; }
+  pre.code .k { color: #E8C07D; }
+  pre.code .s { color: #C9A6E8; }
+
+  /* pipeline steps */
+  .pipeline {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    margin: 24px 0 8px;
+  }
+  .pipestep {
+    background: var(--paper-raised);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 14px;
+  }
+  .pipestep .num {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    color: var(--blue-deep);
+    font-weight: 600;
+  }
+  :not([data-theme="light"]) .pipestep .num, [data-theme="dark"] .pipestep .num { color: var(--blue); }
+  .pipestep .name { font-weight: 600; margin: 6px 0 4px; font-size: 14px; }
+  .pipestep .desc { font-size: 12.5px; color: var(--caption); line-height: 1.4; }
+  .pipe-arrow { display: none; }
+  @media (min-width: 760px) {
+    .pipeline { grid-template-columns: repeat(5, 1fr); align-items: stretch; position: relative; }
+  }
+
+  /* mini-stat cards (poll numbers, small callouts) */
+  .mini-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 22px 0;
+  }
+  @media (max-width: 620px) { .mini-stat-grid { grid-template-columns: repeat(2, 1fr); } }
+  .mini-stat {
+    background: var(--paper-raised);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 16px 14px;
+  }
+  .mini-stat .num {
+    font-family: "Anton", sans-serif; font-weight: 400;
+    font-size: 1.7rem;
+    color: var(--blue-deep);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .mini-stat .desc { font-size: 12.5px; color: var(--caption); line-height: 1.42; }
+
+  /* ---------- Mapa interativo dos locais de votação ---------- */
+  .voting-map-wrap { margin: 24px 0 40px; }
+  .voting-map {
+    position: relative;
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: #eef2f5;
+    line-height: 0;
+  }
+  .voting-map img { display: block; width: 100%; height: auto; }
+  .map-boundary {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+  }
+  .map-boundary polygon {
+    fill: none;
+    stroke: var(--red);
+    stroke-width: 0.35;
+    stroke-dasharray: 1.2 0.8;
+    vector-effect: non-scaling-stroke;
+  }
+  .map-pin {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--blue-deep);
+    color: #fff;
+    font-family: "Anton", sans-serif; font-weight: 400;
+    font-size: 12px;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.12s ease, background 0.12s ease;
+  }
+  .map-pin:hover { transform: translate(-50%, -50%) scale(1.15); }
+  .map-pin.active { background: var(--red); transform: translate(-50%, -50%) scale(1.2); z-index: 2; }
+  .map-detail {
+    margin-top: 14px;
+    padding: 16px 20px;
+    background: var(--paper-raised);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    min-height: 26px;
+  }
+  .map-detail-empty { color: var(--caption); font-style: italic; margin: 0; }
+  .map-detail-num {
+    font-family: "Anton", sans-serif; font-weight: 400;
+    font-size: 1.3rem;
+    color: var(--blue-deep);
+    background: var(--blue-tint);
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex: none;
+  }
+  .map-detail-addr { font-size: 13px; color: var(--ink-soft); margin-top: 2px; }
+  .map-detail-secoes { font-size: 12.5px; color: var(--caption); margin-top: 4px; }
+
+  /* table */
+  .table-scroll { overflow-x: auto; }
+  table.data {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 13.5px;
+    font-family: "Bricolage Grotesque", sans-serif;
+    min-width: 620px;
+  }
+  table.data th, table.data td {
+    padding: 8px 12px;
+    text-align: right;
+    border-bottom: 1px solid var(--border);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  table.data th {
+    text-align: right;
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--caption);
+    font-weight: 600;
+    background: var(--paper);
+    position: sticky; top: 0;
+  }
+  table.data td:first-child, table.data th:first-child { text-align: left; }
+  table.data.locais td:nth-child(2), table.data.locais th:nth-child(2) { text-align: left; white-space: normal; }
+  table.data.stack-mobile td:nth-child(2), table.data.stack-mobile th:nth-child(2) { text-align: center; white-space: normal; }
+  @media (max-width: 640px) {
+    table.data.stack-mobile { min-width: 0; width: 100%; }
+    table.data.stack-mobile thead { display: none; }
+    table.data.stack-mobile tbody tr { display: block; border-bottom: 2px solid var(--border); padding: 10px 0; }
+    table.data.stack-mobile tbody td {
+      display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+      padding: 4px 0; border-bottom: none; text-align: right; white-space: normal;
+    }
+    table.data.stack-mobile tbody td::before {
+      content: attr(data-label);
+      font-family: "IBM Plex Mono", monospace; font-size: 10.5px;
+      text-transform: uppercase; letter-spacing: 0.04em; color: var(--caption);
+      text-align: left; flex: none;
+    }
+    table.data.stack-mobile tbody td:first-child { font-weight: 700; color: var(--ink); }
+  }
+  table.data tr.flip td { color: var(--blue-deep); }
+  :not([data-theme="light"]) table.data tr.flip td, [data-theme="dark"] table.data tr.flip td { color: var(--blue); }
+  .pill {
+    display: inline-block;
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-size: 10.5px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 100px;
+    letter-spacing: 0.02em;
+  }
+  .pill.win { background: var(--blue-tint); color: var(--blue-deep); }
+  :not([data-theme="light"]) .pill.win, [data-theme="dark"] .pill.win { color: var(--blue); }
+  .pill.new { background: var(--gold-tint); color: var(--gold); }
+
+  /* callout */
+  .callout {
+    border-left: 3px solid var(--blue);
+    background: var(--blue-tint);
+    border-radius: 0 10px 10px 0;
+    padding: 16px 20px;
+    margin: 24px 0;
+    font-size: 14.5px;
+    color: var(--ink-soft);
+  }
+  .callout strong { color: var(--ink); }
+  .callout.warn { border-left-color: var(--gold); background: var(--gold-tint); }
+
+  /* source list */
+  .sources { font-size: 13.5px; color: var(--caption); }
+  .sources li { margin-bottom: 10px; }
+  .sources code {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    background: var(--paper);
+    padding: 1px 6px;
+    border-radius: 4px;
+    overflow-wrap: anywhere;
+    border: 1px solid var(--border);
+  }
+
+  /* ---------- Sumário ---------- */
+  .toc { padding: 32px 0 8px; border-bottom: 1px solid var(--border); }
+  .toc h2 { margin-bottom: 18px; }
+  .toc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px 24px; }
+  @media (max-width: 620px) { .toc-grid { grid-template-columns: 1fr; } }
+  .toc-grid a {
+    display: flex; gap: 10px; align-items: baseline;
+    padding: 6px 0; color: var(--ink-soft); text-decoration: none;
+    font-size: 14px; border-bottom: 1px dotted transparent;
+  }
+  .toc-grid a:hover { color: var(--blue-deep); border-bottom-color: var(--border); }
+  .toc-grid .toc-num {
+    font-family: "IBM Plex Mono", monospace; font-size: 11.5px;
+    color: var(--caption); flex: none; width: 36px;
+  }
+
+  /* ---------- Partidos (chip colorido) ---------- */
+  .party-chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12.5px; font-weight: 600;
+    padding: 3px 10px; border-radius: 100px; white-space: nowrap;
+  }
+  .party-chip::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; display: inline-block; flex: none; }
+  .party-chip.pt,
+  .party-chip.psb,
+  .party-chip.psdb,
+  .party-chip.psd,
+  .party-chip.pmdb,
+  .party-chip.republicanos { background: var(--red-tint); color: var(--red); }
+  .party-chip.pp { background: var(--blue-tint); color: var(--blue-deep); }
+  :not([data-theme="light"]) .party-chip.pp, [data-theme="dark"] .party-chip.pp { color: var(--blue); }
+
+  footer {
+    padding: 40px 0 10px;
+    font-size: 12.5px;
+    color: var(--caption);
+  }
+  footer a { color: var(--caption); text-decoration: underline; }
+
+  @media (max-width: 640px) {
+    .ribbon { grid-template-columns: 1fr; }
+    section { padding: 40px 0; }
+    h1.title { white-space: normal; }
+    .lang-switch { top: 10px; right: 10px; font-size: 10.5px; padding: 6px 10px; }
+    .meta-row { flex-direction: column; align-items: center; gap: 6px; }
+    pre.code { font-size: 11.5px; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="kicker">Estudo de caso &middot; Análise de dados eleitorais</div>
+    <h1 class="title">A metamorfose do poder em&nbsp;Alfredo&nbsp;Chaves:<span class="subtitle">não vivemos mais como nossos pais</span></h1>
+    <p class="dek">De 2004 a 2020, cinco eleições para prefeito perdidas em Alfredo Chaves. Em 2024, a virada: candidatura derrotada em 35 das 36 seções eleitorais de 2020 venceu nas 42 seções de 2024. Reconstruído a partir de dados públicos e oficiais do TSE e do IBGE, com pipeline próprio em Python, SQL e visualização.</p>
+    <div class="meta-row">
+      <span><strong>Autor:</strong> João Victor Meneghel</span>
+      <span><strong>Município:</strong> Alfredo Chaves &ndash; ES</span>
+      <span><strong>Eleições:</strong> Municipais 2004 a 2024 (seis pleitos)</span>
+      <span><strong>Fonte:</strong> dadosabertos.tse.jus.br</span>
+    </div>
+
+    <div class="ribbon">
+      <div class="stat">
+        <div class="n">1 <span class="after">&rarr; 42</span></div>
+        <div class="l">seções eleitorais vencidas pela candidatura a prefeito, de 2020 para 2024 (de um total de 42 seções ativas em 2024)</div>
+      </div>
+      <div class="stat">
+        <div class="n">37,8% <span class="after">&rarr; 56,4%</span></div>
+        <div class="l">votação válida do candidato a prefeito no município, no primeiro turno de cada eleição</div>
+      </div>
+      <div class="stat">
+        <div class="n">3/9 <span class="after">&rarr; 5/9</span></div>
+        <div class="l">cadeiras da chapa na Câmara Municipal (de minoria em 2020 a maioria em 2024, mesma base política)</div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="toc" aria-label="Sumário">
+    <div class="eyebrow">Sumário</div>
+    <h2>Neste estudo</h2>
+    <div class="toc-grid">
+      <a href="#belchior"><span class="toc-num">00</span>Sobre o título</a>
+      <a href="#arco-historico"><span class="toc-num">00.1</span>Vinte anos de dados</a>
+      <a href="#contexto"><span class="toc-num">01</span>Contexto</a>
+      <a href="#dados"><span class="toc-num">02</span>Fonte dos dados</a>
+      <a href="#metodologia"><span class="toc-num">03</span>Metodologia</a>
+      <a href="#achados"><span class="toc-num">04</span>Principais achados</a>
+      <a href="#vereadores"><span class="toc-num">05</span>Desempenho legislativo</a>
+      <a href="#financiamento"><span class="toc-num">06</span>Financiamento e participação eleitoral</a>
+      <a href="#campanha-digital"><span class="toc-num">07</span>Campanha digital</a>
+      <a href="#candidatos"><span class="toc-num">08</span>Perfil dos candidatos</a>
+      <a href="#detalhamento"><span class="toc-num">09</span>Detalhamento</a>
+      <a href="#conclusao"><span class="toc-num">10</span>Conclusão</a>
+    </div>
+  </nav>
+
+  <section id="belchior">
+    <div class="eyebrow">00 &middot; Sobre o título</div>
+    <h2>Não vivemos mais como nossos pais</h2>
+    <div class="prose">
+      <p>O título é uma referência a <strong>&ldquo;Como Nossos Pais&rdquo;</strong>, de Belchior (1976, imortalizada na voz de Elis Regina), uma das canções mais marcantes da MPB. Ela fala de quem insiste em viver preso ao passado e não percebe que o novo sempre chega, mais cedo ou mais tarde. Aqui esse tema ganha um sentido literal: os dados deste estudo mostram, seção a seção, ano a ano, vinte anos de uma velha guarda política que resistiu a cinco eleições seguidas antes de finalmente ser substituída. Uma metamorfose do poder, e, dentro dela, a distância real entre a candidatura derrotada do meu pai em 2004 e a vitória do meu irmão duas décadas depois.</p>
+    </div>
+  </section>
+
+  <section id="arco-historico">
+    <div class="eyebrow">00.1 &middot; Vinte anos de dados</div>
+    <h2>Cinco derrotas e a virada</h2>
+    <div class="prose">
+      <p>Antes da virada de 2020&rarr;2024 documentada abaixo, esse mesmo município conta uma história mais longa. De 2004 a 2020, o grupo por trás desta candidatura perdeu cinco eleições consecutivas para prefeito em Alfredo Chaves, ES. Em 2004 o candidato foi Jorge Gabriel Meneghel, meu pai. A linhagem familiar e política atravessa cada ciclo desde então, até chegar no meu irmão Hugo Luiz em 2024. O gráfico abaixo é montado com os mesmos dados oficiais do TSE por seção eleitoral, em cada uma das seis eleições, e mostra a votação fechando o intervalo, ciclo a ciclo, até 2024.</p>
+    </div>
+    <figure class="chart-block">
+      <img src="data:image/png;base64,{{CHART_HISTORICAL_ARC}}" alt="Gráfico de linha mostrando a votação do candidato do grupo para prefeito em Alfredo Chaves ao longo de seis eleições: 26,4% em 2004, 33,1% em 2008, 36,4% em 2012, 48,0% em 2016, 40,0% em 2020, e 58,1% em 2024, a única vitória." />
+    </figure>
+    <div class="callout warn">
+      <strong>Divulgação completa.</strong> Jorge Gabriel Meneghel, candidato em 2004, é meu pai. Hugo Luiz, vencedor em 2024, é meu irmão, e eu dirigi a campanha dele naquele ano. O projeto nasceu desse trabalho; o pipeline de dados veio depois, para entender o que realmente moveu o resultado.
+    </div>
+  </section>
+
+  <section id="contexto">
+    <div class="eyebrow">01 &middot; Contexto</div>
+    <h2>Uma eleição, mesma base política</h2>
+    <div class="prose">
+      <p>Atuei como diretor de campanha na eleição municipal de 2024 em Alfredo Chaves (ES), pela candidatura majoritária ao cargo de prefeito de <strong style="color:var(--blue)">Hugo Luiz Picoli Meneghel</strong>. Não estive à frente da campanha de 2020: uso os dados públicos daquele ano só como ponto de comparação, para medir a distância entre as duas eleições. Naquele ano a chapa perdeu a eleição para prefeito, vencendo em apenas 1 das 36 seções eleitorais então existentes; Hugo Luiz já havia sido eleito vereador no mesmo pleito, mas integrando uma bancada de apenas 3 das 9 cadeiras, minoria na Câmara Municipal. Em 2024, coordenando também as campanhas dos demais candidatos a vereador da coligação, a mesma base política venceu em <strong>todas as 42 seções eleitorais do município</strong>: Hugo Luiz se tornou o prefeito mais jovem da história do Espírito Santo, e a bancada da chapa cresceu de 3 para <strong>5 das 9 cadeiras</strong> da Câmara, de minoria para maioria do legislativo local.</p>
+      <p>Este documento reconstrói essa virada inteiramente a partir de <strong>dados abertos e oficiais do TSE</strong>, sem depender de memória, planilhas internas de campanha ou qualquer registro não público. É um exercício de análise técnica sobre uma base de dados eleitoral real.</p>
+    </div>
+  </section>
+
+  <section id="dados">
+    <div class="eyebrow">02 &middot; Fonte dos dados</div>
+    <h2>Repositório de Dados Eleitorais do TSE</h2>
+    <div class="prose">
+      <p>Todos os números deste estudo vêm de quatro extratos do <a href="https://dadosabertos.tse.jus.br" target="_blank" rel="noopener">Portal de Dados Abertos do TSE</a>, filtrados para o município de Alfredo Chaves&nbsp;&ndash;&nbsp;ES (código TSE&nbsp;<code style="font-family:'IBM Plex Mono',monospace">56057</code>), zona eleitoral 012:</p>
+    </div>
+    <ul class="list sources">
+      <li><code>votacao_secao_2020/2024_ES.csv</code>: votação por seção eleitoral (1.710 e 2.089 linhas após filtro municipal)</li>
+      <li><code>votacao_candidato_munzona_2020/2024_ES.csv</code>: resultado consolidado por candidato (72 e 73 registros)</li>
+      <li><code>votacao_partido_munzona_2020/2024_ES.csv</code>: votação de legenda por partido (9 e 11 registros)</li>
+      <li><code>detalhe_votacao_munzona_2020/2024_ES.csv</code>: comparecimento, abstenção e votos brancos/nulos</li>
+      <li><code>prestacao_de_contas_eleitorais_candidatos_2020/2024.csv</code> (receitas e despesas pagas): extraído via <em>HTTP range requests</em> de um arquivo nacional de ~1,3&nbsp;GB, sem baixar o arquivo inteiro</li>
+      <li><code>perfil_eleitor_secao_2020/2024_ES.csv</code>: perfil do eleitorado por seção (gênero, faixa etária, escolaridade)</li>
+    </ul>
+    <div class="callout warn">
+      <strong>Nota de transparência.</strong> A continuidade entre as duas candidaturas majoritárias (2020 a 2024) é reconstruída a partir de coincidências verificáveis nos dados oficiais: mesma base partidária local (Republicanos/PTB), e o vencedor de 2024, Hugo Luiz Picoli Meneghel, aparece nos dados de 2020 como candidato a vereador eleito pela coligação derrotada naquele ano. Nenhum número foi estimado, projetado ou inventado: onde um dado não estava disponível publicamente, ele foi omitido em vez de aproximado.
+    </div>
+
+    <h3>Fontes complementares</h3>
+    <p>Quatro seções deste estudo cruzam ou citam fontes fora do repositório do TSE, sempre identificadas no ponto em que aparecem:</p>
+    <ul class="list sources">
+      <li><strong>IBGE, SIDRA</strong>: tabela 6579 (população residente estimada, seção 06) e tabelas 9514 e 9605 do Censo Demográfico 2022 (sexo e raça ou cor, seção 06).</li>
+      <li><strong>IBGE, Malhas Territoriais</strong>: contorno oficial do município, usado no mapa de locais de votação (seção 09).</li>
+      <li><strong>Prefeitura de Alfredo Chaves</strong>: lista oficial de distritos e localidades, usada para atribuir cada seção eleitoral a um distrito (seção 04).</li>
+      <li><strong>TSE, pesqele&#8209;divulgação</strong>: sistema de registro de pesquisas eleitorais (Lei 9.504/97, art. 33), consultado para as 9 pesquisas de 2024 (seção 08).</li>
+      <li><strong>Câmara Municipal de Alfredo Chaves, SPL</strong>: registro legislativo consultado para a Moção de Louvor n.º 003/2024 (seção 06).</li>
+      <li><strong>Instagram oficial da candidatura</strong> (@hugoluiz11_): histórico de posts de 2024, a única fonte deste estudo que não é dado público auditável (seção 07, com ressalvas detalhadas ali).</li>
+      <li><strong>IPESES</strong>: pesquisa de opinião pós-eleitoral de março de 2026, citada como contexto complementar, fora do escopo eleitoral do TSE (seção 08).</li>
+    </ul>
+  </section>
+
+  <section id="metodologia">
+    <div class="eyebrow">03 &middot; Metodologia</div>
+    <h2>Pipeline de tratamento de dados</h2>
+    <p>Os quatro extratos brutos passam por cinco etapas antes de qualquer análise comparativa: um pipeline padrão de ingestão, limpeza e carga, implementado em Python (pandas), com a camada analítica em SQL (SQLite).</p>
+
+    <div class="pipeline">
+      <div class="pipestep"><div class="num">01</div><div class="name">Ingestão</div><div class="desc">Leitura dos CSVs oficiais (separador <code>;</code>, UTF-8), tipagem bruta como texto</div></div>
+      <div class="pipestep"><div class="num">02</div><div class="name">Limpeza</div><div class="desc">Conversão de tipos (zona, seção, votos), normalização de nomes e cargos, remoção de colunas administrativas</div></div>
+      <div class="pipestep"><div class="num">03</div><div class="name">Normalização</div><div class="desc">Padronização de chaves (seção, zona, ano) para permitir junção 2020&harr;2024</div></div>
+      <div class="pipestep"><div class="num">04</div><div class="name">Carga</div><div class="desc">Escrita em SQLite: 4 tabelas (<code>secao_2020</code>, <code>secao_2024</code>, <code>candidatos_2020</code>, <code>candidatos_2024</code>)</div></div>
+      <div class="pipestep"><div class="num">05</div><div class="name">Análise SQL</div><div class="desc">Agregações por seção, identificação de vencedor, cálculo de variação percentual</div></div>
+    </div>
+
+    <h3>Limpeza e normalização (pandas)</h3>
+    <div class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 1</span><span class="cap">clean_secao(): trecho do pipeline</span></div>
+      <div class="exhibit-body tight">
+<pre class="code"><span class="k">def</span> clean_secao(df, ano):
+    keep = [<span class="s">'NR_ZONA'</span>, <span class="s">'NR_SECAO'</span>, <span class="s">'CD_CARGO'</span>, <span class="s">'DS_CARGO'</span>,
+            <span class="s">'NR_VOTAVEL'</span>, <span class="s">'NM_VOTAVEL'</span>, <span class="s">'QT_VOTOS'</span>]
+    df = df[keep].copy()
+    df[<span class="s">'NR_SECAO'</span>]  = pd.to_numeric(df[<span class="s">'NR_SECAO'</span>], errors=<span class="s">'coerce'</span>).astype(<span class="s">'Int64'</span>)
+    df[<span class="s">'QT_VOTOS'</span>]  = pd.to_numeric(df[<span class="s">'QT_VOTOS'</span>], errors=<span class="s">'coerce'</span>).fillna(<span class="k">0</span>).astype(<span class="k">int</span>)
+    df[<span class="s">'NM_VOTAVEL'</span>] = df[<span class="s">'NM_VOTAVEL'</span>].str.strip().str.upper()
+    df[<span class="s">'ANO'</span>] = ano
+    <span class="k">return</span> df.dropna(subset=[<span class="s">'NR_SECAO'</span>])</pre>
+      </div>
+    </div>
+
+    <h3>Análise comparativa (SQL)</h3>
+    <div class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 2</span><span class="cap">vencedor por seção, por ano</span></div>
+      <div class="exhibit-body tight">
+<pre class="code"><span class="c">-- vencedor de cada seção, por ano (maior nº de votos nominais ao cargo de Prefeito)</span>
+<span class="k">SELECT</span> NR_SECAO, NM_VOTAVEL, <span class="k">SUM</span>(QT_VOTOS) <span class="k">AS</span> votos
+<span class="k">FROM</span> secao_2024
+<span class="k">WHERE</span> DS_CARGO = <span class="s">'Prefeito'</span> <span class="k">AND</span> NR_VOTAVEL > <span class="k">0</span>
+<span class="k">GROUP BY</span> NR_SECAO, NM_VOTAVEL
+<span class="c">-- (idêntica para secao_2020; vencedor = MAX(votos) por NR_SECAO)</span></pre>
+      </div>
+    </div>
+    <p style="margin-top:20px">A junção <code style="font-family:'IBM Plex Mono',monospace;font-size:13px">2020 &#8904;&#8904; 2024</code> por número de seção permite comparar apenas as <strong>36 seções presentes em ambas as eleições</strong> (6 novas seções foram criadas até 2024, refletindo crescimento do eleitorado, e entram na análise apenas como resultado de 2024).</p>
+  </section>
+
+  <section id="achados">
+    <div class="eyebrow">04 &middot; Principais achados</div>
+    <h2>Da derrota generalizada à vitória em todas as urnas</h2>
+
+    <p>Em 2020, a candidatura majoritária desta base política venceu em <strong>apenas 1 das 36 seções comparáveis</strong> (seção&nbsp;9), obtendo 37,8% dos votos válidos no município (3.681 votos), contra 53,4% do candidato eleito. Em 2024, a mesma base, agora sob a coligação <strong>&ldquo;Renovação e Juventude&rdquo;</strong> (Republicanos / PP / MDB / Federação PSDB&#8209;Cidadania), venceu nas <strong>42 seções</strong> do município, com 56,4% dos votos válidos (5.779 votos).</p>
+
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 3</span><span class="cap">% de votos por seção, 2020 vs. 2024</span></div>
+      <div class="exhibit-body">
+        <img src="data:image/png;base64,{{CHART_SLOPE}}" alt="Gráfico de linhas conectando o percentual de votos do candidato a prefeito em cada seção eleitoral, 2020 à esquerda e 2024 à direita, mostrando quase todas as linhas subindo de baixo do corte de 50%25 para cima." />
+      </div>
+      <figcaption>Cada linha é uma seção eleitoral. Em <strong style="color:var(--red)">2020</strong> quase todas ficam abaixo dos 50% (derrota); em <strong style="color:var(--blue)">2024</strong> a maioria cruza a linha de maioria absoluta. Seções sem dado em 2020 não existiam ainda naquele pleito.</figcaption>
+    </figure>
+
+    <p>Das 36 seções comparáveis, <strong>28 passaram de minoria (&lt;50%) para maioria absoluta (&ge;50%)</strong> dos votos válidos entre uma eleição e outra, uma virada de 20,9 pontos percentuais em média nessas seções.</p>
+
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 4</span><span class="cap">Todas as 42 seções de Alfredo Chaves em 2024</span></div>
+      <div class="exhibit-body">
+        <img src="data:image/png;base64,{{CHART_GRID}}" alt="Grade com todas as 42 seções eleitorais numeradas, coloridas por categoria: seções que viraram de derrota para vitória, a única já vencida em 2020, e seções novas criadas até 2024." />
+      </div>
+      <figcaption>Em 2024, a candidatura venceu literalmente todas as urnas do município, inclusive as 6 seções novas criadas desde 2020.</figcaption>
+    </figure>
+
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 5</span><span class="cap">Resultado agregado do município</span></div>
+      <div class="exhibit-body">
+        <img src="data:image/png;base64,{{CHART_MUNICIPIO}}" alt="Gráfico de barras comparando o total de votos válidos do candidato a prefeito em 2020 (3.681 votos, 37,8%%) e em 2024 (5.779 votos, 56,4%%)." />
+      </div>
+    </figure>
+
+    <h3>Uma legenda diferente a cada eleição</h3>
+    <p>Os dados de <code>consulta_cand</code> mostram que o candidato do grupo nunca disputou pelo mesmo partido duas vezes em vinte anos: PT em 2004, PSDB em 2008, PSD em 2012, PMDB em 2016, Republicanos em 2020, PP em 2024. O espectro ideológico também se moveu, de um partido de esquerda em 2004 para partidos de centro e direita a partir de 2012, acompanhando o realinhamento nacional da política brasileira no período. Não parece ter sido uma escolha isolada de estratégia local.</p>
+    <p>O tamanho da coligação, porém, <strong>não explica a vitória sozinho</strong>: em 2016, o candidato concorreu pela maior coligação de toda a série (9 partidos) e mesmo assim perdeu, com 48,0% dos votos. Em 2020, com a menor coligação (3 partidos), também perdeu. A coligação de 2024 (5 partidos: Republicanos, PP, MDB e Federação PSDB&#8209;Cidadania) tem tamanho mediano na série, nem a maior nem a menor.</p>
+    <p>Do lado adversário, o padrão é o oposto. Nas cinco eleições perdidas por este grupo, entre 2004 e 2020, quem venceu foi sempre o <strong>PSB</strong>: Dr. Fernando levou 2004, 2008, 2016 e 2020, e Roberto Fiorin, também PSB, levou 2012, quatro mandatos e dois nomes diferentes sob a mesma legenda, vinte anos seguidos. Essa sequência só se rompe em 2024, quando Rolmar Boteccia tenta manter o PSB no poder e perde para o PP de Hugo Luiz. Ou seja, enquanto o lado que perdia trocava de partido a cada pleito, o lado que vencia tinha uma legenda estável havia duas décadas. Foi justamente essa estabilidade que quebrou em 2024, junto com o resultado.</p>
+
+    <div class="table-scroll">
+      <table class="data stack-mobile">
+        <thead>
+          <tr><th>Ano</th><th>Partido do grupo</th><th>Espectro</th><th class="num">Partidos</th><th>Coligação</th></tr>
+        </thead>
+        <tbody>
+          <tr><td data-label="Ano">2004</td><td data-label="Partido"><span class="party-chip pt">PT</span></td><td data-label="Espectro">Esquerda</td><td class="num" data-label="Partidos">5</td><td data-label="Coligação">PPS / PT / PSDB / PTN / PT do B</td></tr>
+          <tr><td data-label="Ano">2008</td><td data-label="Partido"><span class="party-chip psdb">PSDB</span></td><td data-label="Espectro">Centro-direita</td><td class="num" data-label="Partidos">5</td><td data-label="Coligação">PTB / PSDB / PMDB / PT do B / PPS</td></tr>
+          <tr><td data-label="Ano">2012</td><td data-label="Partido"><span class="party-chip psd">PSD</span></td><td data-label="Espectro">Centro-direita</td><td class="num" data-label="Partidos">6</td><td data-label="Coligação">PT / PTB / PMDB / PPS / DEM / PSD</td></tr>
+          <tr><td data-label="Ano">2016</td><td data-label="Partido"><span class="party-chip pmdb">PMDB</span></td><td data-label="Espectro">Centro</td><td class="num" data-label="Partidos">9</td><td data-label="Coligação">PMDB / PPS / PSD / PTB / PT / PDT / PATRIOTA / REDE / DEM</td></tr>
+          <tr><td data-label="Ano">2020</td><td data-label="Partido"><span class="party-chip republicanos">Republicanos</span></td><td data-label="Espectro">Direita</td><td class="num" data-label="Partidos">3</td><td data-label="Coligação">PTB / REPUBLICANOS / PATRIOTA</td></tr>
+          <tr class="flip"><td data-label="Ano">2024</td><td data-label="Partido"><span class="party-chip pp">PP</span></td><td data-label="Espectro">Direita</td><td class="num" data-label="Partidos">5</td><td data-label="Coligação">REPUBLICANOS / PP / MDB / Federação PSDB&#8209;Cidadania</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:13px;color:var(--caption)">Fonte: <code>consulta_cand</code>, campo <code>DS_COMPOSICAO_COLIGACAO</code>, TSE, por ano. Espectro classificado pelo partido de registro da candidatura (legenda principal), não pela coligação inteira. Linha em verde é a única vitória da série; as outras cinco são derrota (o tamanho da coligação de cada uma está discutido no texto acima).</p>
+
+    <div class="table-scroll">
+      <table class="data stack-mobile">
+        <thead>
+          <tr><th>Ano</th><th>Vencedor</th><th>Partido</th><th>Espectro</th><th class="num">Partidos</th><th>Coligação</th></tr>
+        </thead>
+        <tbody>
+          <tr><td data-label="Ano">2004</td><td data-label="Vencedor">Dr. Fernando</td><td data-label="Partido"><span class="party-chip psb">PSB</span></td><td data-label="Espectro">Centro-esquerda</td><td class="num" data-label="Partidos">5</td><td data-label="Coligação">PSB / PP / PTB / PL / PMN</td></tr>
+          <tr><td data-label="Ano">2008</td><td data-label="Vencedor">Dr. Fernando</td><td data-label="Partido"><span class="party-chip psb">PSB</span></td><td data-label="Espectro">Centro-esquerda</td><td class="num" data-label="Partidos">7</td><td data-label="Coligação">PR / PP / PRTB / PV / PRB / PHS / PSB</td></tr>
+          <tr><td data-label="Ano">2012</td><td data-label="Vencedor">Roberto Fiorin</td><td data-label="Partido"><span class="party-chip psb">PSB</span></td><td data-label="Espectro">Centro-esquerda</td><td class="num" data-label="Partidos">6</td><td data-label="Coligação">PRB / PP / PDT / PR / PSB / PSDB</td></tr>
+          <tr><td data-label="Ano">2016</td><td data-label="Vencedor">Dr. Fernando</td><td data-label="Partido"><span class="party-chip psb">PSB</span></td><td data-label="Espectro">Centro-esquerda</td><td class="num" data-label="Partidos">9</td><td data-label="Coligação">PSB / PROS / PMN / PSDB / PP / PSC / PR / PTN / PV</td></tr>
+          <tr><td data-label="Ano">2020</td><td data-label="Vencedor">Dr. Fernando</td><td data-label="Partido"><span class="party-chip psb">PSB</span></td><td data-label="Espectro">Centro-esquerda</td><td class="num" data-label="Partidos">7</td><td data-label="Coligação">PP / PSL / PODE / CIDADANIA / DEM / PSB / PSDB</td></tr>
+          <tr class="flip"><td data-label="Ano">2024</td><td data-label="Vencedor">Hugo Luiz (grupo)</td><td data-label="Partido"><span class="party-chip pp">PP</span></td><td data-label="Espectro">Direita</td><td class="num" data-label="Partidos">5</td><td data-label="Coligação">REPUBLICANOS / PP / MDB / Federação PSDB&#8209;Cidadania</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:13px;color:var(--caption)">Fonte: <code>consulta_cand</code>, campos <code>SG_PARTIDO</code>, <code>DS_COMPOSICAO_COLIGACAO</code> e <code>DS_SIT_TOT_TURNO</code>, TSE, por ano. Espectro classificado pelo partido de registro do vencedor, não pela coligação inteira.</p>
+
+    <h3>Onde o grupo era forte, onde era fraco</h3>
+    <p>Alfredo Chaves tem 7 distritos oficiais: a sede e mais seis distritos rurais (Crubixá, Ibitiruí, Matilde, Ribeirão do Cristo, Sagrada Família e São Bento de Urânia). Cruzamos o local de votação de cada seção, e por ele o distrito, com a votação do candidato do grupo em cada uma das seis eleições, para ver se a virada foi uniforme pelo território ou concentrada em algum canto do município.</p>
+
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 6</span><span class="cap">% do candidato do grupo para prefeito, por distrito, 2004&ndash;2024</span></div>
+      <div class="exhibit-body">
+        <img src="data:image/png;base64,{{CHART_DISTRITOS_HEATMAP}}" alt="Mapa de calor com 7 distritos de Alfredo Chaves nas linhas e as seis eleições (2004 a 2024) nas colunas, mostrando o percentual de votos válidos do candidato do grupo para prefeito em cada combinação. Ribeirão do Cristo salta de 8,8%% em 2004 e 9,4%% em 2012 (as piores marcas do grupo em qualquer distrito e ano) para 58,2%% em 2020 e 72,3%% em 2024 (a melhor marca de 2024). São Bento de Urânia e Ibitiruí também terminam acima de 63%% em 2024. Todos os sete distritos ficam acima de 47%% em 2024, sinal de uma virada disseminada, não concentrada." />
+      </div>
+      <figcaption>Ribeirão do Cristo foi, de longe, o distrito mais resistente ao grupo em 2004 e 2012 (8,8% e 9,4%, os piores números do estudo inteiro), e virou o mais favorável em 2020 e 2024 (58,2% e 72,3%). Em 2024, todos os sete distritos passam de 47%: a virada não veio de um reduto específico, veio do território inteiro.</figcaption>
+    </figure>
+    <p style="font-size:13px;color:var(--caption)">Fonte: <code>votacao_secao</code>, TSE, todas as seis eleições. Distrito de cada seção determinado pelo local de votação de 2024, cruzado com a lista oficial de localidades da <a href="https://www.alfredochaves.es.gov.br/detalhe-da-materia/info/6517/localidades-e-distancia/" target="_blank" rel="noopener">Prefeitura de Alfredo Chaves</a>. Os números de seção são estáveis ao longo do tempo neste município (só entram seções novas, nenhuma é renumerada), então o local de 2024 vale para todos os anos em que aquela seção existiu. Percentuais ponderados pelo total de votos válidos de cada seção.</p>
+
+    <h3>E na eleição para vereador?</h3>
+    <p>O mesmo cruzamento seção&rarr;distrito, agora para a <strong>chapa completa de vereador do grupo</strong> (todos os candidatos da coligação, eleitos ou não &mdash; 35 nomes em 2020, 30 em 2024, identificados pelo partido de registro), como % dos votos válidos para vereador em cada distrito. Só dá pra fazer para 2020 e 2024: foram as duas únicas eleições em que a candidatura da família também lançou chapa de vereador.</p>
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 6.1</span><span class="cap">% dos votos p/ vereador na chapa do grupo, por distrito, 2020 e 2024</span></div>
+      <div class="exhibit-body">
+        <img src="data:image/png;base64,{{CHART_DISTRITOS_VEREADORES_HEATMAP}}" alt="Mapa de calor com 7 distritos de Alfredo Chaves nas linhas e 2020/2024 nas colunas, mostrando o percentual dos votos válidos para vereador que foram na chapa do grupo. Ribeirão do Cristo lidera nos dois anos (56,5%% em 2020, 69,9%% em 2024). Sagrada Família e São Bento de Urânia saltam de cerca de 30%% em 2020 para mais de 49%% em 2024. Sede fica estável em torno de 40%% nos dois anos." />
+      </div>
+      <figcaption>Ribeirão do Cristo, o distrito que mais virou para o grupo na disputa a prefeito (Figura 6), também é o que mais sustenta a chapa de vereador nos dois anos &mdash; 56,5% em 2020, 69,9% em 2024. A virada de 2024 não ficou concentrada no topo da chapa: Sagrada Família e São Bento de Urânia quase dobram de participação (31,3%&rarr;56,9% e 26,4%&rarr;49,8%), acompanhando o mesmo movimento territorial da eleição majoritária.</figcaption>
+    </figure>
+    <p style="font-size:13px;color:var(--caption)">Fonte: <code>votacao_secao</code> e <code>consulta_cand</code> (campos <code>SG_PARTIDO</code>, <code>SQ_CANDIDATO</code>), TSE, cargo Vereador, 2020 e 2024. Mesma atribuição seção&rarr;distrito da Figura 6. Chapa do grupo definida pelos partidos da coligação de prefeito de cada ano (Republicanos/PTB/Patriota em 2020; Republicanos/PP/PSDB em 2024), cruzados por <code>SQ_CANDIDATO</code> &mdash; não por nome, que varia entre os extratos de candidato e de seção.</p>
+  </section>
+
+  <section id="vereadores">
+    <div class="eyebrow">05 &middot; Desempenho legislativo</div>
+    <h2>A virada política na Câmara Municipal</h2>
+    <p>A Câmara de Alfredo Chaves tem <strong>9 cadeiras</strong>. Em 2020, a base política de Hugo Luiz Picoli Meneghel, então candidato a vereador pelo PTB na coligação majoritária &ldquo;Mudança com Transparência&rdquo; (PTB / Republicanos / Patriota), elegeu apenas <strong style="color:var(--blue)">3 vereadores</strong> contra <strong style="color:var(--red)">6 de partidos adversários</strong> (coligação vencedora para prefeito: PP / PSB / PSDB, entre outros): minoria clara. Em 2024, com a coordenação de campanha estendida a todos os candidatos a vereador da coligação &ldquo;Renovação e Juventude&rdquo; (Republicanos / PP / PSDB), a bancada da chapa cresceu para <strong style="color:var(--blue)">5 de 9 cadeiras</strong>, maioria simples, ainda que apertada.</p>
+
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 7</span><span class="cap">Composição da Câmara, 2020 vs. 2024</span></div>
+      <div class="exhibit-body">
+        <img src="data:image/png;base64,{{CHART_CAMARA}}" alt="Gráfico de barras horizontais empilhadas comparando a composição da Câmara Municipal: em 2020, 3 cadeiras da chapa (verde) contra 6 de adversários (vermelho); em 2024, 5 cadeiras da chapa contra 4 de adversários, virando de minoria para maioria." />
+      </div>
+      <figcaption>3&nbsp;→&nbsp;5 cadeiras: o mesmo grupo político que era minoria isolada em 2020 passou a controlar a maioria simples da Câmara em 2024.</figcaption>
+    </figure>
+
+    <p>Somando a votação nominal de <em>todos</em> os candidatos a vereador da chapa (eleitos e não eleitos), o crescimento também aparece na urna, não só nas cadeiras:</p>
+
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 8</span><span class="cap">Total de votos dos candidatos a vereador da chapa</span></div>
+      <div class="exhibit-body">
+        <img src="data:image/png;base64,{{CHART_VOTOS_VEREADORES}}" alt="Gráfico de barras comparando o total de votos somados de todos os candidatos a vereador da chapa: 3.427 votos (38,8%% do pleito) em 2020 contra 4.206 votos (43,8%% do pleito) em 2024." />
+      </div>
+      <figcaption>+779 votos (+22,7%) na soma dos candidatos da chapa ao cargo de vereador, de uma eleição para outra.</figcaption>
+    </figure>
+
+    <h3>Quem entrou em cada eleição</h3>
+    <div class="prose">
+      <p style="max-width:none">Nos dois gráficos abaixo, <strong style="color:var(--blue)">verde</strong> identifica os vereadores eleitos pela chapa de Hugo Luiz (mesma base política nas duas eleições); <strong style="color:var(--red)">vermelho</strong>, os eleitos por partidos adversários.</p>
+    </div>
+
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 9</span><span class="cap">Vereadores eleitos em 2020</span></div>
+      <div class="exhibit-body">
+        <img src="data:image/png;base64,{{CHART_VEREADORES_2020}}" alt="Gráfico de barras horizontais com os 9 vereadores eleitos em 2020, coloridos por lado: 3 da chapa de Hugo Luiz em verde, 6 de adversários em vermelho." />
+      </div>
+      <figcaption>Hugo Luiz (PTB) é eleito vereador com 345 votos, mas sua base fica isolada em minoria (3 de 9 cadeiras).</figcaption>
+    </figure>
+
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 10</span><span class="cap">Vereadores eleitos em 2024</span></div>
+      <div class="exhibit-body">
+        <img src="data:image/png;base64,{{CHART_VEREADORES_2024}}" alt="Gráfico de barras horizontais com os 9 vereadores eleitos em 2024, coloridos por lado: 5 da chapa em verde, 4 de adversários em vermelho." />
+      </div>
+      <figcaption>Josimar Piumbini, Hermes Marchiori, Professor Alefy, Renan Boldrini e Warlei Pessali: os 5 nomes da chapa que sustentam o governo Hugo Luiz na Câmara.</figcaption>
+    </figure>
+
+    <h3>O voto para prefeito puxou o voto para vereador, mas não igual nas duas eleições</h3>
+    <p>Prefeito e vereador são votos separados na mesma cédula: um eleitor pode escolher o candidato do grupo para prefeito e um adversário para vereador, ou vice-versa. Cruzamos, seção por seção, o percentual de votos válidos no candidato do grupo para prefeito com o percentual somado de votos válidos nos candidatos do grupo para vereador, em 2020 e em 2024.</p>
+
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 11</span><span class="cap">Correlação entre voto para prefeito e para vereador, por seção</span></div>
+      <div class="exhibit-body">
+        <img src="data:image/png;base64,{{CHART_COERENCIA_VOTO}}" alt="Dois gráficos de dispersão lado a lado, um para 2020 e outro para 2024, cada ponto uma seção eleitoral, cruzando o percentual de votos válidos no candidato do grupo para prefeito com o percentual somado de votos válidos nos candidatos do grupo para vereador. A correlação (r) é 0,66 em 2020 e 0,57 em 2024, com linha de tendência tracejada em cada painel." />
+      </div>
+      <figcaption>A correlação foi mais forte em 2020 (r&nbsp;=&nbsp;0,66) do que em 2024 (r&nbsp;=&nbsp;0,57): quem votava em Ronaldo Bianchi para prefeito tendia a votar também nos candidatos do grupo para vereador de forma um pouco mais consistente do que quem votou em Hugo Luiz. Não é uma diferença enorme, mas sugere que o voto em Hugo em 2024 dependeu um pouco mais do nome dele mesmo do que da chapa como bloco.</figcaption>
+    </figure>
+    <p style="font-size:13px;color:var(--caption)">Fonte: <code>votacao_secao</code>, TSE, 2020 e 2024. &ldquo;Do grupo&rdquo;, para vereador, definido pelos mesmos partidos da nota metodológica abaixo. Correlação de Pearson (r) sobre o percentual de votos válidos por seção; inclui votos de legenda (voto de partido sem indicar candidato), atribuídos ao partido votado.</p>
+
+    <div class="callout warn">
+      <strong>Nota metodológica.</strong> Como coligações proporcionais (para vereador) foram extintas a partir de 2020, cada candidato concorre isoladamente por um único partido. O &ldquo;lado&rdquo; de cada candidato foi determinado por pertencimento aos partidos que compuseram a coligação majoritária de Hugo Luiz em cada ano (PTB/Republicanos/Patriota em 2020; Republicanos/PP/PSDB em 2024). Não é vínculo formal de chapa proporcional: esse formato não existe desde a reforma eleitoral de 2017.
+    </div>
+  </section>
+
+  <section id="financiamento">
+    <div class="eyebrow">06 &middot; Financiamento e participação eleitoral</div>
+    <h2>Quanto custou, e quem foi votar</h2>
+    <p>Dados da <strong>prestação de contas eleitorais</strong> do TSE (receitas e despesas declaradas por cada candidato, incluindo adversários) e do <strong>detalhamento de apuração</strong> (comparecimento e abstenção) completam o quadro: a virada não veio de um eleitorado maior, e a receita mobilizada pela candidatura do grupo nunca foi destacadamente superior à dos concorrentes. Ainda assim, a campanha do grupo converteu esse recurso em voto com mais eficiência que qualquer outro candidato ao cargo, nas duas eleições.</p>
+
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 12</span><span class="cap">Receita declarada: todos os candidatos a prefeito</span></div>
+      <div class="exhibit-body">
+        <img src="data:image/png;base64,{{CHART_FINANCEIRO_CHAPA}}" alt="Gráfico de barras horizontais com a receita declarada por cada candidato a prefeito. 2020: Fernando (PSB, eleito) R$108.642; Bianchi (Republicanos, grupo) R$53.120; Zanata (PDT) R$32.722. 2024: Hugo Luiz (PP, grupo, eleito) R$155.597; Boldrini (PL) R$141.130; Boteccia (PSB) R$119.400." />
+      </div>
+      <figcaption>Com todos os candidatos lado a lado, fica claro que a campanha do grupo nunca foi a mais bem financiada: em 2020, Bianchi arrecadou menos da metade do vencedor Fernando; em 2024, Hugo Luiz teve a maior receita entre os três, mas a diferença para os adversários foi pequena. Não uma vantagem esmagadora de caixa.</figcaption>
+    </figure>
+
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 13</span><span class="cap">Eficiência de investimento por voto: todos os candidatos a prefeito</span></div>
+      <div class="exhibit-body">
+        <img src="data:image/png;base64,{{CHART_CUSTO_POR_VOTO}}" alt="Gráfico de barras horizontais com a eficiência de investimento por voto (despesa paga dividida por votos válidos) de cada candidato a prefeito. 2020: Bianchi (grupo) R$13,58/voto; Fernando R$19,70/voto; Zanata R$80,36/voto. 2024: Hugo Luiz (grupo, eleito) R$26,69/voto; Boteccia R$36,20/voto; Boldrini R$141,27/voto." />
+      </div>
+      <figcaption>Honestidade dos dados: o investimento por voto do grupo quase dobrou entre as duas eleições (R$13,58 → R$26,69), mas em ambos os anos a candidatura do grupo foi a <strong>mais eficiente entre os três concorrentes</strong>, inclusive em 2024, quando venceu investindo R$26,69/voto contra R$36,20 (Boteccia) e R$141,27 (Boldrini, que teve a pior eficiência de conversão do pleito).</figcaption>
+    </figure>
+
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 14</span><span class="cap">Origem das receitas da chapa</span></div>
+      <div class="exhibit-body">
+        <img src="data:image/png;base64,{{CHART_ORIGEM_RECEITAS}}" alt="Gráfico de barras horizontais comparando a origem das receitas da chapa em 2020 e 2024, por categoria: recursos de partido político, recursos próprios, pessoas físicas e outros candidatos." />
+      </div>
+      <figcaption>Recursos de partido político (Fundo Partidário / FEFC) dominam as duas eleições e triplicaram em valor absoluto, de R$57,5 mil para R$166,4 mil, refletindo o crescimento do fundo eleitoral nacional entre os dois pleitos, não necessariamente uma escolha de estratégia da campanha.</figcaption>
+    </figure>
+
+    <h3>Comparecimento não explica a virada de 2024, mas vem caindo há vinte anos</h3>
+    <p>Entre 2020 e 2024, o eleitorado apto cresceu apenas 4,6% (12.294 → 12.860) e o comparecimento às urnas ficou praticamente estável: <strong>79,15% em 2020, 79,74% em 2024</strong>. Como o candidato da chapa cresceu 57% em votos absolutos (3.681 → 5.779) enquanto o eleitorado total mal se moveu, a virada foi predominantemente <strong>conversão de eleitores que já votavam</strong>, não mobilização de novos votantes.</p>
+
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 15</span><span class="cap">Comparecimento vs. abstenção</span></div>
+      <div class="exhibit-body">
+        <img src="data:image/png;base64,{{CHART_COMPARECIMENTO}}" alt="Gráfico de barras horizontais empilhadas comparando comparecimento e abstenção do eleitorado apto: 9.731 compareceram e 2.563 se abstiveram em 2020 (79,15%%); 10.255 compareceram e 2.605 se abstiveram em 2024 (79,74%%)." />
+      </div>
+      <figcaption>Votos brancos (201 → 122) e nulos (317 → 178) também caíram, sinal de menor voto de protesto ou desengajamento em 2024.</figcaption>
+    </figure>
+
+    <p>Olhando as seis eleições, porém, o comparecimento não é estável: caiu de forma constante, de 91,8% em 2004 para os 79-80% de 2020 e 2024. A base de eleitores aptos cresceu 39% no mesmo período (2004: 9.247, 2024: 12.860), mas o número de gente que efetivamente votou cresceu bem menos, 20,8% (2004: 8.492, 2024: 10.255), porque uma fatia cada vez maior dos aptos deixou de comparecer.</p>
+
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 16</span><span class="cap">Comparecimento em queda, mesmo com mais eleitores</span></div>
+      <div class="exhibit-body">
+        <img src="data:image/png;base64,{{CHART_COMPARECIMENTO_HISTORICO}}" alt="Gráfico de linha mostrando o percentual de comparecimento às urnas em Alfredo Chaves, eleição para prefeito, ao longo de seis eleições: 91,84% em 2004, 90,32% em 2008, 86,95% em 2012, 85,20% em 2016, 79,15% em 2020 e 79,74% em 2024, uma queda constante que só estabiliza nas duas últimas eleições." />
+      </div>
+      <figcaption>O comparecimento caiu quase 12 pontos percentuais em vinte anos, e só parou de cair entre 2020 e 2024. O eleitorado registrado cresceu (mais gente apta a votar), mas a proporção que efetivamente comparece encolheu, um padrão nacional de queda de participação, não um efeito da campanha analisada aqui.</figcaption>
+    </figure>
+    <p style="font-size:13px;color:var(--caption)">Fonte: <code>detalhe_votacao_munzona</code>, TSE, cargo Prefeito, todas as seis eleições (2004 a 2024).</p>
+
+    <h3>Perfil do eleitorado: quase nada mudou</h3>
+    <p>O perfil demográfico do eleitorado (dados de <code>perfil_eleitor_secao</code>, TSE) também ficou estável ao longo do tempo. A divisão por gênero vem convergindo lentamente para a paridade a cada eleição: 51,7% homens / 48,2% mulheres em 2008, 51,1% / 48,8% em 2012, 50,6% / 49,3% em 2016, 50,2% / 49,7% em 2020, e 49,9% / 50,0% em 2024 (o TSE não publicou esse dado para 2004). Praticamente meio a meio desde sempre, com uma leve e constante tendência à maioria feminina.</p>
+    <div class="callout">
+      <strong>Curiosidade dos dados.</strong> O número de eleitores de 16 a 24 anos foi <strong>exatamente 1.225 em 2020 e 1.225 em 2024</strong>: mesma faixa etária, mesmo total, dois pleitos diferentes. É uma coincidência real, confirmada linha a linha na base oficial do TSE. Não tem explicação causal óbvia, mas descarta a hipótese de que a virada tenha sido puxada por uma onda de eleitores jovens recém-habilitados: a base de eleitores jovens do município simplesmente não cresceu nem encolheu entre as duas eleições.
+    </div>
+
+    <h3>Cruzamento com o IBGE: o eleitorado cresceu, a população não</h3>
+    <p>Para entender se o crescimento do eleitorado (9.247 aptos em 2004 → 12.860 em 2024, +39%) reflete o município crescendo, cruzamos os dados do TSE com as estimativas populacionais anuais do IBGE (SIDRA, tabela 6579, código do município 3200300). A resposta é não: a população estimada de Alfredo Chaves ficou praticamente estável no período (14.113 em 2004, ~14.373 em 2024), até com quedas em alguns anos. O eleitorado não cresceu porque o município cresceu. Cresceu porque uma fatia cada vez maior da população já residente passou a estar registrada para votar.</p>
+
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 17</span><span class="cap">Eleitores aptos como % da população estimada (IBGE)</span></div>
+      <div class="exhibit-body">
+        <img src="data:image/png;base64,{{CHART_IBGE_ELEITORADO}}" alt="Gráfico de linha mostrando o percentual da população estimada pelo IBGE que está registrada para votar em Alfredo Chaves: 65,5% em 2004, 72,7% em 2008, 80,7% em 2012, 79,6% em 2016, 84,0% em 2020, 89,5% em 2024." />
+      </div>
+      <figcaption>Cobertura do eleitorado sobre a população total saltou de 65,5% (2004) para 89,5% (2024), um efeito nacional de transição demográfica e biometria, não um fenômeno local de Alfredo Chaves. Fonte: IBGE SIDRA, tabela 6579 (população residente estimada), cruzado com <code>QT_APTOS</code> do TSE por ano.</figcaption>
+    </figure>
+
+    <h3>Sexo, raça e renda: quem concorre é quem vive aqui?</h3>
+    <p>O Censo Demográfico 2022 do IBGE (SIDRA, tabelas 9514 e 9605) permite ir além da população total e cruzar sexo e raça ou cor com quem de fato concorre. A população de Alfredo Chaves é 49,3% mulheres e 50,7% homens, 61,4% branca, 34,3% parda e 4,2% preta, números muito próximos aos do eleitorado registrado, que também caminha para a paridade de gênero. Entre quem concorre, porém, o quadro diverge: dos 75 candidatos a prefeito e vereador em 2020, 37,3% eram mulheres; em 2024, entre 76 candidatos, essa fatia caiu para 31,6%, o oposto da tendência do eleitorado, que se aproxima cada vez mais dos 50%.</p>
+
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 18</span><span class="cap">Participação feminina: população, eleitorado e candidatos</span></div>
+      <div class="exhibit-body">
+        <img src="data:image/png;base64,{{CHART_GENERO_CANDIDATOS}}" alt="Gráfico de barras comparando o percentual de mulheres em quatro grupos: população do IBGE em 2022 (49,3%%), eleitorado do TSE em 2024 (50,0%%), candidatas de 2020 (37,3%%) e candidatas de 2024 (31,6%%)." />
+      </div>
+      <figcaption>População e eleitorado são praticamente 50/50; entre os candidatos, a fatia de mulheres é bem menor, e caiu ainda mais de 2020 para 2024.</figcaption>
+    </figure>
+
+    <div class="callout">
+      <strong>Um nome por trás do número.</strong> O registro legislativo da própria Câmara Municipal de Alfredo Chaves (<a href="https://spl.camaraalfredochaves.es.gov.br/spl/processo.aspx?id=2443&amp;tipo=23&amp;autor=239" target="_blank" rel="noopener">Moção de Louvor n.º 003/2024</a>, de autoria do então vereador e hoje prefeito Hugo Luiz) homenageia <strong>Regina Puppin</strong> como &ldquo;primeira e única Vereadora do Município de Alfredo Chaves a ocupar um cargo no Legislativo Municipal&rdquo;, ou seja, a única mulher a ocupar uma cadeira na Câmara em toda a história do município, até hoje. Ela não aparece em nenhum dos candidatos a vereador registrados pelo TSE entre 2004 e 2024 consultados neste estudo, o que indica que seu mandato foi anterior a esse período. O hiato de representação feminina na Câmara é mais antigo e mais profundo do que os seis pleitos analisados aqui.
+    </div>
+
+    <p>A composição racial das candidaturas segue um padrão parecido. Em 2020, candidatos brancos eram 61,3% do total, quase idêntico aos 61,4% da população do município. Em 2024 essa proporção subiu para 69,7%, enquanto candidatos pardos caíram de 29,3% para 22,4%: um afastamento em relação à composição racial de Alfredo Chaves, ainda que a fatia de candidatos pretos tenha crescido ligeiramente (6,7% → 7,9%).</p>
+
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 19</span><span class="cap">Raça ou cor: população vs. candidatos</span></div>
+      <div class="exhibit-body">
+        <img src="data:image/png;base64,{{CHART_RACA_CANDIDATOS}}" alt="Gráfico de barras agrupadas comparando raça ou cor declarada entre população do IBGE em 2022, candidatos de 2020 e candidatos de 2024, nas categorias branca, parda e preta. Branca: 61,4%% população, 61,3%% candidatos 2020, 69,7%% candidatos 2024. Parda: 34,3%% população, 29,3%% candidatos 2020, 22,4%% candidatos 2024. Preta: 4,2%% população, 6,7%% candidatos 2020, 7,9%% candidatos 2024." />
+      </div>
+      <figcaption>Em 2020, a composição racial dos candidatos era quase um espelho da população. Em 2024, brancos ficaram sobrerrepresentados e pardos, sub-representados.</figcaption>
+    </figure>
+
+  </section>
+
+  <section id="campanha-digital">
+    <div class="eyebrow">07 &middot; Campanha digital</div>
+    <h2>O que os posts mostram sobre a corrida</h2>
+    <p>Esta seção sai da base de dados do TSE e usa uma fonte diferente: o histórico de posts do Instagram oficial da candidatura (<code>@hugoluiz11_</code>), do dia da filiação ao partido até o resultado da eleição. Não é dado público auditável como o resto deste estudo. É o próprio arquivo da campanha, revisado post a post a partir de capturas de tela exportadas do aplicativo, com data, visualizações, curtidas, comentários e compartilhamentos de cada publicação. Tratamos os números como o time de campanha os viu em tempo real: uma métrica de alcance orgânico e engajamento, não de intenção de voto.</p>
+
+    <p>A linha do tempo cobre seis marcos: a <strong>filiação ao Progressistas</strong> em 27 de março de 2024; o <strong>lançamento da pré-candidatura</strong> em 7 de junho; o <strong>anúncio do vice-prefeito</strong> Cleber Bianchi, na convenção partidária de 3 de agosto; a disputa pública em torno de uma <strong>pesquisa suspensa</strong> em 22 de setembro; a <strong>vitória</strong> em 6 de outubro; e o post de agradecimento pelos <strong>5.779 votos</strong>, publicado horas depois do resultado: o post de maior engajamento de toda a campanha.</p>
+
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 20</span><span class="cap">Visualizações por post, filiação até a vitória</span></div>
+      <div class="exhibit-body">
+        <img src="data:image/png;base64,{{CHART_CAMPANHA_VISUALIZACOES}}" alt="Gráfico de dispersão mostrando as visualizações de cada post do Instagram da candidatura entre março e outubro de 2024, com tendência de alta: de cerca de 9,3 mil visualizações no post de filiação até picos acima de 40 mil visualizações na reta final e no resultado." />
+      </div>
+      <figcaption>Os posts de rotina da pré-campanha (abril a maio) oscilam entre 1,5 mil e 19 mil visualizações. Na reta final (setembro e outubro), picos de 30 a 56 mil visualizações se tornam comuns: mais de 4&times; o alcance médio do início do ano.</figcaption>
+    </figure>
+
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 21</span><span class="cap">Engajamento médio por fase da campanha</span></div>
+      <div class="exhibit-body">
+        <img src="data:image/png;base64,{{CHART_CAMPANHA_ENGAJAMENTO}}" alt="Gráfico de barras mostrando o engajamento médio (curtidas mais comentários mais compartilhamentos) por fase da campanha: 533 na filiação, 223 na pré-campanha, 232 no lançamento, 308 na campanha, 308 na reta final, e 1.201 no resultado." />
+      </div>
+      <figcaption>O engajamento médio por post quase quintuplica entre a pré-campanha e a fase de resultado, puxado sobretudo pelas fotos de celebração e pelo post de agradecimento na noite da vitória. A filiação, em março, teve um único post de engajamento fora da curva (533): amostra pequena demais para tirar conclusão sozinha.</figcaption>
+    </figure>
+
+    <p>Classificamos cada um dos 166 posts identificados por tipo de conteúdo, para entender não só quando o alcance cresceu, mas o que a campanha efetivamente postava. <strong>Eventos de rua e caminhadas</strong> são o formato mais comum (quase um terço dos posts), seguidos por propostas de governo, posts de coligação e comunicação administrativa de rotina do mandato de vereador (convocações de sessão da Câmara, que a campanha publicava aos pares: um convite antes, um vídeo de esclarecimento depois). Mas o volume não é o mesmo que engajamento: <strong>testemunhos e depoimentos de eleitores</strong>, que aparecem bem menos, engajam bem mais que a média, mais de quatro vezes a comunicação administrativa de rotina.</p>
+
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 22</span><span class="cap">Volume de posts e engajamento por tipo de conteúdo</span></div>
+      <div class="exhibit-body">
+        <img src="data:image/png;base64,{{CHART_CAMPANHA_CATEGORIAS}}" alt="Dois gráficos de barras horizontais. À esquerda, número de posts por categoria: 49 eventos ou caminhadas, 26 propostas de governo, 19 de coligação, 18 posts administrativos, 13 testemunhos, 10 respostas a ataques, 7 pesquisas, 7 contagens regressivas, 6 datas comemorativas, 4 de resultado, 3 marcos, 3 de repercussão na mídia, 1 de filiação. À direita, engajamento médio por categoria, do maior para o menor: resultado (1.201), marco (601), filiação (533), pesquisa (394), testemunho (366), evento (315), resposta a ataque (298), coligação (296), proposta (280), data comemorativa (267), mídia (248), contagem regressiva (169), administrativo (85)." />
+      </div>
+      <figcaption>Posts administrativos (convocações de sessão da Câmara) são um dos formatos mais frequentes, mas o que menos engaja: o público reage mais a gente falando de gente (testemunhos) do que a comunicação institucional de rotina.</figcaption>
+    </figure>
+
+    <div class="mini-stat-grid">
+      <div class="mini-stat"><div class="num">166</div><div class="desc">posts distintos identificados nos dois arquivos enviados, revisados um a um e conferidos contra o total de capturas de tela</div></div>
+      <div class="mini-stat"><div class="num">1,86 milhão</div><div class="desc">visualizações somadas nos posts revisados, de março a outubro de 2024</div></div>
+      <div class="mini-stat"><div class="num">1.841</div><div class="desc">curtidas + comentários + compartilhamentos no post de maior engajamento, o agradecimento pelos 5.779 votos</div></div>
+    </div>
+
+    <div class="callout warn">
+      <strong>Limite dos dados.</strong> Diferente do resto deste estudo, esta seção não vem de um repositório público e auditável: é uma leitura manual de capturas de tela do próprio histórico de posts da campanha, sem acesso à API do Instagram nem a métricas de alcance pago, impressões ou perfil demográfico da audiência. Revisamos cada uma das 166 capturas dos dois arquivos enviados (90 e 76 páginas) e identificamos 166 posts distintos com data, visualizações, curtidas, comentários e compartilhamentos legíveis — uma checagem cruzada por curtidas e comentários confirmou que cada captura corresponde a exatamente um post, sem duplicidade. A classificação por tipo de conteúdo é nossa, feita a partir da legenda e do formato de cada post, não uma categoria do próprio Instagram. Datas de alguns posts administrativos mais antigos (abril a agosto) foram estimadas pela posição na linha do tempo quando não apareciam com clareza na captura. Os números de visualizações e engajamento são os exibidos pelo próprio Instagram no momento da captura, não necessariamente o total final de cada post, que continua mudando enquanto a publicação recebe interações.
+    </div>
+  </section>
+
+  <section id="candidatos">
+    <div class="eyebrow">08 &middot; Perfil dos candidatos</div>
+    <h2>Quem eram os candidatos, além dos votos</h2>
+    <p>Dados de <code>consulta_cand</code> e <code>bem_candidato</code> (TSE) trazem idade, escolaridade, ocupação e patrimônio declarado de cada candidato: informação pública, prestada por lei a cada eleição. O contraste com <strong style="color:var(--blue)">Hugo Luiz</strong> é o mais nítido do estudo inteiro.</p>
+
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 23</span><span class="cap">Idade dos candidatos a prefeito</span></div>
+      <div class="exhibit-body">
+        <img src="data:image/png;base64,{{CHART_IDADE_CANDIDATOS}}" alt="Dois gráficos de barras horizontais comparando a idade dos três candidatos a prefeito em 2020 (Ronaldo Bianchi 58, Fernando 73, Armando Zanata 64) e em 2024 (Hugo Luiz 25, Rolmar Boteccia 71, Boldrini 61)." />
+      </div>
+      <figcaption>Em 2020, o candidato da base do grupo (58 anos) já era o mais jovem dos três, mas ainda assim quase 20 anos mais velho que Hugo Luiz seria em 2024. A idade média de <em>todos</em> os candidatos ao pleito (prefeito e vereador somados) foi praticamente idêntica nas duas eleições (50,3 → 50,2 anos): o município não ficou mais jovem. Foi a candidatura vencedora que ficou.</figcaption>
+    </figure>
+
+    <p>Hugo Luiz tinha 25 anos no dia da eleição de 2024, é advogado, formado em Direito pela UFES, e, segundo o cadastro do TSE, é <strong>branco e solteiro</strong>. Os outros dois candidatos a prefeito daquele ano tinham 61 e 71 anos.</p>
+
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 24</span><span class="cap">Patrimônio declarado dos candidatos a prefeito</span></div>
+      <div class="exhibit-body">
+        <img src="data:image/png;base64,{{CHART_PATRIMONIO_CANDIDATOS}}" alt="Dois gráficos de barras horizontais comparando o patrimônio declarado dos candidatos a prefeito: em 2020, Ronaldo Bianchi R$366 mil, Fernando R$621 mil, Armando Zanata R$1,38 milhão; em 2024, Hugo Luiz R$29,5 mil, Rolmar Boteccia R$718 mil, Boldrini R$0." />
+      </div>
+      <figcaption>Hugo Luiz declarou <strong>R$&nbsp;29.573</strong> em bens: o menor patrimônio de qualquer candidato a prefeito registrado em Alfredo Chaves nas duas eleições, cerca de 25&times; menos que o segundo colocado de 2024 (Rolmar Boteccia, R$&nbsp;718 mil) e mais de 20&times; menos que o candidato derrotado em 2020 que a campanha do grupo apoiava (Ronaldo Bianchi, R$&nbsp;366 mil). Não é o perfil patrimonial típico de quem vence uma eleição majoritária no interior do Espírito Santo.</figcaption>
+    </figure>
+
+    <h3>As 9 pesquisas eleitorais registradas</h3>
+    <p>O TSE mantém um sistema próprio de registro de pesquisas eleitorais (<a href="https://www.tse.jus.br/eleicoes/pesquisa-eleitorais/consulta-as-pesquisas-registradas" target="_blank" rel="noopener">pesqele&#8209;divulgacao.tse.jus.br</a>), exigido pelo art.&nbsp;33 da Lei&nbsp;9.504/97. Para Alfredo Chaves em 2024 constam <strong>9 pesquisas registradas</strong>, por 5 empresas diferentes, entre abril e setembro. Abrimos e lemos o conteúdo de todos os 9 editais de publicação em PDF. Vale registrar um limite real dos dados públicos: <strong>o TSE não publica o resultado</strong> (percentual de intenção de voto por candidato) nesses editais, apenas a confirmação formal do registro (empresa, protocolo, data, abrangência). Quem divulga o resultado é a empresa contratante, tipicamente via um veículo de imprensa local.</p>
+
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 25</span><span class="cap">Registro das 9 pesquisas eleitorais: linha do tempo</span></div>
+      <div class="exhibit-body">
+        <img src="data:image/png;base64,{{CHART_PESQUISAS_TIMELINE}}" alt="Linha do tempo com as 9 pesquisas eleitorais registradas para Alfredo Chaves em 2024, de 19/04 a 27/09, por 5 empresas diferentes, com o dia da eleição (06/10/2024) marcado em verde." />
+      </div>
+      <figcaption>O ritmo de registros se intensifica nas últimas 6 semanas antes da eleição: 5 das 9 pesquisas foram registradas em setembro, indício de disputa competitiva o suficiente para justificar pesquisas encomendadas por múltiplas empresas em sequência.</figcaption>
+    </figure>
+
+    <p>Localizamos o documento original de <strong>6 das 9</strong> pesquisas: os relatórios completos que cada instituto produziu para o contratante, com metodologia, amostra e margem de erro. Duas delas (16/abr e 21/set) também haviam sido divulgadas à imprensa; as outras quatro são dado real, mas de circulação restrita, nunca publicado por veículo de imprensa:</p>
+    <ul style="margin:0 0 1.5rem; padding-left:1.3rem; color:var(--ink-soft); font-size:0.95rem; line-height:1.7;">
+      <li><strong>15&ndash;16/04/2024</strong>: Instituto Solução (TSE ES&#8209;09808/2024), 403 entrevistados, margem 4,9 p.p., contratada por AQUI NOTÍCIAS.COM (divulgada).</li>
+      <li><strong>29&ndash;31/08/2024</strong>: Instituto Veritá (TSE ES&#8209;08806/2024), 352 entrevistados, margem 5,5 p.p., contratada por Marataízes Piúma Iriri Internet Ltda. (não divulgada publicamente).</li>
+      <li><strong>17/09/2024</strong>: instituto e número de registro TSE não constam no documento (resultado atípico, ver nota abaixo).</li>
+      <li><strong>20&ndash;21/09/2024</strong>: Inove Consultoria (TSE ES&#8209;04825/2024), 574 entrevistados, margem 4,0 p.p., contratada por H.A. Comunicações Ltda. (divulgada por <a href="https://www.montanhascapixabas.com.br/pesquisa-aponta-hugo-luiz-como-o-proximo-prefeito-de-alfredo-chaves/" target="_blank" rel="noopener">Montanhas Capixabas</a>).</li>
+      <li><strong>27&ndash;29/09/2024</strong>: Ipopes Pesquisa de Opinião Pública, 400 entrevistados (não divulgada publicamente).</li>
+      <li><strong>01&ndash;02/10/2024</strong>: I9&#8209;Inove Consultoria (TSE ES&#8209;06358/2024), 373 entrevistados, margem 5,0 p.p., contratada por Portal ES Agora (não divulgada publicamente).</li>
+    </ul>
+
+    <p>Os seis pontos com dado real não usam a mesma base de cálculo: a pesquisa de 29&ndash;31/08 e o resultado oficial de 06/10 somam 100% entre os três nomes citados, mas as de 20&ndash;21/09, 27&ndash;29/09 e 01&ndash;02/10 deixam de 9,6 a 23,75 pontos percentuais sem atribuir a ninguém, sinal de que essas três reportam o percentual sobre o total de entrevistados (incluindo indecisos), não sobre os votos válidos entre os candidatos citados. Normalizamos essas três para somar 100% entre os nomes perguntados. A pesquisa de 16/04 é diferente: tinha só 2 vias (Boldrini ainda não era candidato), e normalizar um cenário de 2 nomes infla artificialmente os dois existentes, então esse ponto entra no gráfico com o valor bruto, como no documento original.</p>
+
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 26</span><span class="cap">Trajetória da intenção de voto (estimulada) até o resultado</span></div>
+      <div class="exhibit-body">
+        <img src="data:image/png;base64,{{CHART_PESQUISAS_EVOLUCAO}}" alt="Gráfico de linha mostrando a intenção de voto estimulada de Hugo Luiz (verde) em 54,8% (abril, valor bruto de uma disputa de 2 vias), 57,4% (agosto), 58,1% (21/set), 62,6% (28/set), 57,0% (2/out) e 58,05% no resultado final; Rolmar Botecchia (vermelho) entre 21,3% e 32,6%; Boldrini (cinza, tracejado) entre 10,0% e 21,3% a partir de agosto; e um ponto isolado de 17/set marcado como atípico, com Rolmar em 60,0% e Hugo em 25,8%." />
+      </div>
+      <figcaption>Em <strong>5 das 6</strong> pesquisas com dado real, <strong style="color:var(--blue)">Hugo Luiz</strong> nunca saiu da liderança: entre 54,8% e 62,6% de intenção de voto, do início ao fim da campanha, sempre pelo menos 24 pontos à frente do segundo colocado. A exceção é o ponto isolado de 17/09 (marcado com asterisco*), onde os papéis se invertem (Rolmar 60,0%, Hugo 25,8%). Mantivemos o ponto no gráfico por transparência, mas não o tratamos como confiável.</figcaption>
+      <p style="margin:0.6rem 0 0; font-size:0.85rem; color:var(--ink-soft);">* Resultado destoante das outras 5 pesquisas e do resultado final; documento sem número de registro TSE ou instituto identificado.</p>
+    </figure>
+
+    <div class="callout warn">
+      <strong>Notas de dados.</strong> Uma das pesquisas registradas (Direta Propaganda e Eventos) foi obtida, mas o documento se referia a outro município (Conceição do Castelo-ES), provável erro de arquivo do lado do contratante, então não foi usada aqui. Ainda restam <strong>2 das 9</strong> pesquisas registradas sem documento localizado. O perfil biográfico completo dos candidatos de 2020 exigiu baixar um arquivo nacional de 85&nbsp;MB inteiro (sem suporte a download parcial), o que funcionou, mas de forma mais lenta e menos elegante que o restante do pipeline.
+    </div>
+
+    <h3>Depois da eleição: aprovação da gestão</h3>
+    <p>Esses dados são de pesquisa de opinião, não de urna, e por isso ficam fora do pipeline oficial baseado em dados do TSE que sustenta o resto deste estudo. Ainda assim, ajudam a fechar o quadro. Em março de 2026, já no segundo ano de mandato, o <strong>Instituto de Pesquisas e Estatística do Espírito Santo (IPESES)</strong> ouviu 405 eleitores da sede e dos distritos de Alfredo Chaves (11 e 12/03/2026, margem de erro de 4,9 p.p., 95% de confiança, cotas por sexo e idade).</p>
+    <div class="mini-stat-grid">
+      <div class="mini-stat"><div class="num">75,0%</div><div class="desc">aprovam a gestão do prefeito Hugo Luiz (13,0% desaprovam; 12,0% não souberam responder)</div></div>
+      <div class="mini-stat"><div class="num">70,2%</div><div class="desc">consideram Hugo Luiz uma pessoa honesta (6,9% discordam; 23,0% não souberam responder)</div></div>
+      <div class="mini-stat"><div class="num">63,3%</div><div class="desc">consideram a gestão transparente (21,7% discordam; 15,1% não sabem dizer)</div></div>
+      <div class="mini-stat"><div class="num">59,4%</div><div class="desc">votariam nele de novo, se pudessem escolher hoje (19,4% não votariam; 21,2% não sabem)</div></div>
+      <div class="mini-stat"><div class="num">51,3%</div><div class="desc">dizem que está cumprindo as promessas de campanha (23,7% dizem parcialmente; 15,1% dizem que não)</div></div>
+      <div class="mini-stat"><div class="num">48,5%</div><div class="desc">votariam em candidatos a governador, senador ou deputado apoiados por ele</div></div>
+      <div class="mini-stat"><div class="num">71,2%</div><div class="desc">avaliam que Alfredo Chaves está no rumo certo</div></div>
+      <div class="mini-stat"><div class="num">72,4%</div><div class="desc">aprovam a Educação da gestão</div></div>
+      <div class="mini-stat"><div class="num">65,8%</div><div class="desc">aprovam a Saúde pública</div></div>
+    </div>
+    <p class="prose" style="font-size:13px;color:var(--caption)">Fontes: <a href="https://aquinoticias.com/2026/03/gestao-do-prefeito-hugo-luiz-tem-aprovacao-de-75-da-populacao-de-alfredo-chaves/" target="_blank" rel="noopener">Aqui Notícias</a>, <a href="https://imprensacapixaba.com.br" target="_blank" rel="noopener">Imprensa Capixaba</a> e <a href="https://informecapixaba.com.br" target="_blank" rel="noopener">Informe Capixaba</a>, todas de março de 2026, divulgando a mesma pesquisa do IPESES.</p>
+  </section>
+
+  <section id="detalhamento">
+    <div class="eyebrow">09 &middot; Detalhamento</div>
+    <h2>Seção a seção, com local de votação</h2>
+    <p>Tabela completa com o percentual de votos válidos da candidatura a prefeito em cada seção eleitoral, nas duas eleições, e o <strong>local físico de votação</strong> de cada seção em 2024 (escola, salão comunitário ou igreja, conforme cadastro oficial do TSE). Linhas destacadas em verde indicam seções que passaram de derrota para maioria absoluta. Votos e totais por seção estão no detalhamento bruto do repositório; aqui, o percentual já conta a história.</p>
+    <div class="exhibit">
+      <div class="exhibit-body tight table-scroll">
+        <table class="data stack-mobile">
+          <thead>
+            <tr><th>Seção</th><th>Local de votação</th><th>% 2020</th><th>% 2024</th><th>Variação</th><th></th></tr>
+          </thead>
+          <tbody>
+{{TABLE_ROWS}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h3>As 18 urnas do município</h3>
+    <p>As 42 seções eleitorais de Alfredo Chaves se distribuem por <strong>18 locais físicos de votação</strong>, entre a sede e os distritos rurais do município, todos identificados no cadastro oficial do TSE:</p>
+    <div class="exhibit">
+      <div class="exhibit-body tight table-scroll">
+        <table class="data locais" style="min-width:520px">
+          <thead><tr><th class="num">#</th><th>Local de votação</th><th>Endereço</th><th>Seções atendidas</th></tr></thead>
+          <tbody>
+{{TABLE_LOCAIS}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h3>Mapa dos locais de votação</h3>
+    <p>Os números no mapa correspondem à coluna <strong>#</strong> da tabela acima. Em geocodificação por endereço oficial (a maioria dos endereços rurais do TSE não tem numeração, apenas &ldquo;Rua Principal, S/Nº&rdquo;), os locais da sede do município (marcadores próximos entre si, no centro do mapa) são aproximados e ligeiramente espalhados apenas para não se sobreporem; os locais dos distritos rurais correspondem à localidade identificada.</p>
+    <div class="voting-map-wrap">
+      <div class="voting-map" id="votingMap">
+        <img src="data:image/png;base64,{{BASEMAP_B64}}" alt="Mapa de Alfredo Chaves, ES, com os 18 locais de votação numerados" loading="lazy" />
+        <svg class="map-boundary" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <polygon points="{{BOUNDARY_POINTS}}" />
+        </svg>
+      </div>
+      <div class="map-detail" id="mapDetail">
+        <p class="map-detail-empty">Clique em um número no mapa para ver o local de votação.</p>
+      </div>
+      <p style="font-size:12px;color:var(--caption);margin-top:8px">Mapa-base: &copy; colaboradores do <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>. Coordenadas por geocodificação (Photon/Komoot) dos nomes de local e distrito do cadastro do TSE.</p>
+    </div>
+    <script>
+      (function(){
+        var PINS = {{MAP_PINS_JSON}};
+        var map = document.getElementById('votingMap');
+        var detail = document.getElementById('mapDetail');
+        var active = null;
+        PINS.forEach(function(p){
+          var btn = document.createElement('button');
+          btn.className = 'map-pin';
+          btn.type = 'button';
+          btn.style.left = p.x + '%';
+          btn.style.top = p.y + '%';
+          btn.textContent = p.n;
+          btn.setAttribute('aria-label', p.n + '. ' + p.local);
+          btn.addEventListener('click', function(){
+            if (active) active.classList.remove('active');
+            btn.classList.add('active');
+            active = btn;
+            detail.innerHTML =
+              '<div class="map-detail-num">' + p.n + '</div>' +
+              '<div><strong>' + p.local + '</strong>' +
+              '<div class="map-detail-addr">' + p.endereco + '</div>' +
+              '<div class="map-detail-secoes">Seções atendidas: ' + p.secoes + '</div></div>';
+          });
+          map.appendChild(btn);
+        });
+      })();
+    </script>
+  </section>
+
+  <section id="conclusao">
+    <div class="eyebrow">10 &middot; Conclusão</div>
+    <h2>O que os dados mostram</h2>
+    <div class="prose">
+      <p>A leitura seção a seção, e depois distrito a distrito, mostra que a virada de 2024 fecha um arco de <strong>vinte anos e seis eleições</strong>: da candidatura de 2004 até a vitória de 2024, duas décadas depois. A votação do grupo cresceu em quase todos os ciclos, com uma única queda pontual em 2020, e o resultado de 2024 não se concentrou em poucos redutos: foi <strong>disseminado por praticamente todo o território eleitoral</strong> do município, das 42 seções aos 7 distritos, com ganho médio de mais de 20 pontos percentuais nas seções onde houve inversão de maioria entre 2020 e 2024. Isso é consistente com uma estratégia de capilaridade territorial mais do que de reforço em bases já favoráveis: a única seção já vencida em 2020 (seção&nbsp;9) teve ganho adicional relativamente modesto (+13,7&nbsp;p.p.) frente às seções que partiram de derrota, e até o distrito historicamente mais resistente ao grupo, Ribeirão do Cristo, saiu de 8,8% em 2004 para 72,3% em 2024.</p>
+      <p>A ampliação da coordenação de campanha em 2024, incluindo pela primeira vez as candidaturas a vereador, coincide com uma <strong>segunda virada, agora no Legislativo</strong>: a mesma base política que elegeu Hugo Luiz vereador em 2020, com apenas <span style="color:var(--red);font-weight:600">3 de 9 cadeiras</span> (minoria isolada), passou a controlar <span style="color:var(--blue);font-weight:600">5 de 9 cadeiras</span> em 2024 (maioria simples), com crescimento de 22,7% na votação somada dos candidatos da chapa. Isso sugere um efeito de arrasto entre a disputa majoritária e a proporcional, embora esta análise não isole causalidade entre as duas frentes.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>Dados oficiais: <a href="https://dadosabertos.tse.jus.br" target="_blank" rel="noopener">Portal de Dados Abertos do TSE</a>, extratos <code>votacao_secao</code> e <code>votacao_candidato_munzona</code>, seis eleições municipais de 2004 a 2024, filtrados para Alfredo Chaves&nbsp;&ndash;&nbsp;ES. Pipeline de tratamento em Python (pandas) e SQL (SQLite); visualizações em Matplotlib. Nenhum dado eleitoral foi estimado ou projetado: apenas dados publicamente auditáveis no repositório do TSE.</p>
+  </footer>
+
+</div>

@@ -1,0 +1,25 @@
+{
+  "idade_media_2020": 50.3,
+  "idade_media_2024": 50.2,
+  "hugo_idade_2024": 25,
+  "hugo_ocupacao": "ADVOGADO",
+  "hugo_escolaridade": "SUPERIOR COMPLETO",
+  "patrimonio_prefeito_2020": {
+    "ARMANDO ZANATA": 1380000.0,
+    "DR FERNANDO": 620761.34,
+    "RONALDO BIANCHI": 366381.24
+  },
+  "patrimonio_prefeito_2024": {
+    "HUGO LUIZ": 29573.27,
+    "BOLDRINI": 0.0,
+    "ROLMAR BOTECCHIA": 718420.79
+  },
+  "patrimonio_chapa_2020": {
+    "adversarios": 6016973.52,
+    "nossos": 7070302.72
+  },
+  "patrimonio_chapa_2024": {
+    "adversarios": 9329420.3,
+    "nossos": 1330501.08
+  }
+}

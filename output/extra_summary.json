@@ -1,0 +1,42 @@
+{
+  "financeiro": {
+    "receita_chapa_2020": 96556.0,
+    "receita_chapa_2024": 226568.19,
+    "despesa_chapa_2020": 65469.0,
+    "despesa_chapa_2024": 189558.19,
+    "receita_prefeito_2020": 53120.0,
+    "receita_prefeito_2024": 155597.43,
+    "despesa_prefeito_2020": 50000.0,
+    "despesa_prefeito_2024": 154237.43,
+    "custo_voto_2020": 13.58,
+    "custo_voto_2024": 26.69
+  },
+  "turnout": {
+    "aptos_2020": 12294,
+    "aptos_2024": 12860,
+    "comparecimento_2020": 9731,
+    "comparecimento_2024": 10255,
+    "abstencoes_2020": 2563,
+    "abstencoes_2024": 2605,
+    "brancos_2020": 201,
+    "brancos_2024": 122,
+    "nulos_2020": 317,
+    "nulos_2024": 178,
+    "pct_comparecimento_2020": 79.15,
+    "pct_comparecimento_2024": 79.74
+  },
+  "eleitorado": {
+    "jovens_16_24_2020": 1225,
+    "jovens_16_24_2024": 1225,
+    "genero_2020": {
+      "FEMININO": 6113,
+      "MASCULINO": 6171,
+      "NÃO INFORMADO": 10
+    },
+    "genero_2024": {
+      "FEMININO": 6431,
+      "MASCULINO": 6420,
+      "NÃO INFORMADO": 9
+    }
+  }
+}

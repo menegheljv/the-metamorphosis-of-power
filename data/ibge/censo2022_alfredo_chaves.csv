@@ -1,0 +1,16 @@
+categoria;subcategoria;valor;unidade
+sexo;homens;7013;pessoas
+sexo;mulheres;6823;pessoas
+raca;branca;8496;pessoas
+raca;preta;585;pessoas
+raca;amarela;5;pessoas
+raca;parda;4748;pessoas
+raca;indigena;2;pessoas
+renda_per_capita;total;1469.82;reais_media
+renda_per_capita;total_mediana;1212.00;reais_mediana
+renda_per_capita;homens;1474.30;reais_media
+renda_per_capita;mulheres;1465.22;reais_media
+renda_per_capita;branca;1618.38;reais_media
+renda_per_capita;preta;1152.90;reais_media
+renda_per_capita;amarela;1856.00;reais_media
+renda_per_capita;parda;1230.73;reais_media

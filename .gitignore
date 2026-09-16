@@ -10,3 +10,11 @@ dist/
 .Rproj.user/
 data/*.csv
 !data/synthetic_public_data.csv
+output/*.b64
+output/en/*.b64
+output/hires/
+output/graficos.pdf
+pesquisas/
+__pycache__/
+*.pyc
+data/*_b64.txt
