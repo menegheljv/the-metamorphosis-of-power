@@ -1,6 +1,6 @@
 <title>The Metamorphosis of Power</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Anton&family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
   :root {
     --paper: #faf9f7;
@@ -69,7 +69,7 @@
     white-space: nowrap;
   }
   .kicker {
-    font-family: "IBM Plex Mono", monospace;
+    font-family: "Bricolage Grotesque", sans-serif;
     font-size: 12.5px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -88,14 +88,14 @@
     display: inline-block;
   }
   h1.title {
-    font-family: "Anton", sans-serif; font-weight: 400;
-    font-size: clamp(1.3rem, 4.6vw, 2.35rem);
+    font-family: "Bricolage Grotesque", sans-serif; font-weight: 700;
+    font-size: clamp(1.4rem, 4.2vw, 2.05rem);
     line-height: 1.22;
-    letter-spacing: 0.005em;
+    letter-spacing: 0.01em;
     text-transform: uppercase;
     text-align: center;
     margin: 0 0 20px;
-    white-space: nowrap;
+    text-wrap: balance;
   }
   h1.title .subtitle{
     display: block;
@@ -117,7 +117,7 @@
     gap: 8px 28px;
     font-size: 13.5px;
     color: var(--caption);
-    font-family: "IBM Plex Mono", monospace;
+    font-family: "Bricolage Grotesque", sans-serif;
   }
   .meta-row strong { color: var(--ink-soft); font-weight: 500; }
   .print-actions {
@@ -129,16 +129,18 @@
     color: var(--caption);
     font-size: 12.5px;
   }
-  .print-actions button {
+  .ichart { min-height: 40px; }
+  .ichart .chart-fallback { margin: 0; font-size: 13px; color: var(--caption); }
+  .print-actions .pdf-btn {
     border: 1px solid var(--blue-deep);
     border-radius: 999px;
-    padding: 9px 16px;
+    padding: 10px 18px;
     background: var(--blue-deep);
     color: #fff;
-    cursor: pointer;
-    font: 600 12.5px/1 "Bricolage Grotesque", sans-serif;
+    text-decoration: none;
+    font: 600 13px/1 "Bricolage Grotesque", sans-serif;
   }
-  .print-actions button:hover { background: var(--blue); }
+  .print-actions .pdf-btn:hover { background: var(--blue); }
 
   /* ---------- Stat ribbon ---------- */
   .ribbon {
@@ -156,8 +158,8 @@
     padding: 22px 20px;
   }
   .stat .n {
-    font-family: "Anton", sans-serif; font-weight: 400;
-    font-size: 1.7rem;
+    font-family: "Bricolage Grotesque", sans-serif; font-weight: 700;
+    font-size: 1.55rem;
     line-height: 1;
     color: var(--red);
   }
@@ -178,7 +180,7 @@
   section:last-of-type { border-bottom: none; }
 
   .eyebrow {
-    font-family: "IBM Plex Mono", monospace;
+    font-family: "Bricolage Grotesque", sans-serif;
     font-size: 12px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -187,13 +189,14 @@
     margin-bottom: 10px;
   }
   h2 {
-    font-family: "Anton", sans-serif; font-weight: 400;
-    font-size: clamp(0.72rem, 3.4vw, 1.5rem);
-    letter-spacing: 0.01em;
+    font-family: "Bricolage Grotesque", sans-serif; font-weight: 700;
+    font-size: clamp(1.05rem, 3.2vw, 1.4rem);
+    line-height: 1.25;
+    letter-spacing: 0.015em;
     text-transform: uppercase;
     text-align: center;
     margin: 0 0 20px;
-    white-space: nowrap;
+    text-wrap: balance;
   }
   h3 {
     font-family: "Bricolage Grotesque", sans-serif;
@@ -203,7 +206,7 @@
     margin: 32px 0 12px;
     color: var(--ink);
   }
-  p { margin: 0 0 16px; color: var(--ink-soft); text-align: justify; }
+  p { margin: 0 0 16px; color: var(--ink-soft); text-align: justify; hyphens: auto; }
   p strong, li strong { color: var(--ink); font-weight: 600; }
   ul.list, ol.list { padding-left: 22px; color: var(--ink-soft); }
   ul.list li, ol.list li { margin-bottom: 8px; text-align: justify; }
@@ -227,7 +230,7 @@
     background: var(--blue-tint);
   }
   .exhibit-head .tag {
-    font-family: "IBM Plex Mono", monospace;
+    font-family: "Bricolage Grotesque", sans-serif;
     font-size: 11.5px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -275,7 +278,7 @@
     padding: 16px 14px;
   }
   .pipestep .num {
-    font-family: "IBM Plex Mono", monospace;
+    font-family: "Bricolage Grotesque", sans-serif;
     font-size: 11px;
     color: var(--blue-deep);
     font-weight: 600;
@@ -303,7 +306,7 @@
     padding: 16px 16px 14px;
   }
   .mini-stat .num {
-    font-family: "Anton", sans-serif; font-weight: 400;
+    font-family: "Bricolage Grotesque", sans-serif; font-weight: 700;
     font-size: 1.7rem;
     color: var(--blue-deep);
     line-height: 1;
@@ -343,7 +346,7 @@
     border-radius: 50%;
     background: var(--blue-deep);
     color: #fff;
-    font-family: "Anton", sans-serif; font-weight: 400;
+    font-family: "Bricolage Grotesque", sans-serif; font-weight: 700;
     font-size: 12px;
     display: flex; align-items: center; justify-content: center;
     border: 2px solid #fff;
@@ -367,7 +370,7 @@
   }
   .map-detail-empty { color: var(--caption); font-style: italic; margin: 0; }
   .map-detail-num {
-    font-family: "Anton", sans-serif; font-weight: 400;
+    font-family: "Bricolage Grotesque", sans-serif; font-weight: 700;
     font-size: 1.3rem;
     color: var(--blue-deep);
     background: var(--blue-tint);
@@ -419,7 +422,7 @@
     }
     table.data.stack-mobile tbody td::before {
       content: attr(data-label);
-      font-family: "IBM Plex Mono", monospace; font-size: 10.5px;
+      font-family: "Bricolage Grotesque", sans-serif; font-size: 10.5px;
       text-transform: uppercase; letter-spacing: 0.04em; color: var(--caption);
       text-align: left; flex: none;
     }
@@ -478,7 +481,7 @@
   }
   .toc-grid a:hover { color: var(--blue-deep); border-bottom-color: var(--border); }
   .toc-grid .toc-num {
-    font-family: "IBM Plex Mono", monospace; font-size: 11.5px;
+    font-family: "Bricolage Grotesque", sans-serif; font-size: 11.5px;
     color: var(--caption); flex: none; width: 36px;
   }
 
@@ -537,8 +540,8 @@
       <span><strong>Source:</strong> dadosabertos.tse.jus.br</span>
     </div>
     <div class="print-actions">
-      <button type="button" onclick="window.print()">Download study as PDF</button>
-      <span>In the print dialog, choose “Save as PDF” and use <strong>metamorfose-do-poder-2004-2024.pdf</strong>.</span>
+      <a class="pdf-btn" href="the-metamorphosis-of-power-2004-2024.pdf" download>Download study as PDF</a>
+      <span>Static PDF with the same charts as the study.</span>
     </div>
 
     <div class="ribbon">
@@ -591,7 +594,7 @@
       <p>Before the 2020&rarr;2024 turnaround documented below, this same municipality carries a longer story. From 2004 to 2020, the group behind this candidacy lost five consecutive mayoral elections in Alfredo Chaves, Brazil. In 2004 the candidate was Jorge Gabriel Meneghel, my father. The family and political lineage runs through every cycle since, up to my brother Hugo Luiz in 2024. The chart below is built from the same official TSE data by voting precinct, across all six elections, and shows the vote share closing the gap, cycle by cycle, until 2024.</p>
     </div>
     <figure class="chart-block">
-      <img src="data:image/png;base64,{{CHART_HISTORICAL_ARC}}" alt="Line chart showing the group's mayoral candidate vote share in Alfredo Chaves across six elections: 26.4% in 2004, 33.1% in 2008, 36.4% in 2012, 48.0% in 2016, 40.0% in 2020, and 58.1% in 2024, the only win." />
+      <div class="ichart" data-chart="historical_arc"><p class="chart-fallback">Line chart showing the group's mayoral candidate vote share in Alfredo Chaves across six elections: 26.4% in 2004, 33.1% in 2008, 36.4% in 2012, 48.0% in 2016, 40.0% in 2020, and 58.1% in 2024, the only win.</p></div>
     </figure>
     <div class="callout warn">
       <strong>Full disclosure.</strong> Jorge Gabriel Meneghel, the 2004 candidate, is my father. Hugo Luiz, who won in 2024, is my brother, and I directed his campaign that year. The project grew out of that work; the data pipeline came after, to understand what actually moved the result.
@@ -691,7 +694,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 3</span><span class="cap">% of votes by precinct, 2020 vs. 2024</span></div>
       <div class="exhibit-body">
-        <img src="data:image/png;base64,{{CHART_SLOPE}}" alt="Line chart connecting the mayoral candidate's vote share in each voting precinct, 2020 on the left and 2024 on the right, showing nearly every line rising from below the 50%25 threshold to above it." />
+        <div class="ichart" data-chart="slope"><p class="chart-fallback">Line chart connecting the mayoral candidate's vote share in each voting precinct, 2020 on the left and 2024 on the right, showing nearly every line rising from below the 50%25 threshold to above it.</p></div>
       </div>
       <figcaption>Each line is one voting precinct. In <strong style="color:var(--red)">2020</strong> nearly all sit below 50% (a loss); by <strong style="color:var(--blue)">2024</strong> most cross the absolute-majority line. Precincts with no 2020 data didn't exist yet in that election.</figcaption>
     </figure>
@@ -701,7 +704,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 4</span><span class="cap">All 42 precincts of Alfredo Chaves in 2024</span></div>
       <div class="exhibit-body">
-        <img src="data:image/png;base64,{{CHART_GRID}}" alt="Grid showing all 42 numbered voting precincts, colored by category: precincts that flipped from a loss to a win, the one already won in 2020, and new precincts created by 2024." />
+        <div class="ichart" data-chart="grid"><p class="chart-fallback">Grid showing all 42 numbered voting precincts, colored by category: precincts that flipped from a loss to a win, the one already won in 2020, and new precincts created by 2024.</p></div>
       </div>
       <figcaption>In 2024, the candidacy won literally every precinct in the municipality, including the 6 new ones created since 2020.</figcaption>
     </figure>
@@ -709,7 +712,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 5</span><span class="cap">Citywide aggregate result</span></div>
       <div class="exhibit-body">
-        <img src="data:image/png;base64,{{CHART_MUNICIPIO}}" alt="Bar chart comparing the mayoral candidate's total valid votes in 2020 (3,681 votes, 37.8%25) and 2024 (5,779 votes, 56.4%25)." />
+        <div class="ichart" data-chart="municipio"><p class="chart-fallback">Bar chart comparing the mayoral candidate's total valid votes in 2020 (3,681 votes, 37.8%25) and 2024 (5,779 votes, 56.4%25).</p></div>
       </div>
     </figure>
 
@@ -758,7 +761,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 6</span><span class="cap">Group's mayoral candidate share, by district, 2004&ndash;2024</span></div>
       <div class="exhibit-body">
-        <img src="data:image/png;base64,{{CHART_DISTRITOS_HEATMAP}}" alt="Heatmap with Alfredo Chaves' 7 districts in the rows and the six elections (2004 to 2024) in the columns, showing the group's mayoral candidate's share of valid votes in each combination. Ribeirão do Cristo jumps from 8.8% in 2004 and 9.4% in 2012 (the group's worst marks in any district and year) to 58.2% in 2020 and 72.3% in 2024 (the best mark of 2024). São Bento de Urânia and Ibitiruí also end above 63% in 2024. All seven districts are above 47% in 2024, a sign of a widespread turnaround, not a concentrated one." />
+        <div class="ichart" data-chart="distritos_heatmap"><p class="chart-fallback">Heatmap with Alfredo Chaves' 7 districts in the rows and the six elections (2004 to 2024) in the columns, showing the group's mayoral candidate's share of valid votes in each combination. Ribeirão do Cristo jumps from 8.8% in 2004 and 9.4% in 2012 (the group's worst marks in any district and year) to 58.2% in 2020 and 72.3% in 2024 (the best mark of 2024). São Bento de Urânia and Ibitiruí also end above 63% in 2024. All seven districts are above 47% in 2024, a sign of a widespread turnaround, not a concentrated one.</p></div>
       </div>
       <figcaption>Ribeirão do Cristo was by far the district most resistant to the group in 2004 and 2012 (8.8% and 9.4%, the worst numbers in the whole study), and became the most favorable in 2020 and 2024 (58.2% and 72.3%). By 2024, all seven districts are above 47%: the turnaround didn't come from one stronghold, it came from the entire territory.</figcaption>
     </figure>
@@ -769,11 +772,21 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 6.1</span><span class="cap">% of council votes for the group's slate, by district, 2020 and 2024</span></div>
       <div class="exhibit-body">
-        <img src="data:image/png;base64,{{CHART_DISTRITOS_VEREADORES_HEATMAP}}" alt="Heatmap with Alfredo Chaves' 7 districts as rows and 2020/2024 as columns, showing the percentage of valid council votes that went to the group's slate. Ribeirao do Cristo leads in both years (56.5% in 2020, 69.9% in 2024). Sagrada Familia and Sao Bento de Urania jump from around 30% in 2020 to over 49% in 2024. Sede stays stable around 40% in both years." />
+        <div class="ichart" data-chart="distritos_vereadores_heatmap"><p class="chart-fallback">Heatmap with Alfredo Chaves' 7 districts as rows and 2020/2024 as columns, showing the percentage of valid council votes that went to the group's slate. Ribeirao do Cristo leads in both years (56.5% in 2020, 69.9% in 2024). Sagrada Familia and Sao Bento de Urania jump from around 30% in 2020 to over 49% in 2024. Sede stays stable around 40% in both years.</p></div>
       </div>
       <figcaption>Ribeirão do Cristo, the district that swung hardest to the group in the mayoral race (Figure 6), is also the one that gives the group's council slate the most support in both years &mdash; 56.5% in 2020, 69.9% in 2024. The 2024 turnaround wasn't concentrated at the top of the ticket: Sagrada Família and São Bento de Urânia nearly double their share (31.3%&rarr;56.9% and 26.4%&rarr;49.8%), tracking the same territorial movement seen in the mayoral race.</figcaption>
     </figure>
     <p style="font-size:13px;color:var(--caption)">Source: <code>votacao_secao</code> and <code>consulta_cand</code> (fields <code>SG_PARTIDO</code>, <code>SQ_CANDIDATO</code>), TSE, council race, 2020 and 2024. Same precinct&rarr;district mapping as Figure 6. The group's slate is defined by each year's mayoral coalition parties (Republicanos/PTB/Patriota in 2020; Republicanos/PP/PSDB in 2024), matched by <code>SQ_CANDIDATO</code> &mdash; not by name, which varies between the candidate and precinct extracts.</p>
+    <h3>In absolute numbers</h3>
+    <p>The percentages in Figures 6 and 6.1 hide the size of each district. The charts below show the <strong>total mayoral votes</strong> in each election from 2004 to 2024, separating the group's candidate from all other candidates. Each district has its own scale: Sede holds about two thirds of valid votes, and the other six districts are too small to share the same axis.</p>
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figure 6.2</span><span class="cap">Total mayoral votes by district, 2004–2024</span></div>
+      <div class="exhibit-body">
+        <div class="ichart" data-chart="distritos_votos"><p class="chart-fallback">Seven small stacked bar charts, one per district, with total mayoral votes in each election from 2004 to 2024, separating the group's candidate from all other candidates.</p></div>
+      </div>
+      <figcaption>Sede holds most of the votes in every election: 3,811 of the group candidate's 5,779 votes in 2024 (65.9%). Across the other six districts combined, the group goes from 1,201 votes in 2020 to 1,968 in 2024 (+64%), and in all seven districts 2024 is the election with the group's highest vote count in the whole series.</figcaption>
+    </figure>
+    <p style="font-size:13px;color:var(--caption)">Source: <code>votacao_secao</code>, TSE, Mayor race, 2004 to 2024, blank and null votes excluded. Same precinct&rarr;district mapping as Figure 6.</p>
   </section>
 
   <section id="vereadores">
@@ -784,7 +797,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 7</span><span class="cap">Council composition, 2020 vs. 2024</span></div>
       <div class="exhibit-body">
-        <img src="data:image/png;base64,{{CHART_CAMARA}}" alt="Stacked horizontal bar chart comparing City Council composition: in 2020, 3 seats for the ticket (green) against 6 for opponents (red); in 2024, 5 seats for the ticket against 4 for opponents, flipping from minority to majority." />
+        <div class="ichart" data-chart="camara"><p class="chart-fallback">Stacked horizontal bar chart comparing City Council composition: in 2020, 3 seats for the ticket (green) against 6 for opponents (red); in 2024, 5 seats for the ticket against 4 for opponents, flipping from minority to majority.</p></div>
       </div>
       <figcaption>3&nbsp;→&nbsp;5 seats: the same political group that was an isolated minority in 2020 came to control a simple majority of the Council in 2024.</figcaption>
     </figure>
@@ -794,7 +807,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 8</span><span class="cap">Total votes for the ticket's council candidates</span></div>
       <div class="exhibit-body">
-        <img src="data:image/png;base64,{{CHART_VOTOS_VEREADORES}}" alt="Bar chart comparing the combined votes of every council candidate on the ticket: 3,427 votes (38.8%25 of the race) in 2020 versus 4,206 votes (43.8%25 of the race) in 2024." />
+        <div class="ichart" data-chart="votos_vereadores"><p class="chart-fallback">Bar chart comparing the combined votes of every council candidate on the ticket: 3,427 votes (38.8%25 of the race) in 2020 versus 4,206 votes (43.8%25 of the race) in 2024.</p></div>
       </div>
       <figcaption>+779 votes (+22.7%) in the combined total for the ticket's council candidates, from one election to the next.</figcaption>
     </figure>
@@ -807,7 +820,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 9</span><span class="cap">Council members elected in 2020</span></div>
       <div class="exhibit-body">
-        <img src="data:image/png;base64,{{CHART_VEREADORES_2020}}" alt="Horizontal bar chart with the 9 council members elected in 2020, colored by side: 3 from Hugo Luiz's ticket in green, 6 from opponents in red." />
+        <div class="ichart" data-chart="vereadores_2020"><p class="chart-fallback">Horizontal bar chart with the 9 council members elected in 2020, colored by side: 3 from Hugo Luiz's ticket in green, 6 from opponents in red.</p></div>
       </div>
       <figcaption>Hugo Luiz (PTB) is elected to the Council with 345 votes, but his base is left isolated in the minority (3 of 9 seats).</figcaption>
     </figure>
@@ -815,7 +828,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 10</span><span class="cap">Council members elected in 2024</span></div>
       <div class="exhibit-body">
-        <img src="data:image/png;base64,{{CHART_VEREADORES_2024}}" alt="Horizontal bar chart with the 9 council members elected in 2024, colored by side: 5 from the ticket in green, 4 from opponents in red." />
+        <div class="ichart" data-chart="vereadores_2024"><p class="chart-fallback">Horizontal bar chart with the 9 council members elected in 2024, colored by side: 5 from the ticket in green, 4 from opponents in red.</p></div>
       </div>
       <figcaption>Josimar Piumbini, Hermes Marchiori, Professor Alefy, Renan Boldrini and Warlei Pessali: the 5 names on the ticket that back the Hugo Luiz administration in the Council.</figcaption>
     </figure>
@@ -826,7 +839,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 11</span><span class="cap">Correlation between the mayoral and council vote, by precinct</span></div>
       <div class="exhibit-body">
-        <img src="data:image/png;base64,{{CHART_COERENCIA_VOTO}}" alt="Two side-by-side scatter plots, one for 2020 and one for 2024, each point a voting precinct, plotting the share of valid votes for the group's mayoral candidate against the combined share of valid votes for the group's council candidates. The correlation (r) is 0.66 in 2020 and 0.57 in 2024, with a dashed trend line in each panel." />
+        <div class="ichart" data-chart="coerencia_voto"><p class="chart-fallback">Two side-by-side scatter plots, one for 2020 and one for 2024, each point a voting precinct, plotting the share of valid votes for the group's mayoral candidate against the combined share of valid votes for the group's council candidates. The correlation (r) is 0.66 in 2020 and 0.57 in 2024, with a dashed trend line in each panel.</p></div>
       </div>
       <figcaption>The correlation was stronger in 2020 (r&nbsp;=&nbsp;0.66) than in 2024 (r&nbsp;=&nbsp;0.57): voters who backed Ronaldo Bianchi for mayor tended to also back the group's council candidates a bit more consistently than voters who backed Hugo Luiz. It isn't a huge gap, but it suggests the 2024 mayoral vote leaned somewhat more on Hugo's own name than on the ticket as a bloc.</figcaption>
     </figure>
@@ -845,7 +858,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 12</span><span class="cap">Declared revenue: all mayoral candidates</span></div>
       <div class="exhibit-body">
-        <img src="data:image/png;base64,{{CHART_FINANCEIRO_CHAPA}}" alt="Horizontal bar chart with declared revenue for each mayoral candidate. 2020: Fernando (PSB, elected) R$108,642; Bianchi (Republicanos, group) R$53,120; Zanata (PDT) R$32,722. 2024: Hugo Luiz (PP, group, elected) R$155,597; Boldrini (PL) R$141,130; Boteccia (PSB) R$119,400." />
+        <div class="ichart" data-chart="financeiro_chapa"><p class="chart-fallback">Horizontal bar chart with declared revenue for each mayoral candidate. 2020: Fernando (PSB, elected) R$108,642; Bianchi (Republicanos, group) R$53,120; Zanata (PDT) R$32,722. 2024: Hugo Luiz (PP, group, elected) R$155,597; Boldrini (PL) R$141,130; Boteccia (PSB) R$119,400.</p></div>
       </div>
       <figcaption>With every candidate side by side, it's clear the group's campaign was never the best-funded: in 2020, Bianchi raised less than half of what winner Fernando did; in 2024, Hugo Luiz had the highest revenue among the three, but the gap to his opponents was small. Not a crushing cash advantage.</figcaption>
     </figure>
@@ -853,7 +866,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 13</span><span class="cap">Spending efficiency per vote: all mayoral candidates</span></div>
       <div class="exhibit-body">
-        <img src="data:image/png;base64,{{CHART_CUSTO_POR_VOTO}}" alt="Horizontal bar chart with spending efficiency per vote (paid expenses divided by valid votes) for each mayoral candidate. 2020: Bianchi (group) R$13.58/vote; Fernando R$19.70/vote; Zanata R$80.36/vote. 2024: Hugo Luiz (group, elected) R$26.69/vote; Boteccia R$36.20/vote; Boldrini R$141.27/vote." />
+        <div class="ichart" data-chart="custo_por_voto"><p class="chart-fallback">Horizontal bar chart with spending efficiency per vote (paid expenses divided by valid votes) for each mayoral candidate. 2020: Bianchi (group) R$13.58/vote; Fernando R$19.70/vote; Zanata R$80.36/vote. 2024: Hugo Luiz (group, elected) R$26.69/vote; Boteccia R$36.20/vote; Boldrini R$141.27/vote.</p></div>
       </div>
       <figcaption>Honest about the data: the group's spend per vote nearly doubled between the two elections (R$13.58 → R$26.69), but in both years the group's candidacy was the <strong>most efficient of the three competitors</strong>, including in 2024, when it won while spending R$26.69/vote against R$36.20 (Boteccia) and R$141.27 (Boldrini, who had the worst conversion efficiency of the race).</figcaption>
     </figure>
@@ -861,7 +874,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 14</span><span class="cap">Where the ticket's money came from</span></div>
       <div class="exhibit-body">
-        <img src="data:image/png;base64,{{CHART_ORIGEM_RECEITAS}}" alt="Horizontal bar chart comparing the ticket's revenue sources in 2020 and 2024, by category: political-party funds, own funds, individual donors, and other candidates." />
+        <div class="ichart" data-chart="origem_receitas"><p class="chart-fallback">Horizontal bar chart comparing the ticket's revenue sources in 2020 and 2024, by category: political-party funds, own funds, individual donors, and other candidates.</p></div>
       </div>
       <figcaption>Political-party funds (Party Fund / FEFC) dominate both elections and tripled in absolute terms, from R$57.5 thousand to R$166.4 thousand, reflecting the growth of the national election fund between the two races, not necessarily a campaign strategy choice.</figcaption>
     </figure>
@@ -872,7 +885,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 15</span><span class="cap">Turnout vs. abstention</span></div>
       <div class="exhibit-body">
-        <img src="data:image/png;base64,{{CHART_COMPARECIMENTO}}" alt="Stacked horizontal bar chart comparing turnout and abstention among registered voters: 9,731 voted and 2,563 abstained in 2020 (79.15%25); 10,255 voted and 2,605 abstained in 2024 (79.74%25)." />
+        <div class="ichart" data-chart="comparecimento"><p class="chart-fallback">Stacked horizontal bar chart comparing turnout and abstention among registered voters: 9,731 voted and 2,563 abstained in 2020 (79.15%25); 10,255 voted and 2,605 abstained in 2024 (79.74%25).</p></div>
       </div>
       <figcaption>Blank votes (201 → 122) and null votes (317 → 178) also fell, a sign of less protest voting or disengagement in 2024.</figcaption>
     </figure>
@@ -882,7 +895,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 16</span><span class="cap">Turnout down, even as the electorate grew</span></div>
       <div class="exhibit-body">
-        <img src="data:image/png;base64,{{CHART_COMPARECIMENTO_HISTORICO}}" alt="Line chart showing turnout for the mayoral election in Alfredo Chaves across six elections: 91.84% in 2004, 90.32% in 2008, 86.95% in 2012, 85.20% in 2016, 79.15% in 2020 and 79.74% in 2024, a steady decline that only levels off in the last two elections." />
+        <div class="ichart" data-chart="comparecimento_historico"><p class="chart-fallback">Line chart showing turnout for the mayoral election in Alfredo Chaves across six elections: 91.84% in 2004, 90.32% in 2008, 86.95% in 2012, 85.20% in 2016, 79.15% in 2020 and 79.74% in 2024, a steady decline that only levels off in the last two elections.</p></div>
       </div>
       <figcaption>Turnout fell almost 12 percentage points in twenty years, and only stopped falling between 2020 and 2024. The registered electorate grew (more people eligible to vote), but the share who actually show up shrank, a national pattern of declining participation, not an effect of the campaign studied here.</figcaption>
     </figure>
@@ -900,7 +913,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 17</span><span class="cap">Registered voters as % of estimated population (IBGE)</span></div>
       <div class="exhibit-body">
-        <img src="data:image/png;base64,{{CHART_IBGE_ELEITORADO}}" alt="Line chart showing the percentage of IBGE's estimated population registered to vote in Alfredo Chaves: 65.5% in 2004, 72.7% in 2008, 80.7% in 2012, 79.6% in 2016, 84.0% in 2020, 89.5% in 2024." />
+        <div class="ichart" data-chart="ibge_eleitorado"><p class="chart-fallback">Line chart showing the percentage of IBGE's estimated population registered to vote in Alfredo Chaves: 65.5% in 2004, 72.7% in 2008, 80.7% in 2012, 79.6% in 2016, 84.0% in 2020, 89.5% in 2024.</p></div>
       </div>
       <figcaption>Electorate coverage of the total population jumped from 65.5% (2004) to 89.5% (2024), a national effect of demographic transition and biometric registration, not a phenomenon local to Alfredo Chaves. Source: IBGE SIDRA, table 6579 (estimated resident population), cross-referenced with the TSE's <code>QT_APTOS</code> figure per year.</figcaption>
     </figure>
@@ -911,7 +924,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 18</span><span class="cap">Female participation: population, electorate and candidates</span></div>
       <div class="exhibit-body">
-        <img src="data:image/png;base64,{{CHART_GENERO_CANDIDATOS}}" alt="Bar chart comparing the percentage of women across four groups: IBGE population in 2022 (49.3%25), TSE electorate in 2024 (50.0%25), candidates in 2020 (37.3%25), and candidates in 2024 (31.6%25)." />
+        <div class="ichart" data-chart="genero_candidatos"><p class="chart-fallback">Bar chart comparing the percentage of women across four groups: IBGE population in 2022 (49.3%25), TSE electorate in 2024 (50.0%25), candidates in 2020 (37.3%25), and candidates in 2024 (31.6%25).</p></div>
       </div>
       <figcaption>Population and electorate are practically 50/50; among candidates, the share of women is far smaller, and fell even further from 2020 to 2024.</figcaption>
     </figure>
@@ -925,7 +938,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 19</span><span class="cap">Race or color: population vs. candidates</span></div>
       <div class="exhibit-body">
-        <img src="data:image/png;base64,{{CHART_RACA_CANDIDATOS}}" alt="Grouped bar chart comparing declared race or color among the 2022 IBGE population, 2020 candidates, and 2024 candidates, across white, mixed-race and Black categories. White: 61.4%25 population, 61.3%25 candidates 2020, 69.7%25 candidates 2024. Mixed-race: 34.3%25 population, 29.3%25 candidates 2020, 22.4%25 candidates 2024. Black: 4.2%25 population, 6.7%25 candidates 2020, 7.9%25 candidates 2024." />
+        <div class="ichart" data-chart="raca_candidatos"><p class="chart-fallback">Grouped bar chart comparing declared race or color among the 2022 IBGE population, 2020 candidates, and 2024 candidates, across white, mixed-race and Black categories. White: 61.4%25 population, 61.3%25 candidates 2020, 69.7%25 candidates 2024. Mixed-race: 34.3%25 population, 29.3%25 candidates 2020, 22.4%25 candidates 2024. Black: 4.2%25 population, 6.7%25 candidates 2020, 7.9%25 candidates 2024.</p></div>
       </div>
       <figcaption>In 2020, candidates' racial composition was almost a mirror of the population's. By 2024, white candidates were over-represented and mixed-race candidates, under-represented.</figcaption>
     </figure>
@@ -942,7 +955,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 20</span><span class="cap">Views per post, affiliation through the win</span></div>
       <div class="exhibit-body">
-        <img src="data:image/png;base64,{{CHART_CAMPANHA_VISUALIZACOES}}" alt="Scatter chart showing views on each Instagram post from the candidacy between March and October 2024, trending upward: from about 9,300 views on the affiliation post to peaks above 40,000 views in the home stretch and on the result." />
+        <div class="ichart" data-chart="campanha_visualizacoes"><p class="chart-fallback">Scatter chart showing views on each Instagram post from the candidacy between March and October 2024, trending upward: from about 9,300 views on the affiliation post to peaks above 40,000 views in the home stretch and on the result.</p></div>
       </div>
       <figcaption>Routine pre-campaign posts (April to May) range between 1,500 and 19,000 views. In the home stretch (September and October), peaks of 30,000 to 56,000 views become common: more than 4&times; the average reach from earlier in the year.</figcaption>
     </figure>
@@ -950,7 +963,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 21</span><span class="cap">Average engagement by campaign phase</span></div>
       <div class="exhibit-body">
-        <img src="data:image/png;base64,{{CHART_CAMPANHA_ENGAJAMENTO}}" alt="Bar chart showing average engagement (likes plus comments plus shares) by campaign phase: 533 at affiliation, 223 in the pre-campaign, 232 at launch, 308 during the campaign, 308 in the home stretch, and 1,201 in the result phase." />
+        <div class="ichart" data-chart="campanha_engajamento"><p class="chart-fallback">Bar chart showing average engagement (likes plus comments plus shares) by campaign phase: 533 at affiliation, 223 in the pre-campaign, 232 at launch, 308 during the campaign, 308 in the home stretch, and 1,201 in the result phase.</p></div>
       </div>
       <figcaption>Average engagement per post nearly quintuples between the pre-campaign and the result phase, driven mostly by celebration photos and the thank-you post on election night. Affiliation, in March, is a single outlier post (533): too small a sample to draw a conclusion on its own.</figcaption>
     </figure>
@@ -960,7 +973,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 22</span><span class="cap">Post volume and engagement by content type</span></div>
       <div class="exhibit-body">
-        <img src="data:image/png;base64,{{CHART_CAMPANHA_CATEGORIAS}}" alt="Two horizontal bar charts. On the left, post count by category: 49 events or walks, 26 policy proposals, 19 coalition posts, 18 administrative posts, 13 testimonials, 10 responses to attacks, 7 polls, 7 countdowns, 6 holiday posts, 4 result posts, 3 milestones, 3 press-coverage posts, 1 affiliation post. On the right, average engagement by category, highest to lowest: result (1,201), milestone (601), affiliation (533), poll (394), testimonial (366), event (315), response to attack (298), coalition (296), proposal (280), holiday (267), press coverage (248), countdown (169), administrative (85)." />
+        <div class="ichart" data-chart="campanha_categorias"><p class="chart-fallback">Two horizontal bar charts. On the left, post count by category: 49 events or walks, 26 policy proposals, 19 coalition posts, 18 administrative posts, 13 testimonials, 10 responses to attacks, 7 polls, 7 countdowns, 6 holiday posts, 4 result posts, 3 milestones, 3 press-coverage posts, 1 affiliation post. On the right, average engagement by category, highest to lowest: result (1,201), milestone (601), affiliation (533), poll (394), testimonial (366), event (315), response to attack (298), coalition (296), proposal (280), holiday (267), press coverage (248), countdown (169), administrative (85).</p></div>
       </div>
       <figcaption>Administrative posts (City Council session notices) are one of the most frequent formats, but the one that engages least: the audience reacts more to people talking about people (testimonials) than to routine institutional communication.</figcaption>
     </figure>
@@ -984,7 +997,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 23</span><span class="cap">Age of mayoral candidates</span></div>
       <div class="exhibit-body">
-        <img src="data:image/png;base64,{{CHART_IDADE_CANDIDATOS}}" alt="Two horizontal bar charts comparing the age of the three mayoral candidates in 2020 (Ronaldo Bianchi 58, Fernando 73, Armando Zanata 64) and in 2024 (Hugo Luiz 25, Rolmar Boteccia 71, Boldrini 61)." />
+        <div class="ichart" data-chart="idade_candidatos"><p class="chart-fallback">Two horizontal bar charts comparing the age of the three mayoral candidates in 2020 (Ronaldo Bianchi 58, Fernando 73, Armando Zanata 64) and in 2024 (Hugo Luiz 25, Rolmar Boteccia 71, Boldrini 61).</p></div>
       </div>
       <figcaption>In 2020, the group's base candidate (58) was already the youngest of the three, but still almost 20 years older than Hugo Luiz would be in 2024. The average age of <em>every</em> candidate in the race (mayor and council combined) was nearly identical across both elections (50.3 → 50.2 years): the municipality didn't get younger. The winning candidacy did.</figcaption>
     </figure>
@@ -994,7 +1007,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 24</span><span class="cap">Declared net worth of mayoral candidates</span></div>
       <div class="exhibit-body">
-        <img src="data:image/png;base64,{{CHART_PATRIMONIO_CANDIDATOS}}" alt="Two horizontal bar charts comparing declared net worth of mayoral candidates: in 2020, Ronaldo Bianchi R$366 thousand, Fernando R$621 thousand, Armando Zanata R$1.38 million; in 2024, Hugo Luiz R$29.5 thousand, Rolmar Boteccia R$718 thousand, Boldrini R$0." />
+        <div class="ichart" data-chart="patrimonio_candidatos"><p class="chart-fallback">Two horizontal bar charts comparing declared net worth of mayoral candidates: in 2020, Ronaldo Bianchi R$366 thousand, Fernando R$621 thousand, Armando Zanata R$1.38 million; in 2024, Hugo Luiz R$29.5 thousand, Rolmar Boteccia R$718 thousand, Boldrini R$0.</p></div>
       </div>
       <figcaption>Hugo Luiz declared <strong>R$&nbsp;29,573</strong> in assets: the lowest net worth of any mayoral candidate registered in Alfredo Chaves across the two elections, roughly 25&times; less than the 2024 runner-up (Rolmar Boteccia, R$&nbsp;718 thousand) and more than 20&times; less than the 2020 candidate the group's campaign was up against (Ronaldo Bianchi, R$&nbsp;366 thousand). Not the typical net-worth profile of someone who wins a majoritarian election in inland Espírito Santo.</figcaption>
     </figure>
@@ -1005,7 +1018,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 25</span><span class="cap">Registration of the 9 election polls: timeline</span></div>
       <div class="exhibit-body">
-        <img src="data:image/png;base64,{{CHART_PESQUISAS_TIMELINE}}" alt="Timeline of the 9 election polls registered for Alfredo Chaves in 2024, from 04/19 to 09/27, by 5 different firms, with election day (10/06/2024) marked in green." />
+        <div class="ichart" data-chart="pesquisas_timeline"><p class="chart-fallback">Timeline of the 9 election polls registered for Alfredo Chaves in 2024, from 04/19 to 09/27, by 5 different firms, with election day (10/06/2024) marked in green.</p></div>
       </div>
       <figcaption>The pace of registrations picks up in the last 6 weeks before the election: 5 of the 9 polls were registered in September, a sign of a race competitive enough to justify polls commissioned by multiple firms in sequence.</figcaption>
     </figure>
@@ -1025,7 +1038,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 26</span><span class="cap">Voting-intention trajectory (prompted) through to the result</span></div>
       <div class="exhibit-body">
-        <img src="data:image/png;base64,{{CHART_PESQUISAS_EVOLUCAO}}" alt="Line chart showing Hugo Luiz's prompted voting intention (green) at 54.8% (April, raw value from a 2-way race), 57.4% (August), 58.1% (Sep 21), 62.6% (Sep 28), 57.0% (Oct 2), and 58.05% in the official result; Rolmar Botecchia (red) between 21.3% and 32.6%; Boldrini (gray, dashed) between 10.0% and 21.3% from August on; and an isolated outlier data point from Sep 17 with Rolmar at 60.0% and Hugo at 25.8%." />
+        <div class="ichart" data-chart="pesquisas_evolucao"><p class="chart-fallback">Line chart showing Hugo Luiz's prompted voting intention (green) at 54.8% (April, raw value from a 2-way race), 57.4% (August), 58.1% (Sep 21), 62.6% (Sep 28), 57.0% (Oct 2), and 58.05% in the official result; Rolmar Botecchia (red) between 21.3% and 32.6%; Boldrini (gray, dashed) between 10.0% and 21.3% from August on; and an isolated outlier data point from Sep 17 with Rolmar at 60.0% and Hugo at 25.8%.</p></div>
       </div>
       <figcaption>In <strong>5 of the 6</strong> polls with real data, <strong style="color:var(--blue)">Hugo Luiz</strong> never left the lead: between 54.8% and 62.6% voting intention, from the start of the campaign to the end, always at least 24 points ahead of the runner-up. The exception is the isolated Sep&nbsp;17 data point (marked with an asterisk*), where the roles reverse (Rolmar 60.0%, Hugo 25.8%). We kept the point on the chart for transparency, but don't treat it as reliable.</figcaption>
       <p style="margin:0.6rem 0 0; font-size:0.85rem; color:var(--ink-soft);">* A result out of step with the other 5 polls and the final result; the document carries no TSE registration number or identified institute.</p>

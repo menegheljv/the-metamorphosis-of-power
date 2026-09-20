@@ -24,45 +24,42 @@ Em terminais separados, execute `npm run dev` em `api` (porta 3001) e em
 `frontend` (Vite, geralmente porta 5173). O dashboard funciona mesmo sem a API, usando um fallback embutido equivalente ao
 CSV sintético; com a API, busca `/api/observations`.
 
-O workflow `.github/workflows/deploy-pages.yml` publica automaticamente a
-interface principal no GitHub Pages a cada push na branch `main`. Depois de
-enviar o projeto para um repositório GitHub, habilite **Settings > Pages >
-GitHub Actions** como fonte de build. A interface principal é o dashboard
-Vite em `/`; o estudo editorial original permanece preservado em `/study/`
-(com a versão inglesa em `/study/en/`).
+O workflow `.github/workflows/deploy-pages.yml` publica o site no GitHub Pages a
+cada push na branch `main` (habilite **Settings > Pages > GitHub Actions** como
+fonte). O site é **uma página única e interativa**: o próprio estudo, com todos os
+gráficos montados no navegador (Recharts), em português (`/`) e em inglês (`/en/`).
+Os endereços antigos `/study/` e `/study/en/` redirecionam para elas.
 
-Os gráficos da interface principal são renderizados no navegador pelo
-Recharts a partir de `frontend/src/studyData.ts`, exportado dos CSVs do
-pipeline por `scripts/export_frontend_data.py`: são 25 gráficos com tooltip,
-filtro de catálogo, seleção de janela com Brush (zoom horizontal) e texto
-alternativo acessível. A página principal não
-usa `<img>`, PNG, SVG ou gráficos em base64. O estudo editorial legado em
-`/study/` preserva as imagens incorporadas do pipeline original para não
-alterar seu conteúdo publicado; ele é uma experiência separada e continua
-disponível pelo link **Estudo completo**.
+### Gráficos interativos do estudo
+
+Cada figura do estudo (`output/template.html` e `template_en.html`) tem um ponto de
+montagem `<div class="ichart" data-chart="slug">`; o bundle `frontend/src/study.tsx`
+o encontra e desenha o gráfico. Os dados e o texto dos gráficos vêm do pipeline:
+
+```bash
+python scripts/distritos_votos_absolutos.py     # votos totais por distrito (Figura 6.2)
+python scripts/export_frontend_data.py          # -> frontend/src/studyData.ts (PT e EN)
+python scripts/build_artifact.py && python scripts/build_artifact_en.py   # -> output/case_study*.html
+(cd frontend && npm ci && npm run build)        # -> frontend/dist/assets/study-charts.{js,css}
+python scripts/build_pages_site.py              # -> site/ (o que o GitHub Pages publica)
+```
+
+Paleta semântica: verde `#1f9d63` é o grupo, vermelho `#c8433a` o adversário, azul
+`#3d7fc4` o terceiro colocado. Fonte única: Bricolage Grotesque.
 
 ### Baixar o estudo em PDF
 
-O estudo publicado em `docs/index.html` e `docs/en/index.html` tem o botão
-**Baixar estudo em PDF** abre o arquivo editorial estático
-`metamorfose-do-poder-2004-2024.pdf`. A versão web mantém gráficos
-interativos; o PDF usa imagens PNG estáticas em alta resolução, adequadas
-para impressão e compatibilidade. Para uma cópia local pela impressão do
-navegador, a instrução exibida é exatamente: `Na impressão, escolha “Salvar
-como PDF” e use **metamorfose-do-poder-2004-2024.pdf**.`
-
-Para regenerar o PDF após atualizar os dados ou textos:
+O botão **Baixar estudo em PDF** baixa um arquivo estático (`metamorfose-do-poder-2004-2024.pdf`
+em português, `the-metamorphosis-of-power-2004-2024.pdf` em inglês) com os gráficos no
+mesmo estilo dos interativos. Ele é gerado imprimindo a própria página (`?print`, sem
+animação, todos os gráficos montados) no Chrome/Edge headless:
 
 ```bash
-python scripts/build_hires_charts.py
-python scripts/build_editorial_pdf.py
+python scripts/build_pages_site.py
+python scripts/build_pdf.py
 ```
 
-O segundo script usa `weasyprint` quando as bibliotecas nativas estão
-disponíveis e faz fallback para Chrome/Edge headless. Ele gera capa, nota
-editorial, cabeçalho/rodapé com paginação, margens A4, quebra de páginas e
-gráficos de `output/hires/` a 300 DPI. O workflow copia o arquivo gerado para
-`/study/`; regenere-o antes de publicar uma nova versão.
+Os PDFs ficam em `output/` e são versionados; regenere-os antes de publicar uma nova versão.
 
 ### PostgreSQL
 

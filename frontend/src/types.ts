@@ -19,10 +19,8 @@ export interface Layer {
 interface Base {
   slug: string;
   figure: string;
-  section: string;
   title: string;
   subtitle: string;
-  source: string;
   cap: string;
   caption: string;
   alt: string;
@@ -53,6 +51,13 @@ export interface PanelsSpec extends Base {
   panels: { title?: string; rows: PanelRow[] }[];
 }
 
+export interface MultiplesSpec extends Base {
+  kind: "multiples";
+  layers: Layer[];
+  unit: Unit;
+  panels: { title: string; rows: Row[] }[];
+}
+
 export interface HeatmapSpec extends Base {
   kind: "heatmap";
   columns: string[];
@@ -63,7 +68,7 @@ export interface SlopeSpec extends Base {
   kind: "slope";
   aLabel: string;
   bLabel: string;
-  rows: { secao: number; local: string; a: number | null; b: number | null; flip: boolean }[];
+  rows: { secao: number; local: string; a: number | null; b: number | null }[];
 }
 
 export interface GridSpec extends Base {
@@ -82,17 +87,4 @@ export interface TimelineSpec extends Base {
   polls: { registro: string; instituto: string; data: string }[];
 }
 
-export type ChartSpec = CartesianSpec | PanelsSpec | HeatmapSpec | SlopeSpec | GridSpec | ScatterSpec | TimelineSpec;
-
-export interface SectionSpec {
-  id: string;
-  study: string;
-  eyebrow: string;
-  title: string;
-  short: string;
-}
-
-export interface MetaSpec {
-  dek: string;
-  ribbon: { before: string; after: string; label: string }[];
-}
+export type ChartSpec = CartesianSpec | PanelsSpec | MultiplesSpec | HeatmapSpec | SlopeSpec | GridSpec | ScatterSpec | TimelineSpec;

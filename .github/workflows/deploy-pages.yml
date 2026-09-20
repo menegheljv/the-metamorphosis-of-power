@@ -1,4 +1,4 @@
-name: Publicar dashboard no GitHub Pages
+name: Publicar o estudo interativo no GitHub Pages
 
 on:
   push:
@@ -36,14 +36,13 @@ jobs:
         working-directory: frontend
         run: npm run build
 
-      - name: Montar site sem substituir o estudo
-        shell: bash
-        run: |
-          rm -rf site
-          mkdir -p site/study
-          cp -R docs/. site/study/
-          cp output/metamorfose-do-poder-2004-2024.pdf site/study/
-          cp -R frontend/dist/. site/
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Montar o site (estudo interativo em PT e EN)
+        run: python scripts/build_pages_site.py
 
       - name: Configurar Pages
         uses: actions/configure-pages@v5

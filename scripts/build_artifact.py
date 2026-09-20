@@ -9,19 +9,8 @@ OUT = os.path.join(BASE, "output")
 with open(os.path.join(OUT, "template.html"), encoding="utf-8") as f:
     html = f.read()
 
-chart_keys = ["historical_arc", "ibge_eleitorado", "slope", "grid", "municipio", "vereadores_2020", "vereadores_2024", "camara", "votos_vereadores",
-              "financeiro_chapa", "custo_por_voto", "origem_receitas", "comparecimento",
-              "genero_candidatos", "raca_candidatos",
-              "campanha_visualizacoes", "campanha_engajamento", "campanha_categorias",
-              "idade_candidatos", "patrimonio_candidatos", "pesquisas_timeline", "pesquisas_evolucao",
-              "distritos_heatmap", "distritos_vereadores_heatmap", "coerencia_voto", "comparecimento_historico"]
-for key in chart_keys:
-    with open(os.path.join(OUT, f"chart_{key}.b64"), encoding="utf-8") as f:
-        b64 = f.read().strip()
-    placeholder = "{{CHART_%s}}" % key.upper()
-    if placeholder not in html:
-        print("WARNING: placeholder not found:", placeholder)
-    html = html.replace(placeholder, b64)
+# Os graficos deixaram de ser imagens PNG embutidas: cada figura e um <div data-chart="slug"> montado no
+# navegador por frontend/src/study.tsx (ver scripts/export_frontend_data.py e scripts/build_pages_site.py).
 
 # ---------------------------------------------------------------------
 # tabela seção a seção (com local de votação)
