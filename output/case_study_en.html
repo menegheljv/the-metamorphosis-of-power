@@ -383,13 +383,14 @@
   .map-detail-secoes { font-size: 12.5px; color: var(--caption); margin-top: 4px; }
 
   /* table */
-  .table-scroll { overflow-x: auto; }
+  .table-scroll { overflow-x: auto; background: #fff; border: 1px solid var(--border); border-radius: 10px; }
   table.data {
     border-collapse: collapse;
     width: 100%;
     font-size: 13.5px;
     font-family: "Bricolage Grotesque", sans-serif;
     min-width: 620px;
+    background: #fff;
   }
   table.data th, table.data td {
     padding: 8px 12px;
@@ -406,7 +407,7 @@
     letter-spacing: 0.06em;
     color: var(--caption);
     font-weight: 600;
-    background: var(--paper);
+    background: #fff;
     position: sticky; top: 0;
   }
   table.data td:first-child, table.data th:first-child { text-align: left; }
@@ -644,7 +645,7 @@
   <section id="metodologia">
     <div class="eyebrow">03 &middot; Methodology</div>
     <h2>Data-processing pipeline</h2>
-    <p>The four raw extracts go through five steps before any comparative analysis: a standard ingestion, cleaning, and load pipeline, implemented in Python (pandas), with the analytical layer in SQL (SQLite).</p>
+    <p>The four raw extracts go through five steps before any comparative analysis: a standard ingestion, cleaning, and load pipeline, implemented in Python (pandas), with the analytical layer in SQL (SQLite). The interactive charts illustrating the study are written in TypeScript (React and Recharts) and styled with CSS.</p>
 
     <div class="pipeline">
       <div class="pipestep"><div class="num">01</div><div class="name">Ingestion</div><div class="desc">Read the official CSVs (<code>;</code>-separated, UTF-8), raw typing as text</div></div>

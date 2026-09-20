@@ -243,7 +243,7 @@ function MultiplesChart({ spec }: { spec: MultiplesSpec }) {
   const reduce = prefersReducedMotion();
 
   const legendItems = spec.layers.map((l) => ({ key: l.key, label: l.label, color: COLORS[l.color] }));
-  const top = spec.layers[spec.layers.length - 1];
+  const top = spec.layers[0]; // a linha do grupo recebe os rotulos
 
   const PanelTip = ({ active, payload, label }: any) => {
     if (!active || !payload?.length) return null;
@@ -268,27 +268,43 @@ function MultiplesChart({ spec }: { spec: MultiplesSpec }) {
             <h4 className="panel-title">{panel.title}</h4>
             <div style={{ height: narrow ? 190 : 200 }}>
               <ResponsiveContainer width="100%" height="100%">
-                <ComposedChart data={panel.rows} margin={{ top: 20, right: 4, left: 0, bottom: 0 }} barCategoryGap="16%">
+                <ComposedChart data={panel.rows} margin={{ top: 20, right: 8, left: 0, bottom: 0 }}>
                   <CartesianGrid stroke={GRID} vertical={false} />
                   <XAxis dataKey="x" tick={{ ...tick, fontSize: 10 }} tickLine={false} axisLine={{ stroke: GRID }} interval={0} tickFormatter={(v: string) => `’${String(v).slice(2)}`} />
-                  <YAxis tick={{ ...tick, fontSize: 10 }} tickLine={false} axisLine={false} width={38} allowDecimals={false} tickFormatter={(v: number) => fmtAxis(spec.unit, v)} />
-                  <Tooltip content={<PanelTip />} cursor={{ fill: "rgba(23,23,26,0.05)" }} />
+                  <YAxis tick={{ ...tick, fontSize: 10 }} tickLine={false} axisLine={false} width={38} allowDecimals={false} domain={[0, "auto"]} tickFormatter={(v: number) => fmtAxis(spec.unit, v)} />
+                  <Tooltip content={<PanelTip />} cursor={{ stroke: "rgba(31,157,99,0.45)", strokeDasharray: "4 4" }} />
                   {spec.layers.map((l) => (
-                    <Bar key={l.key} dataKey={l.key} name={l.label} fill={COLORS[l.color]} stackId={l.stackId} hide={hidden.has(l.key)} isAnimationActive={!reduce} animationDuration={600}>
+                    <Line
+                      key={l.key}
+                      type="monotone"
+                      dataKey={l.key}
+                      name={l.label}
+                      stroke={COLORS[l.color]}
+                      strokeWidth={2.5}
+                      dot={{ r: 3.5, stroke: "#ffffff", strokeWidth: 1.5, fill: COLORS[l.color] }}
+                      activeDot={{ r: 6, stroke: "#ffffff", strokeWidth: 2 }}
+                      connectNulls
+                      hide={hidden.has(l.key)}
+                      isAnimationActive={!reduce}
+                      animationDuration={700}
+                    >
                       {l.key === top.key && (
                         <LabelList
                           dataKey={l.key}
                           content={(p: any) => {
-                            const row = panel.rows[p.index];
+                            const row: any = panel.rows[p.index];
+                            const last = panel.rows.length - 1;
+                            const above = Number(row?.[top.key]) >= Number(row?.[spec.layers[1]?.key]) || Number(p.y) > 118; // perto do eixo X, o rotulo sobe
+                            const anchor = p.index === 0 ? "start" : p.index === last ? "end" : "middle";
                             return (
-                              <text x={Number(p.x) + Number(p.width) / 2} y={Number(p.y) - 5} textAnchor="middle" style={{ ...labelStyle, fontSize: 9.5 }}>
-                                {fmt(spec.unit, Number(row?.total))}
+                              <text x={Number(p.x)} y={Number(p.y) + (above ? -9 : 17)} textAnchor={anchor} style={{ ...labelStyle, fontSize: 9.5 }}>
+                                {fmt(spec.unit, Number(p.value))}
                               </text>
                             );
                           }}
                         />
                       )}
-                    </Bar>
+                    </Line>
                   ))}
                 </ComposedChart>
               </ResponsiveContainer>

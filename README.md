@@ -167,7 +167,7 @@ Fetched from the [SIDRA API](https://sidra.ibge.gov.br), municipality code 32003
 
 ## Methodology
 
-Ingestion and cleaning in `pandas`, joins and aggregations in `SQLite`, charts in `matplotlib`, final build as static HTML with charts embedded as base64. Every finding in the case study traces back to a public TSE dataset. When a number wasn't publicly available, that's stated in the text instead of estimated.
+Ingestion and cleaning in `pandas`, joins and aggregations in `SQLite`, static charts in `matplotlib`, interactive charts in `TypeScript` (React + Recharts) styled with `CSS`, final build as static HTML. Every finding in the case study traces back to a public TSE dataset. When a number wasn't publicly available, that's stated in the text instead of estimated.
 
 ## How to run
 

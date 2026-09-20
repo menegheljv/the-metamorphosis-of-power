@@ -277,8 +277,8 @@ def build(lang: str) -> list[dict]:
           "total mayoral votes: the group's candidate and all other candidates, 2004–2024 (each district has its own scale)"),
         "multiples",
         layers=[
-            {"type": "bar", "key": "grupo", "label": L("Candidato do grupo", "Group's candidate"), "color": "grupo", "stackId": "v"},
-            {"type": "bar", "key": "outros", "label": L("Demais candidatos", "All other candidates"), "color": "muted", "stackId": "v"},
+            {"type": "line", "key": "grupo", "label": L("Candidato do grupo", "Group's candidate"), "color": "grupo"},
+            {"type": "line", "key": "outros", "label": L("Demais candidatos", "All other candidates"), "color": "muted"},
         ],
         panels=panels, unit="int",
         cap=L("Votos totais para prefeito por distrito, 2004–2024", "Total mayoral votes by district, 2004–2024"),
@@ -291,10 +291,10 @@ def build(lang: str) -> list[dict]:
             f"2024 ({dec(gv[('Sede', 2024)] / tot[2024] * 100)}%). Across the other six districts combined, the group goes from "
             f"{thou(fora20)} votes in 2020 to {thou(fora24)} in 2024 (+{dec((fora24 / fora20 - 1) * 100, 0)}%), and in all seven "
             f"districts 2024 is the election with the group's highest vote count in the whole series."),
-        alt=L("Sete pequenos gráficos de barras empilhadas, um por distrito, com os votos totais para prefeito em cada eleição de 2004 a 2024, "
-              "separando o candidato do grupo dos demais candidatos.",
-              "Seven small stacked bar charts, one per district, with total mayoral votes in each election from 2004 to 2024, "
-              "separating the group's candidate from all other candidates.")))
+        alt=L("Sete pequenos gráficos de linhas, um por distrito, com os votos totais para prefeito em cada eleição de 2004 a 2024, "
+              "uma linha para o candidato do grupo e outra para os demais candidatos.",
+              "Seven small line charts, one per district, with total mayoral votes in each election from 2004 to 2024, "
+              "one line for the group's candidate and another for all other candidates.")))
 
     # ---- 05 Camara Municipal ------------------------------------------------------------------
     charts.append(spec(

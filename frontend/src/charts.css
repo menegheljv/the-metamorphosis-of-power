@@ -4,6 +4,8 @@
 
 .ichart {
   --title-gray: #4d4d4d;
+  background: #fff;
+  padding: 16px 14px 12px;
   font-family: "Bricolage Grotesque", system-ui, sans-serif;
   color: var(--ink, #17171a);
 }

@@ -383,13 +383,14 @@
   .map-detail-secoes { font-size: 12.5px; color: var(--caption); margin-top: 4px; }
 
   /* table */
-  .table-scroll { overflow-x: auto; }
+  .table-scroll { overflow-x: auto; background: #fff; border: 1px solid var(--border); border-radius: 10px; }
   table.data {
     border-collapse: collapse;
     width: 100%;
     font-size: 13.5px;
     font-family: "Bricolage Grotesque", sans-serif;
     min-width: 620px;
+    background: #fff;
   }
   table.data th, table.data td {
     padding: 8px 12px;
@@ -406,7 +407,7 @@
     letter-spacing: 0.06em;
     color: var(--caption);
     font-weight: 600;
-    background: var(--paper);
+    background: #fff;
     position: sticky; top: 0;
   }
   table.data td:first-child, table.data th:first-child { text-align: left; }
@@ -644,7 +645,7 @@
   <section id="metodologia">
     <div class="eyebrow">03 &middot; Metodologia</div>
     <h2>Pipeline de tratamento de dados</h2>
-    <p>Os quatro extratos brutos passam por cinco etapas antes de qualquer análise comparativa: um pipeline padrão de ingestão, limpeza e carga, implementado em Python (pandas), com a camada analítica em SQL (SQLite).</p>
+    <p>Os quatro extratos brutos passam por cinco etapas antes de qualquer análise comparativa: um pipeline padrão de ingestão, limpeza e carga, implementado em Python (pandas), com a camada analítica em SQL (SQLite). Os gráficos interativos que ilustram o estudo são escritos em TypeScript (React e Recharts) e estilizados em CSS.</p>
 
     <div class="pipeline">
       <div class="pipestep"><div class="num">01</div><div class="name">Ingestão</div><div class="desc">Leitura dos CSVs oficiais (separador <code>;</code>, UTF-8), tipagem bruta como texto</div></div>
