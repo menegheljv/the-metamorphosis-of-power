@@ -17,6 +17,7 @@ import {
   ZAxis,
 } from "recharts";
 import type {
+  CandInfo,
   CartesianSpec,
   ChartSpec,
   DistrictMapSpec,
@@ -98,6 +99,32 @@ function Tip({ title, lines, note }: { title?: ReactNode; lines: { color?: strin
 }
 
 /* ------------------------------------------------------------------ */
+/* Candidatos a prefeito de cada eleicao (todos, com partido e %)      */
+/* ------------------------------------------------------------------ */
+
+function CandidateKey({ cands, years }: { cands: Record<string, CandInfo[]>; years?: string[] }) {
+  const { t, fmt } = useI18n();
+  const list = (years ?? Object.keys(cands)).filter((y) => cands[y]?.length);
+  if (!list.length) return null;
+  return (
+    <div className={`cand-key${list.length === 1 ? " single" : ""}`} role="group" aria-label={t.candidates}>
+      {list.map((y) => (
+        <div key={y} className="ck-col">
+          <div className="ck-year">{y}</div>
+          {cands[y].map((c) => (
+            <div key={c.n} className="ck-row">
+              <i style={{ background: COLORS[c.side] }} aria-hidden="true" />
+              <span className="ck-name">{c.n}</span>
+              <small>{c.p}{c.pct != null ? ` · ${fmt("pct", c.pct)}` : ""}{c.win ? ` · ${t.elected}` : ""}</small>
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /* Cartesiano: linhas, barras, barras empilhadas e eixo duplo          */
 /* ------------------------------------------------------------------ */
 
@@ -126,7 +153,7 @@ function CartesianChart({ spec }: { spec: CartesianSpec }) {
         ...(spec.rows.some((r) => r.side === "neutro") ? [{ key: "ref", label: spec.sideLegend?.neutro ?? t.reference, color: COLORS.neutro }] : []),
         ...(spec.rows.some((r) => r.side === "info") ? [{ key: "inf", label: spec.sideLegend?.info ?? "", color: COLORS.info }] : []),
       ]
-    : spec.layers.map((l) => ({ key: l.key, label: l.label, color: COLORS[l.color] }));
+    : spec.layers.filter((l) => l.legend !== false).map((l) => ({ key: l.key, label: l.label, color: COLORS[l.color] }));
 
   const sideFill = (row: (typeof spec.rows)[number], fallback: Side) => COLORS[(row.side as Side) ?? fallback] ?? COLORS[fallback];
 
@@ -243,6 +270,7 @@ function CartesianChart({ spec }: { spec: CartesianSpec }) {
         </ResponsiveContainer>
       </div>
       <LegendChips items={legendItems} hidden={hidden} toggle={singleColored ? undefined : toggle} />
+      {spec.cands && <CandidateKey cands={spec.cands} />}
     </>
   );
 }
@@ -257,7 +285,7 @@ function MultiplesChart({ spec }: { spec: MultiplesSpec }) {
   const narrow = useNarrow();
   const reduce = prefersReducedMotion();
 
-  const legendItems = spec.layers.map((l) => ({ key: l.key, label: l.label, color: COLORS[l.color] }));
+  const legendItems = spec.layers.filter((l) => l.legend !== false).map((l) => ({ key: l.key, label: l.label, color: COLORS[l.color] }));
   const top = spec.layers[0]; // a linha do grupo recebe os rotulos
 
   const PanelTip = ({ active, payload, label }: any) => {
@@ -277,11 +305,12 @@ function MultiplesChart({ spec }: { spec: MultiplesSpec }) {
 
   return (
     <>
+      {spec.cands && <CandidateKey cands={spec.cands} />}
       <div className="multiples">
         {spec.panels.map((panel, pi) => (
           <div key={panel.title} className="multiple">
             <h4 className="panel-title">{panel.title}</h4>
-            <div style={{ height: pi === 0 ? (narrow ? 250 : 320) : narrow ? 230 : 270 }}>
+            <div style={{ height: narrow ? 300 : 400 }}>
               <ResponsiveContainer width="100%" height="100%">
                 <ComposedChart data={panel.rows} margin={{ top: 22, right: narrow ? 14 : 22, left: 0, bottom: 0 }}>
                   <CartesianGrid stroke={GRID} vertical={false} />
@@ -295,9 +324,9 @@ function MultiplesChart({ spec }: { spec: MultiplesSpec }) {
                       dataKey={l.key}
                       name={l.label}
                       stroke={COLORS[l.color]}
-                      strokeWidth={2.5}
-                      dot={{ r: 3.5, stroke: "#ffffff", strokeWidth: 1.5, fill: COLORS[l.color] }}
-                      activeDot={{ r: 6, stroke: "#ffffff", strokeWidth: 2 }}
+                      strokeWidth={l.dotsOnly ? 0 : 2.5}
+                      dot={{ r: l.dotsOnly ? 5 : 3.5, stroke: "#ffffff", strokeWidth: 1.5, fill: COLORS[l.color] }}
+                      activeDot={{ r: l.dotsOnly ? 7 : 6, stroke: "#ffffff", strokeWidth: 2 }}
                       connectNulls
                       hide={hidden.has(l.key)}
                       isAnimationActive={!reduce}
@@ -342,6 +371,7 @@ function PanelsChart({ spec }: { spec: PanelsSpec }) {
   const narrow = useNarrow();
   const reduce = prefersReducedMotion();
   const max = Math.max(...spec.panels.flatMap((p) => p.rows.map((r) => r.value)), 1);
+  const cols = spec.panels.length <= 3 ? spec.panels.length : 1; // muitos paineis (uma eleicao por painel): um por linha
   const sides = Array.from(new Set(spec.panels.flatMap((p) => p.rows.map((r) => r.side))));
   const legend: LegendItem[] = (["grupo", "adversario", "terceiro"] as Side[])
     .filter((s) => sides.includes(s))
@@ -355,15 +385,15 @@ function PanelsChart({ spec }: { spec: PanelsSpec }) {
 
   return (
     <>
-      <div className="panels" style={{ gridTemplateColumns: `repeat(${spec.panels.length}, minmax(0, 1fr))` }}>
+      <div className="panels" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>
         {spec.panels.map((panel, idx) => {
-          const labelW = Math.min(narrow ? 128 : 172, Math.max(...panel.rows.map((r) => r.label.length)) * 6.3 + 14);
+          const labelW = Math.min(narrow ? 132 : cols === 1 ? 240 : 172, Math.max(...panel.rows.map((r) => r.label.length)) * 6.3 + 14);
           return (
             <div key={idx} className="panel">
               {panel.title && <h4 className="panel-title">{panel.title}</h4>}
               <div style={{ height: panel.rows.length * 40 + 24 }}>
                 <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={panel.rows} layout="vertical" margin={{ top: 4, right: narrow ? 62 : 82, left: 0, bottom: 0 }} barCategoryGap={10}>
+                  <BarChart data={panel.rows} layout="vertical" margin={{ top: 4, right: narrow ? 62 : spec.unit === "brl" ? 104 : 82, left: 0, bottom: 0 }} barCategoryGap={10}>
                     <CartesianGrid horizontal={false} stroke={GRID} />
                     <XAxis type="number" domain={[0, max]} hide />
                     <YAxis type="category" dataKey="label" width={labelW} tick={{ ...tick, fontSize: narrow ? 10.5 : 11 }} tickLine={false} axisLine={false} interval={0} />
@@ -445,6 +475,8 @@ function DistrictMapChart({ spec }: { spec: DistrictMapSpec }) {
   };
   const cur = spec.districts.find((d) => d.name === active);
   const curVals = cur?.values[String(year)];
+  const curCands = cur?.cv?.[String(year)];
+  const yearCands = spec.cands?.[String(year)];
   const [, , vw, vh] = spec.viewBox.split(" ").map(Number);
   const labelFont = narrow ? 30 : 19;
 
@@ -486,18 +518,25 @@ function DistrictMapChart({ spec }: { spec: DistrictMapSpec }) {
           ))}
         </div>
       )}
+      {!printing && spec.cands && <CandidateKey cands={spec.cands} years={[String(year)]} />}
       <div className={`dmaps${printing ? " two" : ""}`} style={printing ? undefined : { aspectRatio: `${vw} / ${vh}` }}>
         {shown.map((y) => (
           <div key={y} className="dmap-wrap">
             {printing && <div className="dmap-year">{lab(y)}</div>}
             {renderMap(y)}
+            {printing && spec.cands && <CandidateKey cands={spec.cands} years={[String(y)]} />}
           </div>
         ))}
       </div>
       <p className="hover-readout" aria-live="polite">
         {cur ? (
           <><b>{cur.name}</b> · {lab(year)}: <b>{fmt("pct", curVals ? (curVals[0] / curVals[1]) * 100 : null)}</b> {spec.strings?.suffix ?? t.ofValid}
-            {curVals && !spec.pctOnly && <> ({t.votesOf(curVals[0], curVals[1])})</>}</>
+            {curVals && !spec.pctOnly && <> ({t.votesOf(curVals[0], curVals[1])})</>}
+            {curVals && curCands && yearCands && (
+              <span className="readout-cands">{yearCands.map((c, i) => (
+                <span key={c.n}><i style={{ background: COLORS[c.side] }} aria-hidden="true" />{c.n} <b>{fmt("pct", (curCands[i] / curVals[1]) * 100)}</b></span>
+              ))}</span>
+            )}</>
         ) : spec.strings?.hint ?? t.mapHint}
       </p>
       <div className="heat-scale" aria-hidden="true"><span>≤{HEAT_LO}% · {t.scaleLow}</span><div className="heat-bar" /><span>{t.scaleHigh} · ≥{HEAT_HI}%</span></div>

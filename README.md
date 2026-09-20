@@ -51,6 +51,7 @@ o encontra e desenha o gráfico. Os dados e o texto dos gráficos vêm do pipeli
 
 ```bash
 python scripts/distritos_votos_absolutos.py     # votos totais por distrito (Figura 6.2)
+python scripts/prefeitos_todos.py               # -> output/prefeitos_todos.csv e distritos_votos_cand.csv (16 candidatos a prefeito, 2004-2024)
 python scripts/export_frontend_data.py          # -> frontend/src/studyData.ts (PT e EN)
 python scripts/build_artifact.py && python scripts/build_artifact_en.py   # -> output/case_study*.html
 (cd frontend && npm ci && npm run build)        # -> frontend/dist/assets/study-charts.{js,css}
@@ -177,7 +178,7 @@ Between 2004 and 2020, the political group behind this project lost five mayoral
 | Turnout detail | Turnout and abstention | 2004, 2008, 2012, 2016, 2020, 2024 |
 | Electorate profile | Age and gender composition | 2008, 2012, 2016, 2020, 2024 (not published for 2004) |
 | Declared assets | Declared wealth of candidates | 2008, 2012, 2016, 2020, 2024 (not published for 2004) |
-| Candidate profile | Gender, race/color, education, occupation | 2020, 2024 only |
+| Candidate profile | Gender, age, education, occupation (race/color only from 2016) | 2004, 2008, 2012, 2016, 2020, 2024 |
 | Party-line votes | Votes for the party label, without naming a candidate | 2020, 2024 only |
 | Registered election polls | Voting-intention trajectory during the 2024 campaign | 2024 only, out of scope for the historical arc |
 

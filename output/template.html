@@ -142,6 +142,12 @@
   .table-exhibit .table-scroll { overflow-x: visible; }
   .table-exhibit table.data td:last-child, .table-exhibit table.data th:last-child { text-align: left; }
   .table-exhibit figcaption span { display: block; }
+  .side-dot { display: inline-block; width: 9px; height: 9px; margin-right: 7px; border-radius: 50%; vertical-align: 0.05em; }
+  .table-exhibit table.data.cands td:first-child, .table-exhibit table.data.cands th:first-child { text-align: center; }
+  .table-exhibit table.data.cands td:last-child, .table-exhibit table.data.cands th:last-child { text-align: left; }
+  .table-exhibit table.data.cands td:nth-child(2) { text-align: left; white-space: nowrap; }
+  .table-exhibit table.data.cands td:nth-child(3) { text-align: left; }
+  .table-exhibit table.data.cands td:nth-child(2) { white-space: normal; }
   .table-exhibit table.data.cov td:first-child, .table-exhibit table.data.cov th:first-child { text-align: center; }
   @media (min-width: 641px), print {
     .table-exhibit table.data.cov { table-layout: fixed; width: 100%; }
@@ -556,6 +562,7 @@
     .table-exhibit .table-label { margin: 12px 0 4px; }
     .table-exhibit figcaption { font-size: 9.5pt; padding: 8px 14px 12px; }
     a { color: inherit; text-decoration: none; }
+    .table-exhibit table.data.cands td, .table-exhibit table.data.cands th { padding: 2px 6px; }
     pre.code { white-space: pre-wrap; overflow: visible; overflow-wrap: anywhere; font-size: 9pt; padding: 12px 14px; }
   }
 </style>
@@ -631,10 +638,45 @@
         <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figura 0.1</span><span class="cap">Votação do grupo e da principal candidatura de oposição, 2004–2024</span></div>
       <div class="exhibit-body">
-        <div class="ichart" data-chart="historical_arc"><p class="chart-fallback">Gráfico de linhas com a votação para prefeito do grupo e da principal candidatura de oposição em seis eleições, de 2004 a 2024. O grupo vai de 26,4% em 2004 a 48,0% em 2016, cai a 40,0% em 2020 e chega a 58,1% em 2024; a oposição fica acima do grupo até 2020 (de 66,9% a 56,4%) e cai a 31,9% em 2024.</p></div>
+        <div class="ichart" data-chart="historical_arc"><p class="chart-fallback">Gráfico de linhas com a votação para prefeito do grupo e da principal candidatura de oposição em seis eleições, de 2004 a 2024. O grupo vai de 26,4% em 2004 a 48,0% em 2016, cai a 40,0% em 2020 e chega a 58,1% em 2024; a oposição fica acima do grupo até 2020 (de 66,9% a 56,4%) e cai a 31,9% em 2024. Pontos azuis mostram os demais candidatos (Luiz Teixeira e Nelsão Togneri em 2004, Armando Zanata em 2020 e Boldrini em 2024), e uma lista nomeia todos os candidatos de cada eleição.</p></div>
       </div>
-      <figcaption>Em cinco eleições consecutivas a principal candidatura de oposição superou o grupo, com a distância caindo de 66,9% a 26,4% em 2004 para 52,0% a 48,0% em 2016. Em 2024 a relação se inverte: o candidato do grupo obtém 58,1% e a principal oposição, 31,9%.</figcaption>
+      <figcaption>Em cinco eleições consecutivas a principal candidatura de oposição superou o grupo, com a distância caindo de 66,9% a 26,4% em 2004 para 52,0% a 48,0% em 2016. Em 2024 a relação se inverte: o candidato do grupo obtém 58,1% e a principal oposição, 31,9%. Os pontos azuis são os demais candidatos: Luiz Teixeira (PV) e Nelsão Togneri (PFL) em 2004, Armando Zanata (PDT) em 2020 e Boldrini (PL) em 2024; em 2008, 2012 e 2016 só houve dois candidatos. A lista sob o gráfico nomeia todos, e a Tabela 0.1 traz os votos.</figcaption>
     </figure>
+
+    <figure class="exhibit table-exhibit">
+      <div class="exhibit-head"><span class="tag">Tabela 0.1</span><span class="cap">Todos os candidatos a prefeito, 2004–2024</span></div>
+      <div class="exhibit-body">
+        <div class="table-title">QUEM DISPUTOU CADA ELEIÇÃO</div>
+        <p class="table-sub">resultado oficial do TSE; o ponto marca o lado: verde = grupo, vermelho = principal oposição, azul = demais candidatos</p>
+        <div class="table-scroll">
+      <table class="data stack-mobile cands">
+        <thead>
+          <tr><th>Ano</th><th>Candidato</th><th>Partido</th><th class="num">Votos</th><th class="num">% dos votos válidos</th><th>Resultado</th></tr>
+        </thead>
+        <tbody>
+          <tr><td data-label="Ano">2004</td><td data-label="Candidato"><span class="side-dot" style="background:#c8433a"></span>Dr. Fernando</td><td data-label="Partido">PSB</td><td class="num" data-label="Votos">5.330</td><td class="num" data-label="% dos votos válidos">66,9%</td><td data-label="Resultado">Eleito</td></tr>
+          <tr><td data-label="Ano">2004</td><td data-label="Candidato"><span class="side-dot" style="background:#1f9d63"></span>Jorge Meneghel</td><td data-label="Partido">PT</td><td class="num" data-label="Votos">2.107</td><td class="num" data-label="% dos votos válidos">26,4%</td><td data-label="Resultado">Não eleito</td></tr>
+          <tr><td data-label="Ano">2004</td><td data-label="Candidato"><span class="side-dot" style="background:#3d7fc4"></span>Luiz Teixeira</td><td data-label="Partido">PV</td><td class="num" data-label="Votos">299</td><td class="num" data-label="% dos votos válidos">3,8%</td><td data-label="Resultado">Não eleito</td></tr>
+          <tr><td data-label="Ano">2004</td><td data-label="Candidato"><span class="side-dot" style="background:#3d7fc4"></span>Nelsão Togneri</td><td data-label="Partido">PFL</td><td class="num" data-label="Votos">236</td><td class="num" data-label="% dos votos válidos">3,0%</td><td data-label="Resultado">Não eleito</td></tr>
+          <tr><td data-label="Ano">2008</td><td data-label="Candidato"><span class="side-dot" style="background:#c8433a"></span>Dr. Fernando</td><td data-label="Partido">PSB</td><td class="num" data-label="Votos">5.996</td><td class="num" data-label="% dos votos válidos">66,9%</td><td data-label="Resultado">Eleito</td></tr>
+          <tr><td data-label="Ano">2008</td><td data-label="Candidato"><span class="side-dot" style="background:#1f9d63"></span>Daniel Orlandi</td><td data-label="Partido">PSDB</td><td class="num" data-label="Votos">2.969</td><td class="num" data-label="% dos votos válidos">33,1%</td><td data-label="Resultado">Não eleito</td></tr>
+          <tr><td data-label="Ano">2012</td><td data-label="Candidato"><span class="side-dot" style="background:#c8433a"></span>Roberto Fiorin</td><td data-label="Partido">PSB</td><td class="num" data-label="Votos">5.615</td><td class="num" data-label="% dos votos válidos">63,6%</td><td data-label="Resultado">Eleito</td></tr>
+          <tr><td data-label="Ano">2012</td><td data-label="Candidato"><span class="side-dot" style="background:#1f9d63"></span>Sergio Bianchi</td><td data-label="Partido">PSD</td><td class="num" data-label="Votos">3.215</td><td class="num" data-label="% dos votos válidos">36,4%</td><td data-label="Resultado">Não eleito</td></tr>
+          <tr><td data-label="Ano">2016</td><td data-label="Candidato"><span class="side-dot" style="background:#c8433a"></span>Dr. Fernando</td><td data-label="Partido">PSB</td><td class="num" data-label="Votos">5.019</td><td class="num" data-label="% dos votos válidos">52,0%</td><td data-label="Resultado">Eleito</td></tr>
+          <tr><td data-label="Ano">2016</td><td data-label="Candidato"><span class="side-dot" style="background:#1f9d63"></span>Ronaldo Bianchi</td><td data-label="Partido">PMDB</td><td class="num" data-label="Votos">4.641</td><td class="num" data-label="% dos votos válidos">48,0%</td><td data-label="Resultado">Não eleito</td></tr>
+          <tr><td data-label="Ano">2020</td><td data-label="Candidato"><span class="side-dot" style="background:#c8433a"></span>Dr. Fernando</td><td data-label="Partido">PSB</td><td class="num" data-label="Votos">5.196</td><td class="num" data-label="% dos votos válidos">56,4%</td><td data-label="Resultado">Eleito</td></tr>
+          <tr><td data-label="Ano">2020</td><td data-label="Candidato"><span class="side-dot" style="background:#1f9d63"></span>Ronaldo Bianchi</td><td data-label="Partido">Republicanos</td><td class="num" data-label="Votos">3.681</td><td class="num" data-label="% dos votos válidos">40,0%</td><td data-label="Resultado">Não eleito</td></tr>
+          <tr><td data-label="Ano">2020</td><td data-label="Candidato"><span class="side-dot" style="background:#3d7fc4"></span>Armando Zanata</td><td data-label="Partido">PDT</td><td class="num" data-label="Votos">336</td><td class="num" data-label="% dos votos válidos">3,6%</td><td data-label="Resultado">Não eleito</td></tr>
+          <tr><td data-label="Ano">2024</td><td data-label="Candidato"><span class="side-dot" style="background:#1f9d63"></span>Hugo Luiz</td><td data-label="Partido">PP</td><td class="num" data-label="Votos">5.779</td><td class="num" data-label="% dos votos válidos">58,1%</td><td data-label="Resultado">Eleito</td></tr>
+          <tr><td data-label="Ano">2024</td><td data-label="Candidato"><span class="side-dot" style="background:#c8433a"></span>Rolmar Boteccia</td><td data-label="Partido">PSB</td><td class="num" data-label="Votos">3.177</td><td class="num" data-label="% dos votos válidos">31,9%</td><td data-label="Resultado">Não eleito</td></tr>
+          <tr><td data-label="Ano">2024</td><td data-label="Candidato"><span class="side-dot" style="background:#3d7fc4"></span>Boldrini</td><td data-label="Partido">PL</td><td class="num" data-label="Votos">999</td><td class="num" data-label="% dos votos válidos">10,0%</td><td data-label="Resultado">Não eleito</td></tr>
+        </tbody>
+      </table>
+        </div>
+      </div>
+      <figcaption>Percentuais sobre os votos válidos (sem brancos e nulos). Em 2004 quatro candidatos disputaram a prefeitura; em 2008, 2012 e 2016, dois; em 2020 e 2024, três.</figcaption>
+    </figure>
+
     <div class="callout warn">
       <strong>Divulgação completa.</strong> Jorge Gabriel Meneghel, candidato em 2004, é meu pai. Hugo Luiz, vencedor em 2024, é meu irmão, e eu dirigi a campanha dele naquele ano. O projeto nasceu desse trabalho; o pipeline de dados veio depois, para entender o que realmente moveu o resultado.
     </div>
@@ -663,7 +705,7 @@
       <li><code>prestacao_de_contas_eleitorais_candidatos_ANO.csv</code> (receitas e despesas pagas, de 2004 a 2024): extraído via <em>HTTP range requests</em> de um arquivo nacional de ~1,3&nbsp;GB, sem baixar o arquivo inteiro</li>
       <li><code>bem_candidato_ANO_ES.csv</code>: patrimônio declarado pelos candidatos, de 2008 a 2024</li>
       <li><code>perfil_eleitor_secao_ANO_ES.csv</code>: perfil do eleitorado por seção (gênero, faixa etária, escolaridade), de 2008 a 2024</li>
-      <li><code>perfil_candidato_ANO</code>: perfil dos candidatos (gênero, cor ou raça, escolaridade e ocupação), só em 2020 e 2024</li>
+      <li><code>consulta_cand_ANO_ES.csv</code>: cadastro de candidaturas, de 2004 a 2024 (gênero, data de nascimento, escolaridade e ocupação; a cor ou raça só consta a partir de 2016)</li>
     </ul>
     <div class="callout warn">
       <strong>Nota de transparência.</strong> A continuidade entre as duas candidaturas majoritárias (2020 a 2024) é reconstruída a partir de coincidências verificáveis nos dados oficiais: mesma base partidária local (Republicanos/PTB), e o vencedor de 2024, Hugo Luiz Picoli Meneghel, aparece nos dados de 2020 como candidato a vereador eleito pela coligação derrotada naquele ano. Nenhum número foi estimado, projetado ou inventado: onde um dado não estava disponível publicamente, ele foi omitido em vez de aproximado. Única exceção: a seção 11, cujos cenários para 2028 são hipóteses declaradas, calculadas em R.
@@ -709,17 +751,17 @@
           <tr><th>Prefeito</th><th>Vereador</th></tr>
         </thead>
         <tbody>
-          <tr><td data-label="Ano">2004</td><td class="num" data-label="Seções eleitorais">33</td><td class="num" data-label="Candidatos a prefeito">4</td><td class="num" data-label="Candidatos a vereador">40</td><td data-label="Receitas e despesas">Sim</td><td data-label="Patrimônio declarado">Não</td><td data-label="Perfil do eleitorado">Não</td><td data-label="Votos de legenda">Não</td><td data-label="Perfil dos candidatos">Não</td></tr>
-          <tr><td data-label="Ano">2008</td><td class="num" data-label="Seções eleitorais">34</td><td class="num" data-label="Candidatos a prefeito">2</td><td class="num" data-label="Candidatos a vereador">41</td><td data-label="Receitas e despesas">Sim</td><td data-label="Patrimônio declarado">Sim</td><td data-label="Perfil do eleitorado">Sim</td><td data-label="Votos de legenda">Não</td><td data-label="Perfil dos candidatos">Não</td></tr>
-          <tr><td data-label="Ano">2012</td><td class="num" data-label="Seções eleitorais">34</td><td class="num" data-label="Candidatos a prefeito">2</td><td class="num" data-label="Candidatos a vereador">64</td><td data-label="Receitas e despesas">Sim</td><td data-label="Patrimônio declarado">Sim</td><td data-label="Perfil do eleitorado">Sim</td><td data-label="Votos de legenda">Não</td><td data-label="Perfil dos candidatos">Não</td></tr>
-          <tr><td data-label="Ano">2016</td><td class="num" data-label="Seções eleitorais">36</td><td class="num" data-label="Candidatos a prefeito">2</td><td class="num" data-label="Candidatos a vereador">61</td><td data-label="Receitas e despesas">Sim</td><td data-label="Patrimônio declarado">Sim</td><td data-label="Perfil do eleitorado">Sim</td><td data-label="Votos de legenda">Não</td><td data-label="Perfil dos candidatos">Não</td></tr>
+          <tr><td data-label="Ano">2004</td><td class="num" data-label="Seções eleitorais">33</td><td class="num" data-label="Candidatos a prefeito">4</td><td class="num" data-label="Candidatos a vereador">40</td><td data-label="Receitas e despesas">Sim</td><td data-label="Patrimônio declarado">Não</td><td data-label="Perfil do eleitorado">Não</td><td data-label="Votos de legenda">Não</td><td data-label="Perfil dos candidatos">Sim</td></tr>
+          <tr><td data-label="Ano">2008</td><td class="num" data-label="Seções eleitorais">34</td><td class="num" data-label="Candidatos a prefeito">2</td><td class="num" data-label="Candidatos a vereador">41</td><td data-label="Receitas e despesas">Sim</td><td data-label="Patrimônio declarado">Sim</td><td data-label="Perfil do eleitorado">Sim</td><td data-label="Votos de legenda">Não</td><td data-label="Perfil dos candidatos">Sim</td></tr>
+          <tr><td data-label="Ano">2012</td><td class="num" data-label="Seções eleitorais">34</td><td class="num" data-label="Candidatos a prefeito">2</td><td class="num" data-label="Candidatos a vereador">64</td><td data-label="Receitas e despesas">Sim</td><td data-label="Patrimônio declarado">Sim</td><td data-label="Perfil do eleitorado">Sim</td><td data-label="Votos de legenda">Não</td><td data-label="Perfil dos candidatos">Sim</td></tr>
+          <tr><td data-label="Ano">2016</td><td class="num" data-label="Seções eleitorais">36</td><td class="num" data-label="Candidatos a prefeito">2</td><td class="num" data-label="Candidatos a vereador">61</td><td data-label="Receitas e despesas">Sim</td><td data-label="Patrimônio declarado">Sim</td><td data-label="Perfil do eleitorado">Sim</td><td data-label="Votos de legenda">Não</td><td data-label="Perfil dos candidatos">Sim</td></tr>
           <tr><td data-label="Ano">2020</td><td class="num" data-label="Seções eleitorais">36</td><td class="num" data-label="Candidatos a prefeito">3</td><td class="num" data-label="Candidatos a vereador">69</td><td data-label="Receitas e despesas">Sim</td><td data-label="Patrimônio declarado">Sim</td><td data-label="Perfil do eleitorado">Sim</td><td data-label="Votos de legenda">Sim</td><td data-label="Perfil dos candidatos">Sim</td></tr>
           <tr><td data-label="Ano">2024</td><td class="num" data-label="Seções eleitorais">42</td><td class="num" data-label="Candidatos a prefeito">3</td><td class="num" data-label="Candidatos a vereador">70</td><td data-label="Receitas e despesas">Sim</td><td data-label="Patrimônio declarado">Sim</td><td data-label="Perfil do eleitorado">Sim</td><td data-label="Votos de legenda">Sim</td><td data-label="Perfil dos candidatos">Sim</td></tr>
         </tbody>
       </table>
         </div>
       </div>
-      <figcaption>Comparações entre as seis eleições (resultado, comparecimento, financiamento, distritos) usam as colunas completas. A chapa de vereador por distrito, os votos de legenda e o perfil dos candidatos só existem para 2020 e 2024; patrimônio e perfil do eleitorado começam em 2008. Onde a base não cobre um ano, o estudo não estima: omite. As colunas de candidatos contam as candidaturas registradas a prefeito e a vereador, separadas; os vice-prefeitos ficam de fora.</figcaption>
+      <figcaption>Comparações entre as seis eleições (resultado, comparecimento, financiamento, distritos) usam as colunas completas. A chapa de vereador por distrito e os votos de legenda só existem para 2020 e 2024; patrimônio e perfil do eleitorado começam em 2008; o perfil dos candidatos (idade, escolaridade, ocupação) existe para as seis eleições. Onde a base não cobre um ano, o estudo não estima: omite. As colunas de candidatos contam as candidaturas registradas a prefeito e a vereador, separadas; os vice-prefeitos ficam de fora.</figcaption>
     </figure>
 
     <h3>Limpeza e normalização (pandas)</h3>
@@ -836,7 +878,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figura 6</span><span class="cap">% do candidato do grupo para prefeito, por distrito, 2004&ndash;2024</span></div>
       <div class="exhibit-body">
-        <div class="ichart" data-chart="distritos_heatmap"><p class="chart-fallback">Mapa dos sete distritos de Alfredo Chaves, cada um colorido entre vermelho e verde conforme o percentual dos votos para prefeito recebido pelo candidato do grupo, com um botão para cada eleição de 2004 a 2024, e uma tabela com os mesmos percentuais. Em 2024 o grupo passa de 47% em todos os distritos e de 50% em seis dos sete; em 2020 só Ribeirão do Cristo ficou acima de 50%.</p></div>
+        <div class="ichart" data-chart="distritos_heatmap"><p class="chart-fallback">Mapa dos sete distritos de Alfredo Chaves, cada um colorido entre vermelho e verde conforme o percentual dos votos para prefeito recebido pelo candidato do grupo, com um botão para cada eleição de 2004 a 2024, e uma tabela com os mesmos percentuais. Em 2024 o grupo passa de 47% em todos os distritos e de 50% em seis dos sete; em 2020 só Ribeirão do Cristo ficou acima de 50%. Acima do mapa, uma lista nomeia todos os candidatos a prefeito da eleição escolhida; ao tocar ou passar o mouse em um distrito, aparece a votação de cada um.</p></div>
       </div>
       <figcaption>Ribeirão do Cristo foi, de longe, o distrito mais resistente ao grupo em 2004 e 2012 (8,8% e 9,4%, os piores números do estudo inteiro), e virou o mais favorável em 2020 e 2024 (58,2% e 72,3%). Em 2024, todos os sete distritos passam de 47%: a virada não veio de um reduto específico, veio do território inteiro.</figcaption>
     </figure>
@@ -853,13 +895,13 @@
     </figure>
     <p style="font-size:13px;color:var(--caption)">Fonte: <code>votacao_secao</code> e <code>consulta_cand</code> (campos <code>SG_PARTIDO</code>, <code>SQ_CANDIDATO</code>), TSE, cargo Vereador, 2020 e 2024. Mesma atribuição seção&rarr;distrito da Figura 6. Chapa do grupo definida pelos partidos da coligação de prefeito de cada ano (Republicanos/PTB/Patriota em 2020; Republicanos/PP/PSDB em 2024), cruzados por <code>SQ_CANDIDATO</code> &mdash; não por nome, que varia entre os extratos de candidato e de seção.</p>
     <h3>Em números absolutos</h3>
-    <p>Os percentuais das Figuras 6 e 6.1 escondem o tamanho de cada distrito. Os gráficos abaixo mostram os <strong>votos totais para prefeito</strong> em cada eleição, de 2004 a 2024, separando o candidato do grupo dos demais candidatos. Cada distrito tem escala própria: a Sede reúne cerca de dois terços dos votos válidos, e os outros seis distritos são pequenos demais para dividir o mesmo eixo.</p>
+    <p>Os percentuais das Figuras 6 e 6.1 escondem o tamanho de cada distrito. Os gráficos abaixo mostram os <strong>votos totais para prefeito</strong> em cada eleição, de 2004 a 2024, com uma linha para o candidato do grupo, outra para a principal oposição e pontos para os demais candidatos; a lista acima dos gráficos nomeia todos. Cada distrito tem escala própria: a Sede reúne cerca de dois terços dos votos válidos, e os outros seis distritos são pequenos demais para dividir o mesmo eixo.</p>
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figura 6.2</span><span class="cap">Votos totais para prefeito por distrito, 2004–2024</span></div>
       <div class="exhibit-body">
-        <div class="ichart" data-chart="distritos_votos"><p class="chart-fallback">Sete pequenos gráficos de barras empilhadas, um por distrito, com os votos totais para prefeito em cada eleição de 2004 a 2024, separando o candidato do grupo dos demais candidatos.</p></div>
+        <div class="ichart" data-chart="distritos_votos"><p class="chart-fallback">Sete gráficos de linhas, um por distrito, com os votos totais de cada candidato a prefeito em cada eleição de 2004 a 2024: uma linha para o candidato do grupo, outra para a principal oposição e pontos para os demais candidatos.</p></div>
       </div>
-      <figcaption>A Sede concentra a maior parte dos votos em todas as eleições: 3.811 dos 5.779 votos do candidato do grupo em 2024 (65,9%). Nos seis outros distritos somados, o grupo passa de 1.201 votos em 2020 para 1.968 em 2024 (+64%), e em todos os sete distritos 2024 é a eleição com mais votos do grupo em toda a série.</figcaption>
+      <figcaption>A Sede concentra a maior parte dos votos em todas as eleições: 3.811 dos 5.779 votos do candidato do grupo em 2024 (65,9%). Nos seis outros distritos somados, o grupo passa de 1.201 votos em 2020 para 1.968 em 2024 (+64%), e em todos os sete distritos 2024 é a eleição com mais votos do grupo em toda a série. Ao passar o mouse em um ponto, aparecem os votos de cada candidato no distrito.</figcaption>
     </figure>
     <p style="font-size:13px;color:var(--caption)">Fonte: <code>votacao_secao</code>, TSE, cargo Prefeito, 2004 a 2024, com brancos e nulos excluídos. Mesma atribuição seção&rarr;distrito da Figura 6.</p>
   </section>
@@ -928,22 +970,22 @@
   <section id="financiamento">
     <div class="eyebrow">06 &middot; Financiamento e participação eleitoral</div>
     <h2>Quanto custou, e quem foi votar</h2>
-    <p>Dados da <strong>prestação de contas eleitorais</strong> do TSE (receitas e despesas declaradas por cada candidato, incluindo adversários) e do <strong>detalhamento de apuração</strong> (comparecimento e abstenção) completam o quadro: a virada não veio de um eleitorado maior, e a receita mobilizada pela candidatura do grupo nunca foi destacadamente superior à dos concorrentes. Ainda assim, a campanha do grupo converteu esse recurso em voto com mais eficiência que qualquer outro candidato ao cargo, nas duas eleições.</p>
+    <p>Dados da <strong>prestação de contas eleitorais</strong> do TSE (receitas e despesas declaradas por cada candidato, incluindo adversários) e do <strong>detalhamento de apuração</strong> (comparecimento e abstenção) completam o quadro: a virada não veio de um eleitorado maior, e a receita mobilizada pela candidatura do grupo só foi a maior entre os concorrentes em 2024. Nas cinco derrotas anteriores, o vencedor declarou de 1,5 a 4,4 vezes mais receita que o candidato do grupo. Ainda assim, a campanha do grupo converteu o recurso em voto com mais eficiência que qualquer outro candidato ao cargo em 2008, 2012, 2016, 2020 e 2024; em 2004 foi a segunda mais eficiente. As duas figuras abaixo mostram todos os candidatos a prefeito das seis eleições.</p>
 
     <figure class="exhibit">
-      <div class="exhibit-head"><span class="tag">Figura 12</span><span class="cap">Receita declarada: todos os candidatos a prefeito</span></div>
+      <div class="exhibit-head"><span class="tag">Figura 12</span><span class="cap">Receita declarada: todos os candidatos a prefeito, 2004–2024</span></div>
       <div class="exhibit-body">
-        <div class="ichart" data-chart="financeiro_chapa"><p class="chart-fallback">Gráfico de barras horizontais com a receita declarada por cada candidato a prefeito. 2020: Fernando (PSB, eleito) R$108.642; Bianchi (Republicanos, grupo) R$53.120; Zanata (PDT) R$32.722. 2024: Hugo Luiz (PP, grupo, eleito) R$155.597; Boldrini (PL) R$141.130; Boteccia (PSB) R$119.400.</p></div>
+        <div class="ichart" data-chart="financeiro_chapa"><p class="chart-fallback">Seis gráficos de barras horizontais, um por eleição, com a receita declarada por cada candidato a prefeito de 2004 a 2024. Em 2024, Hugo Luiz (PP, eleito) declarou R$155.597, Boldrini (PL) R$141.130 e Rolmar Boteccia (PSB) R$119.400; em 2020, Dr. Fernando (PSB, eleito) R$108.642, Ronaldo Bianchi (Republicanos) R$53.120 e Armando Zanata (PDT) R$32.722. Nas eleições anteriores o vencedor declarou mais que o candidato do grupo.</p></div>
       </div>
-      <figcaption>Com todos os candidatos lado a lado, fica claro que a campanha do grupo nunca foi a mais bem financiada: em 2020, Bianchi arrecadou menos da metade do vencedor Fernando; em 2024, Hugo Luiz teve a maior receita entre os três, mas a diferença para os adversários foi pequena. Não uma vantagem esmagadora de caixa.</figcaption>
+      <figcaption>Com todos os candidatos lado a lado, fica claro que o grupo só teve a maior receita em 2024. Nas cinco derrotas, o vencedor declarou mais: R$&nbsp;34 mil contra R$&nbsp;16 mil em 2004, R$&nbsp;83 mil contra R$&nbsp;40 mil em 2008, R$&nbsp;30 mil contra R$&nbsp;7 mil em 2012, R$&nbsp;76 mil contra R$&nbsp;49 mil em 2016 e R$&nbsp;109 mil contra R$&nbsp;53 mil em 2020. Em 2024, Hugo Luiz teve a maior receita entre os três (R$&nbsp;156 mil), mas a diferença para Boldrini (R$&nbsp;141 mil) e Rolmar Boteccia (R$&nbsp;119 mil) foi pequena. Luiz Teixeira (PV, 2004) não aparece: não consta da prestação de contas do extrato.</figcaption>
     </figure>
 
     <figure class="exhibit">
-      <div class="exhibit-head"><span class="tag">Figura 13</span><span class="cap">Eficiência de investimento por voto: todos os candidatos a prefeito</span></div>
+      <div class="exhibit-head"><span class="tag">Figura 13</span><span class="cap">Custo por voto: todos os candidatos a prefeito, 2004–2024</span></div>
       <div class="exhibit-body">
-        <div class="ichart" data-chart="custo_por_voto"><p class="chart-fallback">Gráfico de barras horizontais com a eficiência de investimento por voto (despesa paga dividida por votos válidos) de cada candidato a prefeito. 2020: Bianchi (grupo) R$13,58/voto; Fernando R$19,70/voto; Zanata R$80,36/voto. 2024: Hugo Luiz (grupo, eleito) R$26,69/voto; Boteccia R$36,20/voto; Boldrini R$141,27/voto.</p></div>
+        <div class="ichart" data-chart="custo_por_voto"><p class="chart-fallback">Seis gráficos de barras horizontais, um por eleição, com o custo por voto (despesa paga dividida por votos) de cada candidato a prefeito de 2004 a 2024. O candidato do grupo teve o menor custo por voto em 2008 (R$13,36), 2012 (R$2,19), 2016 (R$10,65), 2020 (R$13,58) e 2024 (R$26,69); em 2004, Dr. Fernando teve R$6,38 e Jorge Meneghel, R$7,44.</p></div>
       </div>
-      <figcaption>Honestidade dos dados: o investimento por voto do grupo quase dobrou entre as duas eleições (R$13,58 → R$26,69), mas em ambos os anos a candidatura do grupo foi a <strong>mais eficiente entre os três concorrentes</strong>, inclusive em 2024, quando venceu investindo R$26,69/voto contra R$36,20 (Boteccia) e R$141,27 (Boldrini, que teve a pior eficiência de conversão do pleito).</figcaption>
+      <figcaption>Honestidade dos dados: o custo por voto do grupo subiu de R$&nbsp;2,19 (2012) para R$&nbsp;26,69 (2024), e em 2004 o grupo foi o segundo mais eficiente (R$&nbsp;7,44, contra R$&nbsp;6,38 do vencedor, Dr. Fernando). Em todas as outras eleições, 2008, 2012, 2016, 2020 e 2024, a candidatura do grupo foi a <strong>mais eficiente entre os concorrentes</strong>, inclusive em 2024, quando venceu gastando R$&nbsp;26,69 por voto contra R$&nbsp;36,20 (Rolmar Boteccia) e R$&nbsp;141,27 (Boldrini, a pior eficiência de conversão do pleito). Em 2012, a despesa paga de Roberto Fiorin supera a receita declarada, como consta nos extratos.</figcaption>
     </figure>
 
     <figure class="exhibit">
@@ -1067,14 +1109,49 @@
   <section id="candidatos">
     <div class="eyebrow">08 &middot; Perfil dos candidatos</div>
     <h2>Quem eram os candidatos, além dos votos</h2>
-    <p>Dados de <code>consulta_cand</code> e <code>bem_candidato</code> (TSE) trazem idade, escolaridade, ocupação e patrimônio declarado de cada candidato: informação pública, prestada por lei a cada eleição. O contraste com <strong style="color:var(--blue)">Hugo Luiz</strong> é o mais nítido do estudo inteiro.</p>
+    <p>Dados de <code>consulta_cand</code> e <code>bem_candidato</code> (TSE) trazem idade, escolaridade, ocupação e patrimônio declarado de cada candidato: informação pública, prestada por lei a cada eleição. A Tabela 8.1 reúne os 16 candidatos a prefeito das seis eleições, de 2004 a 2024, e as Figuras 23 e 24 os comparam. O contraste com <strong style="color:var(--blue)">Hugo Luiz</strong> é o mais nítido do estudo inteiro.</p>
+
+
+    <figure class="exhibit table-exhibit">
+      <div class="exhibit-head"><span class="tag">Tabela 8.1</span><span class="cap">Perfil de todos os candidatos a prefeito, 2004–2024</span></div>
+      <div class="exhibit-body">
+        <div class="table-title">QUEM ERAM OS CANDIDATOS</div>
+        <p class="table-sub">idade no dia da eleição, escolaridade e ocupação do cadastro de candidatura, patrimônio declarado ao TSE</p>
+        <div class="table-scroll">
+      <table class="data stack-mobile cands">
+        <thead>
+          <tr><th>Ano</th><th>Candidato</th><th class="num">Idade</th><th>Escolaridade</th><th>Ocupação declarada</th><th class="num">Patrimônio declarado</th></tr>
+        </thead>
+        <tbody>
+          <tr><td data-label="Ano">2004</td><td data-label="Candidato"><span class="side-dot" style="background:#c8433a"></span>Dr. Fernando (PSB)</td><td class="num" data-label="Idade">56</td><td data-label="Escolaridade">Superior completo</td><td data-label="Ocupação declarada">Médico</td><td class="num" data-label="Patrimônio declarado">—</td></tr>
+          <tr><td data-label="Ano">2004</td><td data-label="Candidato"><span class="side-dot" style="background:#1f9d63"></span>Jorge Meneghel (PT)</td><td class="num" data-label="Idade">37</td><td data-label="Escolaridade">Superior completo</td><td data-label="Ocupação declarada">Professor de 1º e 2º graus</td><td class="num" data-label="Patrimônio declarado">—</td></tr>
+          <tr><td data-label="Ano">2004</td><td data-label="Candidato"><span class="side-dot" style="background:#3d7fc4"></span>Luiz Teixeira (PV)</td><td class="num" data-label="Idade">50</td><td data-label="Escolaridade">Superior completo</td><td data-label="Ocupação declarada">Advogado</td><td class="num" data-label="Patrimônio declarado">—</td></tr>
+          <tr><td data-label="Ano">2004</td><td data-label="Candidato"><span class="side-dot" style="background:#3d7fc4"></span>Nelsão Togneri (PFL)</td><td class="num" data-label="Idade">41</td><td data-label="Escolaridade">Médio completo</td><td data-label="Ocupação declarada">Técnico em edificações</td><td class="num" data-label="Patrimônio declarado">—</td></tr>
+          <tr><td data-label="Ano">2008</td><td data-label="Candidato"><span class="side-dot" style="background:#c8433a"></span>Dr. Fernando (PSB)</td><td class="num" data-label="Idade">60</td><td data-label="Escolaridade">Superior completo</td><td data-label="Ocupação declarada">Médico</td><td class="num" data-label="Patrimônio declarado">R$&nbsp;53.416</td></tr>
+          <tr><td data-label="Ano">2008</td><td data-label="Candidato"><span class="side-dot" style="background:#1f9d63"></span>Daniel Orlandi (PSDB)</td><td class="num" data-label="Idade">40</td><td data-label="Escolaridade">Médio completo</td><td data-label="Ocupação declarada">Agricultor</td><td class="num" data-label="Patrimônio declarado">R$&nbsp;15.000</td></tr>
+          <tr><td data-label="Ano">2012</td><td data-label="Candidato"><span class="side-dot" style="background:#c8433a"></span>Roberto Fiorin (PSB)</td><td class="num" data-label="Idade">53</td><td data-label="Escolaridade">Superior completo</td><td data-label="Ocupação declarada">Servidor público federal</td><td class="num" data-label="Patrimônio declarado">R$&nbsp;284.406</td></tr>
+          <tr><td data-label="Ano">2012</td><td data-label="Candidato"><span class="side-dot" style="background:#1f9d63"></span>Sergio Bianchi (PSD)</td><td class="num" data-label="Idade">50</td><td data-label="Escolaridade">Fundamental incompleto</td><td data-label="Ocupação declarada">Vereador</td><td class="num" data-label="Patrimônio declarado">R$&nbsp;20.000</td></tr>
+          <tr><td data-label="Ano">2016</td><td data-label="Candidato"><span class="side-dot" style="background:#c8433a"></span>Dr. Fernando (PSB)</td><td class="num" data-label="Idade">68</td><td data-label="Escolaridade">Superior completo</td><td data-label="Ocupação declarada">Médico</td><td class="num" data-label="Patrimônio declarado">R$&nbsp;410.500</td></tr>
+          <tr><td data-label="Ano">2016</td><td data-label="Candidato"><span class="side-dot" style="background:#1f9d63"></span>Ronaldo Bianchi (PMDB)</td><td class="num" data-label="Idade">54</td><td data-label="Escolaridade">Médio completo</td><td data-label="Ocupação declarada">Empresário</td><td class="num" data-label="Patrimônio declarado">R$&nbsp;428.561</td></tr>
+          <tr><td data-label="Ano">2020</td><td data-label="Candidato"><span class="side-dot" style="background:#c8433a"></span>Dr. Fernando (PSB)</td><td class="num" data-label="Idade">72</td><td data-label="Escolaridade">Superior completo</td><td data-label="Ocupação declarada">Prefeito</td><td class="num" data-label="Patrimônio declarado">R$&nbsp;620.761</td></tr>
+          <tr><td data-label="Ano">2020</td><td data-label="Candidato"><span class="side-dot" style="background:#1f9d63"></span>Ronaldo Bianchi (Republicanos)</td><td class="num" data-label="Idade">58</td><td data-label="Escolaridade">Médio completo</td><td data-label="Ocupação declarada">Empresário</td><td class="num" data-label="Patrimônio declarado">R$&nbsp;366.381</td></tr>
+          <tr><td data-label="Ano">2020</td><td data-label="Candidato"><span class="side-dot" style="background:#3d7fc4"></span>Armando Zanata (PDT)</td><td class="num" data-label="Idade">64</td><td data-label="Escolaridade">Médio incompleto</td><td data-label="Ocupação declarada">Empresário</td><td class="num" data-label="Patrimônio declarado">R$&nbsp;1.380.000</td></tr>
+          <tr><td data-label="Ano">2024</td><td data-label="Candidato"><span class="side-dot" style="background:#1f9d63"></span>Hugo Luiz (PP)</td><td class="num" data-label="Idade">25</td><td data-label="Escolaridade">Superior completo</td><td data-label="Ocupação declarada">Advogado</td><td class="num" data-label="Patrimônio declarado">R$&nbsp;29.573</td></tr>
+          <tr><td data-label="Ano">2024</td><td data-label="Candidato"><span class="side-dot" style="background:#c8433a"></span>Rolmar Boteccia (PSB)</td><td class="num" data-label="Idade">71</td><td data-label="Escolaridade">Médio completo</td><td data-label="Ocupação declarada">Pecuarista</td><td class="num" data-label="Patrimônio declarado">R$&nbsp;718.421</td></tr>
+          <tr><td data-label="Ano">2024</td><td data-label="Candidato"><span class="side-dot" style="background:#3d7fc4"></span>Boldrini (PL)</td><td class="num" data-label="Idade">61</td><td data-label="Escolaridade">Médio completo</td><td data-label="Ocupação declarada">Comerciante</td><td class="num" data-label="Patrimônio declarado">R$&nbsp;0</td></tr>
+        </tbody>
+      </table>
+        </div>
+      </div>
+      <figcaption>Um traço (—) marca dado que não existe nos extratos: a base de bens não cobre 2004. A receita e o custo por voto de cada candidato estão nas Figuras 12 e 13.</figcaption>
+    </figure>
 
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figura 23</span><span class="cap">Idade dos candidatos a prefeito</span></div>
       <div class="exhibit-body">
-        <div class="ichart" data-chart="idade_candidatos"><p class="chart-fallback">Dois gráficos de barras horizontais comparando a idade dos três candidatos a prefeito em 2020 (Ronaldo Bianchi 58, Fernando 73, Armando Zanata 64) e em 2024 (Hugo Luiz 25, Rolmar Boteccia 71, Boldrini 61).</p></div>
+        <div class="ichart" data-chart="idade_candidatos"><p class="chart-fallback">Seis gráficos de barras horizontais, um por eleição, com a idade de cada candidato a prefeito no dia da eleição, de 2004 a 2024. Em 2020: Dr. Fernando 72, Armando Zanata 64 e Ronaldo Bianchi 58; em 2024: Rolmar Boteccia 71, Boldrini 61 e Hugo Luiz 25.</p></div>
       </div>
-      <figcaption>Em 2020, o candidato da base do grupo (58 anos) já era o mais jovem dos três, mas ainda assim quase 20 anos mais velho que Hugo Luiz seria em 2024. A idade média de <em>todos</em> os candidatos ao pleito (prefeito e vereador somados) foi praticamente idêntica nas duas eleições (50,3 → 50,2 anos): o município não ficou mais jovem. Foi a candidatura vencedora que ficou.</figcaption>
+      <figcaption>Em cada uma das cinco derrotas, o candidato do grupo era mais novo que o vencedor: 37 contra 56 anos em 2004, 40 contra 60 em 2008, 50 contra 53 em 2012, 54 contra 68 em 2016 e 58 contra 72 em 2020. Em 2024 a diferença é extrema: Hugo Luiz, com 25 anos, era 36 anos mais novo que Boldrini (61) e 46 mais novo que Rolmar Boteccia (71). A idade média de <em>todos</em> os candidatos ao pleito (prefeito e vereador somados) foi a mesma nas duas últimas eleições (50,2 anos em 2020 e em 2024): o município não ficou mais jovem. Só a candidatura vencedora rejuvenesceu.</figcaption>
     </figure>
 
     <p>Hugo Luiz tinha 25 anos no dia da eleição de 2024, é advogado, formado em Direito pela UFES, e, segundo o cadastro do TSE, é <strong>branco e solteiro</strong>. Os outros dois candidatos a prefeito daquele ano tinham 61 e 71 anos.</p>
@@ -1082,9 +1159,9 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figura 24</span><span class="cap">Patrimônio declarado dos candidatos a prefeito</span></div>
       <div class="exhibit-body">
-        <div class="ichart" data-chart="patrimonio_candidatos"><p class="chart-fallback">Dois gráficos de barras horizontais comparando o patrimônio declarado dos candidatos a prefeito: em 2020, Ronaldo Bianchi R$366 mil, Fernando R$621 mil, Armando Zanata R$1,38 milhão; em 2024, Hugo Luiz R$29,5 mil, Rolmar Boteccia R$718 mil, Boldrini R$0.</p></div>
+        <div class="ichart" data-chart="patrimonio_candidatos"><p class="chart-fallback">Cinco gráficos de barras horizontais, um por eleição de 2008 a 2024, com o patrimônio declarado de cada candidato a prefeito. Em 2020: Armando Zanata R$1,38 milhão, Dr. Fernando R$621 mil e Ronaldo Bianchi R$366 mil; em 2024: Rolmar Boteccia R$718 mil, Hugo Luiz R$29,5 mil e Boldrini R$0. A base de 2004 não traz bens.</p></div>
       </div>
-      <figcaption>Hugo Luiz declarou <strong>R$&nbsp;29.573</strong> em bens: o menor patrimônio de qualquer candidato a prefeito registrado em Alfredo Chaves nas duas eleições, cerca de 25&times; menos que o segundo colocado de 2024 (Rolmar Boteccia, R$&nbsp;718 mil) e mais de 20&times; menos que o candidato derrotado em 2020 que a campanha do grupo apoiava (Ronaldo Bianchi, R$&nbsp;366 mil). Não é o perfil patrimonial típico de quem vence uma eleição majoritária no interior do Espírito Santo.</figcaption>
+      <figcaption>Hugo Luiz declarou <strong>R$&nbsp;29.573</strong> em bens, o quarto menor patrimônio entre os 12 candidatos a prefeito com bens na base (2008 a 2024): declararam menos apenas Boldrini (R$&nbsp;0, em 2024), Daniel Orlandi (R$&nbsp;15 mil, em 2008) e Sergio Bianchi (R$&nbsp;20 mil, em 2012). É cerca de 24&times; menos que o segundo colocado de 2024 (Rolmar Boteccia, R$&nbsp;718 mil) e 12&times; menos que Ronaldo Bianchi em 2020 (R$&nbsp;366 mil). Em 2008, 2012 e 2020 o candidato do grupo declarou menos que o vencedor; em 2016, mais (R$&nbsp;429 mil contra R$&nbsp;411 mil).</figcaption>
     </figure>
 
     <h3>As 9 pesquisas eleitorais registradas</h3>

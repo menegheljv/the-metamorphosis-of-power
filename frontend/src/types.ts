@@ -14,6 +14,17 @@ export interface Layer {
   colorBySide?: boolean;
   /** Linha sem tracado (so os pontos), para categorias que nao formam serie temporal. */
   dotsOnly?: boolean;
+  /** false = nao mostra a serie como item da legenda (ex.: segunda serie de "outros candidatos"). */
+  legend?: boolean;
+}
+
+/** Candidato a prefeito de uma eleicao (legenda e tooltip). */
+export interface CandInfo {
+  n: string;
+  p: string;
+  side: Side;
+  pct?: number;
+  win?: boolean;
 }
 
 interface Base {
@@ -24,6 +35,8 @@ interface Base {
   cap: string;
   caption: string;
   alt: string;
+  /** Todos os candidatos a prefeito de cada eleicao (chave = ano), na ordem de votos. */
+  cands?: Record<string, CandInfo[]>;
 }
 
 export interface CartesianSpec extends Base {
@@ -77,7 +90,7 @@ export interface DistrictMapSpec extends Base {
   /** Valores sao so percentuais (cenarios): esconde a contagem de votos. */
   pctOnly?: boolean;
   strings?: { hint?: string; aria?: string; suffix?: string; tableTitle?: string };
-  districts: { name: string; path: string; lx: number; ly: number; values: Record<string, [number, number]> }[];
+  districts: { name: string; path: string; lx: number; ly: number; values: Record<string, [number, number]>; /** votos de cada candidato (mesma ordem de `cands`) por ano */ cv?: Record<string, number[]> }[];
 }
 
 export interface HeatmapSpec extends Base {

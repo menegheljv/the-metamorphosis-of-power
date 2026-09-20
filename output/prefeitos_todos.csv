@@ -1,0 +1,17 @@
+ano,nome_completo,nome,partido,numero,votos,votos_validos,pct,resultado,lado,idade,genero,cor_raca,escolaridade,ocupacao,estado_civil,patrimonio,receita,despesa_paga,custo_por_voto
+2004,Fernando Videira Lafayette,Dr. Fernando,PSB,40,5330,7972,66.9,Eleito,adversario,56,Masculino,#Ne,Superior Completo,Medico,Divorciado(A),,34050.0,34030.47,6.38
+2004,Jorge Gabriel Meneghel,Jorge Meneghel,PT,13,2107,7972,26.4,Não eleito,grupo,37,Masculino,#Ne,Superior Completo,Professor De Ensino De Primeiro E Segundo Graus,Casado(A),,15682.0,15682.0,7.44
+2004,Luiz Roberto Teixeira De Siqueira,Luiz Teixeira,PV,43,299,7972,3.8,Não eleito,terceiro,50,Masculino,#Ne,Superior Completo,Advogado,Casado(A),,,,
+2004,Nelson Togneri Andreati,Nelsão Togneri,PFL,25,236,7972,3.0,Não eleito,terceiro,41,Masculino,#Ne,Médio Completo,Tecnico Em Edificacoes,Casado(A),,3010.0,2938.82,12.45
+2008,Fernando Videira Lafayette,Dr. Fernando,PSB,40,5996,8965,66.9,Eleito,adversario,60,Masculino,#Ne,Superior Completo,Médico,Divorciado(A),53416.240000000005,82793.95,82793.95,13.81
+2008,Daniel Orlandi,Daniel Orlandi,PSDB,45,2969,8965,33.1,Não eleito,grupo,40,Masculino,#Ne,Ensino Médio Completo,Agricultor,Casado(A),15000.0,39651.21,39651.21,13.36
+2012,Roberto Fortunato Fiorin,Roberto Fiorin,PSB,40,5615,8830,63.6,Eleito,adversario,53,Masculino,#Ne#,Superior Completo,Servidor Público Federal,Solteiro(A),284405.77,30162.5,55800.29,9.94
+2012,Sergio Bianchi,Sergio Bianchi,PSD,55,3215,8830,36.4,Não eleito,grupo,50,Masculino,#Ne#,Ensino Fundamental Incompleto,Vereador,Casado(A),20000.0,6780.45,7043.6,2.19
+2016,Fernando Videira Lafayette,Dr. Fernando,PSB,40,5019,9660,52.0,Eleito,adversario,68,Masculino,Branca,Superior Completo,Médico,Divorciado(A),410500.0,75501.05,75501.05,15.04
+2016,Ronaldo Bianchi,Ronaldo Bianchi,PMDB,15,4641,9660,48.0,Não eleito,grupo,54,Masculino,Branca,Ensino Médio Completo,Empresário,Casado(A),428561.02,49430.0,49430.0,10.65
+2020,Fernando Videira Lafayette,Dr. Fernando,PSB,40,5196,9213,56.4,Eleito,adversario,72,Masculino,Branca,Superior Completo,Prefeito,Divorciado(A),620761.34,108642.29,102342.29,19.7
+2020,Ronaldo Bianchi,Ronaldo Bianchi,REPUBLICANOS,10,3681,9213,40.0,Não eleito,grupo,58,Masculino,Branca,Ensino Médio Completo,Empresário,Casado(A),366381.24,53120.0,50000.0,13.58
+2020,Armando Nolasco Ribeiro,Armando Zanata,PDT,12,336,9213,3.6,Não eleito,terceiro,64,Masculino,Branca,Ensino Médio Incompleto,Empresário,Casado(A),1380000.0,32722.09,26999.56,80.36
+2024,Hugo Luiz Picoli Meneghel,Hugo Luiz,PP,11,5779,9955,58.1,Eleito,grupo,25,Masculino,Branca,Superior Completo,Advogado,Solteiro(A),29573.27,155597.43,154237.43,26.69
+2024,Rolmar Botecchia,Rolmar Boteccia,PSB,40,3177,9955,31.9,Não eleito,adversario,71,Masculino,Parda,Ensino Médio Completo,Pecuarista,Casado(A),718420.79,119400.0,115000.0,36.2
+2024,Luiz Claudio Boldrini,Boldrini,PL,22,999,9955,10.0,Não eleito,terceiro,61,Masculino,Branca,Ensino Médio Completo,Comerciante,Casado(A),0.0,141130.0,141130.0,141.27

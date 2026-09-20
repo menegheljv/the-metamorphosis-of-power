@@ -103,7 +103,8 @@ posts = pd.read_csv(DATA / "campanha_digital_posts.csv", sep=";")
 ver_summary = json.loads((OUT / "vereadores_summary.json").read_text(encoding="utf-8"))
 extra = json.loads((OUT / "extra_summary.json").read_text(encoding="utf-8"))
 perfil = json.loads((OUT / "candidate_profile_summary.json").read_text(encoding="utf-8"))
-fin = pd.read_csv(OUT / "powerbi" / "financiamento.csv")
+prefs = pd.read_csv(OUT / "prefeitos_todos.csv")
+dcand = pd.read_csv(OUT / "distritos_votos_cand.csv")
 
 posts["data"] = pd.to_datetime(posts["data"])
 posts["eng"] = posts["likes"] + posts["comentarios"] + posts["compartilhamentos"]
@@ -235,6 +236,30 @@ def build(lang: str) -> list[dict]:
 
     charts: list[dict] = []
 
+    # ---- todos os candidatos a prefeito (prefeitos_todos.csv): legenda, tooltip e paineis ----------
+    def party(r):
+        return r.partido.title() if len(r.partido) > 5 else r.partido
+
+    cands_by_year = {str(int(y)): [{"n": r.nome, "p": party(r), "side": r.lado, "pct": float(r.pct), "win": r.resultado == "Eleito"}
+                                   for r in g.itertuples()] for y, g in prefs.groupby("ano")}
+
+    def all_note(y):
+        return " · ".join(f"{c['n']} ({c['p']}) {dec(c['pct'])}%" + (L(" · eleito", " · elected") if c["win"] else "") for c in cands_by_year[str(y)])
+
+    def terceiros(y):
+        return [c for c in cands_by_year[str(y)] if c["side"] == "terceiro"]
+
+    def cand_label(r):
+        return f"{r.nome} ({party(r)}" + (L(", eleito", ", elected") if r.resultado == "Eleito" else "") + ")"
+
+    def pref_panels(col, skip_zero_years=True):
+        out = []
+        for y, g in prefs.groupby("ano"):
+            g = g.dropna(subset=[col]).sort_values(col, ascending=False)
+            if len(g):
+                out.append({"title": str(int(y)), "rows": [{"label": cand_label(r), "value": float(getattr(r, col)), "side": r.lado} for r in g.itertuples()]})
+        return out
+
     # ---- 00.1 Vinte anos de dados: grupo x oposicao -------------------------------
     rows, opp_pct = [], {}
     for _, r in resumo.iterrows():
@@ -248,20 +273,24 @@ def build(lang: str) -> list[dict]:
             "x": str(ano),
             "oposicao": clean(opp),
             "grupo": clean(r["pct_candidato_do_grupo"]),
-            "note": f"{L('Grupo', 'Group')}: {title_case(r['candidato_do_grupo'])} · {L('Oposição', 'Opposition')}: {opp_name}",
+            "outro1": terceiros(ano)[0]["pct"] if len(terceiros(ano)) > 0 else None,
+            "outro2": terceiros(ano)[1]["pct"] if len(terceiros(ano)) > 1 else None,
+            "note": all_note(ano),
         })
     g = {int(r.ano): float(r.pct_candidato_do_grupo) for r in resumo.itertuples()}
     charts.append(spec(
         "historical_arc", "0.1",
         L("CINCO DERROTAS E A VIRADA", "FIVE LOSSES AND THE TURNAROUND"),
-        L("% dos votos válidos para prefeito: grupo vs. oposição, 2004–2024",
-          "% of valid votes for mayor: group vs. opposition, 2004–2024"),
+        L("% dos votos válidos de todos os candidatos a prefeito, 2004–2024",
+          "% of valid votes for every mayoral candidate, 2004–2024"),
         "cartesian",
         layers=[
             {"type": "line", "key": "oposicao", "label": L("Oposição", "Opposition"), "color": "adversario"},
             {"type": "line", "key": "grupo", "label": L("Grupo", "Group"), "color": "grupo"},
+            {"type": "line", "key": "outro1", "label": L("Outros candidatos", "Other candidates"), "color": "terceiro", "dotsOnly": True},
+            {"type": "line", "key": "outro2", "label": L("Outros candidatos", "Other candidates"), "color": "terceiro", "dotsOnly": True, "legend": False},
         ],
-        rows=rows, unit="pct", yDomain=[0, 80],
+        rows=rows, unit="pct", yDomain=[0, 80], cands=cands_by_year,
         cap=L("Votação do grupo e da principal candidatura de oposição, 2004–2024",
               "Vote share of the group and of the main opposition candidacy, 2004–2024"),
         caption=L(
@@ -274,10 +303,12 @@ def build(lang: str) -> list[dict]:
         alt=L(
             "Gráfico de linhas com a votação para prefeito do grupo e da principal candidatura de oposição em seis eleições, "
             "de 2004 a 2024. O grupo vai de 26,4% em 2004 a 48,0% em 2016, cai a 40,0% em 2020 e chega a 58,1% em 2024; "
-            "a oposição fica acima do grupo até 2020 (de 66,9% a 56,4%) e cai a 31,9% em 2024.",
+            "a oposição fica acima do grupo até 2020 (de 66,9% a 56,4%) e cai a 31,9% em 2024. Pontos azuis mostram os demais candidatos "
+            "(Luiz Teixeira e Nelsão Togneri em 2004, Armando Zanata em 2020 e Boldrini em 2024), e uma lista nomeia todos os candidatos de cada eleição.",
             "Line chart with the mayoral vote share of the group and of the main opposition candidacy in six elections, "
             "from 2004 to 2024. The group goes from 26.4% in 2004 to 48.0% in 2016, falls to 40.0% in 2020 and reaches 58.1% "
-            "in 2024; the opposition stays above the group through 2020 (from 66.9% to 56.4%) and drops to 31.9% in 2024."),
+            "in 2024; the opposition stays above the group through 2020 (from 66.9% to 56.4%) and drops to 31.9% in 2024. Blue dots show the other candidates "
+            "(Luiz Teixeira and Nelsão Togneri in 2004, Armando Zanata in 2020 and Boldrini in 2024), and a list names every candidate of each election."),
     ))
 
     # ---- 04 Da derrota generalizada a vitoria ------------------------------------------
@@ -325,13 +356,17 @@ def build(lang: str) -> list[dict]:
     dmap = []
     for d in order_:
         sub = dist_votos[dist_votos["distrito"] == d]
-        dmap.append({"name": d, **shapes[d],
+        cv = {}
+        for a in anos:
+            byname = dict(zip(*[dcand[(dcand["distrito"] == d) & (dcand["ano"] == a)][c] for c in ("nome", "votos")]))
+            cv[str(a)] = [int(byname.get(c["n"], 0)) for c in cands_by_year[str(a)]]
+        dmap.append({"name": d, **shapes[d], "cv": cv,
                      "values": {str(int(r.ano)): [int(r.votos_grupo), int(r.votos_validos)] for r in sub.itertuples()}})
     charts.append(spec(
         "distritos_heatmap", "6", L("ONDE O GRUPO ERA FORTE", "WHERE THE GROUP WAS STRONG"),
-        L("% do candidato do grupo para prefeito, por distrito: escolha a eleição",
-          "% for the group's mayoral candidate, by district: choose the election"),
-        "districtmap", viewBox=f"0 0 {mw} {mh}", years=anos, districts=dmap,
+        L("% do candidato do grupo para prefeito, por distrito: escolha a eleição (a lista mostra todos os candidatos)",
+          "% for the group's mayoral candidate, by district: choose the election (the list shows every candidate)"),
+        "districtmap", viewBox=f"0 0 {mw} {mh}", years=anos, districts=dmap, cands=cands_by_year,
         alt=L("Mapa dos sete distritos de Alfredo Chaves, cada um colorido entre vermelho e verde conforme o percentual dos votos para prefeito "
               "recebido pelo candidato do grupo, com um botão para cada eleição de 2004 a 2024, e uma tabela com os mesmos percentuais. "
               "Em 2024 o grupo passa de 47% em todos os distritos e de 50% em seis dos sete; em 2020 só Ribeirão do Cristo ficou acima de 50%.",
@@ -351,28 +386,38 @@ def build(lang: str) -> list[dict]:
     order = ["Sede", "Crubixá", "Ibitiruí", "Matilde", "Ribeirão do Cristo", "Sagrada Família", "São Bento de Urânia"]
     panels, gv = [], {}
     for d in order:
-        sub = dist_votos[dist_votos["distrito"] == d].sort_values("ano")
         prows = []
-        for r in sub.itertuples():
-            outros = int(r.votos_validos) - int(r.votos_grupo)
-            prows.append({"x": str(int(r.ano)), "grupo": int(r.votos_grupo), "outros": outros, "total": int(r.votos_validos),
-                          "note": L(f"{dec(r.votos_grupo / r.votos_validos * 100)}% dos votos válidos do distrito",
-                                    f"{dec(r.votos_grupo / r.votos_validos * 100)}% of the district's valid votes")})
-            gv[(d, int(r.ano))] = int(r.votos_grupo)
+        for a_ in sorted(int(x) for x in dcand["ano"].unique()):
+            sub = dcand[(dcand["distrito"] == d) & (dcand["ano"] == a_)]
+            tot_d = int(sub["votos_validos"].iloc[0])
+            byname = dict(zip(sub["nome"], sub["votos"]))
+            cs = cands_by_year[str(a_)]
+            grp = next(c for c in cs if c["side"] == "grupo")
+            opp = next(c for c in cs if c["side"] == "adversario")
+            ter = [c for c in cs if c["side"] == "terceiro"]
+            v = lambda c: int(byname.get(c["n"], 0))
+            prows.append({"x": str(a_), "grupo": v(grp), "oposicao": v(opp),
+                          "outro1": v(ter[0]) if len(ter) > 0 else None, "outro2": v(ter[1]) if len(ter) > 1 else None, "total": tot_d,
+                          "note": " · ".join(f"{c['n']} ({c['p']}) {thou(v(c))} ({dec(v(c) / tot_d * 100)}%)" for c in cs)})
+            gv[(d, a_)] = v(grp)
+            base_v = dist_votos[(dist_votos["distrito"] == d) & (dist_votos["ano"] == a_)]["votos_grupo"].iloc[0]
+            assert int(base_v) == v(grp), (d, a_, base_v, v(grp))
         panels.append({"title": d, "rows": prows})
     tot = {a: sum(gv[(d, a)] for d in order) for a in (2004, 2008, 2012, 2016, 2020, 2024)}
     assert all(gv[(d, 2024)] == max(gv[(d, a)] for a in tot) for d in order), "2024 deixou de ser o pico em algum distrito"
     fora20, fora24 = tot[2020] - gv[("Sede", 2020)], tot[2024] - gv[("Sede", 2024)]
     charts.append(spec(
         "distritos_votos", "6.2", L("VOTOS POR DISTRITO, ELEIÇÃO A ELEIÇÃO", "VOTES BY DISTRICT, ELECTION BY ELECTION"),
-        L("votos totais para prefeito: candidato do grupo e demais candidatos, 2004–2024 (cada distrito tem escala própria)",
-          "total mayoral votes: the group's candidate and all other candidates, 2004–2024 (each district has its own scale)"),
+        L("votos totais de cada candidato a prefeito, 2004–2024 (cada distrito tem escala própria; a lista acima nomeia todos os candidatos)",
+          "total votes for each mayoral candidate, 2004–2024 (each district has its own scale; the list above names every candidate)"),
         "multiples",
         layers=[
             {"type": "line", "key": "grupo", "label": L("Candidato do grupo", "Group's candidate"), "color": "grupo"},
-            {"type": "line", "key": "outros", "label": L("Demais candidatos", "All other candidates"), "color": "muted"},
+            {"type": "line", "key": "oposicao", "label": L("Principal oposição", "Main opposition"), "color": "adversario"},
+            {"type": "line", "key": "outro1", "label": L("Outros candidatos", "Other candidates"), "color": "terceiro", "dotsOnly": True},
+            {"type": "line", "key": "outro2", "label": L("Outros candidatos", "Other candidates"), "color": "terceiro", "dotsOnly": True, "legend": False},
         ],
-        panels=panels, unit="int",
+        panels=panels, unit="int", cands=cands_by_year,
         cap=L("Votos totais para prefeito por distrito, 2004–2024", "Total mayoral votes by district, 2004–2024"),
         caption=L(
             f"A Sede concentra a maior parte dos votos em todas as eleições: {thou(gv[('Sede', 2024)])} dos {thou(tot[2024])} votos do "
@@ -383,10 +428,10 @@ def build(lang: str) -> list[dict]:
             f"2024 ({dec(gv[('Sede', 2024)] / tot[2024] * 100)}%). Across the other six districts combined, the group goes from "
             f"{thou(fora20)} votes in 2020 to {thou(fora24)} in 2024 (+{dec((fora24 / fora20 - 1) * 100, 0)}%), and in all seven "
             f"districts 2024 is the election with the group's highest vote count in the whole series."),
-        alt=L("Sete pequenos gráficos de linhas, um por distrito, com os votos totais para prefeito em cada eleição de 2004 a 2024, "
-              "uma linha para o candidato do grupo e outra para os demais candidatos.",
-              "Seven small line charts, one per district, with total mayoral votes in each election from 2004 to 2024, "
-              "one line for the group's candidate and another for all other candidates.")))
+        alt=L("Sete gráficos de linhas, um por distrito, com os votos totais de cada candidato a prefeito em cada eleição de 2004 a 2024: "
+              "uma linha para o candidato do grupo, outra para a principal oposição e pontos para os demais candidatos.",
+              "Seven line charts, one per district, with the total votes for each mayoral candidate in each election from 2004 to 2024: "
+              "one line for the group's candidate, another for the main opposition and dots for the other candidates.")))
 
     # ---- 05 Camara Municipal ------------------------------------------------------------------
     charts.append(spec(
@@ -425,23 +470,12 @@ def build(lang: str) -> list[dict]:
                             for r in coerencia[coerencia["ano"] == ano].itertuples()]} for ano in (2020, 2024)]))
 
     # ---- 06 Financiamento e participacao --------------------------------------------------
-    side_of = {"Fernando (PSB, eleito)": "adversario", "Bianchi (Republicanos, grupo)": "grupo", "Zanata (PDT)": "terceiro",
-               "Hugo Luiz (PP, grupo, eleito)": "grupo", "Boldrini (PL)": "terceiro", "Boteccia (PSB)": "adversario"}
-    short = {"Bianchi (Republicanos, grupo)": "Bianchi (Republicanos)",
-             "Hugo Luiz (PP, grupo, eleito)": L("Hugo Luiz (PP, eleito)", "Hugo Luiz (PP, elected)"),
-             "Fernando (PSB, eleito)": L("Fernando (PSB, eleito)", "Fernando (PSB, elected)")}
-
-    def fin_panels(col):
-        return [{"title": str(ano), "rows": [
-            {"label": short.get(r["Candidato"], r["Candidato"]), "value": float(r[col]), "side": side_of[r["Candidato"]]}
-            for _, r in fin[fin["Ano"] == ano].sort_values(col, ascending=False).iterrows()]} for ano in (2020, 2024)]
-
     charts.append(spec("financeiro_chapa", "12", L("RECEITA DECLARADA", "DECLARED CAMPAIGN REVENUE"),
-                       L("candidatos a prefeito, em reais", "mayoral candidates, in reais"), "panels", unit="brl",
-                       panels=fin_panels("Receita")))
+                       L("todos os candidatos a prefeito, 2004–2024, em reais", "every mayoral candidate, 2004–2024, in reais"), "panels", unit="brl",
+                       panels=pref_panels("receita")))
     charts.append(spec("custo_por_voto", "13", L("CUSTO POR VOTO", "COST PER VOTE"),
-                       L("reais gastos por voto, candidatos a prefeito", "reais spent per vote, mayoral candidates"), "panels",
-                       unit="brl2", panels=fin_panels("Custo_Por_Voto")))
+                       L("reais gastos por voto, todos os candidatos a prefeito, 2004–2024", "reais spent per vote, every mayoral candidate, 2004–2024"), "panels",
+                       unit="brl2", panels=pref_panels("custo_por_voto")))
 
     origem = [("Partido político", "Political party", 57460.0, 166372.43), ("Recursos próprios", "Own funds", 22030.8, 34547.11),
               ("Pessoas físicas", "Individual donors", 14440.2, 18648.65), ("Outros candidatos", "Other candidates", 2625.0, 7000.0)]
@@ -538,25 +572,14 @@ def build(lang: str) -> list[dict]:
         unit="int", rightUnit="int", tiltX=True))
 
     # ---- 08 Perfil dos candidatos ---------------------------------------------------------------
-    pat20, pat24 = perfil["patrimonio_prefeito_2020"], perfil["patrimonio_prefeito_2024"]
     charts.append(spec(
         "idade_candidatos", "23", L("IDADE DOS CANDIDATOS A PREFEITO", "AGE OF MAYORAL CANDIDATES"),
-        L("em anos, na data da eleição", "in years, on election day"), "panels", unit="yr",
-        panels=[{"title": "2020", "rows": [{"label": "Fernando", "value": 73, "side": "adversario"},
-                                          {"label": "Armando Zanata", "value": 64, "side": "terceiro"},
-                                          {"label": "Ronaldo Bianchi", "value": 58, "side": "grupo"}]},
-                {"title": "2024", "rows": [{"label": "Rolmar Boteccia", "value": 71, "side": "adversario"},
-                                          {"label": "Boldrini", "value": 61, "side": "terceiro"},
-                                          {"label": "Hugo Luiz", "value": 25, "side": "grupo"}]}]))
+        L("todos os candidatos, em anos, na data da eleição, 2004–2024", "every candidate, in years, on election day, 2004–2024"), "panels", unit="yr",
+        panels=pref_panels("idade")))
     charts.append(spec(
         "patrimonio_candidatos", "24", L("PATRIMÔNIO DECLARADO", "DECLARED ASSETS"),
-        L("candidatos a prefeito, em reais", "mayoral candidates, in reais"), "panels", unit="brl",
-        panels=[{"title": "2020", "rows": [{"label": "Armando Zanata", "value": pat20["ARMANDO ZANATA"], "side": "terceiro"},
-                                          {"label": "Fernando", "value": pat20["DR FERNANDO"], "side": "adversario"},
-                                          {"label": "Ronaldo Bianchi", "value": pat20["RONALDO BIANCHI"], "side": "grupo"}]},
-                {"title": "2024", "rows": [{"label": "Rolmar Boteccia", "value": pat24["ROLMAR BOTECCHIA"], "side": "adversario"},
-                                          {"label": "Hugo Luiz", "value": pat24["HUGO LUIZ"], "side": "grupo"},
-                                          {"label": "Boldrini", "value": pat24["BOLDRINI"], "side": "terceiro"}]}]))
+        L("todos os candidatos a prefeito, em reais, 2008–2024 (a base de 2004 não traz bens)", "every mayoral candidate, in reais, 2008–2024 (the 2004 dataset has no assets)"),
+        "panels", unit="brl", panels=pref_panels("patrimonio")))
 
     polls = [("ES-09808/2024", "Solução Treinamento Mkt e Pesquisas", "2024-04-19"), ("ES-03038/2024", "I9 - Inove Consultoria", "2024-06-20"),
              ("ES-03088/2024", "Direta Propaganda e Eventos", "2024-08-13"), ("ES-08806/2024", "Instituto Verita", "2024-08-29"),

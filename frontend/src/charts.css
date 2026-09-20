@@ -71,8 +71,7 @@
 .ichart .panel-title { margin: 0 0 6px; text-align: center; font: 600 14px "Bricolage Grotesque", sans-serif; color: var(--ink, #17171a); }
 
 /* multiplos pequenos (um por distrito) */
-.ichart .multiples { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 20px; }
-.ichart .multiple:first-child { grid-column: 1 / -1; }
+.ichart .multiples { display: grid; grid-template-columns: minmax(0, 1fr); gap: 26px; margin-top: 14px; }
 .ichart .multiple { min-width: 0; padding: 16px 12px 8px; border: 1px solid var(--border, rgba(23, 23, 26, 0.12)); border-radius: 10px; background: #fff; }
 .ichart .multiple .panel-title { margin: 0 0 4px; font-size: 15px; }
 .ichart .scale-note { margin: 10px 0 0; text-align: center; font: 500 11.5px "Bricolage Grotesque", sans-serif; letter-spacing: 0.04em; text-transform: uppercase; color: var(--caption, rgba(23, 23, 26, 0.5)); }
@@ -189,3 +188,22 @@
 .print-mode .ichart table.heat { font-size: 14px; }
 .print-mode .ichart .dmaps.two { grid-template-columns: 1fr; gap: 12px; }
 .print-mode .ichart .dmap-wrap { width: 100%; max-width: 580px; margin: 0 auto; break-inside: avoid; }
+
+/* candidatos a prefeito de cada eleicao (todos) */
+.ichart .cand-key { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px 14px; margin: 16px 0 4px; padding: 14px 14px 12px; border: 1px solid var(--border, rgba(23, 23, 26, 0.12)); border-radius: 10px; background: #fff; }
+.ichart .cand-key.single { grid-template-columns: minmax(0, 1fr); padding: 10px 14px; margin: 8px 0 2px; }
+.ichart .cand-key.single .ck-col { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 18px; }
+.ichart .cand-key.single .ck-year { flex: 0 0 auto; margin: 0; }
+.ichart .ck-year { margin: 0 0 6px; font: 700 13px "Bricolage Grotesque", sans-serif; letter-spacing: 0.06em; color: var(--ink, #17171a); }
+.ichart .ck-row { display: grid; grid-template-columns: 10px minmax(0, 1fr); column-gap: 7px; margin: 0 0 6px; font: 500 12.5px/1.25 "Bricolage Grotesque", sans-serif; color: var(--ink, #17171a); }
+.ichart .cand-key.single .ck-row { display: inline-grid; margin: 0; }
+.ichart .ck-row i { width: 10px; height: 10px; margin-top: 3px; border-radius: 50%; }
+.ichart .ck-row small { grid-column: 2; font-size: 11.5px; font-weight: 500; color: var(--caption, rgba(23, 23, 26, 0.6)); }
+.ichart .readout-cands { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 14px; margin-top: 4px; font-size: 0.92em; }
+.ichart .readout-cands i { display: inline-block; width: 9px; height: 9px; margin-right: 5px; border-radius: 50%; }
+@media (max-width: 900px) { .ichart .cand-key { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .ichart .cand-key { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 12px; padding: 12px; } }
+.print-mode .ichart .cand-key { grid-template-columns: repeat(3, minmax(0, 1fr)); break-inside: avoid; }
+.print-mode .ichart .cand-key.single { grid-template-columns: minmax(0, 1fr); }
+
+.print-mode .ichart .panel, .print-mode .ichart .multiple { break-inside: avoid; }

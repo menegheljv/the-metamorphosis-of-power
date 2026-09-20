@@ -142,6 +142,12 @@
   .table-exhibit .table-scroll { overflow-x: visible; }
   .table-exhibit table.data td:last-child, .table-exhibit table.data th:last-child { text-align: left; }
   .table-exhibit figcaption span { display: block; }
+  .side-dot { display: inline-block; width: 9px; height: 9px; margin-right: 7px; border-radius: 50%; vertical-align: 0.05em; }
+  .table-exhibit table.data.cands td:first-child, .table-exhibit table.data.cands th:first-child { text-align: center; }
+  .table-exhibit table.data.cands td:last-child, .table-exhibit table.data.cands th:last-child { text-align: left; }
+  .table-exhibit table.data.cands td:nth-child(2) { text-align: left; white-space: nowrap; }
+  .table-exhibit table.data.cands td:nth-child(3) { text-align: left; }
+  .table-exhibit table.data.cands td:nth-child(2) { white-space: normal; }
   .table-exhibit table.data.cov td:first-child, .table-exhibit table.data.cov th:first-child { text-align: center; }
   @media (min-width: 641px), print {
     .table-exhibit table.data.cov { table-layout: fixed; width: 100%; }
@@ -556,6 +562,7 @@
     .table-exhibit .table-label { margin: 12px 0 4px; }
     .table-exhibit figcaption { font-size: 9.5pt; padding: 8px 14px 12px; }
     a { color: inherit; text-decoration: none; }
+    .table-exhibit table.data.cands td, .table-exhibit table.data.cands th { padding: 2px 6px; }
     pre.code { white-space: pre-wrap; overflow: visible; overflow-wrap: anywhere; font-size: 9pt; padding: 12px 14px; }
   }
 </style>
@@ -631,10 +638,45 @@
         <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 0.1</span><span class="cap">Vote share of the group and of the main opposition candidacy, 2004–2024</span></div>
       <div class="exhibit-body">
-        <div class="ichart" data-chart="historical_arc"><p class="chart-fallback">Line chart with the mayoral vote share of the group and of the main opposition candidacy in six elections, from 2004 to 2024. The group goes from 26.4% in 2004 to 48.0% in 2016, falls to 40.0% in 2020 and reaches 58.1% in 2024; the opposition stays above the group through 2020 (from 66.9% to 56.4%) and drops to 31.9% in 2024.</p></div>
+        <div class="ichart" data-chart="historical_arc"><p class="chart-fallback">Line chart with the mayoral vote share of the group and of the main opposition candidacy in six elections, from 2004 to 2024. The group goes from 26.4% in 2004 to 48.0% in 2016, falls to 40.0% in 2020 and reaches 58.1% in 2024; the opposition stays above the group through 2020 (from 66.9% to 56.4%) and drops to 31.9% in 2024. Blue dots show the other candidates (Luiz Teixeira and Nelsão Togneri in 2004, Armando Zanata in 2020 and Boldrini in 2024), and a list names every candidate of each election.</p></div>
       </div>
-      <figcaption>In five consecutive elections the main opposition candidacy beat the group, with the gap narrowing from 66.9% to 26.4% in 2004 to 52.0% to 48.0% in 2016. In 2024 the relationship flips: the group's candidate gets 58.1% and the main opposition, 31.9%.</figcaption>
+      <figcaption>In five consecutive elections the main opposition candidacy beat the group, with the gap narrowing from 66.9% to 26.4% in 2004 to 52.0% to 48.0% in 2016. In 2024 the relationship flips: the group's candidate gets 58.1% and the main opposition, 31.9%. The blue dots are the other candidates: Luiz Teixeira (PV) and Nelsão Togneri (PFL) in 2004, Armando Zanata (PDT) in 2020 and Boldrini (PL) in 2024; in 2008, 2012 and 2016 there were only two candidates. The list under the chart names everyone, and Table 0.1 has the votes.</figcaption>
     </figure>
+
+    <figure class="exhibit table-exhibit">
+      <div class="exhibit-head"><span class="tag">Table 0.1</span><span class="cap">Every mayoral candidate, 2004–2024</span></div>
+      <div class="exhibit-body">
+        <div class="table-title">WHO RAN IN EACH ELECTION</div>
+        <p class="table-sub">official TSE result; the dot marks the side: green = group, red = main opposition, blue = other candidates</p>
+        <div class="table-scroll">
+      <table class="data stack-mobile cands">
+        <thead>
+          <tr><th>Year</th><th>Candidate</th><th>Party</th><th class="num">Votes</th><th class="num">% of valid votes</th><th>Result</th></tr>
+        </thead>
+        <tbody>
+          <tr><td data-label="Year">2004</td><td data-label="Candidate"><span class="side-dot" style="background:#c8433a"></span>Dr. Fernando</td><td data-label="Party">PSB</td><td class="num" data-label="Votes">5,330</td><td class="num" data-label="% of valid votes">66.9%</td><td data-label="Result">Elected</td></tr>
+          <tr><td data-label="Year">2004</td><td data-label="Candidate"><span class="side-dot" style="background:#1f9d63"></span>Jorge Meneghel</td><td data-label="Party">PT</td><td class="num" data-label="Votes">2,107</td><td class="num" data-label="% of valid votes">26.4%</td><td data-label="Result">Not elected</td></tr>
+          <tr><td data-label="Year">2004</td><td data-label="Candidate"><span class="side-dot" style="background:#3d7fc4"></span>Luiz Teixeira</td><td data-label="Party">PV</td><td class="num" data-label="Votes">299</td><td class="num" data-label="% of valid votes">3.8%</td><td data-label="Result">Not elected</td></tr>
+          <tr><td data-label="Year">2004</td><td data-label="Candidate"><span class="side-dot" style="background:#3d7fc4"></span>Nelsão Togneri</td><td data-label="Party">PFL</td><td class="num" data-label="Votes">236</td><td class="num" data-label="% of valid votes">3.0%</td><td data-label="Result">Not elected</td></tr>
+          <tr><td data-label="Year">2008</td><td data-label="Candidate"><span class="side-dot" style="background:#c8433a"></span>Dr. Fernando</td><td data-label="Party">PSB</td><td class="num" data-label="Votes">5,996</td><td class="num" data-label="% of valid votes">66.9%</td><td data-label="Result">Elected</td></tr>
+          <tr><td data-label="Year">2008</td><td data-label="Candidate"><span class="side-dot" style="background:#1f9d63"></span>Daniel Orlandi</td><td data-label="Party">PSDB</td><td class="num" data-label="Votes">2,969</td><td class="num" data-label="% of valid votes">33.1%</td><td data-label="Result">Not elected</td></tr>
+          <tr><td data-label="Year">2012</td><td data-label="Candidate"><span class="side-dot" style="background:#c8433a"></span>Roberto Fiorin</td><td data-label="Party">PSB</td><td class="num" data-label="Votes">5,615</td><td class="num" data-label="% of valid votes">63.6%</td><td data-label="Result">Elected</td></tr>
+          <tr><td data-label="Year">2012</td><td data-label="Candidate"><span class="side-dot" style="background:#1f9d63"></span>Sergio Bianchi</td><td data-label="Party">PSD</td><td class="num" data-label="Votes">3,215</td><td class="num" data-label="% of valid votes">36.4%</td><td data-label="Result">Not elected</td></tr>
+          <tr><td data-label="Year">2016</td><td data-label="Candidate"><span class="side-dot" style="background:#c8433a"></span>Dr. Fernando</td><td data-label="Party">PSB</td><td class="num" data-label="Votes">5,019</td><td class="num" data-label="% of valid votes">52.0%</td><td data-label="Result">Elected</td></tr>
+          <tr><td data-label="Year">2016</td><td data-label="Candidate"><span class="side-dot" style="background:#1f9d63"></span>Ronaldo Bianchi</td><td data-label="Party">PMDB</td><td class="num" data-label="Votes">4,641</td><td class="num" data-label="% of valid votes">48.0%</td><td data-label="Result">Not elected</td></tr>
+          <tr><td data-label="Year">2020</td><td data-label="Candidate"><span class="side-dot" style="background:#c8433a"></span>Dr. Fernando</td><td data-label="Party">PSB</td><td class="num" data-label="Votes">5,196</td><td class="num" data-label="% of valid votes">56.4%</td><td data-label="Result">Elected</td></tr>
+          <tr><td data-label="Year">2020</td><td data-label="Candidate"><span class="side-dot" style="background:#1f9d63"></span>Ronaldo Bianchi</td><td data-label="Party">Republicanos</td><td class="num" data-label="Votes">3,681</td><td class="num" data-label="% of valid votes">40.0%</td><td data-label="Result">Not elected</td></tr>
+          <tr><td data-label="Year">2020</td><td data-label="Candidate"><span class="side-dot" style="background:#3d7fc4"></span>Armando Zanata</td><td data-label="Party">PDT</td><td class="num" data-label="Votes">336</td><td class="num" data-label="% of valid votes">3.6%</td><td data-label="Result">Not elected</td></tr>
+          <tr><td data-label="Year">2024</td><td data-label="Candidate"><span class="side-dot" style="background:#1f9d63"></span>Hugo Luiz</td><td data-label="Party">PP</td><td class="num" data-label="Votes">5,779</td><td class="num" data-label="% of valid votes">58.1%</td><td data-label="Result">Elected</td></tr>
+          <tr><td data-label="Year">2024</td><td data-label="Candidate"><span class="side-dot" style="background:#c8433a"></span>Rolmar Boteccia</td><td data-label="Party">PSB</td><td class="num" data-label="Votes">3,177</td><td class="num" data-label="% of valid votes">31.9%</td><td data-label="Result">Not elected</td></tr>
+          <tr><td data-label="Year">2024</td><td data-label="Candidate"><span class="side-dot" style="background:#3d7fc4"></span>Boldrini</td><td data-label="Party">PL</td><td class="num" data-label="Votes">999</td><td class="num" data-label="% of valid votes">10.0%</td><td data-label="Result">Not elected</td></tr>
+        </tbody>
+      </table>
+        </div>
+      </div>
+      <figcaption>Percentages are of valid votes (blank and null votes excluded). Four candidates ran for mayor in 2004; two in 2008, 2012 and 2016; three in 2020 and 2024.</figcaption>
+    </figure>
+
     <div class="callout warn">
       <strong>Full disclosure.</strong> Jorge Gabriel Meneghel, the 2004 candidate, is my father. Hugo Luiz, who won in 2024, is my brother, and I directed his campaign that year. The project grew out of that work; the data pipeline came after, to understand what actually moved the result.
     </div>
@@ -663,7 +705,7 @@
       <li><code>prestacao_de_contas_eleitorais_candidatos_YEAR.csv</code> (revenue and paid expenses, 2004 to 2024): extracted via <em>HTTP range requests</em> from a ~1.3&nbsp;GB national file, without downloading the whole thing</li>
       <li><code>bem_candidato_YEAR_ES.csv</code>: assets declared by candidates, 2008 to 2024</li>
       <li><code>perfil_eleitor_secao_YEAR_ES.csv</code>: electorate profile by precinct (gender, age bracket, education), 2008 to 2024</li>
-      <li><code>perfil_candidato_YEAR</code>: candidate profile (gender, race/color, education and occupation), 2020 and 2024 only</li>
+      <li><code>consulta_cand_YEAR_ES.csv</code>: candidacy registry, 2004 to 2024 (gender, date of birth, education and occupation; race/color is only recorded from 2016)</li>
     </ul>
     <div class="callout warn">
       <strong>Transparency note.</strong> The continuity between the two majoritarian candidacies (2020 to 2024) is reconstructed from verifiable coincidences in the official data: the same local party base (Republicanos/PTB), and the fact that the 2024 winner, Hugo Luiz Picoli Meneghel, appears in the 2020 data as a city council candidate elected on the coalition that lost the mayoral race that year. No number was estimated, projected, or invented: where a figure wasn't publicly available, it was left out rather than approximated. The only exception is section 11, whose 2028 scenarios are stated assumptions, calculated in R.
@@ -709,17 +751,17 @@
           <tr><th>Mayoral</th><th>Council</th></tr>
         </thead>
         <tbody>
-          <tr><td data-label="Year">2004</td><td class="num" data-label="Voting precincts">33</td><td class="num" data-label="Mayoral candidates">4</td><td class="num" data-label="Council candidates">40</td><td data-label="Revenue and expenses">Yes</td><td data-label="Declared assets">No</td><td data-label="Electorate profile">No</td><td data-label="Party-line votes">No</td><td data-label="Candidate profile">No</td></tr>
-          <tr><td data-label="Year">2008</td><td class="num" data-label="Voting precincts">34</td><td class="num" data-label="Mayoral candidates">2</td><td class="num" data-label="Council candidates">41</td><td data-label="Revenue and expenses">Yes</td><td data-label="Declared assets">Yes</td><td data-label="Electorate profile">Yes</td><td data-label="Party-line votes">No</td><td data-label="Candidate profile">No</td></tr>
-          <tr><td data-label="Year">2012</td><td class="num" data-label="Voting precincts">34</td><td class="num" data-label="Mayoral candidates">2</td><td class="num" data-label="Council candidates">64</td><td data-label="Revenue and expenses">Yes</td><td data-label="Declared assets">Yes</td><td data-label="Electorate profile">Yes</td><td data-label="Party-line votes">No</td><td data-label="Candidate profile">No</td></tr>
-          <tr><td data-label="Year">2016</td><td class="num" data-label="Voting precincts">36</td><td class="num" data-label="Mayoral candidates">2</td><td class="num" data-label="Council candidates">61</td><td data-label="Revenue and expenses">Yes</td><td data-label="Declared assets">Yes</td><td data-label="Electorate profile">Yes</td><td data-label="Party-line votes">No</td><td data-label="Candidate profile">No</td></tr>
+          <tr><td data-label="Year">2004</td><td class="num" data-label="Voting precincts">33</td><td class="num" data-label="Mayoral candidates">4</td><td class="num" data-label="Council candidates">40</td><td data-label="Revenue and expenses">Yes</td><td data-label="Declared assets">No</td><td data-label="Electorate profile">No</td><td data-label="Party-line votes">No</td><td data-label="Candidate profile">Yes</td></tr>
+          <tr><td data-label="Year">2008</td><td class="num" data-label="Voting precincts">34</td><td class="num" data-label="Mayoral candidates">2</td><td class="num" data-label="Council candidates">41</td><td data-label="Revenue and expenses">Yes</td><td data-label="Declared assets">Yes</td><td data-label="Electorate profile">Yes</td><td data-label="Party-line votes">No</td><td data-label="Candidate profile">Yes</td></tr>
+          <tr><td data-label="Year">2012</td><td class="num" data-label="Voting precincts">34</td><td class="num" data-label="Mayoral candidates">2</td><td class="num" data-label="Council candidates">64</td><td data-label="Revenue and expenses">Yes</td><td data-label="Declared assets">Yes</td><td data-label="Electorate profile">Yes</td><td data-label="Party-line votes">No</td><td data-label="Candidate profile">Yes</td></tr>
+          <tr><td data-label="Year">2016</td><td class="num" data-label="Voting precincts">36</td><td class="num" data-label="Mayoral candidates">2</td><td class="num" data-label="Council candidates">61</td><td data-label="Revenue and expenses">Yes</td><td data-label="Declared assets">Yes</td><td data-label="Electorate profile">Yes</td><td data-label="Party-line votes">No</td><td data-label="Candidate profile">Yes</td></tr>
           <tr><td data-label="Year">2020</td><td class="num" data-label="Voting precincts">36</td><td class="num" data-label="Mayoral candidates">3</td><td class="num" data-label="Council candidates">69</td><td data-label="Revenue and expenses">Yes</td><td data-label="Declared assets">Yes</td><td data-label="Electorate profile">Yes</td><td data-label="Party-line votes">Yes</td><td data-label="Candidate profile">Yes</td></tr>
           <tr><td data-label="Year">2024</td><td class="num" data-label="Voting precincts">42</td><td class="num" data-label="Mayoral candidates">3</td><td class="num" data-label="Council candidates">70</td><td data-label="Revenue and expenses">Yes</td><td data-label="Declared assets">Yes</td><td data-label="Electorate profile">Yes</td><td data-label="Party-line votes">Yes</td><td data-label="Candidate profile">Yes</td></tr>
         </tbody>
       </table>
         </div>
       </div>
-      <figcaption>Comparisons across all six elections (results, turnout, financing, districts) rely on the complete columns. The council slate by district, party-line votes and the candidate profile exist only for 2020 and 2024; assets and the electorate profile start in 2008. Where a dataset does not cover a year, the study does not estimate: it leaves it out. The candidate columns count registered mayoral and council candidacies separately; vice-mayoral candidates are left out.</figcaption>
+      <figcaption>Comparisons across all six elections (results, turnout, financing, districts) rely on the complete columns. The council slate by district and party-line votes exist only for 2020 and 2024; assets and the electorate profile start in 2008; the candidate profile (age, education, occupation) exists for all six elections. Where a dataset does not cover a year, the study does not estimate: it leaves it out. The candidate columns count registered mayoral and council candidacies separately; vice-mayoral candidates are left out.</figcaption>
     </figure>
 
     <h3>Cleaning and normalization (pandas)</h3>
@@ -836,7 +878,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 6</span><span class="cap">Group's mayoral candidate share, by district, 2004&ndash;2024</span></div>
       <div class="exhibit-body">
-        <div class="ichart" data-chart="distritos_heatmap"><p class="chart-fallback">Map of the seven districts of Alfredo Chaves, each colored between red and green according to the share of mayoral votes won by the group's candidate, with one button per election from 2004 to 2024, and a table with the same percentages. In 2024 the group is above 47% in every district and above 50% in six of seven; in 2020 only Ribeirão do Cristo was above 50%.</p></div>
+        <div class="ichart" data-chart="distritos_heatmap"><p class="chart-fallback">Map of the seven districts of Alfredo Chaves, each colored between red and green according to the share of mayoral votes won by the group's candidate, with one button per election from 2004 to 2024, and a table with the same percentages. In 2024 the group is above 47% in every district and above 50% in six of seven; in 2020 only Ribeirão do Cristo was above 50%. Above the map, a list names every mayoral candidate of the chosen election; tapping or hovering over a district shows each candidate's vote there.</p></div>
       </div>
       <figcaption>Ribeirão do Cristo was by far the district most resistant to the group in 2004 and 2012 (8.8% and 9.4%, the worst numbers in the whole study), and became the most favorable in 2020 and 2024 (58.2% and 72.3%). By 2024, all seven districts are above 47%: the turnaround didn't come from one stronghold, it came from the entire territory.</figcaption>
     </figure>
@@ -853,13 +895,13 @@
     </figure>
     <p style="font-size:13px;color:var(--caption)">Source: <code>votacao_secao</code> and <code>consulta_cand</code> (fields <code>SG_PARTIDO</code>, <code>SQ_CANDIDATO</code>), TSE, council race, 2020 and 2024. Same precinct&rarr;district mapping as Figure 6. The group's slate is defined by each year's mayoral coalition parties (Republicanos/PTB/Patriota in 2020; Republicanos/PP/PSDB in 2024), matched by <code>SQ_CANDIDATO</code> &mdash; not by name, which varies between the candidate and precinct extracts.</p>
     <h3>In absolute numbers</h3>
-    <p>The percentages in Figures 6 and 6.1 hide the size of each district. The charts below show the <strong>total mayoral votes</strong> in each election from 2004 to 2024, separating the group's candidate from all other candidates. Each district has its own scale: Sede holds about two thirds of valid votes, and the other six districts are too small to share the same axis.</p>
+    <p>The percentages in Figures 6 and 6.1 hide the size of each district. The charts below show the <strong>total mayoral votes</strong> in each election from 2004 to 2024, with a line for the group's candidate, another for the main opposition and dots for the other candidates; the list above the charts names everyone. Each district has its own scale: Sede holds about two thirds of valid votes, and the other six districts are too small to share the same axis.</p>
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 6.2</span><span class="cap">Total mayoral votes by district, 2004–2024</span></div>
       <div class="exhibit-body">
-        <div class="ichart" data-chart="distritos_votos"><p class="chart-fallback">Seven small stacked bar charts, one per district, with total mayoral votes in each election from 2004 to 2024, separating the group's candidate from all other candidates.</p></div>
+        <div class="ichart" data-chart="distritos_votos"><p class="chart-fallback">Seven line charts, one per district, with the total votes for each mayoral candidate in each election from 2004 to 2024: one line for the group's candidate, another for the main opposition and dots for the other candidates.</p></div>
       </div>
-      <figcaption>Sede holds most of the votes in every election: 3,811 of the group candidate's 5,779 votes in 2024 (65.9%). Across the other six districts combined, the group goes from 1,201 votes in 2020 to 1,968 in 2024 (+64%), and in all seven districts 2024 is the election with the group's highest vote count in the whole series.</figcaption>
+      <figcaption>Sede holds most of the votes in every election: 3,811 of the group candidate's 5,779 votes in 2024 (65.9%). Across the other six districts combined, the group goes from 1,201 votes in 2020 to 1,968 in 2024 (+64%), and in all seven districts 2024 is the election with the group's highest vote count in the whole series. Hovering over a point shows each candidate's votes in the district.</figcaption>
     </figure>
     <p style="font-size:13px;color:var(--caption)">Source: <code>votacao_secao</code>, TSE, Mayor race, 2004 to 2024, blank and null votes excluded. Same precinct&rarr;district mapping as Figure 6.</p>
   </section>
@@ -928,22 +970,22 @@
   <section id="financiamento">
     <div class="eyebrow">06 &middot; Financing and turnout</div>
     <h2>What it cost, and who showed up to vote</h2>
-    <p>Data from the TSE's <strong>electoral campaign finance filings</strong> (revenue and expenses declared by every candidate, opponents included) and its <strong>turnout breakdown</strong> (attendance and abstention) round out the picture: the turnaround didn't come from a bigger electorate, and the revenue raised by the group's candidacy was never markedly higher than its competitors'. Even so, the group's campaign converted that money into votes more efficiently than any other candidate for the office, in both elections.</p>
+    <p>Data from the TSE's <strong>electoral campaign finance filings</strong> (revenue and expenses declared by every candidate, opponents included) and its <strong>turnout breakdown</strong> (attendance and abstention) round out the picture: the turnaround didn't come from a bigger electorate, and the revenue raised by the group's candidacy was only the largest among the competitors in 2024. In the five earlier defeats, the winner declared 1.5 to 4.4 times more revenue than the group's candidate. Even so, the group's campaign converted the money into votes more efficiently than any other candidate for the office in 2008, 2012, 2016, 2020 and 2024; in 2004 it was the second most efficient. The two figures below show every mayoral candidate of the six elections.</p>
 
     <figure class="exhibit">
-      <div class="exhibit-head"><span class="tag">Figure 12</span><span class="cap">Declared campaign revenue: all mayoral candidates</span></div>
+      <div class="exhibit-head"><span class="tag">Figure 12</span><span class="cap">Declared campaign revenue: every mayoral candidate, 2004–2024</span></div>
       <div class="exhibit-body">
-        <div class="ichart" data-chart="financeiro_chapa"><p class="chart-fallback">Horizontal bar chart with declared campaign revenue for each mayoral candidate. 2020: Fernando (PSB, elected) R$108,642; Bianchi (Republicanos, group) R$53,120; Zanata (PDT) R$32,722. 2024: Hugo Luiz (PP, group, elected) R$155,597; Boldrini (PL) R$141,130; Boteccia (PSB) R$119,400.</p></div>
+        <div class="ichart" data-chart="financeiro_chapa"><p class="chart-fallback">Six horizontal bar charts, one per election, with the revenue declared by each mayoral candidate from 2004 to 2024. In 2024, Hugo Luiz (PP, elected) declared R$155,597, Boldrini (PL) R$141,130 and Rolmar Boteccia (PSB) R$119,400; in 2020, Dr. Fernando (PSB, elected) R$108,642, Ronaldo Bianchi (Republicanos) R$53,120 and Armando Zanata (PDT) R$32,722. In the earlier elections the winner declared more than the group's candidate.</p></div>
       </div>
-      <figcaption>With every candidate side by side, it's clear the group's campaign was never the best-funded: in 2020, Bianchi raised less than half of what winner Fernando did; in 2024, Hugo Luiz had the highest revenue among the three, but the gap to his opponents was small. Not a crushing cash advantage.</figcaption>
+      <figcaption>With every candidate side by side, the group only had the largest revenue in 2024. In the five defeats, the winner declared more: R$&nbsp;34 thousand against R$&nbsp;16 thousand in 2004, R$&nbsp;83 thousand against R$&nbsp;40 thousand in 2008, R$&nbsp;30 thousand against R$&nbsp;7 thousand in 2012, R$&nbsp;76 thousand against R$&nbsp;49 thousand in 2016 and R$&nbsp;109 thousand against R$&nbsp;53 thousand in 2020. In 2024, Hugo Luiz had the largest revenue of the three (R$&nbsp;156 thousand), but the gap to Boldrini (R$&nbsp;141 thousand) and Rolmar Boteccia (R$&nbsp;119 thousand) was small. Luiz Teixeira (PV, 2004) does not appear: he is missing from the campaign accounts in the extract.</figcaption>
     </figure>
 
     <figure class="exhibit">
-      <div class="exhibit-head"><span class="tag">Figure 13</span><span class="cap">Spending efficiency per vote: all mayoral candidates</span></div>
+      <div class="exhibit-head"><span class="tag">Figure 13</span><span class="cap">Cost per vote: every mayoral candidate, 2004–2024</span></div>
       <div class="exhibit-body">
-        <div class="ichart" data-chart="custo_por_voto"><p class="chart-fallback">Horizontal bar chart with spending efficiency per vote (paid expenses divided by valid votes) for each mayoral candidate. 2020: Bianchi (group) R$13.58/vote; Fernando R$19.70/vote; Zanata R$80.36/vote. 2024: Hugo Luiz (group, elected) R$26.69/vote; Boteccia R$36.20/vote; Boldrini R$141.27/vote.</p></div>
+        <div class="ichart" data-chart="custo_por_voto"><p class="chart-fallback">Six horizontal bar charts, one per election, with the cost per vote (paid expenses divided by votes) of each mayoral candidate from 2004 to 2024. The group's candidate had the lowest cost per vote in 2008 (R$13.36), 2012 (R$2.19), 2016 (R$10.65), 2020 (R$13.58) and 2024 (R$26.69); in 2004, Dr. Fernando had R$6.38 and Jorge Meneghel, R$7.44.</p></div>
       </div>
-      <figcaption>Honest about the data: the group's spend per vote nearly doubled between the two elections (R$13.58 → R$26.69), but in both years the group's candidacy was the <strong>most efficient of the three competitors</strong>, including in 2024, when it won while spending R$26.69/vote against R$36.20 (Boteccia) and R$141.27 (Boldrini, who had the worst conversion efficiency of the race).</figcaption>
+      <figcaption>Honesty about the data: the group's cost per vote rose from R$&nbsp;2.19 (2012) to R$&nbsp;26.69 (2024), and in 2004 the group was the second most efficient (R$&nbsp;7.44, against R$&nbsp;6.38 for the winner, Dr. Fernando). In every other election, 2008, 2012, 2016, 2020 and 2024, the group's candidacy was the <strong>most efficient among the competitors</strong>, including in 2024, when it won spending R$&nbsp;26.69 per vote against R$&nbsp;36.20 (Rolmar Boteccia) and R$&nbsp;141.27 (Boldrini, the worst conversion efficiency of the race). In 2012, Roberto Fiorin's paid expenses exceed his declared revenue, as recorded in the extracts.</figcaption>
     </figure>
 
     <figure class="exhibit">
@@ -1067,14 +1109,49 @@
   <section id="candidatos">
     <div class="eyebrow">08 &middot; Candidate profile</div>
     <h2>Who the candidates were, beyond the votes</h2>
-    <p><code>consulta_cand</code> and <code>bem_candidato</code> data (TSE) bring age, education, occupation and declared assets for each candidate: public information, required by law at every election. The contrast with <strong style="color:var(--blue)">Hugo Luiz</strong> is the sharpest in the entire study.</p>
+    <p><code>consulta_cand</code> and <code>bem_candidato</code> data (TSE) bring age, education, occupation and declared assets for each candidate: public information, required by law at every election. Table 8.1 gathers the 16 mayoral candidates of the six elections, from 2004 to 2024, and Figures 23 and 24 compare them. The contrast with <strong style="color:var(--blue)">Hugo Luiz</strong> is the sharpest in the entire study.</p>
+
+
+    <figure class="exhibit table-exhibit">
+      <div class="exhibit-head"><span class="tag">Table 8.1</span><span class="cap">Profile of every mayoral candidate, 2004–2024</span></div>
+      <div class="exhibit-body">
+        <div class="table-title">WHO THE CANDIDATES WERE</div>
+        <p class="table-sub">age on election day, education and occupation from the candidacy registry, declared assets from the TSE</p>
+        <div class="table-scroll">
+      <table class="data stack-mobile cands">
+        <thead>
+          <tr><th>Year</th><th>Candidate</th><th class="num">Age</th><th>Education</th><th>Declared occupation</th><th class="num">Declared assets</th></tr>
+        </thead>
+        <tbody>
+          <tr><td data-label="Year">2004</td><td data-label="Candidate"><span class="side-dot" style="background:#c8433a"></span>Dr. Fernando (PSB)</td><td class="num" data-label="Age">56</td><td data-label="Education">College degree</td><td data-label="Declared occupation">Physician</td><td class="num" data-label="Declared assets">—</td></tr>
+          <tr><td data-label="Year">2004</td><td data-label="Candidate"><span class="side-dot" style="background:#1f9d63"></span>Jorge Meneghel (PT)</td><td class="num" data-label="Age">37</td><td data-label="Education">College degree</td><td data-label="Declared occupation">School teacher (primary and secondary)</td><td class="num" data-label="Declared assets">—</td></tr>
+          <tr><td data-label="Year">2004</td><td data-label="Candidate"><span class="side-dot" style="background:#3d7fc4"></span>Luiz Teixeira (PV)</td><td class="num" data-label="Age">50</td><td data-label="Education">College degree</td><td data-label="Declared occupation">Lawyer</td><td class="num" data-label="Declared assets">—</td></tr>
+          <tr><td data-label="Year">2004</td><td data-label="Candidate"><span class="side-dot" style="background:#3d7fc4"></span>Nelsão Togneri (PFL)</td><td class="num" data-label="Age">41</td><td data-label="Education">High school</td><td data-label="Declared occupation">Building technician</td><td class="num" data-label="Declared assets">—</td></tr>
+          <tr><td data-label="Year">2008</td><td data-label="Candidate"><span class="side-dot" style="background:#c8433a"></span>Dr. Fernando (PSB)</td><td class="num" data-label="Age">60</td><td data-label="Education">College degree</td><td data-label="Declared occupation">Physician</td><td class="num" data-label="Declared assets">R$&nbsp;53,416</td></tr>
+          <tr><td data-label="Year">2008</td><td data-label="Candidate"><span class="side-dot" style="background:#1f9d63"></span>Daniel Orlandi (PSDB)</td><td class="num" data-label="Age">40</td><td data-label="Education">High school</td><td data-label="Declared occupation">Farmer</td><td class="num" data-label="Declared assets">R$&nbsp;15,000</td></tr>
+          <tr><td data-label="Year">2012</td><td data-label="Candidate"><span class="side-dot" style="background:#c8433a"></span>Roberto Fiorin (PSB)</td><td class="num" data-label="Age">53</td><td data-label="Education">College degree</td><td data-label="Declared occupation">Federal civil servant</td><td class="num" data-label="Declared assets">R$&nbsp;284,406</td></tr>
+          <tr><td data-label="Year">2012</td><td data-label="Candidate"><span class="side-dot" style="background:#1f9d63"></span>Sergio Bianchi (PSD)</td><td class="num" data-label="Age">50</td><td data-label="Education">Primary school, incomplete</td><td data-label="Declared occupation">Councilor</td><td class="num" data-label="Declared assets">R$&nbsp;20,000</td></tr>
+          <tr><td data-label="Year">2016</td><td data-label="Candidate"><span class="side-dot" style="background:#c8433a"></span>Dr. Fernando (PSB)</td><td class="num" data-label="Age">68</td><td data-label="Education">College degree</td><td data-label="Declared occupation">Physician</td><td class="num" data-label="Declared assets">R$&nbsp;410,500</td></tr>
+          <tr><td data-label="Year">2016</td><td data-label="Candidate"><span class="side-dot" style="background:#1f9d63"></span>Ronaldo Bianchi (PMDB)</td><td class="num" data-label="Age">54</td><td data-label="Education">High school</td><td data-label="Declared occupation">Businessman</td><td class="num" data-label="Declared assets">R$&nbsp;428,561</td></tr>
+          <tr><td data-label="Year">2020</td><td data-label="Candidate"><span class="side-dot" style="background:#c8433a"></span>Dr. Fernando (PSB)</td><td class="num" data-label="Age">72</td><td data-label="Education">College degree</td><td data-label="Declared occupation">Mayor</td><td class="num" data-label="Declared assets">R$&nbsp;620,761</td></tr>
+          <tr><td data-label="Year">2020</td><td data-label="Candidate"><span class="side-dot" style="background:#1f9d63"></span>Ronaldo Bianchi (Republicanos)</td><td class="num" data-label="Age">58</td><td data-label="Education">High school</td><td data-label="Declared occupation">Businessman</td><td class="num" data-label="Declared assets">R$&nbsp;366,381</td></tr>
+          <tr><td data-label="Year">2020</td><td data-label="Candidate"><span class="side-dot" style="background:#3d7fc4"></span>Armando Zanata (PDT)</td><td class="num" data-label="Age">64</td><td data-label="Education">High school, incomplete</td><td data-label="Declared occupation">Businessman</td><td class="num" data-label="Declared assets">R$&nbsp;1,380,000</td></tr>
+          <tr><td data-label="Year">2024</td><td data-label="Candidate"><span class="side-dot" style="background:#1f9d63"></span>Hugo Luiz (PP)</td><td class="num" data-label="Age">25</td><td data-label="Education">College degree</td><td data-label="Declared occupation">Lawyer</td><td class="num" data-label="Declared assets">R$&nbsp;29,573</td></tr>
+          <tr><td data-label="Year">2024</td><td data-label="Candidate"><span class="side-dot" style="background:#c8433a"></span>Rolmar Boteccia (PSB)</td><td class="num" data-label="Age">71</td><td data-label="Education">High school</td><td data-label="Declared occupation">Cattle rancher</td><td class="num" data-label="Declared assets">R$&nbsp;718,421</td></tr>
+          <tr><td data-label="Year">2024</td><td data-label="Candidate"><span class="side-dot" style="background:#3d7fc4"></span>Boldrini (PL)</td><td class="num" data-label="Age">61</td><td data-label="Education">High school</td><td data-label="Declared occupation">Merchant</td><td class="num" data-label="Declared assets">R$&nbsp;0</td></tr>
+        </tbody>
+      </table>
+        </div>
+      </div>
+      <figcaption>A dash (—) marks data that does not exist in the extracts: the assets dataset does not cover 2004. Each candidate's revenue and cost per vote are in Figures 12 and 13.</figcaption>
+    </figure>
 
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 23</span><span class="cap">Age of mayoral candidates</span></div>
       <div class="exhibit-body">
-        <div class="ichart" data-chart="idade_candidatos"><p class="chart-fallback">Two horizontal bar charts comparing the age of the three mayoral candidates in 2020 (Ronaldo Bianchi 58, Fernando 73, Armando Zanata 64) and in 2024 (Hugo Luiz 25, Rolmar Boteccia 71, Boldrini 61).</p></div>
+        <div class="ichart" data-chart="idade_candidatos"><p class="chart-fallback">Six horizontal bar charts, one per election, with the age of each mayoral candidate on election day, from 2004 to 2024. In 2020: Dr. Fernando 72, Armando Zanata 64 and Ronaldo Bianchi 58; in 2024: Rolmar Boteccia 71, Boldrini 61 and Hugo Luiz 25.</p></div>
       </div>
-      <figcaption>In 2020, the group's base candidate (58) was already the youngest of the three, but still almost 20 years older than Hugo Luiz would be in 2024. The average age of <em>every</em> candidate in the race (mayor and council combined) was nearly identical across both elections (50.3 → 50.2 years): the municipality didn't get younger. The winning candidacy did.</figcaption>
+      <figcaption>In each of the five defeats, the group's candidate was younger than the winner: 37 against 56 in 2004, 40 against 60 in 2008, 50 against 53 in 2012, 54 against 68 in 2016 and 58 against 72 in 2020. In 2024 the gap is extreme: Hugo Luiz, at 25, was 36 years younger than Boldrini (61) and 46 years younger than Rolmar Boteccia (71). The average age of <em>every</em> candidate in the race (mayor and council combined) was the same in the last two elections (50.2 years in both 2020 and 2024): the municipality didn't get younger. Only the winning candidacy did.</figcaption>
     </figure>
 
     <p>Hugo Luiz was 25 on election day in 2024, holds a law degree from UFES, and, per the TSE's records, is <strong>white and single</strong>. The other two mayoral candidates that year were 61 and 71.</p>
@@ -1082,9 +1159,9 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 24</span><span class="cap">Declared assets of mayoral candidates</span></div>
       <div class="exhibit-body">
-        <div class="ichart" data-chart="patrimonio_candidatos"><p class="chart-fallback">Two horizontal bar charts comparing declared assets of mayoral candidates: in 2020, Ronaldo Bianchi R$366 thousand, Fernando R$621 thousand, Armando Zanata R$1.38 million; in 2024, Hugo Luiz R$29.5 thousand, Rolmar Boteccia R$718 thousand, Boldrini R$0.</p></div>
+        <div class="ichart" data-chart="patrimonio_candidatos"><p class="chart-fallback">Five horizontal bar charts, one per election from 2008 to 2024, with the declared assets of each mayoral candidate. In 2020: Armando Zanata R$1.38 million, Dr. Fernando R$621 thousand and Ronaldo Bianchi R$366 thousand; in 2024: Rolmar Boteccia R$718 thousand, Hugo Luiz R$29.5 thousand and Boldrini R$0. The 2004 dataset has no assets.</p></div>
       </div>
-      <figcaption>Hugo Luiz declared <strong>R$&nbsp;29,573</strong> in assets: the smallest declared assets of any mayoral candidate registered in Alfredo Chaves across the two elections, roughly 25&times; less than the 2024 runner-up (Rolmar Boteccia, R$&nbsp;718 thousand) and more than 20&times; less than the 2020 candidate the group's campaign was up against (Ronaldo Bianchi, R$&nbsp;366 thousand). Not the typical net-worth profile of someone who wins a majoritarian election in inland Espírito Santo.</figcaption>
+      <figcaption>Hugo Luiz declared <strong>R$&nbsp;29,573</strong> in assets, the fourth-smallest among the 12 mayoral candidates with assets in the dataset (2008 to 2024): only Boldrini (R$&nbsp;0, in 2024), Daniel Orlandi (R$&nbsp;15 thousand, in 2008) and Sergio Bianchi (R$&nbsp;20 thousand, in 2012) declared less. That is roughly 24&times; less than the 2024 runner-up (Rolmar Boteccia, R$&nbsp;718 thousand) and 12&times; less than Ronaldo Bianchi in 2020 (R$&nbsp;366 thousand). In 2008, 2012 and 2020 the group's candidate declared less than the winner; in 2016, more (R$&nbsp;429 thousand against R$&nbsp;411 thousand).</figcaption>
     </figure>
 
     <h3>The 9 registered election polls</h3>
