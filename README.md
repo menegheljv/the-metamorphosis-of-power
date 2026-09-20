@@ -1,4 +1,17 @@
-# Public Data Intelligence Dashboard
+# A Metamorfose do Poder em Alfredo Chaves (2004–2024)
+
+Estudo de caso com dados eleitorais reais: seis eleições municipais (2004 a 2024) em Alfredo Chaves (ES), construído com dados abertos do TSE e do IBGE. Todos os gráficos são interativos; há também PDF e versão em inglês.
+
+- **Estudo (português):** https://menegheljv.github.io/the-metamorphosis-of-power/
+- **Study (English):** https://menegheljv.github.io/the-metamorphosis-of-power/en/
+- **PDF:** [português](https://menegheljv.github.io/the-metamorphosis-of-power/a-metamorfose-do-poder-em-alfredo-chaves.pdf) · [English](https://menegheljv.github.io/the-metamorphosis-of-power/en/the-metamorphosis-of-power-in-alfredo-chaves.pdf)
+- Limites do estudo e a posição do autor: seção 12 ("Limitações e viés").
+
+> Este repositório também guarda um **dashboard demonstrativo com dados sintéticos** (abaixo, "Dashboard demonstrativo"). Ele é independente do estudo, e nenhum dado dele descreve eleições reais. A documentação do estudo, com as fontes de dados e os passos para reproduzi-lo, está na seção "The Metamorphosis of Power (2004–2024)" mais abaixo.
+
+---
+
+## Dashboard demonstrativo: Public Data Intelligence (dados sintéticos)
 
 Projeto demonstrativo, pequeno e reproduzível, para explorar um fluxo de
 inteligência de dados públicos: banco PostgreSQL, consultas analíticas,
@@ -163,7 +176,9 @@ Between 2004 and 2020, the political group behind this project lost five mayoral
 | Campaign finance | Funding and spend efficiency per vote, for every candidate | 2004, 2008, 2012, 2016, 2020, 2024 |
 | Turnout detail | Turnout and abstention | 2004, 2008, 2012, 2016, 2020, 2024 |
 | Electorate profile | Age and gender composition | 2008, 2012, 2016, 2020, 2024 (not published for 2004) |
-| Candidate profile and assets | Age, education, declared wealth | 2008, 2012, 2016, 2020, 2024 (asset data not published for 2004) |
+| Declared assets | Declared wealth of candidates | 2008, 2012, 2016, 2020, 2024 (not published for 2004) |
+| Candidate profile | Gender, race/color, education, occupation | 2020, 2024 only |
+| Party-line votes | Votes for the party label, without naming a candidate | 2020, 2024 only |
 | Registered election polls | Voting-intention trajectory during the 2024 campaign | 2024 only, out of scope for the historical arc |
 
 ## IBGE data used

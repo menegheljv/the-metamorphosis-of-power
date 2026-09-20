@@ -142,6 +142,12 @@
   .table-exhibit .table-scroll { overflow-x: visible; }
   .table-exhibit table.data td:last-child, .table-exhibit table.data th:last-child { text-align: left; }
   .table-exhibit figcaption span { display: block; }
+  .table-exhibit table.data.cov td:first-child, .table-exhibit table.data.cov th:first-child { text-align: center; }
+  @media (min-width: 641px), print {
+    .table-exhibit table.data.cov { table-layout: fixed; width: 100%; }
+    .table-exhibit table.data.cov th, .table-exhibit table.data.cov td, .table-exhibit table.data.cov td:last-child, .table-exhibit table.data.cov th:last-child { text-align: center; padding: 7px 3px; overflow-wrap: anywhere; }
+    .table-exhibit table.data.cov th { font-size: 10px; letter-spacing: 0.02em; }
+  }
   .table-exhibit figcaption span + span { margin-top: 6px; }
   .print-actions .pdf-btn {
     border: 1px solid var(--blue-deep);
@@ -550,6 +556,7 @@
     .table-exhibit .table-label { margin: 12px 0 4px; }
     .table-exhibit figcaption { font-size: 9.5pt; padding: 8px 14px 12px; }
     a { color: inherit; text-decoration: none; }
+    pre.code { white-space: pre-wrap; overflow: visible; overflow-wrap: anywhere; font-size: 9pt; padding: 12px 14px; }
   }
 </style>
 
@@ -603,6 +610,7 @@
       <a href="#detalhamento"><span class="toc-num">09</span>Full breakdown</a>
       <a href="#conclusao"><span class="toc-num">10</span>Conclusion</a>
       <a href="#cenarios-2028"><span class="toc-num">11</span>Scenarios for 2028</a>
+      <a href="#limitacoes"><span class="toc-num">12</span>Limitations and bias</a>
     </div>
   </nav>
 
@@ -645,22 +653,24 @@
     <div class="eyebrow">02 &middot; Data source</div>
     <h2>TSE's Open Electoral Data Repository</h2>
     <div class="prose">
-      <p>Every number in this study comes from four extracts of the <a href="https://dadosabertos.tse.jus.br" target="_blank" rel="noopener">TSE Open Data Portal</a> (Brazil's Superior Electoral Court), filtered to the municipality of Alfredo Chaves, Espírito Santo (TSE code&nbsp;<code style="font-family:'IBM Plex Mono',monospace">56057</code>), electoral zone 012:</p>
+      <p>Every number in this study comes from extracts of the <a href="https://dadosabertos.tse.jus.br" target="_blank" rel="noopener">TSE Open Data Portal</a> (Brazil's Superior Electoral Court), filtered to the municipality of Alfredo Chaves, Espírito Santo (TSE code&nbsp;<code style="font-family:'IBM Plex Mono',monospace">56057</code>), electoral zone 012, for the six municipal elections from 2004 to 2024. Table 3.1 (section 03) shows what exists for each year:</p>
     </div>
     <ul class="list sources">
-      <li><code>votacao_secao_2020/2024_ES.csv</code>: votes by voting precinct (1,710 and 2,089 rows after the municipal filter)</li>
-      <li><code>votacao_candidato_munzona_2020/2024_ES.csv</code>: consolidated result per candidate (72 and 73 records)</li>
-      <li><code>votacao_partido_munzona_2020/2024_ES.csv</code>: party-line vote totals (9 and 11 records)</li>
-      <li><code>detalhe_votacao_munzona_2020/2024_ES.csv</code>: turnout, abstention, blank/null votes</li>
-      <li><code>prestacao_de_contas_eleitorais_candidatos_2020/2024.csv</code> (revenue and paid expenses): extracted via <em>HTTP range requests</em> from a ~1.3&nbsp;GB national file, without downloading the whole thing</li>
-      <li><code>perfil_eleitor_secao_2020/2024_ES.csv</code>: electorate profile by precinct (gender, age bracket, education)</li>
+      <li><code>votacao_secao_YEAR_ES.csv</code>: votes by voting precinct, 2004 to 2024 (from 1,229 rows in 2004 to 2,089 in 2024, after the municipal filter)</li>
+      <li><code>votacao_candidato_munzona_YEAR_ES.csv</code>: consolidated result per candidate, 2004 to 2024 (45 to 73 records per election)</li>
+      <li><code>votacao_partido_munzona_2020/2024_ES.csv</code>: party-line vote totals, 2020 and 2024 only (9 and 11 records)</li>
+      <li><code>detalhe_votacao_munzona_YEAR_ES.csv</code>: turnout, abstention, blank/null votes, 2004 to 2024</li>
+      <li><code>prestacao_de_contas_eleitorais_candidatos_YEAR.csv</code> (revenue and paid expenses, 2004 to 2024): extracted via <em>HTTP range requests</em> from a ~1.3&nbsp;GB national file, without downloading the whole thing</li>
+      <li><code>bem_candidato_YEAR_ES.csv</code>: assets declared by candidates, 2008 to 2024</li>
+      <li><code>perfil_eleitor_secao_YEAR_ES.csv</code>: electorate profile by precinct (gender, age bracket, education), 2008 to 2024</li>
+      <li><code>perfil_candidato_YEAR</code>: candidate profile (gender, race/color, education and occupation), 2020 and 2024 only</li>
     </ul>
     <div class="callout warn">
       <strong>Transparency note.</strong> The continuity between the two majoritarian candidacies (2020 to 2024) is reconstructed from verifiable coincidences in the official data: the same local party base (Republicanos/PTB), and the fact that the 2024 winner, Hugo Luiz Picoli Meneghel, appears in the 2020 data as a city council candidate elected on the coalition that lost the mayoral race that year. No number was estimated, projected, or invented: where a figure wasn't publicly available, it was left out rather than approximated. The only exception is section 11, whose 2028 scenarios are stated assumptions, calculated in R.
     </div>
 
     <h3>Additional sources</h3>
-    <p>Four sections of this study cross-reference or cite sources outside the TSE repository, always identified where they appear:</p>
+    <p>Several sections of this study cross-reference or cite sources outside the TSE repository, always identified where they appear:</p>
     <ul class="list sources">
       <li><strong>IBGE, SIDRA</strong>: table 6579 (estimated resident population, section 06) and tables 9514 and 9605 of the 2022 Demographic Census (sex and race/color, section 06).</li>
       <li><strong>IBGE, Territorial Meshes</strong>: the municipality's official boundary, used in the polling-location map (section 09).</li>
@@ -675,15 +685,40 @@
   <section id="metodologia">
     <div class="eyebrow">03 &middot; Methodology</div>
     <h2>Data-processing pipeline</h2>
-    <p>The four raw extracts go through five steps before any comparative analysis: a standard ingestion, cleaning, and load pipeline, implemented in Python (pandas), with the analytical layer in SQL (SQLite). The interactive charts illustrating the study are written in TypeScript (React and Recharts) and styled with CSS.</p>
+    <p>The raw extracts go through five steps before any comparative analysis: a standard ingestion, cleaning, and load pipeline, implemented in Python (pandas), with the analytical layer in SQL (SQLite). The SQLite database holds only the precinct-by-precinct comparison of 2020 and 2024; the six-election series and the financing, assets, profile and IBGE analyses read the filtered CSVs directly in pandas, with the same cleaning rules. The interactive charts illustrating the study are written in TypeScript (React and Recharts) and styled with CSS.</p>
 
     <div class="pipeline">
       <div class="pipestep"><div class="num">01</div><div class="name">Ingestion</div><div class="desc">Read the official CSVs (<code>;</code>-separated, UTF-8), raw typing as text</div></div>
       <div class="pipestep"><div class="num">02</div><div class="name">Cleaning</div><div class="desc">Type conversion (zone, precinct, votes), name/office normalization, drop administrative columns</div></div>
-      <div class="pipestep"><div class="num">03</div><div class="name">Normalization</div><div class="desc">Standardize keys (precinct, zone, year) to allow a 2020&harr;2024 join</div></div>
-      <div class="pipestep"><div class="num">04</div><div class="name">Load</div><div class="desc">Write to SQLite: 4 tables (<code>secao_2020</code>, <code>secao_2024</code>, <code>candidatos_2020</code>, <code>candidatos_2024</code>)</div></div>
+      <div class="pipestep"><div class="num">03</div><div class="name">Normalization</div><div class="desc">Standardize keys (precinct, zone, year) to allow joins across elections</div></div>
+      <div class="pipestep"><div class="num">04</div><div class="name">Load</div><div class="desc">Write the 2020&harr;2024 comparison to SQLite: 4 tables (<code>secao_2020</code>, <code>secao_2024</code>, <code>candidatos_2020</code>, <code>candidatos_2024</code>)</div></div>
       <div class="pipestep"><div class="num">05</div><div class="name">SQL analysis</div><div class="desc">Per-precinct aggregations, winner identification, percentage-change calculation</div></div>
     </div>
+
+
+    <figure class="exhibit table-exhibit">
+      <div class="exhibit-head"><span class="tag">Table 3.1</span><span class="cap">Data available for each election</span></div>
+      <div class="exhibit-body">
+        <div class="table-title">WHAT EXISTS FOR EACH ELECTION</div>
+        <p class="table-sub">coverage of the TSE datasets used in this study</p>
+        <div class="table-scroll">
+      <table class="data stack-mobile cov">
+        <thead>
+          <tr><th>Year</th><th class="num">Voting precincts</th><th class="num">Candidates</th><th>Revenue and expenses</th><th>Declared assets</th><th>Electorate profile</th><th>Party-line votes</th><th>Candidate profile</th></tr>
+        </thead>
+        <tbody>
+          <tr><td data-label="Year">2004</td><td class="num" data-label="Voting precincts">33</td><td class="num" data-label="Candidates">49</td><td data-label="Revenue and expenses">Yes</td><td data-label="Declared assets">No</td><td data-label="Electorate profile">No</td><td data-label="Party-line votes">No</td><td data-label="Candidate profile">No</td></tr>
+          <tr><td data-label="Year">2008</td><td class="num" data-label="Voting precincts">34</td><td class="num" data-label="Candidates">45</td><td data-label="Revenue and expenses">Yes</td><td data-label="Declared assets">Yes</td><td data-label="Electorate profile">Yes</td><td data-label="Party-line votes">No</td><td data-label="Candidate profile">No</td></tr>
+          <tr><td data-label="Year">2012</td><td class="num" data-label="Voting precincts">34</td><td class="num" data-label="Candidates">68</td><td data-label="Revenue and expenses">Yes</td><td data-label="Declared assets">Yes</td><td data-label="Electorate profile">Yes</td><td data-label="Party-line votes">No</td><td data-label="Candidate profile">No</td></tr>
+          <tr><td data-label="Year">2016</td><td class="num" data-label="Voting precincts">36</td><td class="num" data-label="Candidates">65</td><td data-label="Revenue and expenses">Yes</td><td data-label="Declared assets">Yes</td><td data-label="Electorate profile">Yes</td><td data-label="Party-line votes">No</td><td data-label="Candidate profile">No</td></tr>
+          <tr><td data-label="Year">2020</td><td class="num" data-label="Voting precincts">36</td><td class="num" data-label="Candidates">72</td><td data-label="Revenue and expenses">Yes</td><td data-label="Declared assets">Yes</td><td data-label="Electorate profile">Yes</td><td data-label="Party-line votes">Yes</td><td data-label="Candidate profile">Yes</td></tr>
+          <tr><td data-label="Year">2024</td><td class="num" data-label="Voting precincts">42</td><td class="num" data-label="Candidates">73</td><td data-label="Revenue and expenses">Yes</td><td data-label="Declared assets">Yes</td><td data-label="Electorate profile">Yes</td><td data-label="Party-line votes">Yes</td><td data-label="Candidate profile">Yes</td></tr>
+        </tbody>
+      </table>
+        </div>
+      </div>
+      <figcaption>Comparisons across all six elections (results, turnout, financing, districts) rely on the complete columns. The council slate by district, party-line votes and the candidate profile exist only for 2020 and 2024; assets and the electorate profile start in 2008. Where a dataset does not cover a year, the study does not estimate: it leaves it out. &ldquo;Candidates&rdquo; counts mayoral and council records.</figcaption>
+    </figure>
 
     <h3>Cleaning and normalization (pandas)</h3>
     <div class="exhibit">
@@ -1239,7 +1274,7 @@
     <h2>What the data shows</h2>
     <div class="prose">
       <p>Reading the results precinct by precinct, and then district by district, shows that the 2024 turnaround closes an arc of <strong>twenty years and six elections</strong>: from the 2004 candidacy to the 2024 win, two decades later. The group's vote share grew in nearly every cycle, with a single dip in 2020, and the 2024 result wasn't concentrated in a few strongholds: it was <strong>spread across nearly the entire electoral territory</strong> of the municipality, from the 42 precincts to the 7 districts, with an average gain of more than 20 percentage points in precincts where the majority flipped between 2020 and 2024. That's consistent with a strategy of territorial reach rather than reinforcing already-favorable bases: the one precinct already won in 2020 (precinct&nbsp;9) saw a relatively modest additional gain (+13.7&nbsp;p.p.) compared with precincts that started from a loss, and even the district historically most resistant to the group, Ribeirão do Cristo, went from 8.8% in 2004 to 72.3% in 2024.</p>
-      <p>The expanded campaign coordination in 2024, including for the first time the council candidacies, coincides with a <strong>second turnaround, now in the Legislature</strong>: the same political base that elected Hugo Luiz to the Council in 2020 with just <span style="color:var(--red);font-weight:600">3 of 9 seats</span> (an isolated minority) came to control <span style="color:var(--blue);font-weight:600">5 of 9 seats</span> in 2024 (a simple majority), with a 22.7% increase in the combined vote for the slate's candidates. That suggests a coattail effect between the majoritarian and proportional races, though this analysis doesn't isolate causality between the two.</p>
+      <p>The expanded campaign coordination in 2024, including for the first time the council candidacies, coincides with a <strong>second turnaround, now in the Legislature</strong>: the same political base that elected Hugo Luiz to the Council in 2020 with just <span style="color:var(--red);font-weight:600">3 of 9 seats</span> (an isolated minority) came to control <span style="color:var(--blue);font-weight:600">5 of 9 seats</span> in 2024 (a simple majority), with a 22.7% increase in the combined vote for the slate's candidates. That suggests a coattail effect between the majoritarian and proportional races, though this analysis doesn't isolate causality between the two. What the 2028 scenarios do not do is in section 11; the study's limits and the author's position are in section 12.</p>
     </div>
   </section>
 
@@ -1318,6 +1353,26 @@ votos_validos &lt;- aptos * comparecimento * validos_sobre_comp
 share_grupo    &lt;- share_2024 + oscilacao              <span class="c"># uniform swing, in p.p.</span>
 share_oposicao &lt;- 100 - share_grupo - terceiro        <span class="c"># third candidate: 0, 5 or 10%</span>
 margem &lt;- (share_grupo - share_oposicao) / 100 * votos_validos</pre>
+    </div>
+  </section>
+
+  <section id="limitacoes">
+    <div class="eyebrow">12 &middot; Limitations and bias</div>
+    <h2>What this study cannot show</h2>
+    <div class="prose">
+      <p>The study describes what public data shows. There are things the data does not show, and readers should know which ones before drawing conclusions.</p>
+      <h3>What the data does not allow us to conclude</h3>
+      <ul class="list">
+        <li><strong>Description, not cause.</strong> The numbers show where and when the vote changed, not why. The mayoral turnaround, the growth of the council slate and the wider campaign coordination coincide in time, but nothing here isolates the effect of one on another, nor separates the campaign from the political climate, rival candidates or local factors.</li>
+        <li><strong>Precincts and districts, not voters.</strong> Votes are counted by precinct and summed by district; no data says how each person voted. The correlations between the vote for mayor and for council (section 05) describe precincts and should not be read as individual behavior. This is the ecological inference problem.</li>
+        <li><strong>One municipality, no comparison.</strong> All the data is from Alfredo Chaves. The study does not compare with neighboring municipalities or the state average, so it cannot say how unusual the turnaround is for the region.</li>
+        <li><strong>Districts assigned by polling place.</strong> Each precinct's district comes from its 2024 polling place (section 04). Because precincts in this municipality only receive new numbers and none is renumbered, the assignment holds for every year, but it is still an assignment, not a TSE field.</li>
+        <li><strong>Uneven coverage across years.</strong> Table 3.1 shows what exists for each election. Where a dataset does not cover a year, the analysis is left out rather than estimated.</li>
+        <li><strong>Short series.</strong> There are six elections. That is why the 2028 scenarios (section 11) are stated assumptions, not forecasts.</li>
+        <li><strong>Two sources that cannot be audited in the same way.</strong> The candidacy's Instagram posts (section 07) were read from screenshots, and the TSE registers the 2024 polls without publishing their results (section 08).</li>
+      </ul>
+      <h3>The author's position</h3>
+      <p>I was the 2024 campaign director, the child of a 2004 candidate and the brother of the candidate elected in 2024. That can tilt what I chose to analyze and how I framed the result. To reduce the risk, I used only public, reproducible data, with no internal campaign spreadsheets or records; I left the code in the repository so anyone can redo the calculations from the same extracts; I kept in the study the results that are unfavorable to the group (the five consecutive defeats from 2004 to 2020); and I used neutral language, &ldquo;group&rdquo; and &ldquo;opposition&rdquo;. This does not remove the bias. It only makes it checkable.</p>
     </div>
   </section>
 

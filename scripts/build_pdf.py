@@ -245,19 +245,26 @@ def locate(pdf: Path, cfg: dict, sections, items) -> dict:
     kick = [i for i, t in enumerate(texts) if "".join(cfg["kicker"].split()) in t]
     body = kick[1] if len(kick) > 1 else 4
     found: dict[str, int] = {}
+    # Secoes e figuras aparecem na ordem do documento: cada busca comeca onde a anterior terminou,
+    # para nao confundir o titulo de uma secao com o cabecalho de tabela de mesmo texto (ex.: "Perfil dos candidatos").
+    start = body
     for s in sections:
         label = "".join(s["label"].upper().split())
-        for i in range(body, len(texts)):
-            if label in texts[i]:
-                found["s:" + s["id"]] = i + 1
-                break
+        with_num = "".join((s["num"] + "·" + s["label"]).upper().split())
+        hit = next((i for i in range(start, len(texts)) if with_num in texts[i]), None)
+        if hit is None:
+            hit = next((i for i in range(start, len(texts)) if label in texts[i]), None)
+        if hit is not None:
+            found["s:" + s["id"]] = hit + 1
+            start = hit
+    start = body
     for it in items:
         tag = "".join(it["tag"].upper().split())
         pat = re.compile(re.escape(tag) + r"(?![\d.])")
-        for i in range(body, len(texts)):
-            if pat.search(texts[i]):
-                found["i:" + it["tag"]] = i + 1
-                break
+        hit = next((i for i in range(start, len(texts)) if pat.search(texts[i])), None)
+        if hit is not None:
+            found["i:" + it["tag"]] = hit + 1
+            start = hit
     missing = [s["label"] for s in sections if "s:" + s["id"] not in found] + [i["tag"] for i in items if "i:" + i["tag"] not in found]
     if missing:
         print("AVISO: nao localizados no PDF:", missing)

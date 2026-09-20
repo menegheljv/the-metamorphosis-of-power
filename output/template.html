@@ -142,6 +142,12 @@
   .table-exhibit .table-scroll { overflow-x: visible; }
   .table-exhibit table.data td:last-child, .table-exhibit table.data th:last-child { text-align: left; }
   .table-exhibit figcaption span { display: block; }
+  .table-exhibit table.data.cov td:first-child, .table-exhibit table.data.cov th:first-child { text-align: center; }
+  @media (min-width: 641px), print {
+    .table-exhibit table.data.cov { table-layout: fixed; width: 100%; }
+    .table-exhibit table.data.cov th, .table-exhibit table.data.cov td, .table-exhibit table.data.cov td:last-child, .table-exhibit table.data.cov th:last-child { text-align: center; padding: 7px 3px; overflow-wrap: anywhere; }
+    .table-exhibit table.data.cov th { font-size: 10px; letter-spacing: 0.02em; }
+  }
   .table-exhibit figcaption span + span { margin-top: 6px; }
   .print-actions .pdf-btn {
     border: 1px solid var(--blue-deep);
@@ -550,6 +556,7 @@
     .table-exhibit .table-label { margin: 12px 0 4px; }
     .table-exhibit figcaption { font-size: 9.5pt; padding: 8px 14px 12px; }
     a { color: inherit; text-decoration: none; }
+    pre.code { white-space: pre-wrap; overflow: visible; overflow-wrap: anywhere; font-size: 9pt; padding: 12px 14px; }
   }
 </style>
 
@@ -603,6 +610,7 @@
       <a href="#detalhamento"><span class="toc-num">09</span>Detalhamento</a>
       <a href="#conclusao"><span class="toc-num">10</span>Conclusão</a>
       <a href="#cenarios-2028"><span class="toc-num">11</span>Cenários para 2028</a>
+      <a href="#limitacoes"><span class="toc-num">12</span>Limitações e viés</a>
     </div>
   </nav>
 
@@ -645,22 +653,24 @@
     <div class="eyebrow">02 &middot; Fonte dos dados</div>
     <h2>Repositório de Dados Eleitorais do TSE</h2>
     <div class="prose">
-      <p>Todos os números deste estudo vêm de quatro extratos do <a href="https://dadosabertos.tse.jus.br" target="_blank" rel="noopener">Portal de Dados Abertos do TSE</a>, filtrados para o município de Alfredo Chaves&nbsp;&ndash;&nbsp;ES (código TSE&nbsp;<code style="font-family:'IBM Plex Mono',monospace">56057</code>), zona eleitoral 012:</p>
+      <p>Todos os números deste estudo vêm de extratos do <a href="https://dadosabertos.tse.jus.br" target="_blank" rel="noopener">Portal de Dados Abertos do TSE</a>, filtrados para o município de Alfredo Chaves&nbsp;&ndash;&nbsp;ES (código TSE&nbsp;<code style="font-family:'IBM Plex Mono',monospace">56057</code>), zona eleitoral 012, para as seis eleições municipais de 2004 a 2024. A Tabela 3.1 (seção 03) mostra o que existe em cada ano:</p>
     </div>
     <ul class="list sources">
-      <li><code>votacao_secao_2020/2024_ES.csv</code>: votação por seção eleitoral (1.710 e 2.089 linhas após filtro municipal)</li>
-      <li><code>votacao_candidato_munzona_2020/2024_ES.csv</code>: resultado consolidado por candidato (72 e 73 registros)</li>
-      <li><code>votacao_partido_munzona_2020/2024_ES.csv</code>: votação de legenda por partido (9 e 11 registros)</li>
-      <li><code>detalhe_votacao_munzona_2020/2024_ES.csv</code>: comparecimento, abstenção e votos brancos/nulos</li>
-      <li><code>prestacao_de_contas_eleitorais_candidatos_2020/2024.csv</code> (receitas e despesas pagas): extraído via <em>HTTP range requests</em> de um arquivo nacional de ~1,3&nbsp;GB, sem baixar o arquivo inteiro</li>
-      <li><code>perfil_eleitor_secao_2020/2024_ES.csv</code>: perfil do eleitorado por seção (gênero, faixa etária, escolaridade)</li>
+      <li><code>votacao_secao_ANO_ES.csv</code>: votação por seção eleitoral, de 2004 a 2024 (de 1.229 linhas em 2004 a 2.089 em 2024, após o filtro municipal)</li>
+      <li><code>votacao_candidato_munzona_ANO_ES.csv</code>: resultado consolidado por candidato, de 2004 a 2024 (de 45 a 73 registros por eleição)</li>
+      <li><code>votacao_partido_munzona_2020/2024_ES.csv</code>: votação de legenda por partido, só em 2020 e 2024 (9 e 11 registros)</li>
+      <li><code>detalhe_votacao_munzona_ANO_ES.csv</code>: comparecimento, abstenção e votos brancos/nulos, de 2004 a 2024</li>
+      <li><code>prestacao_de_contas_eleitorais_candidatos_ANO.csv</code> (receitas e despesas pagas, de 2004 a 2024): extraído via <em>HTTP range requests</em> de um arquivo nacional de ~1,3&nbsp;GB, sem baixar o arquivo inteiro</li>
+      <li><code>bem_candidato_ANO_ES.csv</code>: patrimônio declarado pelos candidatos, de 2008 a 2024</li>
+      <li><code>perfil_eleitor_secao_ANO_ES.csv</code>: perfil do eleitorado por seção (gênero, faixa etária, escolaridade), de 2008 a 2024</li>
+      <li><code>perfil_candidato_ANO</code>: perfil dos candidatos (gênero, cor ou raça, escolaridade e ocupação), só em 2020 e 2024</li>
     </ul>
     <div class="callout warn">
       <strong>Nota de transparência.</strong> A continuidade entre as duas candidaturas majoritárias (2020 a 2024) é reconstruída a partir de coincidências verificáveis nos dados oficiais: mesma base partidária local (Republicanos/PTB), e o vencedor de 2024, Hugo Luiz Picoli Meneghel, aparece nos dados de 2020 como candidato a vereador eleito pela coligação derrotada naquele ano. Nenhum número foi estimado, projetado ou inventado: onde um dado não estava disponível publicamente, ele foi omitido em vez de aproximado. Única exceção: a seção 11, cujos cenários para 2028 são hipóteses declaradas, calculadas em R.
     </div>
 
     <h3>Fontes complementares</h3>
-    <p>Quatro seções deste estudo cruzam ou citam fontes fora do repositório do TSE, sempre identificadas no ponto em que aparecem:</p>
+    <p>Várias seções deste estudo cruzam ou citam fontes fora do repositório do TSE, sempre identificadas no ponto em que aparecem:</p>
     <ul class="list sources">
       <li><strong>IBGE, SIDRA</strong>: tabela 6579 (população residente estimada, seção 06) e tabelas 9514 e 9605 do Censo Demográfico 2022 (sexo e raça ou cor, seção 06).</li>
       <li><strong>IBGE, Malhas Territoriais</strong>: contorno oficial do município, usado no mapa de locais de votação (seção 09).</li>
@@ -675,15 +685,40 @@
   <section id="metodologia">
     <div class="eyebrow">03 &middot; Metodologia</div>
     <h2>Pipeline de tratamento de dados</h2>
-    <p>Os quatro extratos brutos passam por cinco etapas antes de qualquer análise comparativa: um pipeline padrão de ingestão, limpeza e carga, implementado em Python (pandas), com a camada analítica em SQL (SQLite). Os gráficos interativos que ilustram o estudo são escritos em TypeScript (React e Recharts) e estilizados em CSS.</p>
+    <p>Os extratos brutos passam por cinco etapas antes de qualquer análise comparativa: um pipeline padrão de ingestão, limpeza e carga, implementado em Python (pandas), com a camada analítica em SQL (SQLite). O banco SQLite guarda só o comparativo seção a seção de 2020 e 2024; a série das seis eleições e as análises de financiamento, patrimônio, perfil e IBGE leem os CSVs filtrados diretamente em pandas, com as mesmas regras de limpeza. Os gráficos interativos que ilustram o estudo são escritos em TypeScript (React e Recharts) e estilizados em CSS.</p>
 
     <div class="pipeline">
       <div class="pipestep"><div class="num">01</div><div class="name">Ingestão</div><div class="desc">Leitura dos CSVs oficiais (separador <code>;</code>, UTF-8), tipagem bruta como texto</div></div>
       <div class="pipestep"><div class="num">02</div><div class="name">Limpeza</div><div class="desc">Conversão de tipos (zona, seção, votos), normalização de nomes e cargos, remoção de colunas administrativas</div></div>
-      <div class="pipestep"><div class="num">03</div><div class="name">Normalização</div><div class="desc">Padronização de chaves (seção, zona, ano) para permitir junção 2020&harr;2024</div></div>
-      <div class="pipestep"><div class="num">04</div><div class="name">Carga</div><div class="desc">Escrita em SQLite: 4 tabelas (<code>secao_2020</code>, <code>secao_2024</code>, <code>candidatos_2020</code>, <code>candidatos_2024</code>)</div></div>
+      <div class="pipestep"><div class="num">03</div><div class="name">Normalização</div><div class="desc">Padronização de chaves (seção, zona, ano) para permitir a junção entre eleições</div></div>
+      <div class="pipestep"><div class="num">04</div><div class="name">Carga</div><div class="desc">Escrita em SQLite do comparativo 2020&harr;2024: 4 tabelas (<code>secao_2020</code>, <code>secao_2024</code>, <code>candidatos_2020</code>, <code>candidatos_2024</code>)</div></div>
       <div class="pipestep"><div class="num">05</div><div class="name">Análise SQL</div><div class="desc">Agregações por seção, identificação de vencedor, cálculo de variação percentual</div></div>
     </div>
+
+
+    <figure class="exhibit table-exhibit">
+      <div class="exhibit-head"><span class="tag">Tabela 3.1</span><span class="cap">Dados disponíveis em cada eleição</span></div>
+      <div class="exhibit-body">
+        <div class="table-title">O QUE HÁ EM CADA ELEIÇÃO</div>
+        <p class="table-sub">quadro de cobertura das bases do TSE usadas neste estudo</p>
+        <div class="table-scroll">
+      <table class="data stack-mobile cov">
+        <thead>
+          <tr><th>Ano</th><th class="num">Seções eleitorais</th><th class="num">Candidatos</th><th>Receitas e despesas</th><th>Patrimônio declarado</th><th>Perfil do eleitorado</th><th>Votos de legenda</th><th>Perfil dos candidatos</th></tr>
+        </thead>
+        <tbody>
+          <tr><td data-label="Ano">2004</td><td class="num" data-label="Seções eleitorais">33</td><td class="num" data-label="Candidatos">49</td><td data-label="Receitas e despesas">Sim</td><td data-label="Patrimônio declarado">Não</td><td data-label="Perfil do eleitorado">Não</td><td data-label="Votos de legenda">Não</td><td data-label="Perfil dos candidatos">Não</td></tr>
+          <tr><td data-label="Ano">2008</td><td class="num" data-label="Seções eleitorais">34</td><td class="num" data-label="Candidatos">45</td><td data-label="Receitas e despesas">Sim</td><td data-label="Patrimônio declarado">Sim</td><td data-label="Perfil do eleitorado">Sim</td><td data-label="Votos de legenda">Não</td><td data-label="Perfil dos candidatos">Não</td></tr>
+          <tr><td data-label="Ano">2012</td><td class="num" data-label="Seções eleitorais">34</td><td class="num" data-label="Candidatos">68</td><td data-label="Receitas e despesas">Sim</td><td data-label="Patrimônio declarado">Sim</td><td data-label="Perfil do eleitorado">Sim</td><td data-label="Votos de legenda">Não</td><td data-label="Perfil dos candidatos">Não</td></tr>
+          <tr><td data-label="Ano">2016</td><td class="num" data-label="Seções eleitorais">36</td><td class="num" data-label="Candidatos">65</td><td data-label="Receitas e despesas">Sim</td><td data-label="Patrimônio declarado">Sim</td><td data-label="Perfil do eleitorado">Sim</td><td data-label="Votos de legenda">Não</td><td data-label="Perfil dos candidatos">Não</td></tr>
+          <tr><td data-label="Ano">2020</td><td class="num" data-label="Seções eleitorais">36</td><td class="num" data-label="Candidatos">72</td><td data-label="Receitas e despesas">Sim</td><td data-label="Patrimônio declarado">Sim</td><td data-label="Perfil do eleitorado">Sim</td><td data-label="Votos de legenda">Sim</td><td data-label="Perfil dos candidatos">Sim</td></tr>
+          <tr><td data-label="Ano">2024</td><td class="num" data-label="Seções eleitorais">42</td><td class="num" data-label="Candidatos">73</td><td data-label="Receitas e despesas">Sim</td><td data-label="Patrimônio declarado">Sim</td><td data-label="Perfil do eleitorado">Sim</td><td data-label="Votos de legenda">Sim</td><td data-label="Perfil dos candidatos">Sim</td></tr>
+        </tbody>
+      </table>
+        </div>
+      </div>
+      <figcaption>Comparações entre as seis eleições (resultado, comparecimento, financiamento, distritos) usam as colunas completas. A chapa de vereador por distrito, os votos de legenda e o perfil dos candidatos só existem para 2020 e 2024; patrimônio e perfil do eleitorado começam em 2008. Onde a base não cobre um ano, o estudo não estima: omite. &ldquo;Candidatos&rdquo; conta os registros de prefeito e de vereador.</figcaption>
+    </figure>
 
     <h3>Limpeza e normalização (pandas)</h3>
     <div class="exhibit">
@@ -1181,7 +1216,7 @@
     <h2>O que os dados mostram</h2>
     <div class="prose">
       <p>A leitura seção a seção, e depois distrito a distrito, mostra que a virada de 2024 fecha um arco de <strong>vinte anos e seis eleições</strong>: da candidatura de 2004 até a vitória de 2024, duas décadas depois. A votação do grupo cresceu em quase todos os ciclos, com uma única queda pontual em 2020, e o resultado de 2024 não se concentrou em poucos redutos: foi <strong>disseminado por praticamente todo o território eleitoral</strong> do município, das 42 seções aos 7 distritos, com ganho médio de mais de 20 pontos percentuais nas seções onde houve inversão de maioria entre 2020 e 2024. Isso é consistente com uma estratégia de capilaridade territorial mais do que de reforço em bases já favoráveis: a única seção já vencida em 2020 (seção&nbsp;9) teve ganho adicional relativamente modesto (+13,7&nbsp;p.p.) frente às seções que partiram de derrota, e até o distrito historicamente mais resistente ao grupo, Ribeirão do Cristo, saiu de 8,8% em 2004 para 72,3% em 2024.</p>
-      <p>A ampliação da coordenação de campanha em 2024, incluindo pela primeira vez as candidaturas a vereador, coincide com uma <strong>segunda virada, agora no Legislativo</strong>: a mesma base política que elegeu Hugo Luiz vereador em 2020, com apenas <span style="color:var(--red);font-weight:600">3 de 9 cadeiras</span> (minoria isolada), passou a controlar <span style="color:var(--blue);font-weight:600">5 de 9 cadeiras</span> em 2024 (maioria simples), com crescimento de 22,7% na votação somada dos candidatos da chapa. Isso sugere um efeito de arrasto entre a disputa majoritária e a proporcional, embora esta análise não isole causalidade entre as duas frentes.</p>
+      <p>A ampliação da coordenação de campanha em 2024, incluindo pela primeira vez as candidaturas a vereador, coincide com uma <strong>segunda virada, agora no Legislativo</strong>: a mesma base política que elegeu Hugo Luiz vereador em 2020, com apenas <span style="color:var(--red);font-weight:600">3 de 9 cadeiras</span> (minoria isolada), passou a controlar <span style="color:var(--blue);font-weight:600">5 de 9 cadeiras</span> em 2024 (maioria simples), com crescimento de 22,7% na votação somada dos candidatos da chapa. Isso sugere um efeito de arrasto entre a disputa majoritária e a proporcional, embora esta análise não isole causalidade entre as duas frentes. O que os cenários de 2028 não fazem está na seção 11; os limites do estudo e a posição de quem o escreve, na seção 12.</p>
     </div>
   </section>
 
@@ -1260,6 +1295,26 @@ votos_validos &lt;- aptos * comparecimento * validos_sobre_comp
 share_grupo    &lt;- share_2024 + oscilacao              <span class="c"># oscilação uniforme, em p.p.</span>
 share_oposicao &lt;- 100 - share_grupo - terceiro        <span class="c"># terceiro candidato: 0, 5 ou 10%</span>
 margem &lt;- (share_grupo - share_oposicao) / 100 * votos_validos</pre>
+    </div>
+  </section>
+
+  <section id="limitacoes">
+    <div class="eyebrow">12 &middot; Limitações e viés</div>
+    <h2>O que este estudo não consegue mostrar</h2>
+    <div class="prose">
+      <p>O estudo descreve o que os dados públicos mostram. Há coisas que eles não mostram, e quem lê precisa saber quais são antes de tirar conclusões.</p>
+      <h3>O que os dados não permitem concluir</h3>
+      <ul class="list">
+        <li><strong>Descrição, não causa.</strong> Os números mostram onde e quando a votação mudou, não por quê. A virada para prefeito, o crescimento da bancada na Câmara e a ampliação da coordenação de campanha coincidem no tempo, mas nenhuma análise aqui isola o efeito de uma sobre a outra, nem separa a campanha da conjuntura, dos candidatos adversários ou de fatores locais.</li>
+        <li><strong>Seções e distritos, não eleitores.</strong> O voto é contado por seção e somado por distrito; nenhum dado diz como cada pessoa votou. As correlações entre o voto para prefeito e para vereador (seção 05) descrevem seções, e não devem ser lidas como comportamento individual.</li>
+        <li><strong>Um município, sem comparação.</strong> Todos os dados são de Alfredo Chaves. O estudo não compara com municípios vizinhos nem com a média do estado, então não dá para dizer o quanto a virada é atípica em relação à região.</li>
+        <li><strong>Distritos atribuídos por local de votação.</strong> O distrito de cada seção vem do local de votação de 2024 (seção 04). Como as seções deste município só recebem números novos e nenhuma é renumerada, a atribuição vale para todos os anos, mas continua sendo uma atribuição, e não um dado do TSE.</li>
+        <li><strong>Cobertura desigual entre os anos.</strong> A Tabela 3.1 mostra o que existe em cada eleição. Onde a base não cobre um ano, a análise fica de fora em vez de ser estimada.</li>
+        <li><strong>Séries curtas.</strong> São seis eleições. Por isso os cenários de 2028 (seção 11) são hipóteses declaradas, e não previsão.</li>
+        <li><strong>Duas fontes que não são auditáveis do mesmo modo.</strong> As postagens do Instagram da candidatura (seção 07) foram lidas em capturas de tela, e o TSE registra as pesquisas de 2024 sem publicar seus resultados (seção 08).</li>
+      </ul>
+      <h3>A posição de quem escreve</h3>
+      <p>Fui diretor da campanha de 2024, sou filho de um candidato de 2004 e irmão do candidato eleito em 2024. Isso pode inclinar as escolhas do que analisar e de como enquadrar o resultado. Para reduzir o risco, usei só dados públicos e reproduzíveis, sem planilhas ou registros internos da campanha; deixei o código no repositório para quem quiser refazer as contas com os mesmos extratos; mantive no estudo os resultados desfavoráveis ao grupo (as cinco derrotas consecutivas, de 2004 a 2020); e usei linguagem neutra, &ldquo;grupo&rdquo; e &ldquo;oposição&rdquo;. Isso não elimina o viés. Só permite que ele seja conferido.</p>
     </div>
   </section>
 
