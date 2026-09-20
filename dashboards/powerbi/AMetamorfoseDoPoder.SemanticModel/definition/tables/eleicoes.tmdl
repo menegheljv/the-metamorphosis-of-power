@@ -1,0 +1,149 @@
+table eleicoes
+	lineageTag: 9a267267-ca25-4eec-8152-506286489d9a
+
+	column Ano
+		dataType: int64
+		formatString: 0
+		lineageTag: 1abaee7b-5ecc-4a27-b11d-78d634d1025b
+		summarizeBy: none
+		sourceColumn: Ano
+
+	column Eleitores_Aptos
+		dataType: int64
+		formatString: #,0
+		lineageTag: 86b525bc-9c6f-424b-930a-cd98aaee1c55
+		summarizeBy: sum
+		sourceColumn: Eleitores_Aptos
+
+	column Comparecimento
+		dataType: int64
+		formatString: #,0
+		lineageTag: 71568c50-e7a8-4b71-a78f-48d699ff08b9
+		summarizeBy: sum
+		sourceColumn: Comparecimento
+
+	column Pct_Comparecimento
+		dataType: double
+		formatString: 0.0"%"
+		lineageTag: 0919cc69-84d0-409e-a26a-8f1528a5504f
+		summarizeBy: sum
+		sourceColumn: Pct_Comparecimento
+
+	column Votos_Validos
+		dataType: int64
+		formatString: #,0
+		lineageTag: 8be80324-cc2e-4551-a496-536be5056900
+		summarizeBy: sum
+		sourceColumn: Votos_Validos
+
+	column Candidatos_Prefeito
+		dataType: int64
+		formatString: 0
+		lineageTag: dfc30e53-e3a7-4a25-9dc1-7f43a9cadb28
+		summarizeBy: sum
+		sourceColumn: Candidatos_Prefeito
+
+	column Vencedor
+		dataType: string
+		lineageTag: 5177fd23-9d8e-4aa9-ab25-628d6e6db73a
+		summarizeBy: none
+		sourceColumn: Vencedor
+
+	column Partido_Vencedor
+		dataType: string
+		lineageTag: 7408b6cc-a093-4eec-8c42-ccf30f065bbd
+		summarizeBy: none
+		sourceColumn: Partido_Vencedor
+
+	column Pct_Vencedor
+		dataType: double
+		formatString: 0.0"%"
+		lineageTag: 6042055a-588c-4114-9a09-6baf92eb9bce
+		summarizeBy: sum
+		sourceColumn: Pct_Vencedor
+
+	column Candidato_Grupo
+		dataType: string
+		lineageTag: df61f396-1cfe-4c7c-9f46-be12db318038
+		summarizeBy: none
+		sourceColumn: Candidato_Grupo
+
+	column Partido_Grupo
+		dataType: string
+		lineageTag: 983b0e61-1fe6-40be-b60b-7d2113ee78a5
+		summarizeBy: none
+		sourceColumn: Partido_Grupo
+
+	column Pct_Grupo
+		dataType: double
+		formatString: 0.0"%"
+		lineageTag: 0f7ee4dc-8070-4935-ab25-1669e360bbec
+		summarizeBy: sum
+		sourceColumn: Pct_Grupo
+
+	column Candidato_Oposicao
+		dataType: string
+		lineageTag: bababf64-9c25-4828-939e-f65a468ec458
+		summarizeBy: none
+		sourceColumn: Candidato_Oposicao
+
+	column Partido_Oposicao
+		dataType: string
+		lineageTag: 0f93f88f-8ebb-4441-9e58-f59757828d2f
+		summarizeBy: none
+		sourceColumn: Partido_Oposicao
+
+	column Pct_Oposicao
+		dataType: double
+		formatString: 0.0"%"
+		lineageTag: b6343ad2-4c46-4909-9bd0-f29cbff0c756
+		summarizeBy: sum
+		sourceColumn: Pct_Oposicao
+
+	column Pct_Demais
+		dataType: double
+		formatString: 0.0"%"
+		lineageTag: 116f73ce-6d24-4ab5-97df-621488108dc1
+		summarizeBy: sum
+		sourceColumn: Pct_Demais
+
+	column Resultado_Grupo
+		dataType: string
+		lineageTag: 4fe346a9-968b-426c-b317-b90257e3a258
+		summarizeBy: none
+		sourceColumn: Resultado_Grupo
+
+	measure 'Derrotas do grupo' = COUNTROWS(FILTER(ALL(eleicoes), eleicoes[Resultado_Grupo] = "Derrota"))
+		formatString: 0
+		lineageTag: 4e8c8787-896d-4049-9ec7-1ed998713457
+
+	measure 'Pct do grupo' = MAX(eleicoes[Pct_Grupo])
+		formatString: 0.0"%"
+		lineageTag: 5e1d87b3-f35c-46cb-97ca-90487f34318e
+
+	measure 'Pct da oposição' = MAX(eleicoes[Pct_Oposicao])
+		formatString: 0.0"%"
+		lineageTag: 1288f7c4-75b4-489a-8dbb-7b7d8293b9fb
+
+	measure 'Grupo em 2004' = CALCULATE(MAX(eleicoes[Pct_Grupo]), eleicoes[Ano] = 2004)
+		formatString: 0.0"%"
+		lineageTag: c11179c8-8e1e-4b29-81cf-93e8c96d46ae
+
+	measure 'Grupo em 2024' = CALCULATE(MAX(eleicoes[Pct_Grupo]), eleicoes[Ano] = 2024)
+		formatString: 0.0"%"
+		lineageTag: 9c346b4d-d21c-4d8e-b62e-567deeba074a
+
+	partition eleicoes = m
+		mode: import
+		source =
+				let
+					Fonte = #table(type table [Ano = Int64.Type, Eleitores_Aptos = Int64.Type, Comparecimento = Int64.Type, Pct_Comparecimento = nullable number, Votos_Validos = Int64.Type, Candidatos_Prefeito = Int64.Type, Vencedor = text, Partido_Vencedor = text, Pct_Vencedor = nullable number, Candidato_Grupo = text, Partido_Grupo = text, Pct_Grupo = nullable number, Candidato_Oposicao = text, Partido_Oposicao = text, Pct_Oposicao = nullable number, Pct_Demais = nullable number, Resultado_Grupo = text], {
+					{2004, 9247, 8492, 91.84, 7972, 4, "Dr. Fernando", "PSB", 66.9, "Jorge Meneghel", "PT", 26.4, "Dr. Fernando", "PSB", 66.9, 6.8, "Derrota"},
+					{2008, 10551, 9530, 90.32, 8965, 2, "Dr. Fernando", "PSB", 66.9, "Daniel Orlandi", "PSDB", 33.1, "Dr. Fernando", "PSB", 66.9, 0.0, "Derrota"},
+					{2012, 11308, 9832, 86.95, 8830, 2, "Roberto Fiorin", "PSB", 63.6, "Sergio Bianchi", "PSD", 36.4, "Roberto Fiorin", "PSB", 63.6, 0.0, "Derrota"},
+					{2016, 11969, 10198, 85.2, 9660, 2, "Dr. Fernando", "PSB", 52.0, "Ronaldo Bianchi", "PMDB", 48.0, "Dr. Fernando", "PSB", 52.0, 0.0, "Derrota"},
+					{2020, 12294, 9731, 79.15, 9213, 3, "Dr. Fernando", "PSB", 56.4, "Ronaldo Bianchi", "Republicanos", 40.0, "Dr. Fernando", "PSB", 56.4, 3.6, "Derrota"},
+					{2024, 12860, 10255, 79.74, 9955, 3, "Hugo Luiz", "PP", 58.1, "Hugo Luiz", "PP", 58.1, "Rolmar Boteccia", "PSB", 31.9, 10.0, "Vitória"}
+					})
+				in
+					Fonte

@@ -1,0 +1,15 @@
+relationship 916f31fb-38d9-41a3-991c-e0dd343f2edb
+	fromColumn: candidatos.Ano
+	toColumn: eleicoes.Ano
+
+relationship 2655e7f3-d2bf-4261-99d3-a2f7c8eb0c4c
+	fromColumn: votos_distrito.Ano
+	toColumn: eleicoes.Ano
+
+relationship a4b06354-9445-4aeb-aee6-f8190aafe2e3
+	fromColumn: camara.Ano
+	toColumn: eleicoes.Ano
+
+relationship 6e0670c4-696e-42b2-ae2e-e7d133577f9b
+	fromColumn: vereadores_eleitos.Ano
+	toColumn: eleicoes.Ano

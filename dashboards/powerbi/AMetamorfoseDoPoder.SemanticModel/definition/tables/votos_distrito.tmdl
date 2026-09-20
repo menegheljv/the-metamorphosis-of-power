@@ -1,0 +1,178 @@
+table votos_distrito
+	lineageTag: 14e46c3d-4c1a-4aed-aff0-518fc79cbafe
+
+	column Distrito
+		dataType: string
+		lineageTag: cd60df14-0254-46dd-88a8-05cca9eed9c3
+		summarizeBy: none
+		sourceColumn: Distrito
+
+	column Ano
+		dataType: int64
+		formatString: 0
+		lineageTag: ea007709-3824-4127-8563-053f2b5ad4ba
+		summarizeBy: none
+		sourceColumn: Ano
+
+	column Candidato
+		dataType: string
+		lineageTag: be846f0f-1307-46c3-a201-b09493e8c59d
+		summarizeBy: none
+		sourceColumn: Candidato
+
+	column Partido
+		dataType: string
+		lineageTag: cd01aa90-e7fa-4061-91b2-1970d8be716d
+		summarizeBy: none
+		sourceColumn: Partido
+
+	column Lado
+		dataType: string
+		lineageTag: 961f212a-311f-4813-8526-38ce1ba80f27
+		summarizeBy: none
+		sourceColumn: Lado
+
+	column Votos
+		dataType: int64
+		formatString: #,0
+		lineageTag: 39518f67-6b5c-4f8f-b228-4c23e132b056
+		summarizeBy: sum
+		sourceColumn: Votos
+
+	column Votos_Validos_Distrito
+		dataType: int64
+		formatString: #,0
+		lineageTag: 608229a0-7de2-4fc7-a8b9-6f3d56c86005
+		summarizeBy: sum
+		sourceColumn: Votos_Validos_Distrito
+
+	column Pct_No_Distrito
+		dataType: double
+		formatString: 0.0"%"
+		lineageTag: bc6fa1eb-63b9-45d1-a87c-a4be91b1275b
+		summarizeBy: sum
+		sourceColumn: Pct_No_Distrito
+
+	measure 'Pct dos votos' = DIVIDE(SUM(votos_distrito[Votos]), CALCULATE(SUM(votos_distrito[Votos]), REMOVEFILTERS(votos_distrito[Lado]), REMOVEFILTERS(votos_distrito[Candidato]), REMOVEFILTERS(votos_distrito[Partido]))) * 100
+		formatString: 0.0"%"
+		lineageTag: 2ed2bdfc-7bf8-4ff5-95c0-ec9bb1fda524
+
+	partition votos_distrito = m
+		mode: import
+		source =
+				let
+					Fonte = #table(type table [Distrito = text, Ano = Int64.Type, Candidato = text, Partido = text, Lado = text, Votos = Int64.Type, Votos_Validos_Distrito = Int64.Type, Pct_No_Distrito = nullable number], {
+					{"Sede", 2004, "Dr. Fernando", "PSB", "Principal oposição", 3308, 5174, 63.9},
+					{"Sede", 2004, "Jorge Meneghel", "PT", "Grupo", 1542, 5174, 29.8},
+					{"Sede", 2004, "Nelsão Togneri", "PFL", "Demais candidatos", 175, 5174, 3.4},
+					{"Sede", 2004, "Luiz Teixeira", "PV", "Demais candidatos", 149, 5174, 2.9},
+					{"Sede", 2008, "Dr. Fernando", "PSB", "Principal oposição", 3895, 5890, 66.1},
+					{"Sede", 2008, "Daniel Orlandi", "PSDB", "Grupo", 1995, 5890, 33.9},
+					{"Sede", 2012, "Roberto Fiorin", "PSB", "Principal oposição", 3341, 5769, 57.9},
+					{"Sede", 2012, "Sergio Bianchi", "PSD", "Grupo", 2428, 5769, 42.1},
+					{"Sede", 2016, "Dr. Fernando", "PSB", "Principal oposição", 3200, 6392, 50.1},
+					{"Sede", 2016, "Ronaldo Bianchi", "PMDB", "Grupo", 3192, 6392, 49.9},
+					{"Sede", 2020, "Dr. Fernando", "PSB", "Principal oposição", 3456, 6157, 56.1},
+					{"Sede", 2020, "Ronaldo Bianchi", "Republicanos", "Grupo", 2480, 6157, 40.3},
+					{"Sede", 2020, "Armando Zanata", "PDT", "Demais candidatos", 221, 6157, 3.6},
+					{"Sede", 2024, "Hugo Luiz", "PP", "Grupo", 3811, 6653, 57.3},
+					{"Sede", 2024, "Rolmar Boteccia", "PSB", "Principal oposição", 2109, 6653, 31.7},
+					{"Sede", 2024, "Boldrini", "PL", "Demais candidatos", 733, 6653, 11.0},
+					{"Crubixá", 2004, "Dr. Fernando", "PSB", "Principal oposição", 468, 679, 68.9},
+					{"Crubixá", 2004, "Jorge Meneghel", "PT", "Grupo", 164, 679, 24.2},
+					{"Crubixá", 2004, "Nelsão Togneri", "PFL", "Demais candidatos", 24, 679, 3.5},
+					{"Crubixá", 2004, "Luiz Teixeira", "PV", "Demais candidatos", 23, 679, 3.4},
+					{"Crubixá", 2008, "Dr. Fernando", "PSB", "Principal oposição", 471, 704, 66.9},
+					{"Crubixá", 2008, "Daniel Orlandi", "PSDB", "Grupo", 233, 704, 33.1},
+					{"Crubixá", 2012, "Roberto Fiorin", "PSB", "Principal oposição", 475, 661, 71.9},
+					{"Crubixá", 2012, "Sergio Bianchi", "PSD", "Grupo", 186, 661, 28.1},
+					{"Crubixá", 2016, "Dr. Fernando", "PSB", "Principal oposição", 416, 711, 58.5},
+					{"Crubixá", 2016, "Ronaldo Bianchi", "PMDB", "Grupo", 295, 711, 41.5},
+					{"Crubixá", 2020, "Dr. Fernando", "PSB", "Principal oposição", 406, 641, 63.3},
+					{"Crubixá", 2020, "Ronaldo Bianchi", "Republicanos", "Grupo", 218, 641, 34.0},
+					{"Crubixá", 2020, "Armando Zanata", "PDT", "Demais candidatos", 17, 641, 2.7},
+					{"Crubixá", 2024, "Hugo Luiz", "PP", "Grupo", 327, 690, 47.4},
+					{"Crubixá", 2024, "Rolmar Boteccia", "PSB", "Principal oposição", 269, 690, 39.0},
+					{"Crubixá", 2024, "Boldrini", "PL", "Demais candidatos", 94, 690, 13.6},
+					{"Ibitiruí", 2004, "Dr. Fernando", "PSB", "Principal oposição", 372, 523, 71.1},
+					{"Ibitiruí", 2004, "Jorge Meneghel", "PT", "Grupo", 124, 523, 23.7},
+					{"Ibitiruí", 2004, "Nelsão Togneri", "PFL", "Demais candidatos", 14, 523, 2.7},
+					{"Ibitiruí", 2004, "Luiz Teixeira", "PV", "Demais candidatos", 13, 523, 2.5},
+					{"Ibitiruí", 2008, "Dr. Fernando", "PSB", "Principal oposição", 408, 588, 69.4},
+					{"Ibitiruí", 2008, "Daniel Orlandi", "PSDB", "Grupo", 180, 588, 30.6},
+					{"Ibitiruí", 2012, "Roberto Fiorin", "PSB", "Principal oposição", 405, 609, 66.5},
+					{"Ibitiruí", 2012, "Sergio Bianchi", "PSD", "Grupo", 204, 609, 33.5},
+					{"Ibitiruí", 2016, "Ronaldo Bianchi", "PMDB", "Grupo", 311, 618, 50.3},
+					{"Ibitiruí", 2016, "Dr. Fernando", "PSB", "Principal oposição", 307, 618, 49.7},
+					{"Ibitiruí", 2020, "Dr. Fernando", "PSB", "Principal oposição", 309, 587, 52.6},
+					{"Ibitiruí", 2020, "Ronaldo Bianchi", "Republicanos", "Grupo", 234, 587, 39.9},
+					{"Ibitiruí", 2020, "Armando Zanata", "PDT", "Demais candidatos", 44, 587, 7.5},
+					{"Ibitiruí", 2024, "Hugo Luiz", "PP", "Grupo", 385, 608, 63.3},
+					{"Ibitiruí", 2024, "Rolmar Boteccia", "PSB", "Principal oposição", 179, 608, 29.4},
+					{"Ibitiruí", 2024, "Boldrini", "PL", "Demais candidatos", 44, 608, 7.2},
+					{"Matilde", 2004, "Dr. Fernando", "PSB", "Principal oposição", 343, 447, 76.7},
+					{"Matilde", 2004, "Jorge Meneghel", "PT", "Grupo", 86, 447, 19.2},
+					{"Matilde", 2004, "Luiz Teixeira", "PV", "Demais candidatos", 12, 447, 2.7},
+					{"Matilde", 2004, "Nelsão Togneri", "PFL", "Demais candidatos", 6, 447, 1.3},
+					{"Matilde", 2008, "Dr. Fernando", "PSB", "Principal oposição", 318, 513, 62.0},
+					{"Matilde", 2008, "Daniel Orlandi", "PSDB", "Grupo", 195, 513, 38.0},
+					{"Matilde", 2012, "Roberto Fiorin", "PSB", "Principal oposição", 375, 517, 72.5},
+					{"Matilde", 2012, "Sergio Bianchi", "PSD", "Grupo", 142, 517, 27.5},
+					{"Matilde", 2016, "Ronaldo Bianchi", "PMDB", "Grupo", 269, 533, 50.5},
+					{"Matilde", 2016, "Dr. Fernando", "PSB", "Principal oposição", 264, 533, 49.5},
+					{"Matilde", 2020, "Dr. Fernando", "PSB", "Principal oposição", 297, 511, 58.1},
+					{"Matilde", 2020, "Ronaldo Bianchi", "Republicanos", "Grupo", 203, 511, 39.7},
+					{"Matilde", 2020, "Armando Zanata", "PDT", "Demais candidatos", 11, 511, 2.2},
+					{"Matilde", 2024, "Hugo Luiz", "PP", "Grupo", 307, 531, 57.8},
+					{"Matilde", 2024, "Rolmar Boteccia", "PSB", "Principal oposição", 181, 531, 34.1},
+					{"Matilde", 2024, "Boldrini", "PL", "Demais candidatos", 43, 531, 8.1},
+					{"Ribeirão do Cristo", 2004, "Dr. Fernando", "PSB", "Principal oposição", 156, 261, 59.8},
+					{"Ribeirão do Cristo", 2004, "Luiz Teixeira", "PV", "Demais candidatos", 82, 261, 31.4},
+					{"Ribeirão do Cristo", 2004, "Jorge Meneghel", "PT", "Grupo", 23, 261, 8.8},
+					{"Ribeirão do Cristo", 2008, "Dr. Fernando", "PSB", "Principal oposição", 157, 254, 61.8},
+					{"Ribeirão do Cristo", 2008, "Daniel Orlandi", "PSDB", "Grupo", 97, 254, 38.2},
+					{"Ribeirão do Cristo", 2012, "Roberto Fiorin", "PSB", "Principal oposição", 213, 235, 90.6},
+					{"Ribeirão do Cristo", 2012, "Sergio Bianchi", "PSD", "Grupo", 22, 235, 9.4},
+					{"Ribeirão do Cristo", 2016, "Dr. Fernando", "PSB", "Principal oposição", 180, 281, 64.1},
+					{"Ribeirão do Cristo", 2016, "Ronaldo Bianchi", "PMDB", "Grupo", 101, 281, 35.9},
+					{"Ribeirão do Cristo", 2020, "Ronaldo Bianchi", "Republicanos", "Grupo", 142, 244, 58.2},
+					{"Ribeirão do Cristo", 2020, "Dr. Fernando", "PSB", "Principal oposição", 96, 244, 39.3},
+					{"Ribeirão do Cristo", 2020, "Armando Zanata", "PDT", "Demais candidatos", 6, 244, 2.5},
+					{"Ribeirão do Cristo", 2024, "Hugo Luiz", "PP", "Grupo", 191, 264, 72.3},
+					{"Ribeirão do Cristo", 2024, "Rolmar Boteccia", "PSB", "Principal oposição", 61, 264, 23.1},
+					{"Ribeirão do Cristo", 2024, "Boldrini", "PL", "Demais candidatos", 12, 264, 4.5},
+					{"Sagrada Família", 2004, "Dr. Fernando", "PSB", "Principal oposição", 409, 534, 76.6},
+					{"Sagrada Família", 2004, "Jorge Meneghel", "PT", "Grupo", 100, 534, 18.7},
+					{"Sagrada Família", 2004, "Nelsão Togneri", "PFL", "Demais candidatos", 13, 534, 2.4},
+					{"Sagrada Família", 2004, "Luiz Teixeira", "PV", "Demais candidatos", 12, 534, 2.2},
+					{"Sagrada Família", 2008, "Dr. Fernando", "PSB", "Principal oposição", 451, 599, 75.3},
+					{"Sagrada Família", 2008, "Daniel Orlandi", "PSDB", "Grupo", 148, 599, 24.7},
+					{"Sagrada Família", 2012, "Roberto Fiorin", "PSB", "Principal oposição", 403, 578, 69.7},
+					{"Sagrada Família", 2012, "Sergio Bianchi", "PSD", "Grupo", 175, 578, 30.3},
+					{"Sagrada Família", 2016, "Dr. Fernando", "PSB", "Principal oposição", 373, 612, 60.9},
+					{"Sagrada Família", 2016, "Ronaldo Bianchi", "PMDB", "Grupo", 239, 612, 39.1},
+					{"Sagrada Família", 2020, "Dr. Fernando", "PSB", "Principal oposição", 368, 577, 63.8},
+					{"Sagrada Família", 2020, "Ronaldo Bianchi", "Republicanos", "Grupo", 186, 577, 32.2},
+					{"Sagrada Família", 2020, "Armando Zanata", "PDT", "Demais candidatos", 23, 577, 4.0},
+					{"Sagrada Família", 2024, "Hugo Luiz", "PP", "Grupo", 347, 601, 57.7},
+					{"Sagrada Família", 2024, "Rolmar Boteccia", "PSB", "Principal oposição", 213, 601, 35.4},
+					{"Sagrada Família", 2024, "Boldrini", "PL", "Demais candidatos", 41, 601, 6.8},
+					{"São Bento de Urânia", 2004, "Dr. Fernando", "PSB", "Principal oposição", 274, 354, 77.4},
+					{"São Bento de Urânia", 2004, "Jorge Meneghel", "PT", "Grupo", 68, 354, 19.2},
+					{"São Bento de Urânia", 2004, "Luiz Teixeira", "PV", "Demais candidatos", 8, 354, 2.3},
+					{"São Bento de Urânia", 2004, "Nelsão Togneri", "PFL", "Demais candidatos", 4, 354, 1.1},
+					{"São Bento de Urânia", 2008, "Dr. Fernando", "PSB", "Principal oposição", 296, 417, 71.0},
+					{"São Bento de Urânia", 2008, "Daniel Orlandi", "PSDB", "Grupo", 121, 417, 29.0},
+					{"São Bento de Urânia", 2012, "Roberto Fiorin", "PSB", "Principal oposição", 403, 461, 87.4},
+					{"São Bento de Urânia", 2012, "Sergio Bianchi", "PSD", "Grupo", 58, 461, 12.6},
+					{"São Bento de Urânia", 2016, "Dr. Fernando", "PSB", "Principal oposição", 279, 513, 54.4},
+					{"São Bento de Urânia", 2016, "Ronaldo Bianchi", "PMDB", "Grupo", 234, 513, 45.6},
+					{"São Bento de Urânia", 2020, "Dr. Fernando", "PSB", "Principal oposição", 264, 496, 53.2},
+					{"São Bento de Urânia", 2020, "Ronaldo Bianchi", "Republicanos", "Grupo", 218, 496, 44.0},
+					{"São Bento de Urânia", 2020, "Armando Zanata", "PDT", "Demais candidatos", 14, 496, 2.8},
+					{"São Bento de Urânia", 2024, "Hugo Luiz", "PP", "Grupo", 411, 608, 67.6},
+					{"São Bento de Urânia", 2024, "Rolmar Boteccia", "PSB", "Principal oposição", 165, 608, 27.1},
+					{"São Bento de Urânia", 2024, "Boldrini", "PL", "Demais candidatos", 32, 608, 5.3}
+					})
+				in
+					Fonte

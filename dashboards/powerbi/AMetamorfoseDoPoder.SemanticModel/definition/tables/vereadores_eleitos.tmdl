@@ -1,0 +1,61 @@
+table vereadores_eleitos
+	lineageTag: 26b5dc9f-f4cd-4442-b401-8b2d7ed708ad
+
+	column Ano
+		dataType: int64
+		formatString: 0
+		lineageTag: b6af61a3-6f10-4bf7-bd18-0d91b7baccc7
+		summarizeBy: none
+		sourceColumn: Ano
+
+	column Nome
+		dataType: string
+		lineageTag: b5bab4d5-5d1b-4b10-83a0-a870c36a3df7
+		summarizeBy: none
+		sourceColumn: Nome
+
+	column Partido
+		dataType: string
+		lineageTag: d571bce8-ae3b-44f5-acc2-409db5b4cac3
+		summarizeBy: none
+		sourceColumn: Partido
+
+	column Votos
+		dataType: int64
+		formatString: #,0
+		lineageTag: 8b98f641-392c-44b7-a86f-e06b54743829
+		summarizeBy: sum
+		sourceColumn: Votos
+
+	column Lado
+		dataType: string
+		lineageTag: 2a5fed82-2f0c-4b1e-98ed-780f2df3e090
+		summarizeBy: none
+		sourceColumn: Lado
+
+	partition vereadores_eleitos = m
+		mode: import
+		source =
+				let
+					Fonte = #table(type table [Ano = Int64.Type, Nome = text, Partido = text, Votos = Int64.Type, Lado = text], {
+					{2020, "Nilton Belmok", "PSB", 533, "Adversários"},
+					{2020, "Narcizo Grassi", "Patriota", 530, "Grupo"},
+					{2020, "Charles Gaigher", "PSB", 479, "Adversários"},
+					{2020, "Serafino Simoni", "PSB", 437, "Adversários"},
+					{2020, "Adilson Roveta", "PSB", 382, "Adversários"},
+					{2020, "Sergio Bianchi", "PSDB", 347, "Adversários"},
+					{2020, "Hugo Luiz", "PTB", 345, "Grupo"},
+					{2020, "Osvaldo Sgulmaro", "PP", 338, "Adversários"},
+					{2020, "Zanata", "Republicanos", 193, "Grupo"},
+					{2024, "Josimar Piumbini", "Republicanos", 532, "Grupo"},
+					{2024, "Nilton Belmok", "PSB", 391, "Adversários"},
+					{2024, "Zanata", "PODE", 382, "Adversários"},
+					{2024, "Charles Gaigher", "PSB", 382, "Adversários"},
+					{2024, "Hermes Marchiori", "PP", 363, "Grupo"},
+					{2024, "Odair Basso", "PSD", 354, "Adversários"},
+					{2024, "Professor Alefy", "Republicanos", 351, "Grupo"},
+					{2024, "Renan Boldrini", "PP", 333, "Grupo"},
+					{2024, "Warlei Pessali", "PSDB", 261, "Grupo"}
+					})
+				in
+					Fonte

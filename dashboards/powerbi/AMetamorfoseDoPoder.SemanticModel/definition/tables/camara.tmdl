@@ -1,0 +1,43 @@
+table camara
+	lineageTag: 47d614a3-aef9-4221-af2e-9a22d457a34b
+
+	column Ano
+		dataType: int64
+		formatString: 0
+		lineageTag: 1a09c6b1-ff4f-4e03-9eb7-26320a465d26
+		summarizeBy: none
+		sourceColumn: Ano
+
+	column Lado
+		dataType: string
+		lineageTag: fbe7eeb8-5262-45a2-9348-9b24026b2a86
+		summarizeBy: none
+		sourceColumn: Lado
+
+	column Cadeiras
+		dataType: int64
+		formatString: 0
+		lineageTag: 0784377c-3142-4dba-aa16-58de77b59024
+		summarizeBy: sum
+		sourceColumn: Cadeiras
+
+	measure 'Cadeiras do grupo 2020' = CALCULATE(SUM(camara[Cadeiras]), camara[Ano] = 2020, camara[Lado] = "Grupo")
+		formatString: 0
+		lineageTag: 2b0bd43f-2cda-45c5-b378-8091d9a7f019
+
+	measure 'Cadeiras do grupo 2024' = CALCULATE(SUM(camara[Cadeiras]), camara[Ano] = 2024, camara[Lado] = "Grupo")
+		formatString: 0
+		lineageTag: 9cfdbf3f-05bc-4934-b264-ab60346f99c9
+
+	partition camara = m
+		mode: import
+		source =
+				let
+					Fonte = #table(type table [Ano = Int64.Type, Lado = text, Cadeiras = Int64.Type], {
+					{2020, "Grupo", 3},
+					{2020, "Adversários", 6},
+					{2024, "Grupo", 5},
+					{2024, "Adversários", 4}
+					})
+				in
+					Fonte

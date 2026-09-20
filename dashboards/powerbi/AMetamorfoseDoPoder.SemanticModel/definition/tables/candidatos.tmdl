@@ -1,0 +1,145 @@
+table candidatos
+	lineageTag: 7d678aee-dedb-4981-b14d-7548865d389c
+
+	column Ano
+		dataType: int64
+		formatString: 0
+		lineageTag: 77256d71-cd01-44dc-aef3-bc12a376fae3
+		summarizeBy: none
+		sourceColumn: Ano
+
+	column Candidato
+		dataType: string
+		lineageTag: 1ae158a3-56ff-4a72-b7e2-3f32494d4ebb
+		summarizeBy: none
+		sourceColumn: Candidato
+
+	column Nome_Completo
+		dataType: string
+		lineageTag: 665f34bf-f222-46ba-8665-d3097a6c08c0
+		summarizeBy: none
+		sourceColumn: Nome_Completo
+
+	column Partido
+		dataType: string
+		lineageTag: aae43d9f-c3ca-4f61-b39c-b66391f0d1dd
+		summarizeBy: none
+		sourceColumn: Partido
+
+	column Lado
+		dataType: string
+		lineageTag: 6818bb88-8658-4775-9369-c7e1628fb113
+		summarizeBy: none
+		sourceColumn: Lado
+
+	column Votos
+		dataType: int64
+		formatString: #,0
+		lineageTag: 9a53ccbe-76d4-4a05-b345-a3f79e559881
+		summarizeBy: sum
+		sourceColumn: Votos
+
+	column Pct_Votos_Validos
+		dataType: double
+		formatString: 0.0"%"
+		lineageTag: 032b7875-a7c0-4418-a905-26286e3ca3d7
+		summarizeBy: sum
+		sourceColumn: Pct_Votos_Validos
+
+	column Resultado
+		dataType: string
+		lineageTag: a5483dca-cec0-4f0b-93dc-0e5d33b85f33
+		summarizeBy: none
+		sourceColumn: Resultado
+
+	column Idade
+		dataType: int64
+		formatString: 0
+		lineageTag: 2f96ad27-13d7-4b73-89e8-63f35ee5f0d7
+		summarizeBy: none
+		sourceColumn: Idade
+
+	column Genero
+		dataType: string
+		lineageTag: 13c27849-c702-45af-91f7-2b8f6d3416af
+		summarizeBy: none
+		sourceColumn: Genero
+
+	column Escolaridade
+		dataType: string
+		lineageTag: 20d82ee6-dddc-4782-a5c3-c52c203e1bcd
+		summarizeBy: none
+		sourceColumn: Escolaridade
+
+	column Ocupacao
+		dataType: string
+		lineageTag: 3ff639b5-6434-43af-85b9-bee3e0891e16
+		summarizeBy: none
+		sourceColumn: Ocupacao
+
+	column Patrimonio_Declarado
+		dataType: double
+		formatString: "R$" #,0
+		lineageTag: c4755675-c245-4e7d-9fb7-69cde6b2f18a
+		summarizeBy: sum
+		sourceColumn: Patrimonio_Declarado
+
+	column Receita_Declarada
+		dataType: double
+		formatString: "R$" #,0
+		lineageTag: 8d72d618-867a-4d33-b646-69dd3d27c41e
+		summarizeBy: sum
+		sourceColumn: Receita_Declarada
+
+	column Despesa_Paga
+		dataType: double
+		formatString: "R$" #,0
+		lineageTag: fb9f5eb3-38d0-4802-bff4-0d281b5f1c5f
+		summarizeBy: sum
+		sourceColumn: Despesa_Paga
+
+	column Custo_Por_Voto
+		dataType: double
+		formatString: "R$" #,0.00
+		lineageTag: 74b67ec8-4f00-4478-9c9b-27f0e1e2edd2
+		summarizeBy: sum
+		sourceColumn: Custo_Por_Voto
+
+	column Eleicao_Candidato
+		dataType: string
+		lineageTag: 70e00b33-d114-4f15-8e30-1494717e3a9b
+		summarizeBy: none
+		sourceColumn: Eleicao_Candidato
+		sortByColumn: Ordem
+
+	column Ordem
+		dataType: int64
+		formatString: 0
+		lineageTag: 87325762-65b7-4233-b373-d72865471fb3
+		summarizeBy: none
+		sourceColumn: Ordem
+
+	partition candidatos = m
+		mode: import
+		source =
+				let
+					Fonte = #table(type table [Ano = Int64.Type, Candidato = text, Nome_Completo = text, Partido = text, Lado = text, Votos = Int64.Type, Pct_Votos_Validos = nullable number, Resultado = text, Idade = Int64.Type, Genero = text, Escolaridade = text, Ocupacao = text, Patrimonio_Declarado = nullable number, Receita_Declarada = nullable number, Despesa_Paga = nullable number, Custo_Por_Voto = nullable number, Eleicao_Candidato = text, Ordem = Int64.Type], {
+					{2004, "Dr. Fernando", "Fernando Videira Lafayette", "PSB", "Principal oposição", 5330, 66.9, "Eleito", 56, "Masculino", "Superior completo", "Médico", null, 34050.0, 34030.47, 6.38, "2004 · Dr. Fernando (PSB)", 1},
+					{2004, "Jorge Meneghel", "Jorge Gabriel Meneghel", "PT", "Grupo", 2107, 26.4, "Não eleito", 37, "Masculino", "Superior completo", "Professor de 1º e 2º graus", null, 15682.0, 15682.0, 7.44, "2004 · Jorge Meneghel (PT)", 2},
+					{2004, "Luiz Teixeira", "Luiz Roberto Teixeira De Siqueira", "PV", "Demais candidatos", 299, 3.8, "Não eleito", 50, "Masculino", "Superior completo", "Advogado", null, null, null, null, "2004 · Luiz Teixeira (PV)", 3},
+					{2004, "Nelsão Togneri", "Nelson Togneri Andreati", "PFL", "Demais candidatos", 236, 3.0, "Não eleito", 41, "Masculino", "Médio completo", "Técnico em edificações", null, 3010.0, 2938.82, 12.45, "2004 · Nelsão Togneri (PFL)", 4},
+					{2008, "Dr. Fernando", "Fernando Videira Lafayette", "PSB", "Principal oposição", 5996, 66.9, "Eleito", 60, "Masculino", "Superior completo", "Médico", 53416.240000000005, 82793.95, 82793.95, 13.81, "2008 · Dr. Fernando (PSB)", 5},
+					{2008, "Daniel Orlandi", "Daniel Orlandi", "PSDB", "Grupo", 2969, 33.1, "Não eleito", 40, "Masculino", "Médio completo", "Agricultor", 15000.0, 39651.21, 39651.21, 13.36, "2008 · Daniel Orlandi (PSDB)", 6},
+					{2012, "Roberto Fiorin", "Roberto Fortunato Fiorin", "PSB", "Principal oposição", 5615, 63.6, "Eleito", 53, "Masculino", "Superior completo", "Servidor público federal", 284405.77, 30162.5, 55800.29, 9.94, "2012 · Roberto Fiorin (PSB)", 7},
+					{2012, "Sergio Bianchi", "Sergio Bianchi", "PSD", "Grupo", 3215, 36.4, "Não eleito", 50, "Masculino", "Fundamental incompleto", "Vereador", 20000.0, 6780.45, 7043.6, 2.19, "2012 · Sergio Bianchi (PSD)", 8},
+					{2016, "Dr. Fernando", "Fernando Videira Lafayette", "PSB", "Principal oposição", 5019, 52.0, "Eleito", 68, "Masculino", "Superior completo", "Médico", 410500.0, 75501.05, 75501.05, 15.04, "2016 · Dr. Fernando (PSB)", 9},
+					{2016, "Ronaldo Bianchi", "Ronaldo Bianchi", "PMDB", "Grupo", 4641, 48.0, "Não eleito", 54, "Masculino", "Médio completo", "Empresário", 428561.02, 49430.0, 49430.0, 10.65, "2016 · Ronaldo Bianchi (PMDB)", 10},
+					{2020, "Dr. Fernando", "Fernando Videira Lafayette", "PSB", "Principal oposição", 5196, 56.4, "Eleito", 72, "Masculino", "Superior completo", "Prefeito", 620761.34, 108642.29, 102342.29, 19.7, "2020 · Dr. Fernando (PSB)", 11},
+					{2020, "Ronaldo Bianchi", "Ronaldo Bianchi", "Republicanos", "Grupo", 3681, 40.0, "Não eleito", 58, "Masculino", "Médio completo", "Empresário", 366381.24, 53120.0, 50000.0, 13.58, "2020 · Ronaldo Bianchi (Republicanos)", 12},
+					{2020, "Armando Zanata", "Armando Nolasco Ribeiro", "PDT", "Demais candidatos", 336, 3.6, "Não eleito", 64, "Masculino", "Médio incompleto", "Empresário", 1380000.0, 32722.09, 26999.56, 80.36, "2020 · Armando Zanata (PDT)", 13},
+					{2024, "Hugo Luiz", "Hugo Luiz Picoli Meneghel", "PP", "Grupo", 5779, 58.1, "Eleito", 25, "Masculino", "Superior completo", "Advogado", 29573.27, 155597.43, 154237.43, 26.69, "2024 · Hugo Luiz (PP)", 14},
+					{2024, "Rolmar Boteccia", "Rolmar Botecchia", "PSB", "Principal oposição", 3177, 31.9, "Não eleito", 71, "Masculino", "Médio completo", "Pecuarista", 718420.79, 119400.0, 115000.0, 36.2, "2024 · Rolmar Boteccia (PSB)", 15},
+					{2024, "Boldrini", "Luiz Claudio Boldrini", "PL", "Demais candidatos", 999, 10.0, "Não eleito", 61, "Masculino", "Médio completo", "Comerciante", 0.0, 141130.0, 141130.0, 141.27, "2024 · Boldrini (PL)", 16}
+					})
+				in
+					Fonte
