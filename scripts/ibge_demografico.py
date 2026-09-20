@@ -66,6 +66,8 @@ cand_rows = []
 for year in [2020, 2024]:
     df = pd.read_csv(os.path.join(DATA, f"perfil_candidatos_{year}_alfredo_chaves.csv"), sep=";", dtype=str, encoding="latin1")
     df.columns = [c.strip().upper() for c in df.columns]
+    # so candidatos a vereador: prefeito (3 por eleicao) e vice-prefeito ficam de fora dos percentuais
+    df = df[df["DS_CARGO"].str.upper() == "VEREADOR"]
     tot = len(df)
     g = df.groupby("DS_GENERO").size()
     r = df.groupby("DS_COR_RACA").size()

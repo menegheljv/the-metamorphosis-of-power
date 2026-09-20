@@ -145,8 +145,8 @@
   .table-exhibit table.data.cov td:first-child, .table-exhibit table.data.cov th:first-child { text-align: center; }
   @media (min-width: 641px), print {
     .table-exhibit table.data.cov { table-layout: fixed; width: 100%; }
-    .table-exhibit table.data.cov th, .table-exhibit table.data.cov td, .table-exhibit table.data.cov td:last-child, .table-exhibit table.data.cov th:last-child { text-align: center; padding: 7px 3px; overflow-wrap: anywhere; }
-    .table-exhibit table.data.cov th { font-size: 10px; letter-spacing: 0.02em; }
+    .table-exhibit table.data.cov th, .table-exhibit table.data.cov td, .table-exhibit table.data.cov td:last-child, .table-exhibit table.data.cov th:last-child { text-align: center; padding: 7px 3px; overflow-wrap: normal; }
+    .table-exhibit table.data.cov th { font-size: 9.5px; letter-spacing: 0.01em; }
   }
   .table-exhibit figcaption span + span { margin-top: 6px; }
   .print-actions .pdf-btn {
@@ -657,7 +657,7 @@
     </div>
     <ul class="list sources">
       <li><code>votacao_secao_YEAR_ES.csv</code>: votes by voting precinct, 2004 to 2024 (from 1,229 rows in 2004 to 2,089 in 2024, after the municipal filter)</li>
-      <li><code>votacao_candidato_munzona_YEAR_ES.csv</code>: consolidated result per candidate, 2004 to 2024 (45 to 73 records per election)</li>
+      <li><code>votacao_candidato_munzona_YEAR_ES.csv</code>: consolidated result per candidate, 2004 to 2024 (45 to 73 records per election, adding mayoral, vice-mayoral and council candidates)</li>
       <li><code>votacao_partido_munzona_2020/2024_ES.csv</code>: party-line vote totals, 2020 and 2024 only (9 and 11 records)</li>
       <li><code>detalhe_votacao_munzona_YEAR_ES.csv</code>: turnout, abstention, blank/null votes, 2004 to 2024</li>
       <li><code>prestacao_de_contas_eleitorais_candidatos_YEAR.csv</code> (revenue and paid expenses, 2004 to 2024): extracted via <em>HTTP range requests</em> from a ~1.3&nbsp;GB national file, without downloading the whole thing</li>
@@ -703,21 +703,23 @@
         <p class="table-sub">coverage of the TSE datasets used in this study</p>
         <div class="table-scroll">
       <table class="data stack-mobile cov">
+        <colgroup><col style="width:8%"><col style="width:10%"><col style="width:9%"><col style="width:9%"><col style="width:11%"><col style="width:14%"><col style="width:13%"><col style="width:12%"><col style="width:14%"></colgroup>
         <thead>
-          <tr><th>Year</th><th class="num">Voting precincts</th><th class="num">Candidates</th><th>Revenue and expenses</th><th>Declared assets</th><th>Electorate profile</th><th>Party-line votes</th><th>Candidate profile</th></tr>
+          <tr><th rowspan="2">Year</th><th rowspan="2">Voting precincts</th><th colspan="2">Candidates</th><th rowspan="2">Revenue and expenses</th><th rowspan="2">Declared assets</th><th rowspan="2">Electorate profile</th><th rowspan="2">Party-line votes</th><th rowspan="2">Candidate profile</th></tr>
+          <tr><th>Mayoral</th><th>Council</th></tr>
         </thead>
         <tbody>
-          <tr><td data-label="Year">2004</td><td class="num" data-label="Voting precincts">33</td><td class="num" data-label="Candidates">49</td><td data-label="Revenue and expenses">Yes</td><td data-label="Declared assets">No</td><td data-label="Electorate profile">No</td><td data-label="Party-line votes">No</td><td data-label="Candidate profile">No</td></tr>
-          <tr><td data-label="Year">2008</td><td class="num" data-label="Voting precincts">34</td><td class="num" data-label="Candidates">45</td><td data-label="Revenue and expenses">Yes</td><td data-label="Declared assets">Yes</td><td data-label="Electorate profile">Yes</td><td data-label="Party-line votes">No</td><td data-label="Candidate profile">No</td></tr>
-          <tr><td data-label="Year">2012</td><td class="num" data-label="Voting precincts">34</td><td class="num" data-label="Candidates">68</td><td data-label="Revenue and expenses">Yes</td><td data-label="Declared assets">Yes</td><td data-label="Electorate profile">Yes</td><td data-label="Party-line votes">No</td><td data-label="Candidate profile">No</td></tr>
-          <tr><td data-label="Year">2016</td><td class="num" data-label="Voting precincts">36</td><td class="num" data-label="Candidates">65</td><td data-label="Revenue and expenses">Yes</td><td data-label="Declared assets">Yes</td><td data-label="Electorate profile">Yes</td><td data-label="Party-line votes">No</td><td data-label="Candidate profile">No</td></tr>
-          <tr><td data-label="Year">2020</td><td class="num" data-label="Voting precincts">36</td><td class="num" data-label="Candidates">72</td><td data-label="Revenue and expenses">Yes</td><td data-label="Declared assets">Yes</td><td data-label="Electorate profile">Yes</td><td data-label="Party-line votes">Yes</td><td data-label="Candidate profile">Yes</td></tr>
-          <tr><td data-label="Year">2024</td><td class="num" data-label="Voting precincts">42</td><td class="num" data-label="Candidates">73</td><td data-label="Revenue and expenses">Yes</td><td data-label="Declared assets">Yes</td><td data-label="Electorate profile">Yes</td><td data-label="Party-line votes">Yes</td><td data-label="Candidate profile">Yes</td></tr>
+          <tr><td data-label="Year">2004</td><td class="num" data-label="Voting precincts">33</td><td class="num" data-label="Mayoral candidates">4</td><td class="num" data-label="Council candidates">40</td><td data-label="Revenue and expenses">Yes</td><td data-label="Declared assets">No</td><td data-label="Electorate profile">No</td><td data-label="Party-line votes">No</td><td data-label="Candidate profile">No</td></tr>
+          <tr><td data-label="Year">2008</td><td class="num" data-label="Voting precincts">34</td><td class="num" data-label="Mayoral candidates">2</td><td class="num" data-label="Council candidates">41</td><td data-label="Revenue and expenses">Yes</td><td data-label="Declared assets">Yes</td><td data-label="Electorate profile">Yes</td><td data-label="Party-line votes">No</td><td data-label="Candidate profile">No</td></tr>
+          <tr><td data-label="Year">2012</td><td class="num" data-label="Voting precincts">34</td><td class="num" data-label="Mayoral candidates">2</td><td class="num" data-label="Council candidates">64</td><td data-label="Revenue and expenses">Yes</td><td data-label="Declared assets">Yes</td><td data-label="Electorate profile">Yes</td><td data-label="Party-line votes">No</td><td data-label="Candidate profile">No</td></tr>
+          <tr><td data-label="Year">2016</td><td class="num" data-label="Voting precincts">36</td><td class="num" data-label="Mayoral candidates">2</td><td class="num" data-label="Council candidates">61</td><td data-label="Revenue and expenses">Yes</td><td data-label="Declared assets">Yes</td><td data-label="Electorate profile">Yes</td><td data-label="Party-line votes">No</td><td data-label="Candidate profile">No</td></tr>
+          <tr><td data-label="Year">2020</td><td class="num" data-label="Voting precincts">36</td><td class="num" data-label="Mayoral candidates">3</td><td class="num" data-label="Council candidates">69</td><td data-label="Revenue and expenses">Yes</td><td data-label="Declared assets">Yes</td><td data-label="Electorate profile">Yes</td><td data-label="Party-line votes">Yes</td><td data-label="Candidate profile">Yes</td></tr>
+          <tr><td data-label="Year">2024</td><td class="num" data-label="Voting precincts">42</td><td class="num" data-label="Mayoral candidates">3</td><td class="num" data-label="Council candidates">70</td><td data-label="Revenue and expenses">Yes</td><td data-label="Declared assets">Yes</td><td data-label="Electorate profile">Yes</td><td data-label="Party-line votes">Yes</td><td data-label="Candidate profile">Yes</td></tr>
         </tbody>
       </table>
         </div>
       </div>
-      <figcaption>Comparisons across all six elections (results, turnout, financing, districts) rely on the complete columns. The council slate by district, party-line votes and the candidate profile exist only for 2020 and 2024; assets and the electorate profile start in 2008. Where a dataset does not cover a year, the study does not estimate: it leaves it out. &ldquo;Candidates&rdquo; counts mayoral and council records.</figcaption>
+      <figcaption>Comparisons across all six elections (results, turnout, financing, districts) rely on the complete columns. The council slate by district, party-line votes and the candidate profile exist only for 2020 and 2024; assets and the electorate profile start in 2008. Where a dataset does not cover a year, the study does not estimate: it leaves it out. The candidate columns count registered mayoral and council candidacies separately; vice-mayoral candidates are left out.</figcaption>
     </figure>
 
     <h3>Cleaning and normalization (pandas)</h3>
@@ -760,7 +762,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 3</span><span class="cap">% of votes by precinct, 2020 vs. 2024</span></div>
       <div class="exhibit-body">
-        <div class="ichart" data-chart="slope"><p class="chart-fallback">Line chart connecting the mayoral candidate's vote share in each voting precinct, 2020 on the left and 2024 on the right, showing nearly every line rising from below the 50%25 threshold to above it.</p></div>
+        <div class="ichart" data-chart="slope"><p class="chart-fallback">Line chart connecting the mayoral candidate's vote share in each voting precinct, 2020 on the left and 2024 on the right, showing nearly every line rising from below the 50% threshold to above it.</p></div>
       </div>
       <figcaption>Each line is one voting precinct. In <strong style="color:var(--red)">2020</strong> nearly all sit below 50% (a loss); by <strong style="color:var(--blue)">2024</strong> most cross the absolute-majority line. Precincts with no 2020 data didn't exist yet in that election.</figcaption>
     </figure>
@@ -778,7 +780,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 5</span><span class="cap">Citywide aggregate result</span></div>
       <div class="exhibit-body">
-        <div class="ichart" data-chart="municipio"><p class="chart-fallback">Bar chart comparing the mayoral candidate's total valid votes in 2020 (3,681 votes, 37.8%25) and 2024 (5,779 votes, 56.4%25).</p></div>
+        <div class="ichart" data-chart="municipio"><p class="chart-fallback">Bar chart comparing the mayoral candidate's total valid votes in 2020 (3,681 votes, 37.8%) and 2024 (5,779 votes, 56.4%).</p></div>
       </div>
     </figure>
 
@@ -880,7 +882,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 8</span><span class="cap">Total votes for the slate's council candidates</span></div>
       <div class="exhibit-body">
-        <div class="ichart" data-chart="votos_vereadores"><p class="chart-fallback">Bar chart comparing the combined votes of every council candidate on the slate: 3,427 votes (38.8%25 of the race) in 2020 versus 4,206 votes (43.8%25 of the race) in 2024.</p></div>
+        <div class="ichart" data-chart="votos_vereadores"><p class="chart-fallback">Bar chart comparing the combined votes of every council candidate on the slate: 3,427 votes (38.8% of the race) in 2020 versus 4,206 votes (43.8% of the race) in 2024.</p></div>
       </div>
       <figcaption>+779 votes (+22.7%) in the combined total for the slate's council candidates, from one election to the next.</figcaption>
     </figure>
@@ -958,7 +960,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 15</span><span class="cap">Turnout vs. abstention</span></div>
       <div class="exhibit-body">
-        <div class="ichart" data-chart="comparecimento"><p class="chart-fallback">Stacked horizontal bar chart comparing turnout and abstention among registered voters: 9,731 voted and 2,563 abstained in 2020 (79.15%25); 10,255 voted and 2,605 abstained in 2024 (79.74%25).</p></div>
+        <div class="ichart" data-chart="comparecimento"><p class="chart-fallback">Stacked horizontal bar chart comparing turnout and abstention among registered voters: 9,731 voted and 2,563 abstained in 2020 (79.15%); 10,255 voted and 2,605 abstained in 2024 (79.74%).</p></div>
       </div>
       <figcaption>Blank votes (201 → 122) and null votes (317 → 178) also fell, a sign of less protest voting or disengagement in 2024.</figcaption>
     </figure>
@@ -992,28 +994,28 @@
     </figure>
 
     <h3>Sex, race and income: do candidates look like the people who live here?</h3>
-    <p>IBGE's 2022 Demographic Census (SIDRA, tables 9514 and 9605) makes it possible to go beyond total population and cross-reference sex and race/color with who actually runs for office. Alfredo Chaves' population is 49.3% women and 50.7% men, 61.4% white, 34.3% mixed-race (&ldquo;pardo&rdquo;) and 4.2% Black, numbers very close to the registered electorate's, which is also moving toward gender parity. Among candidates, though, the picture diverges: of the 75 mayoral and council candidates in 2020, 37.3% were women; in 2024, out of 76 candidates, that share fell to 31.6%, the opposite of the electorate's trend, which keeps moving closer to 50%.</p>
+    <p>IBGE's 2022 Demographic Census (SIDRA, tables 9514 and 9605) makes it possible to go beyond total population and cross-reference sex and race/color with who actually runs for office. Alfredo Chaves' population is 49.3% women and 50.7% men, 61.4% white, 34.3% mixed-race (&ldquo;pardo&rdquo;) and 4.2% Black, numbers very close to the registered electorate's, which is also moving toward gender parity. Among candidates, though, the picture diverges: of the 69 council candidates in 2020, 37.7% were women; in 2024, out of 70 candidates, that share fell to 32.9%, the opposite of the electorate's trend, which keeps moving closer to 50%. Mayoral candidates are left out of these percentages: there are only three per election, and in both 2020 and 2024 all three were men.</p>
 
     <figure class="exhibit">
-      <div class="exhibit-head"><span class="tag">Figure 18</span><span class="cap">Female participation: population, electorate and candidates</span></div>
+      <div class="exhibit-head"><span class="tag">Figure 18</span><span class="cap">Female participation: population, electorate and council candidates</span></div>
       <div class="exhibit-body">
-        <div class="ichart" data-chart="genero_candidatos"><p class="chart-fallback">Bar chart comparing the percentage of women across four groups: IBGE population in 2022 (49.3%25), TSE electorate in 2024 (50.0%25), candidates in 2020 (37.3%25), and candidates in 2024 (31.6%25).</p></div>
+        <div class="ichart" data-chart="genero_candidatos"><p class="chart-fallback">Bar chart comparing the percentage of women across four groups: IBGE population in 2022 (49.3%), TSE electorate in 2024 (50.0%), council candidates in 2020 (37.7%), and council candidates in 2024 (32.9%).</p></div>
       </div>
-      <figcaption>Population and electorate are practically 50/50; among candidates, the share of women is far smaller, and fell even further from 2020 to 2024.</figcaption>
+      <figcaption>Population and electorate are practically 50/50; among council candidates, the share of women is far smaller, and fell even further from 2020 to 2024.</figcaption>
     </figure>
 
     <div class="callout">
       <strong>A name behind the number.</strong> The Alfredo Chaves City Council's own legislative record (<a href="https://spl.camaraalfredochaves.es.gov.br/spl/processo.aspx?id=2443&amp;tipo=23&amp;autor=239" target="_blank" rel="noopener">Commendation Motion No. 003/2024</a>, authored by then-council-member and now-mayor Hugo Luiz) honors <strong>Regina Puppin</strong> as &ldquo;the first and only Council member of the Municipality of Alfredo Chaves to hold a seat in the Municipal Legislature&rdquo;, in other words, the only woman ever to hold a Council seat in the municipality's history, to this day. She doesn't appear among any of the council candidates the TSE registered between 2004 and 2024 consulted for this study, which indicates her term predates that period. The gap in female representation on the Council is older and deeper than the six elections analyzed here.
     </div>
 
-    <p>The racial composition of the candidacies follows a similar pattern. In 2020, white candidates were 61.3% of the total, almost identical to the municipality's population share of 61.4%. By 2024 that share rose to 69.7%, while mixed-race candidates fell from 29.3% to 22.4%: a drift away from Alfredo Chaves' racial composition, even as the share of Black candidates grew slightly (6.7% → 7.9%).</p>
+    <p>The racial composition of the council candidacies follows a similar pattern. In 2020, white candidates were 59.4% of the total, close to the municipality's population share of 61.4%. By 2024 that share rose to 68.6%, while mixed-race candidates fell from 30.4% to 22.9%: a drift away from Alfredo Chaves' racial composition, even as the share of Black candidates grew slightly (7.2% → 8.6%). Among mayoral candidates, all three in 2020 were white; in 2024, two of the three were white and one was mixed-race.</p>
 
     <figure class="exhibit">
-      <div class="exhibit-head"><span class="tag">Figure 19</span><span class="cap">Race or color: population vs. candidates</span></div>
+      <div class="exhibit-head"><span class="tag">Figure 19</span><span class="cap">Race or color: population vs. council candidates</span></div>
       <div class="exhibit-body">
-        <div class="ichart" data-chart="raca_candidatos"><p class="chart-fallback">Grouped bar chart comparing declared race or color among the 2022 IBGE population, 2020 candidates, and 2024 candidates, across white, mixed-race and Black categories. White: 61.4%25 population, 61.3%25 candidates 2020, 69.7%25 candidates 2024. Mixed-race: 34.3%25 population, 29.3%25 candidates 2020, 22.4%25 candidates 2024. Black: 4.2%25 population, 6.7%25 candidates 2020, 7.9%25 candidates 2024.</p></div>
+        <div class="ichart" data-chart="raca_candidatos"><p class="chart-fallback">Grouped bar chart comparing declared race or color among the 2022 IBGE population, 2020 council candidates, and 2024 council candidates, across white, mixed-race and Black categories. White: 61.4% population, 59.4% candidates 2020, 68.6% candidates 2024. Mixed-race: 34.3% population, 30.4% candidates 2020, 22.9% candidates 2024. Black: 4.2% population, 7.2% candidates 2020, 8.6% candidates 2024.</p></div>
       </div>
-      <figcaption>In 2020, candidates' racial composition was almost a mirror of the population's. By 2024, white candidates were over-represented and mixed-race candidates, under-represented.</figcaption>
+      <figcaption>In 2020, council candidates' racial composition was almost a mirror of the population's. By 2024, white candidates were over-represented and mixed-race candidates, under-represented.</figcaption>
     </figure>
 
   </section>

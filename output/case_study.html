@@ -145,8 +145,8 @@
   .table-exhibit table.data.cov td:first-child, .table-exhibit table.data.cov th:first-child { text-align: center; }
   @media (min-width: 641px), print {
     .table-exhibit table.data.cov { table-layout: fixed; width: 100%; }
-    .table-exhibit table.data.cov th, .table-exhibit table.data.cov td, .table-exhibit table.data.cov td:last-child, .table-exhibit table.data.cov th:last-child { text-align: center; padding: 7px 3px; overflow-wrap: anywhere; }
-    .table-exhibit table.data.cov th { font-size: 10px; letter-spacing: 0.02em; }
+    .table-exhibit table.data.cov th, .table-exhibit table.data.cov td, .table-exhibit table.data.cov td:last-child, .table-exhibit table.data.cov th:last-child { text-align: center; padding: 7px 3px; overflow-wrap: normal; }
+    .table-exhibit table.data.cov th { font-size: 9.5px; letter-spacing: 0.01em; }
   }
   .table-exhibit figcaption span + span { margin-top: 6px; }
   .print-actions .pdf-btn {
@@ -657,7 +657,7 @@
     </div>
     <ul class="list sources">
       <li><code>votacao_secao_ANO_ES.csv</code>: votação por seção eleitoral, de 2004 a 2024 (de 1.229 linhas em 2004 a 2.089 em 2024, após o filtro municipal)</li>
-      <li><code>votacao_candidato_munzona_ANO_ES.csv</code>: resultado consolidado por candidato, de 2004 a 2024 (de 45 a 73 registros por eleição)</li>
+      <li><code>votacao_candidato_munzona_ANO_ES.csv</code>: resultado consolidado por candidato, de 2004 a 2024 (de 45 a 73 registros por eleição, somando candidatos a prefeito, a vice-prefeito e a vereador)</li>
       <li><code>votacao_partido_munzona_2020/2024_ES.csv</code>: votação de legenda por partido, só em 2020 e 2024 (9 e 11 registros)</li>
       <li><code>detalhe_votacao_munzona_ANO_ES.csv</code>: comparecimento, abstenção e votos brancos/nulos, de 2004 a 2024</li>
       <li><code>prestacao_de_contas_eleitorais_candidatos_ANO.csv</code> (receitas e despesas pagas, de 2004 a 2024): extraído via <em>HTTP range requests</em> de um arquivo nacional de ~1,3&nbsp;GB, sem baixar o arquivo inteiro</li>
@@ -703,21 +703,23 @@
         <p class="table-sub">quadro de cobertura das bases do TSE usadas neste estudo</p>
         <div class="table-scroll">
       <table class="data stack-mobile cov">
+        <colgroup><col style="width:8%"><col style="width:10%"><col style="width:9%"><col style="width:9%"><col style="width:11%"><col style="width:14%"><col style="width:13%"><col style="width:12%"><col style="width:14%"></colgroup>
         <thead>
-          <tr><th>Ano</th><th class="num">Seções eleitorais</th><th class="num">Candidatos</th><th>Receitas e despesas</th><th>Patrimônio declarado</th><th>Perfil do eleitorado</th><th>Votos de legenda</th><th>Perfil dos candidatos</th></tr>
+          <tr><th rowspan="2">Ano</th><th rowspan="2">Seções eleitorais</th><th colspan="2">Candidatos</th><th rowspan="2">Receitas e despesas</th><th rowspan="2">Patrimônio declarado</th><th rowspan="2">Perfil do eleitorado</th><th rowspan="2">Votos de legenda</th><th rowspan="2">Perfil dos candidatos</th></tr>
+          <tr><th>Prefeito</th><th>Vereador</th></tr>
         </thead>
         <tbody>
-          <tr><td data-label="Ano">2004</td><td class="num" data-label="Seções eleitorais">33</td><td class="num" data-label="Candidatos">49</td><td data-label="Receitas e despesas">Sim</td><td data-label="Patrimônio declarado">Não</td><td data-label="Perfil do eleitorado">Não</td><td data-label="Votos de legenda">Não</td><td data-label="Perfil dos candidatos">Não</td></tr>
-          <tr><td data-label="Ano">2008</td><td class="num" data-label="Seções eleitorais">34</td><td class="num" data-label="Candidatos">45</td><td data-label="Receitas e despesas">Sim</td><td data-label="Patrimônio declarado">Sim</td><td data-label="Perfil do eleitorado">Sim</td><td data-label="Votos de legenda">Não</td><td data-label="Perfil dos candidatos">Não</td></tr>
-          <tr><td data-label="Ano">2012</td><td class="num" data-label="Seções eleitorais">34</td><td class="num" data-label="Candidatos">68</td><td data-label="Receitas e despesas">Sim</td><td data-label="Patrimônio declarado">Sim</td><td data-label="Perfil do eleitorado">Sim</td><td data-label="Votos de legenda">Não</td><td data-label="Perfil dos candidatos">Não</td></tr>
-          <tr><td data-label="Ano">2016</td><td class="num" data-label="Seções eleitorais">36</td><td class="num" data-label="Candidatos">65</td><td data-label="Receitas e despesas">Sim</td><td data-label="Patrimônio declarado">Sim</td><td data-label="Perfil do eleitorado">Sim</td><td data-label="Votos de legenda">Não</td><td data-label="Perfil dos candidatos">Não</td></tr>
-          <tr><td data-label="Ano">2020</td><td class="num" data-label="Seções eleitorais">36</td><td class="num" data-label="Candidatos">72</td><td data-label="Receitas e despesas">Sim</td><td data-label="Patrimônio declarado">Sim</td><td data-label="Perfil do eleitorado">Sim</td><td data-label="Votos de legenda">Sim</td><td data-label="Perfil dos candidatos">Sim</td></tr>
-          <tr><td data-label="Ano">2024</td><td class="num" data-label="Seções eleitorais">42</td><td class="num" data-label="Candidatos">73</td><td data-label="Receitas e despesas">Sim</td><td data-label="Patrimônio declarado">Sim</td><td data-label="Perfil do eleitorado">Sim</td><td data-label="Votos de legenda">Sim</td><td data-label="Perfil dos candidatos">Sim</td></tr>
+          <tr><td data-label="Ano">2004</td><td class="num" data-label="Seções eleitorais">33</td><td class="num" data-label="Candidatos a prefeito">4</td><td class="num" data-label="Candidatos a vereador">40</td><td data-label="Receitas e despesas">Sim</td><td data-label="Patrimônio declarado">Não</td><td data-label="Perfil do eleitorado">Não</td><td data-label="Votos de legenda">Não</td><td data-label="Perfil dos candidatos">Não</td></tr>
+          <tr><td data-label="Ano">2008</td><td class="num" data-label="Seções eleitorais">34</td><td class="num" data-label="Candidatos a prefeito">2</td><td class="num" data-label="Candidatos a vereador">41</td><td data-label="Receitas e despesas">Sim</td><td data-label="Patrimônio declarado">Sim</td><td data-label="Perfil do eleitorado">Sim</td><td data-label="Votos de legenda">Não</td><td data-label="Perfil dos candidatos">Não</td></tr>
+          <tr><td data-label="Ano">2012</td><td class="num" data-label="Seções eleitorais">34</td><td class="num" data-label="Candidatos a prefeito">2</td><td class="num" data-label="Candidatos a vereador">64</td><td data-label="Receitas e despesas">Sim</td><td data-label="Patrimônio declarado">Sim</td><td data-label="Perfil do eleitorado">Sim</td><td data-label="Votos de legenda">Não</td><td data-label="Perfil dos candidatos">Não</td></tr>
+          <tr><td data-label="Ano">2016</td><td class="num" data-label="Seções eleitorais">36</td><td class="num" data-label="Candidatos a prefeito">2</td><td class="num" data-label="Candidatos a vereador">61</td><td data-label="Receitas e despesas">Sim</td><td data-label="Patrimônio declarado">Sim</td><td data-label="Perfil do eleitorado">Sim</td><td data-label="Votos de legenda">Não</td><td data-label="Perfil dos candidatos">Não</td></tr>
+          <tr><td data-label="Ano">2020</td><td class="num" data-label="Seções eleitorais">36</td><td class="num" data-label="Candidatos a prefeito">3</td><td class="num" data-label="Candidatos a vereador">69</td><td data-label="Receitas e despesas">Sim</td><td data-label="Patrimônio declarado">Sim</td><td data-label="Perfil do eleitorado">Sim</td><td data-label="Votos de legenda">Sim</td><td data-label="Perfil dos candidatos">Sim</td></tr>
+          <tr><td data-label="Ano">2024</td><td class="num" data-label="Seções eleitorais">42</td><td class="num" data-label="Candidatos a prefeito">3</td><td class="num" data-label="Candidatos a vereador">70</td><td data-label="Receitas e despesas">Sim</td><td data-label="Patrimônio declarado">Sim</td><td data-label="Perfil do eleitorado">Sim</td><td data-label="Votos de legenda">Sim</td><td data-label="Perfil dos candidatos">Sim</td></tr>
         </tbody>
       </table>
         </div>
       </div>
-      <figcaption>Comparações entre as seis eleições (resultado, comparecimento, financiamento, distritos) usam as colunas completas. A chapa de vereador por distrito, os votos de legenda e o perfil dos candidatos só existem para 2020 e 2024; patrimônio e perfil do eleitorado começam em 2008. Onde a base não cobre um ano, o estudo não estima: omite. &ldquo;Candidatos&rdquo; conta os registros de prefeito e de vereador.</figcaption>
+      <figcaption>Comparações entre as seis eleições (resultado, comparecimento, financiamento, distritos) usam as colunas completas. A chapa de vereador por distrito, os votos de legenda e o perfil dos candidatos só existem para 2020 e 2024; patrimônio e perfil do eleitorado começam em 2008. Onde a base não cobre um ano, o estudo não estima: omite. As colunas de candidatos contam as candidaturas registradas a prefeito e a vereador, separadas; os vice-prefeitos ficam de fora.</figcaption>
     </figure>
 
     <h3>Limpeza e normalização (pandas)</h3>
@@ -760,7 +762,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figura 3</span><span class="cap">% de votos por seção, 2020 vs. 2024</span></div>
       <div class="exhibit-body">
-        <div class="ichart" data-chart="slope"><p class="chart-fallback">Gráfico de linhas conectando o percentual de votos do candidato a prefeito em cada seção eleitoral, 2020 à esquerda e 2024 à direita, mostrando quase todas as linhas subindo de baixo do corte de 50%25 para cima.</p></div>
+        <div class="ichart" data-chart="slope"><p class="chart-fallback">Gráfico de linhas conectando o percentual de votos do candidato a prefeito em cada seção eleitoral, 2020 à esquerda e 2024 à direita, mostrando quase todas as linhas subindo de baixo do corte de 50% para cima.</p></div>
       </div>
       <figcaption>Cada linha é uma seção eleitoral. Em <strong style="color:var(--red)">2020</strong> quase todas ficam abaixo dos 50% (derrota); em <strong style="color:var(--blue)">2024</strong> a maioria cruza a linha de maioria absoluta. Seções sem dado em 2020 não existiam ainda naquele pleito.</figcaption>
     </figure>
@@ -992,28 +994,28 @@
     </figure>
 
     <h3>Sexo, raça e renda: quem concorre é quem vive aqui?</h3>
-    <p>O Censo Demográfico 2022 do IBGE (SIDRA, tabelas 9514 e 9605) permite ir além da população total e cruzar sexo e raça ou cor com quem de fato concorre. A população de Alfredo Chaves é 49,3% mulheres e 50,7% homens, 61,4% branca, 34,3% parda e 4,2% preta, números muito próximos aos do eleitorado registrado, que também caminha para a paridade de gênero. Entre quem concorre, porém, o quadro diverge: dos 75 candidatos a prefeito e vereador em 2020, 37,3% eram mulheres; em 2024, entre 76 candidatos, essa fatia caiu para 31,6%, o oposto da tendência do eleitorado, que se aproxima cada vez mais dos 50%.</p>
+    <p>O Censo Demográfico 2022 do IBGE (SIDRA, tabelas 9514 e 9605) permite ir além da população total e cruzar sexo e raça ou cor com quem de fato concorre. A população de Alfredo Chaves é 49,3% mulheres e 50,7% homens, 61,4% branca, 34,3% parda e 4,2% preta, números muito próximos aos do eleitorado registrado, que também caminha para a paridade de gênero. Entre quem concorre, porém, o quadro diverge: dos 69 candidatos a vereador em 2020, 37,7% eram mulheres; em 2024, entre 70 candidatos, essa fatia caiu para 32,9%, o oposto da tendência do eleitorado, que se aproxima cada vez mais dos 50%. Os candidatos a prefeito ficam de fora desses percentuais: são só três por eleição, e em 2020 e em 2024 os três eram homens.</p>
 
     <figure class="exhibit">
-      <div class="exhibit-head"><span class="tag">Figura 18</span><span class="cap">Participação feminina: população, eleitorado e candidatos</span></div>
+      <div class="exhibit-head"><span class="tag">Figura 18</span><span class="cap">Participação feminina: população, eleitorado e candidatos a vereador</span></div>
       <div class="exhibit-body">
-        <div class="ichart" data-chart="genero_candidatos"><p class="chart-fallback">Gráfico de barras comparando o percentual de mulheres em quatro grupos: população do IBGE em 2022 (49,3%), eleitorado do TSE em 2024 (50,0%), candidatas de 2020 (37,3%) e candidatas de 2024 (31,6%).</p></div>
+        <div class="ichart" data-chart="genero_candidatos"><p class="chart-fallback">Gráfico de barras comparando o percentual de mulheres em quatro grupos: população do IBGE em 2022 (49,3%), eleitorado do TSE em 2024 (50,0%), candidatas a vereador em 2020 (37,7%) e em 2024 (32,9%).</p></div>
       </div>
-      <figcaption>População e eleitorado são praticamente 50/50; entre os candidatos, a fatia de mulheres é bem menor, e caiu ainda mais de 2020 para 2024.</figcaption>
+      <figcaption>População e eleitorado são praticamente 50/50; entre os candidatos a vereador, a fatia de mulheres é bem menor, e caiu ainda mais de 2020 para 2024.</figcaption>
     </figure>
 
     <div class="callout">
       <strong>Um nome por trás do número.</strong> O registro legislativo da própria Câmara Municipal de Alfredo Chaves (<a href="https://spl.camaraalfredochaves.es.gov.br/spl/processo.aspx?id=2443&amp;tipo=23&amp;autor=239" target="_blank" rel="noopener">Moção de Louvor n.º 003/2024</a>, de autoria do então vereador e hoje prefeito Hugo Luiz) homenageia <strong>Regina Puppin</strong> como &ldquo;primeira e única Vereadora do Município de Alfredo Chaves a ocupar um cargo no Legislativo Municipal&rdquo;, ou seja, a única mulher a ocupar uma cadeira na Câmara em toda a história do município, até hoje. Ela não aparece em nenhum dos candidatos a vereador registrados pelo TSE entre 2004 e 2024 consultados neste estudo, o que indica que seu mandato foi anterior a esse período. O hiato de representação feminina na Câmara é mais antigo e mais profundo do que os seis pleitos analisados aqui.
     </div>
 
-    <p>A composição racial das candidaturas segue um padrão parecido. Em 2020, candidatos brancos eram 61,3% do total, quase idêntico aos 61,4% da população do município. Em 2024 essa proporção subiu para 69,7%, enquanto candidatos pardos caíram de 29,3% para 22,4%: um afastamento em relação à composição racial de Alfredo Chaves, ainda que a fatia de candidatos pretos tenha crescido ligeiramente (6,7% → 7,9%).</p>
+    <p>A composição racial das candidaturas a vereador segue um padrão parecido. Em 2020, candidatos brancos eram 59,4% do total, perto dos 61,4% da população do município. Em 2024 essa proporção subiu para 68,6%, enquanto candidatos pardos caíram de 30,4% para 22,9%: um afastamento em relação à composição racial de Alfredo Chaves, ainda que a fatia de candidatos pretos tenha crescido ligeiramente (7,2% → 8,6%). Entre os candidatos a prefeito, os três de 2020 eram brancos; em 2024, dois dos três eram brancos e um, pardo.</p>
 
     <figure class="exhibit">
-      <div class="exhibit-head"><span class="tag">Figura 19</span><span class="cap">Raça ou cor: população vs. candidatos</span></div>
+      <div class="exhibit-head"><span class="tag">Figura 19</span><span class="cap">Raça ou cor: população vs. candidatos a vereador</span></div>
       <div class="exhibit-body">
-        <div class="ichart" data-chart="raca_candidatos"><p class="chart-fallback">Gráfico de barras agrupadas comparando raça ou cor declarada entre população do IBGE em 2022, candidatos de 2020 e candidatos de 2024, nas categorias branca, parda e preta. Branca: 61,4% população, 61,3% candidatos 2020, 69,7% candidatos 2024. Parda: 34,3% população, 29,3% candidatos 2020, 22,4% candidatos 2024. Preta: 4,2% população, 6,7% candidatos 2020, 7,9% candidatos 2024.</p></div>
+        <div class="ichart" data-chart="raca_candidatos"><p class="chart-fallback">Gráfico de barras agrupadas comparando raça ou cor declarada entre população do IBGE em 2022, candidatos a vereador de 2020 e candidatos a vereador de 2024, nas categorias branca, parda e preta. Branca: 61,4% população, 59,4% candidatos 2020, 68,6% candidatos 2024. Parda: 34,3% população, 30,4% candidatos 2020, 22,9% candidatos 2024. Preta: 4,2% população, 7,2% candidatos 2020, 8,6% candidatos 2024.</p></div>
       </div>
-      <figcaption>Em 2020, a composição racial dos candidatos era quase um espelho da população. Em 2024, brancos ficaram sobrerrepresentados e pardos, sub-representados.</figcaption>
+      <figcaption>Em 2020, a composição racial dos candidatos a vereador era quase um espelho da população. Em 2024, brancos ficaram sobrerrepresentados e pardos, sub-representados.</figcaption>
     </figure>
 
   </section>

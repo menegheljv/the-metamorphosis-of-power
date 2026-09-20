@@ -486,24 +486,24 @@ def build(lang: str) -> list[dict]:
 
     charts.append(spec(
         "genero_candidatos", "18", L("PARTICIPAÇÃO FEMININA", "FEMALE PARTICIPATION"),
-        L("% de mulheres na população, no eleitorado e entre os candidatos", "% women in the population, the electorate and among candidates"),
+        L("% de mulheres na população, no eleitorado e entre os candidatos a vereador", "% women in the population, the electorate and among council candidates"),
         "cartesian",
         layers=[{"type": "bar", "key": "v", "label": L("% de mulheres", "% women"), "color": "neutro", "colorBySide": True}],
-        rows=[{"x": L("População (IBGE 2022)", "Population (IBGE 2022)"), "v": 49.3, "side": "neutro"},
-              {"x": L("Eleitorado (2024)", "Electorate (2024)"), "v": 50.0, "side": "neutro"},
-              {"x": L("Candidatas 2020", "Female candidates 2020"), "v": 37.3, "side": "adversario"},
-              {"x": L("Candidatas 2024", "Female candidates 2024"), "v": 31.6, "side": "grupo"}],
+        rows=[{"x": L("População 2022", "Population 2022"), "v": 49.3, "side": "neutro"},
+              {"x": L("Eleitorado 2024", "Electorate 2024"), "v": 50.0, "side": "neutro"},
+              {"x": L("Vereador 2020", "Council 2020"), "v": 37.7, "side": "adversario"},
+              {"x": L("Vereador 2024", "Council 2024"), "v": 32.9, "side": "grupo"}],
         unit="pct", yDomain=[0, 60]))
 
     charts.append(spec(
         "raca_candidatos", "19", L("RAÇA OU COR", "RACE OR COLOR"),
-        L("% da população (IBGE 2022) e dos candidatos", "% of the population (IBGE 2022) and of candidates"), "cartesian",
+        L("% da população (IBGE 2022) e dos candidatos a vereador", "% of the population (IBGE 2022) and of council candidates"), "cartesian",
         layers=[{"type": "bar", "key": "pop", "label": L("População (IBGE 2022)", "Population (IBGE 2022)"), "color": "neutro"},
-                {"type": "bar", "key": "c20", "label": L("Candidatos 2020", "Candidates 2020"), "color": "adversario"},
-                {"type": "bar", "key": "c24", "label": L("Candidatos 2024", "Candidates 2024"), "color": "grupo"}],
-        rows=[{"x": L("Branca", "White"), "pop": 61.4, "c20": 61.3, "c24": 69.7},
-              {"x": L("Parda", "Mixed-race (pardo)"), "pop": 34.3, "c20": 29.3, "c24": 22.4},
-              {"x": L("Preta", "Black"), "pop": 4.2, "c20": 6.7, "c24": 7.9}],
+                {"type": "bar", "key": "c20", "label": L("Candidatos a vereador 2020", "Council candidates 2020"), "color": "adversario"},
+                {"type": "bar", "key": "c24", "label": L("Candidatos a vereador 2024", "Council candidates 2024"), "color": "grupo"}],
+        rows=[{"x": L("Branca", "White"), "pop": 61.4, "c20": 59.4, "c24": 68.6},
+              {"x": L("Parda", "Mixed-race (pardo)"), "pop": 34.3, "c20": 30.4, "c24": 22.9},
+              {"x": L("Preta", "Black"), "pop": 4.2, "c20": 7.2, "c24": 8.6}],
         unit="pct"))
 
     # ---- 07 Campanha digital -----------------------------------------------------------------
