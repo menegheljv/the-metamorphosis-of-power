@@ -136,6 +136,10 @@
   .table-exhibit .table-sub { margin: 6px auto 6px; text-align: center; font-size: 13px; color: var(--caption); }
   .table-exhibit .table-label { margin: 22px 0 8px; text-align: center; font: 600 14px "Bricolage Grotesque", sans-serif; color: var(--ink); }
   .table-exhibit .table-scroll { border: 0; border-radius: 0; }
+  .table-exhibit table.data { min-width: 0; }
+  .table-exhibit table.data td, .table-exhibit table.data th { white-space: normal; padding: 8px 8px; }
+  .table-exhibit .party-chip { white-space: nowrap; }
+  .table-exhibit .table-scroll { overflow-x: visible; }
   .table-exhibit table.data td:last-child, .table-exhibit table.data th:last-child { text-align: left; }
   .table-exhibit figcaption span { display: block; }
   .table-exhibit figcaption span + span { margin-top: 6px; }
@@ -420,6 +424,7 @@
   }
   table.data td:first-child, table.data th:first-child { text-align: left; }
   table.data.locais td:nth-child(2), table.data.locais th:nth-child(2) { text-align: left; white-space: normal; }
+  @media (max-width: 640px) { table.data.locais { min-width: 0; } table.data.locais td, table.data.locais th { white-space: normal; padding: 8px 6px; } }
   table.data.stack-mobile td:nth-child(2), table.data.stack-mobile th:nth-child(2) { text-align: center; white-space: normal; }
   @media (max-width: 640px) {
     table.data.stack-mobile { min-width: 0; width: 100%; }

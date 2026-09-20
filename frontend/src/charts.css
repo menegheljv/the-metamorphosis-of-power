@@ -79,12 +79,12 @@
 
 /* mapa de calor */
 .ichart .table-scroll { overflow-x: auto; }
-.ichart .heat-wrap { max-width: 720px; margin: 0 auto; }
-.ichart table.heat { width: 100%; margin: 0; border-collapse: separate; border-spacing: 3px; font-size: 13px; }
+.ichart .heat-wrap { max-width: none; margin: 0 auto; text-align: center; }
+.ichart table.heat { width: auto; min-width: min(100%, 360px); margin: 0 auto; border-collapse: separate; border-spacing: 3px; font-size: 13px; }
 .ichart table.heat th { padding: 8px 10px; font-weight: 600; color: var(--ink, #17171a); text-align: center; border: 0; background: none; }
 .ichart table.heat th[scope="row"] { text-align: right; white-space: nowrap; font-weight: 500; }
 .ichart table.heat th.corner { text-align: right; color: var(--caption, rgba(23, 23, 26, 0.5)); font: 500 11.5px "Bricolage Grotesque", sans-serif; }
-.ichart table.heat td { padding: 13px 8px; border: 0; border-radius: 5px; text-align: center; font-weight: 600; font-variant-numeric: tabular-nums; transition: transform 0.12s; }
+.ichart table.heat td { padding: 13px 8px; border: 0; border-radius: 5px; text-align: center; font-weight: 600; font-variant-numeric: tabular-nums; min-width: 68px; transition: transform 0.12s; }
 .ichart table.heat td:hover { transform: scale(1.06); }
 .ichart .heat-scale { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 14px; font: 500 11.5px "Bricolage Grotesque", sans-serif; color: var(--caption, rgba(23, 23, 26, 0.5)); }
 .ichart .heat-bar { width: 220px; max-width: 50%; height: 10px; border-radius: 5px; background: linear-gradient(90deg, #c8433a, #f5efe8 50%, #1f9d63); }
@@ -120,7 +120,8 @@
   .ichart .tile-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 5px; }
   .ichart .poll-list li { grid-template-columns: 84px 1fr; gap: 10px; }
   .ichart .poll-list code { display: none; }
-  .ichart table.heat { border-spacing: 2px; font-size: 11.5px; }
+  .ichart table.heat { width: 100%; border-spacing: 2px; font-size: 11.5px; }
+  .ichart table.heat td { min-width: 0; }
   .ichart table.heat th { padding: 6px 2px; font-size: 11.5px; }
   .ichart table.heat th[scope="row"] { white-space: normal; padding-right: 6px; }
   .ichart table.heat th.corner { font-size: 10.5px; }
@@ -161,11 +162,20 @@
 .ichart .dlabel { pointer-events: none; font-family: "Bricolage Grotesque", sans-serif; text-anchor: middle; }
 .ichart .dlabel tspan { text-anchor: middle; }
 .ichart .table-title { margin: 22px 0 8px; text-align: center; font: 600 13px "Bricolage Grotesque", sans-serif; color: var(--ink-soft, rgba(23, 23, 26, 0.72)); }
-.ichart table.heat th.sel, .ichart table.heat td.sel { box-shadow: inset 0 0 0 2px var(--ink, #17171a); }
+.ichart table.heat th.sel { color: var(--blue-deep, #157a4d); }
+.ichart table.heat th.sel .th-btn { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
 .ichart table.heat tr.on th[scope="row"] { color: var(--blue-deep, #157a4d); }
 .ichart .th-btn { padding: 0; border: 0; background: none; cursor: pointer; font: inherit; color: inherit; }
 .ichart .th-btn:hover { text-decoration: underline; }
-@media (max-width: 640px) { .ichart .year-btn { min-width: 0; padding: 8px 11px; } }
+@media (max-width: 640px) {
+  .ichart .year-btn { min-width: 0; padding: 8px 11px; }
+  .exhibit-body { padding: 16px 8px !important; }
+  .ichart { padding: 12px 4px 8px; }
+  .ichart .dmaps + .hover-readout + .heat-scale + .table-title + .heat-wrap table.heat { border-spacing: 1px; }
+  .ichart .heat-wrap table.heat th[scope="row"] { max-width: 78px; font-size: 10.5px; padding: 4px 4px 4px 0; }
+  .ichart .heat-wrap table.heat th { font-size: 10.5px; padding: 4px 0; }
+  .ichart .heat-wrap table.heat td { font-size: 10.5px; padding: 9px 0; min-width: 0; }
+}
 
 /* grafico inicial: titulo em verde */
 .ichart[data-chart="historical_arc"] .chart-title { color: var(--blue-deep, #157a4d); }
