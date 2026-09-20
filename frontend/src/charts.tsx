@@ -123,7 +123,8 @@ function CartesianChart({ spec }: { spec: CartesianSpec }) {
     ? [
         ...(spec.rows.some((r) => r.side === "adversario") ? [{ key: "adv", label: spec.sideLegend?.adversario ?? t.before, color: COLORS.adversario }] : []),
         ...(spec.rows.some((r) => r.side === "grupo") ? [{ key: "grp", label: spec.sideLegend?.grupo ?? t.after, color: COLORS.grupo }] : []),
-        ...(spec.rows.some((r) => r.side === "neutro") ? [{ key: "ref", label: t.reference, color: COLORS.neutro }] : []),
+        ...(spec.rows.some((r) => r.side === "neutro") ? [{ key: "ref", label: spec.sideLegend?.neutro ?? t.reference, color: COLORS.neutro }] : []),
+        ...(spec.rows.some((r) => r.side === "info") ? [{ key: "inf", label: spec.sideLegend?.info ?? "", color: COLORS.info }] : []),
       ]
     : spec.layers.map((l) => ({ key: l.key, label: l.label, color: COLORS[l.color] }));
 
@@ -197,6 +198,7 @@ function CartesianChart({ spec }: { spec: CartesianSpec }) {
                 tickFormatter={(v: number) => fmtAxis(rightUnit, v)}
               />
             )}
+            {spec.refY !== undefined && <ReferenceLine yAxisId="left" y={spec.refY} stroke="rgba(23,23,26,0.55)" strokeWidth={1.5} />}
             <Tooltip content={<CartesianTip />} cursor={bars.length ? false : { stroke: "rgba(23,23,26,0.22)", strokeWidth: 1 }} />
             {bars.map((l) => (
               <Bar
@@ -433,9 +435,10 @@ function DistrictMapChart({ spec }: { spec: DistrictMapSpec }) {
   const { t, fmt } = useI18n();
   const narrow = useNarrow();
   const printing = typeof document !== "undefined" && document.documentElement.classList.contains("print-mode");
-  const [year, setYear] = useState(spec.years[spec.years.length - 1]);
+  const [year, setYear] = useState(spec.defaultYear ?? spec.years[spec.years.length - 1]);
   const [active, setActive] = useState<string | null>(null);
-  const shown = printing ? [2020, 2024].filter((y) => spec.years.includes(y)) : [year];
+  const lab = (y: number) => spec.labels?.[String(y)] ?? String(y);
+  const shown = printing ? (spec.printYears ?? [2020, 2024]).filter((y) => spec.years.includes(y)) : [year];
   const pct = (name: string, y: number) => {
     const v = spec.districts.find((d) => d.name === name)?.values[String(y)];
     return v ? (v[0] / v[1]) * 100 : null;
@@ -446,7 +449,7 @@ function DistrictMapChart({ spec }: { spec: DistrictMapSpec }) {
   const labelFont = narrow ? 30 : 19;
 
   const renderMap = (y: number) => (
-    <svg key={y} className="dmap" viewBox={spec.viewBox} role="group" aria-label={`${t.mapAria}, ${y}`}>
+    <svg key={y} className="dmap" viewBox={spec.viewBox} role="group" aria-label={`${t.mapAria}, ${lab(y)}`}>
       {spec.districts.map((d) => {
         const v = pct(d.name, y);
         const c = v === null ? { bg: "#e6e6e6", fg: INK } : heatColor(v);
@@ -477,28 +480,28 @@ function DistrictMapChart({ spec }: { spec: DistrictMapSpec }) {
   return (
     <>
       {!printing && (
-        <div className="year-buttons" role="group" aria-label={t.electionButtons}>
+        <div className="year-buttons" role="group" aria-label={spec.strings?.aria ?? t.electionButtons}>
           {spec.years.map((y) => (
-            <button key={y} type="button" className={`year-btn${y === year ? " on" : ""}`} aria-pressed={y === year} onClick={() => setYear(y)}>{y}</button>
+            <button key={y} type="button" className={`year-btn${y === year ? " on" : ""}`} aria-pressed={y === year} onClick={() => setYear(y)}>{lab(y)}</button>
           ))}
         </div>
       )}
       <div className={`dmaps${printing ? " two" : ""}`} style={printing ? undefined : { aspectRatio: `${vw} / ${vh}` }}>
         {shown.map((y) => (
           <div key={y} className="dmap-wrap">
-            {printing && <div className="dmap-year">{y}</div>}
+            {printing && <div className="dmap-year">{lab(y)}</div>}
             {renderMap(y)}
           </div>
         ))}
       </div>
       <p className="hover-readout" aria-live="polite">
         {cur ? (
-          <><b>{cur.name}</b> · {year}: <b>{fmt("pct", curVals ? (curVals[0] / curVals[1]) * 100 : null)}</b> {t.ofValid}
-            {curVals && <> ({t.votesOf(curVals[0], curVals[1])})</>}</>
-        ) : t.mapHint}
+          <><b>{cur.name}</b> · {lab(year)}: <b>{fmt("pct", curVals ? (curVals[0] / curVals[1]) * 100 : null)}</b> {spec.strings?.suffix ?? t.ofValid}
+            {curVals && !spec.pctOnly && <> ({t.votesOf(curVals[0], curVals[1])})</>}</>
+        ) : spec.strings?.hint ?? t.mapHint}
       </p>
       <div className="heat-scale" aria-hidden="true"><span>≤{HEAT_LO}% · {t.scaleLow}</span><div className="heat-bar" /><span>{t.scaleHigh} · ≥{HEAT_HI}%</span></div>
-      <p className="table-title">{t.tableTitle}</p>
+      <p className="table-title">{spec.strings?.tableTitle ?? t.tableTitle}</p>
       <div className="table-scroll heat-wrap">
         <table className="heat">
           <thead>
@@ -506,7 +509,7 @@ function DistrictMapChart({ spec }: { spec: DistrictMapSpec }) {
               <th scope="col" className="corner">{t.district}</th>
               {spec.years.map((y) => (
                 <th key={y} scope="col" className={!printing && y === year ? "sel" : ""}>
-                  {printing ? y : <button type="button" className="th-btn" onClick={() => setYear(y)}>{y}</button>}
+                  {printing ? lab(y) : <button type="button" className="th-btn" onClick={() => setYear(y)}>{lab(y)}</button>}
                 </th>
               ))}
             </tr>

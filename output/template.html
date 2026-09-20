@@ -602,6 +602,7 @@
       <a href="#candidatos"><span class="toc-num">08</span>Perfil dos candidatos</a>
       <a href="#detalhamento"><span class="toc-num">09</span>Detalhamento</a>
       <a href="#conclusao"><span class="toc-num">10</span>Conclusão</a>
+      <a href="#cenarios-2028"><span class="toc-num">11</span>Cenários para 2028</a>
     </div>
   </nav>
 
@@ -655,7 +656,7 @@
       <li><code>perfil_eleitor_secao_2020/2024_ES.csv</code>: perfil do eleitorado por seção (gênero, faixa etária, escolaridade)</li>
     </ul>
     <div class="callout warn">
-      <strong>Nota de transparência.</strong> A continuidade entre as duas candidaturas majoritárias (2020 a 2024) é reconstruída a partir de coincidências verificáveis nos dados oficiais: mesma base partidária local (Republicanos/PTB), e o vencedor de 2024, Hugo Luiz Picoli Meneghel, aparece nos dados de 2020 como candidato a vereador eleito pela coligação derrotada naquele ano. Nenhum número foi estimado, projetado ou inventado: onde um dado não estava disponível publicamente, ele foi omitido em vez de aproximado.
+      <strong>Nota de transparência.</strong> A continuidade entre as duas candidaturas majoritárias (2020 a 2024) é reconstruída a partir de coincidências verificáveis nos dados oficiais: mesma base partidária local (Republicanos/PTB), e o vencedor de 2024, Hugo Luiz Picoli Meneghel, aparece nos dados de 2020 como candidato a vereador eleito pela coligação derrotada naquele ano. Nenhum número foi estimado, projetado ou inventado: onde um dado não estava disponível publicamente, ele foi omitido em vez de aproximado. Única exceção: a seção 11, cujos cenários para 2028 são hipóteses declaradas, calculadas em R.
     </div>
 
     <h3>Fontes complementares</h3>
@@ -1184,8 +1185,86 @@
     </div>
   </section>
 
+  <section id="cenarios-2028">
+    <div class="eyebrow">11 &middot; Cenários para 2028</div>
+    <h2>O que os números permitem imaginar para 2028</h2>
+    <div class="prose">
+      <div class="callout warn">
+        <strong>Isto não é uma previsão.</strong> A série tem só seis eleições, nenhum candidato de 2028 é conhecido e a política municipal muda de um ciclo para outro. O que segue são cenários de &ldquo;e se&rdquo;: cada um declara a hipótese usada. Os cálculos foram feitos em <strong>R</strong> (<code>analysis/cenarios_2028.R</code>), com os mesmos dados do TSE e do IBGE do restante do estudo.
+      </div>
+
+      <h3>Quantos votos estarão em jogo</h3>
+      <p>O eleitorado cresce de forma quase linear: 9.247 eleitores aptos em 2004 e 12.860 em 2024. Estendendo essa reta até 2028 (regressão linear com seis pontos), o cenário base é de <strong>13.767 eleitores aptos</strong>, com faixa de 80% de 13.091 a 14.443. Com o comparecimento e a proporção de votos válidos entre os valores de 2020 e 2024 (79,1% a 79,7% de comparecimento; 94,7% a 97,1% de votos válidos entre os presentes), isso dá cerca de <strong>10.486 votos válidos</strong> (de 9.810 a 11.180), contra 9.955 em 2024.</p>
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 27</span><span class="cap">Votos válidos: série histórica e cenário base para 2028</span></div>
+      <div class="exhibit-body">
+        <div class="ichart" data-chart="cenario_eleitorado"><p class="chart-fallback">Gráfico de barras dos votos válidos para prefeito de 2004 a 2024 e do cenário base de 2028, com 10.486 votos válidos.</p></div>
+      </div>
+      <figcaption>Estendendo em linha reta o crescimento do eleitorado de 2004 a 2024, o cenário base para 2028 é de 13.767 eleitores aptos e 10.486 votos válidos (de 9.810 a 11.180), contra 9.955 em 2024. É uma hipótese de tendência, não uma previsão.</figcaption>
+    </figure>
+
+      <h3>Quanto o grupo pode perder e ainda liderar</h3>
+      <p>Em Alfredo Chaves vence quem tiver mais votos: não há segundo turno em município com menos de 200 mil eleitores. Por isso o piso para liderar depende do terceiro candidato. Sem terceiro, o grupo precisa de mais de 50% dos votos válidos; com um terceiro em 10%, como em 2024, basta passar de 45%. Partindo dos 58,1% de 2024, a queda máxima suportada é de <strong>−8,1 p.p.</strong> sem terceiro candidato, <strong>−10,6 p.p.</strong> com um terceiro em 5% e <strong>−13,1 p.p.</strong> com um em 10%.</p>
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 28</span><span class="cap">Margem de votos do grupo sobre a principal oposição, por cenário de oscilação</span></div>
+      <div class="exhibit-body">
+        <div class="ichart" data-chart="cenario_margem"><p class="chart-fallback">Gráfico de linhas com a margem de votos do grupo sobre a oposição em 2028 para oscilações de −20 a +5 pontos, em três cenários de terceiro candidato.</p></div>
+      </div>
+      <figcaption>Acima da linha zero, o grupo lidera. Sem terceiro candidato, o grupo perde a liderança entre −5 e −10 pontos; com um terceiro em 10%, como em 2024, aguenta uma queda de mais de 13 pontos.</figcaption>
+    </figure>
+    <figure class="exhibit table-exhibit">
+      <div class="exhibit-head"><span class="tag">Tabela 11.1</span><span class="cap">Piso para liderar e queda máxima suportada, por cenário de terceiro candidato</span></div>
+      <div class="exhibit-body">
+        <div class="table-title">QUANTO O GRUPO PODE PERDER E AINDA LIDERAR</div>
+        <p class="table-sub">a partir dos 58,1% de 2024, com 10.486 votos válidos em 2028 (cenário base)</p>
+        <div class="table-scroll">
+          <table class="data stack-mobile">
+            <thead>
+              <tr><th>Terceiro candidato</th><th class="num">Piso para liderar</th><th class="num">Votos (cenário base)</th><th class="num">Maior queda suportada</th></tr>
+            </thead>
+            <tbody>
+          <tr><td data-label="Terceiro candidato">Sem terceiro candidato</td><td class="num" data-label="Piso para liderar">50,0%</td><td class="num" data-label="Votos (cenário base)">5.243</td><td class="num" data-label="Maior queda suportada">−8,1 p.p.</td></tr>
+          <tr><td data-label="Terceiro candidato">Terceiro com 5% dos votos</td><td class="num" data-label="Piso para liderar">47,5%</td><td class="num" data-label="Votos (cenário base)">4.981</td><td class="num" data-label="Maior queda suportada">−10,6 p.p.</td></tr>
+          <tr><td data-label="Terceiro candidato">Terceiro com 10% (como em 2024)</td><td class="num" data-label="Piso para liderar">45,0%</td><td class="num" data-label="Votos (cenário base)">4.719</td><td class="num" data-label="Maior queda suportada">−13,1 p.p.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <figcaption><span>Fonte: cálculo em R (<code>analysis/cenarios_2028.R</code>) sobre <code>resumo_prefeito_2004_2024.csv</code>. Piso = (100 &minus; terceiro) / 2, o percentual a partir do qual o grupo supera a principal oposição.</span></figcaption>
+    </figure>
+      <p>Como régua, o próprio histórico: entre eleições consecutivas, o percentual do grupo oscilou de −8,0 a +18,1 p.p. (média de +6,3; desvio-padrão de 9,8, com apenas cinco oscilações). Se a oscilação de 2028 seguisse esse desvio em torno de zero, o resultado ficaria entre 45,6% e 70,6% em 80% dos casos: uma faixa larga demais para ser chamada de previsão, e que inclui justamente o piso de 45% a 50%.</p>
+
+      <h3>E nos distritos</h3>
+      <p>Aplicando a mesma oscilação a todos os distritos (uma hipótese irreal, mas útil para ver onde a vantagem é mais frágil), o grupo mantém mais de 50% em 6 dos sete distritos com uma queda de 5 pontos e em 3 com uma queda de 10. A Sede, que reúne cerca de dois terços dos votos válidos, perde a maioria absoluta entre &minus;5 e &minus;10 p.p.: é nela que a liderança se decide.</p>
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 29</span><span class="cap">% do grupo por distrito sob oscilação uniforme, a partir do resultado de 2024</span></div>
+      <div class="exhibit-body">
+        <div class="ichart" data-chart="cenario_distritos"><p class="chart-fallback">Mapa dos sete distritos coloridos entre vermelho e verde pelo percentual do grupo em cada cenário de oscilação, com um botão por oscilação de −20 a +5 pontos.</p></div>
+      </div>
+      <figcaption>Com uma oscilação de −5 pontos em todos os distritos, o grupo mantém mais de 50% em 6 dos sete; com −10, em 3. Como a Sede reúne cerca de dois terços dos votos válidos, é nela que a liderança se decide.</figcaption>
+    </figure>
+
+      <h3>O que este exercício não faz</h3>
+      <ul class="list">
+        <li><strong>Não sabe quem serão os candidatos.</strong> Nem se o prefeito eleito em 2024 disputará a reeleição, nem quantas chapas haverá.</li>
+        <li><strong>Supõe oscilação uniforme.</strong> Na prática, os distritos oscilaram de formas muito diferentes: Ribeirão do Cristo foi de 9,4% em 2012 a 58,2% em 2020.</li>
+        <li><strong>Não modela efeito de reeleição, de conjuntura ou de pesquisas.</strong> São seis pontos de dados; qualquer modelo mais sofisticado seria falsa precisão.</li>
+      </ul>
+      <p>O código que gera todos os números desta seção:</p>
+      <pre class="code"><span class="c"># analysis/cenarios_2028.R (R base, sem pacotes extras)</span>
+m_aptos &lt;- lm(aptos ~ ano, data = compar)            <span class="c"># tendência linear do eleitorado</span>
+pred    &lt;- predict(m_aptos, data.frame(ano = 2028),
+                   interval = "prediction", level = 0.80)
+votos_validos &lt;- aptos * comparecimento * validos_sobre_comp
+
+share_grupo    &lt;- share_2024 + oscilacao              <span class="c"># oscilação uniforme, em p.p.</span>
+share_oposicao &lt;- 100 - share_grupo - terceiro        <span class="c"># terceiro candidato: 0, 5 ou 10%</span>
+margem &lt;- (share_grupo - share_oposicao) / 100 * votos_validos</pre>
+    </div>
+  </section>
+
   <footer>
-    <p>Dados oficiais: <a href="https://dadosabertos.tse.jus.br" target="_blank" rel="noopener">Portal de Dados Abertos do TSE</a>, extratos <code>votacao_secao</code> e <code>votacao_candidato_munzona</code>, seis eleições municipais de 2004 a 2024, filtrados para Alfredo Chaves&nbsp;&ndash;&nbsp;ES. Pipeline de tratamento em Python (pandas) e SQL (SQLite); visualizações em Matplotlib. Nenhum dado eleitoral foi estimado ou projetado: apenas dados publicamente auditáveis no repositório do TSE.</p>
+    <p>Dados oficiais: <a href="https://dadosabertos.tse.jus.br" target="_blank" rel="noopener">Portal de Dados Abertos do TSE</a>, extratos <code>votacao_secao</code> e <code>votacao_candidato_munzona</code>, seis eleições municipais de 2004 a 2024, filtrados para Alfredo Chaves&nbsp;&ndash;&nbsp;ES. Pipeline de tratamento em Python (pandas) e SQL (SQLite); visualizações em Matplotlib. Nenhum dado eleitoral foi estimado ou projetado: apenas dados publicamente auditáveis no repositório do TSE. Os cenários da seção 11 são hipóteses, não dados.</p>
   </footer>
 
 </div>

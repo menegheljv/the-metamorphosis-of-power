@@ -33,6 +33,8 @@ export interface CartesianSpec extends Base {
   unit: Unit;
   yDomain?: [number, number];
   yTicks?: number[];
+  /** Linha horizontal de referencia (ex.: margem zero). */
+  refY?: number;
   rightUnit?: Unit;
   rightDomain?: [number, number];
   denseX?: boolean;
@@ -67,6 +69,14 @@ export interface DistrictMapSpec extends Base {
   kind: "districtmap";
   viewBox: string;
   years: number[];
+  /** Rotulos dos botoes (por padrao, o proprio numero). */
+  labels?: Record<string, string>;
+  defaultYear?: number;
+  /** Quais botoes aparecem no PDF (padrao: 2020 e 2024). */
+  printYears?: number[];
+  /** Valores sao so percentuais (cenarios): esconde a contagem de votos. */
+  pctOnly?: boolean;
+  strings?: { hint?: string; aria?: string; suffix?: string; tableTitle?: string };
   districts: { name: string; path: string; lx: number; ly: number; values: Record<string, [number, number]> }[];
 }
 

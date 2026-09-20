@@ -602,6 +602,7 @@
       <a href="#candidatos"><span class="toc-num">08</span>Candidate profile</a>
       <a href="#detalhamento"><span class="toc-num">09</span>Full breakdown</a>
       <a href="#conclusao"><span class="toc-num">10</span>Conclusion</a>
+      <a href="#cenarios-2028"><span class="toc-num">11</span>Scenarios for 2028</a>
     </div>
   </nav>
 
@@ -655,7 +656,7 @@
       <li><code>perfil_eleitor_secao_2020/2024_ES.csv</code>: electorate profile by precinct (gender, age bracket, education)</li>
     </ul>
     <div class="callout warn">
-      <strong>Transparency note.</strong> The continuity between the two majoritarian candidacies (2020 to 2024) is reconstructed from verifiable coincidences in the official data: the same local party base (Republicanos/PTB), and the fact that the 2024 winner, Hugo Luiz Picoli Meneghel, appears in the 2020 data as a city council candidate elected on the coalition that lost the mayoral race that year. No number was estimated, projected, or invented: where a figure wasn't publicly available, it was left out rather than approximated.
+      <strong>Transparency note.</strong> The continuity between the two majoritarian candidacies (2020 to 2024) is reconstructed from verifiable coincidences in the official data: the same local party base (Republicanos/PTB), and the fact that the 2024 winner, Hugo Luiz Picoli Meneghel, appears in the 2020 data as a city council candidate elected on the coalition that lost the mayoral race that year. No number was estimated, projected, or invented: where a figure wasn't publicly available, it was left out rather than approximated. The only exception is section 11, whose 2028 scenarios are stated assumptions, calculated in R.
     </div>
 
     <h3>Additional sources</h3>
@@ -1184,8 +1185,86 @@
     </div>
   </section>
 
+  <section id="cenarios-2028">
+    <div class="eyebrow">11 &middot; Scenarios for 2028</div>
+    <h2>What the numbers allow us to imagine for 2028</h2>
+    <div class="prose">
+      <div class="callout warn">
+        <strong>This is not a forecast.</strong> The series has only six elections, no 2028 candidate is known, and municipal politics changes from one cycle to the next. What follows are &ldquo;what if&rdquo; scenarios: each one states the assumption it uses. The calculations were done in <strong>R</strong> (<code>analysis/cenarios_2028.R</code>), with the same TSE and IBGE data as the rest of the study.
+      </div>
+
+      <h3>How many votes will be at stake</h3>
+      <p>The electorate grows almost linearly: 9,247 registered voters in 2004 and 12,860 in 2024. Extending that line to 2028 (linear regression with six points), the base scenario is <strong>13,767 registered voters</strong>, with an 80% range of 13,091 to 14,443. With turnout and the share of valid votes between the 2020 and 2024 values (79.1% to 79.7% turnout; 94.7% to 97.1% of those present casting valid votes), that gives about <strong>10,486 valid votes</strong> (9,810 to 11,180), against 9,955 in 2024.</p>
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figure 27</span><span class="cap">Valid votes: historical series and base scenario for 2028</span></div>
+      <div class="exhibit-body">
+        <div class="ichart" data-chart="cenario_eleitorado"><p class="chart-fallback">Bar chart of valid votes for mayor from 2004 to 2024 and the 2028 base scenario, with 10,486 valid votes.</p></div>
+      </div>
+      <figcaption>Extending the 2004 to 2024 growth of the electorate in a straight line, the 2028 base scenario is 13,767 registered voters and 10,486 valid votes (9,810 to 11,180), against 9,955 in 2024. It is a trend assumption, not a forecast.</figcaption>
+    </figure>
+
+      <h3>How much the group can lose and still lead</h3>
+      <p>In Alfredo Chaves the candidate with the most votes wins: there is no runoff in a municipality with fewer than 200,000 voters. So the share needed to lead depends on the third candidate. With no third candidate, the group needs more than 50% of valid votes; with a third candidate at 10%, as in 2024, passing 45% is enough. Starting from 2024's 58.1%, the largest drop the group can withstand is <strong>−8.1 p.p.</strong> with no third candidate, <strong>−10.6 p.p.</strong> with a third at 5% and <strong>−13.1 p.p.</strong> with one at 10%.</p>
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figure 28</span><span class="cap">Group's vote margin over the main opposition, by swing scenario</span></div>
+      <div class="exhibit-body">
+        <div class="ichart" data-chart="cenario_margem"><p class="chart-fallback">Line chart with the group's vote margin over the opposition in 2028 for swings from −20 to +5 points, under three third-candidate scenarios.</p></div>
+      </div>
+      <figcaption>Above the zero line, the group leads. With no third candidate, the group loses the lead between −5 and −10 points; with a third candidate at 10%, as in 2024, it withstands a drop of more than 13 points.</figcaption>
+    </figure>
+    <figure class="exhibit table-exhibit">
+      <div class="exhibit-head"><span class="tag">Table 11.1</span><span class="cap">Share needed to lead and largest drop withstood, by third-candidate scenario</span></div>
+      <div class="exhibit-body">
+        <div class="table-title">HOW MUCH THE GROUP CAN LOSE AND STILL LEAD</div>
+        <p class="table-sub">starting from 2024's 58.1%, with 10,486 valid votes in 2028 (base scenario)</p>
+        <div class="table-scroll">
+          <table class="data stack-mobile">
+            <thead>
+              <tr><th>Third candidate</th><th class="num">Share needed to lead</th><th class="num">Votes (base scenario)</th><th class="num">Largest swing withstood</th></tr>
+            </thead>
+            <tbody>
+          <tr><td data-label="Third candidate">No third candidate</td><td class="num" data-label="Share needed to lead">50.0%</td><td class="num" data-label="Votes (base scenario)">5,243</td><td class="num" data-label="Largest swing withstood">−8.1 p.p.</td></tr>
+          <tr><td data-label="Third candidate">Third candidate at 5%</td><td class="num" data-label="Share needed to lead">47.5%</td><td class="num" data-label="Votes (base scenario)">4,981</td><td class="num" data-label="Largest swing withstood">−10.6 p.p.</td></tr>
+          <tr><td data-label="Third candidate">Third candidate at 10% (as in 2024)</td><td class="num" data-label="Share needed to lead">45.0%</td><td class="num" data-label="Votes (base scenario)">4,719</td><td class="num" data-label="Largest swing withstood">−13.1 p.p.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <figcaption><span>Source: calculation in R (<code>analysis/cenarios_2028.R</code>) on <code>resumo_prefeito_2004_2024.csv</code>. Share needed = (100 &minus; third) / 2, the percentage above which the group beats the main opposition.</span></figcaption>
+    </figure>
+      <p>As a yardstick, the history itself: between consecutive elections the group's share swung from −8.0 to +18.1 p.p. (mean +6.3; standard deviation 9.8, with only five swings). If the 2028 swing followed that spread around zero, the result would fall between 45.6% and 70.6% in 80% of cases: a range far too wide to call a forecast, and one that includes precisely the 45% to 50% threshold.</p>
+
+      <h3>And in the districts</h3>
+      <p>Applying the same swing to every district (an unrealistic assumption, but useful to see where the advantage is most fragile), the group keeps more than 50% in 6 of the seven districts with a 5-point drop and in 3 with a 10-point drop. Sede, which holds about two thirds of valid votes, loses its absolute majority between &minus;5 and &minus;10 p.p.: that is where the lead is decided.</p>
+    <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figure 29</span><span class="cap">Group's share by district under a uniform swing, starting from the 2024 result</span></div>
+      <div class="exhibit-body">
+        <div class="ichart" data-chart="cenario_distritos"><p class="chart-fallback">Map of the seven districts colored between red and green by the group's share in each swing scenario, with one button per swing from −20 to +5 points.</p></div>
+      </div>
+      <figcaption>With a −5 point swing in every district, the group keeps more than 50% in 6 of the seven; with −10, in 3. Since Sede holds about two thirds of the valid votes, that is where the lead is decided.</figcaption>
+    </figure>
+
+      <h3>What this exercise does not do</h3>
+      <ul class="list">
+        <li><strong>It does not know who the candidates will be.</strong> Nor whether the mayor elected in 2024 will run for re-election, nor how many slates there will be.</li>
+        <li><strong>It assumes a uniform swing.</strong> In practice districts swung in very different ways: Ribeirão do Cristo went from 9.4% in 2012 to 58.2% in 2020.</li>
+        <li><strong>It does not model re-election effects, the political climate, or polls.</strong> There are six data points; any more sophisticated model would be false precision.</li>
+      </ul>
+      <p>The code that produces every number in this section:</p>
+      <pre class="code"><span class="c"># analysis/cenarios_2028.R (base R, no extra packages)</span>
+m_aptos &lt;- lm(aptos ~ ano, data = compar)            <span class="c"># linear trend of the electorate</span>
+pred    &lt;- predict(m_aptos, data.frame(ano = 2028),
+                   interval = "prediction", level = 0.80)
+votos_validos &lt;- aptos * comparecimento * validos_sobre_comp
+
+share_grupo    &lt;- share_2024 + oscilacao              <span class="c"># uniform swing, in p.p.</span>
+share_oposicao &lt;- 100 - share_grupo - terceiro        <span class="c"># third candidate: 0, 5 or 10%</span>
+margem &lt;- (share_grupo - share_oposicao) / 100 * votos_validos</pre>
+    </div>
+  </section>
+
   <footer>
-    <p>Official data: <a href="https://dadosabertos.tse.jus.br" target="_blank" rel="noopener">TSE Open Data Portal</a>, extracts <code>votacao_secao</code> and <code>votacao_candidato_munzona</code>, six municipal elections from 2004 to 2024, filtered to Alfredo Chaves, Espírito Santo, Brazil. Processing pipeline in Python (pandas) and SQL (SQLite); visualizations in Matplotlib. No electoral figure was estimated or projected: only data publicly auditable in the TSE's repository.</p>
+    <p>Official data: <a href="https://dadosabertos.tse.jus.br" target="_blank" rel="noopener">TSE Open Data Portal</a>, extracts <code>votacao_secao</code> and <code>votacao_candidato_munzona</code>, six municipal elections from 2004 to 2024, filtered to Alfredo Chaves, Espírito Santo, Brazil. Processing pipeline in Python (pandas) and SQL (SQLite); visualizations in Matplotlib. No electoral figure was estimated or projected: only data publicly auditable in the TSE's repository. The scenarios in section 11 are assumptions, not data.</p>
   </footer>
 
 </div>

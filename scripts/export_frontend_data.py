@@ -584,6 +584,103 @@ def build(lang: str) -> list[dict]:
               {"x": L("06/out · ", "Oct 6 · ") + tse, "hugo": 58.05, "rolmar": 31.91, "boldrini": 10.04}],
         unit="pct", yDomain=[0, 70]))
 
+    # ---- 11 Cenarios para 2028 (numeros calculados em R: analysis/cenarios_2028.R) ------------
+    r_eleit = pd.read_csv(OUT / "r_cenarios_2028_eleitorado.csv").set_index("cenario")
+    r_serie = pd.read_csv(OUT / "r_cenarios_2028_serie.csv")
+    r_grade = pd.read_csv(OUT / "r_cenarios_2028_grade.csv")
+    r_virada = pd.read_csv(OUT / "r_cenarios_2028_virada.csv")
+    r_dist = pd.read_csv(OUT / "r_cenarios_2028_distritos.csv")
+    base, lo, hi = int(r_eleit.loc["base", "votos_validos"]), int(r_eleit.loc["baixo", "votos_validos"]), int(r_eleit.loc["alto", "votos_validos"])
+    aptos_b = int(r_eleit.loc["base", "aptos"])
+    vir = r_virada.set_index("terceiro")["oscilacao_maxima"]
+    assert -10 < vir[0] < -5 and vir[10] < -13, "texto da Figura 28 desatualizado em relacao ao R"
+
+    rows27 = []
+    for r in r_serie.itertuples():
+        proj = int(r.ano) == 2028
+        rows27.append({"x": str(int(r.ano)), "v": int(r.votos_validos), "side": "info" if proj else "neutro",
+                       **({"note": L(f"Cenário base. Faixa de {thou(lo)} a {thou(hi)} votos válidos; eleitores aptos projetados: {thou(aptos_b)} "
+                                     f"(faixa de 80%: {thou(r_eleit.loc['baixo', 'aptos'])} a {thou(r_eleit.loc['alto', 'aptos'])}).",
+                                     f"Base scenario. Range of {thou(lo)} to {thou(hi)} valid votes; projected registered voters: {thou(aptos_b)} "
+                                     f"(80% range: {thou(r_eleit.loc['baixo', 'aptos'])} to {thou(r_eleit.loc['alto', 'aptos'])}).")} if proj else {})})
+    charts.append(spec(
+        "cenario_eleitorado", "27", L("VOTOS VÁLIDOS EM 2028: CENÁRIO BASE", "VALID VOTES IN 2028: BASE SCENARIO"),
+        L("votos válidos para prefeito: dados de 2004 a 2024 e cenário de 2028 (em azul)",
+          "valid votes for mayor: data for 2004 to 2024 and the 2028 scenario (in blue)"),
+        "cartesian",
+        layers=[{"type": "bar", "key": "v", "label": L("Votos válidos", "Valid votes"), "color": "neutro", "colorBySide": True}],
+        rows=rows27, unit="int",
+        sideLegend={"neutro": L("Dados do TSE, 2004–2024", "TSE data, 2004–2024"), "info": L("Cenário para 2028 (R)", "2028 scenario (R)")},
+        cap=L("Votos válidos: série histórica e cenário base para 2028", "Valid votes: historical series and base scenario for 2028"),
+        caption=L(f"Estendendo em linha reta o crescimento do eleitorado de 2004 a 2024, o cenário base para 2028 é de {thou(aptos_b)} eleitores aptos e "
+                  f"{thou(base)} votos válidos (de {thou(lo)} a {thou(hi)}), contra {thou(9955)} em 2024. É uma hipótese de tendência, não uma previsão.",
+                  f"Extending the 2004 to 2024 growth of the electorate in a straight line, the 2028 base scenario is {thou(aptos_b)} registered voters and "
+                  f"{thou(base)} valid votes ({thou(lo)} to {thou(hi)}), against {thou(9955)} in 2024. It is a trend assumption, not a forecast."),
+        alt=L(f"Gráfico de barras dos votos válidos para prefeito de 2004 a 2024 e do cenário base de 2028, com {thou(base)} votos válidos.",
+              f"Bar chart of valid votes for mayor from 2004 to 2024 and the 2028 base scenario, with {thou(base)} valid votes.")))
+
+    osc = sorted(int(o) for o in r_grade["oscilacao"].unique())
+    minus = "\u2212"
+
+    def olabel(o):
+        return "0" if o == 0 else (f"+{o}" if o > 0 else f"{minus}{abs(o)}")
+
+    rows28 = []
+    for o in osc:
+        row = {"x": olabel(o)}
+        for t in (0, 5, 10):
+            row[f"m{t}"] = int(r_grade[(r_grade["oscilacao"] == o) & (r_grade["terceiro"] == t)]["margem_votos"].iloc[0])
+        g5 = r_grade[(r_grade["oscilacao"] == o) & (r_grade["terceiro"] == 5)].iloc[0]
+        row["note"] = L(f"Com terceiro em 5%: grupo {dec(g5.share_grupo)}% ({thou(g5.votos_grupo)} votos) × oposição {dec(g5.share_oposicao)}% ({thou(g5.votos_oposicao)}).",
+                        f"With a 5% third candidate: group {dec(g5.share_grupo)}% ({thou(g5.votos_grupo)} votes) × opposition {dec(g5.share_oposicao)}% ({thou(g5.votos_oposicao)}).")
+        rows28.append(row)
+    charts.append(spec(
+        "cenario_margem", "28", L("MARGEM DE VOTOS SE O DESEMPENHO OSCILAR", "VOTE MARGIN IF PERFORMANCE SWINGS"),
+        L(f"votos do grupo menos votos da principal oposição em 2028 ({thou(base)} votos válidos), conforme o % do grupo suba ou caia em relação aos 58,1% de 2024, em pontos percentuais",
+          f"group votes minus main opposition votes in 2028 ({thou(base)} valid votes), as the group's share rises or falls from 2024's 58.1%, in percentage points"),
+        "cartesian",
+        layers=[
+            {"type": "line", "key": "m0", "label": L("Sem terceiro candidato", "No third candidate"), "color": "grupo"},
+            {"type": "line", "key": "m5", "label": L("Terceiro com 5% dos votos", "Third candidate at 5%"), "color": "terceiro"},
+            {"type": "line", "key": "m10", "label": L("Terceiro com 10% (como em 2024)", "Third candidate at 10% (as in 2024)"), "color": "info"},
+        ],
+        rows=rows28, unit="int", refY=0,
+        cap=L("Margem de votos do grupo sobre a principal oposição, por cenário de oscilação", "Group's vote margin over the main opposition, by swing scenario"),
+        caption=L("Acima da linha zero, o grupo lidera. Sem terceiro candidato, o grupo perde a liderança entre −5 e −10 pontos; com um terceiro em 10%, como em 2024, "
+                  "aguenta uma queda de mais de 13 pontos.",
+                  "Above the zero line, the group leads. With no third candidate, the group loses the lead between −5 and −10 points; with a third candidate at 10%, as in 2024, "
+                  "it withstands a drop of more than 13 points."),
+        alt=L("Gráfico de linhas com a margem de votos do grupo sobre a oposição em 2028 para oscilações de −20 a +5 pontos, em três cenários de terceiro candidato.",
+              "Line chart with the group's vote margin over the opposition in 2028 for swings from −20 to +5 points, under three third-candidate scenarios.")))
+
+    dnames = ["Sede", "Crubixá", "Ibitiruí", "Matilde", "Ribeirão do Cristo", "Sagrada Família", "São Bento de Urânia"]
+    dvals = []
+    for d in dnames:
+        vals = {}
+        for o in osc:
+            sh = float(r_dist[(r_dist["oscilacao"] == o) & (r_dist["distrito"] == d)]["share"].iloc[0])
+            vals[str(o)] = [int(round(sh * 10)), 1000]
+        dvals.append({"name": d, **shapes[d], "values": vals})
+    count = {o: int((r_dist[r_dist["oscilacao"] == o]["share"] > 50).sum()) for o in osc}
+    charts.append(spec(
+        "cenario_distritos", "29", L("OS DISTRITOS SOB CADA CENÁRIO", "THE DISTRICTS UNDER EACH SCENARIO"),
+        L("% do grupo em cada distrito se o resultado de 2024 subir ou cair o mesmo número de pontos em todos, escolha a oscilação",
+          "the group's share in each district if the 2024 result rises or falls by the same number of points in all of them, choose the swing"),
+        "districtmap", viewBox=f"0 0 {mw} {mh}", years=osc, defaultYear=-10, printYears=[-10, 0], pctOnly=True, districts=dvals,
+        labels={str(o): (L("Como em 2024", "As in 2024") if o == 0 else f"{olabel(o)} p.p.") for o in osc},
+        strings={"hint": L("Escolha a oscilação nos botões. Toque ou passe o mouse em um distrito para ver o percentual no cenário.",
+                           "Choose the swing with the buttons. Tap or hover over a district to see its share in the scenario."),
+                 "aria": L("Escolha a oscilação", "Choose the swing"),
+                 "suffix": L("dos votos válidos no cenário", "of the valid votes in the scenario"),
+                 "tableTitle": L("Todas as oscilações, por distrito", "All swings, by district")},
+        cap=L("% do grupo por distrito sob oscilação uniforme, a partir do resultado de 2024", "Group's share by district under a uniform swing, starting from the 2024 result"),
+        caption=L(f"Com uma oscilação de −5 pontos em todos os distritos, o grupo mantém mais de 50% em {count[-5]} dos sete; com −10, em {count[-10]}. "
+                  "Como a Sede reúne cerca de dois terços dos votos válidos, é nela que a liderança se decide.",
+                  f"With a −5 point swing in every district, the group keeps more than 50% in {count[-5]} of the seven; with −10, in {count[-10]}. "
+                  "Since Sede holds about two thirds of the valid votes, that is where the lead is decided."),
+        alt=L("Mapa dos sete distritos coloridos entre vermelho e verde pelo percentual do grupo em cada cenário de oscilação, com um botão por oscilação de −20 a +5 pontos.",
+              "Map of the seven districts colored between red and green by the group's share in each swing scenario, with one button per swing from −20 to +5 points.")))
+
     return charts
 
 

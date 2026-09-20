@@ -47,6 +47,18 @@ python scripts/build_pages_site.py              # -> site/ (o que o GitHub Pages
 Paleta semântica: verde `#1f9d63` é o grupo, vermelho `#c8433a` o adversário, azul
 `#3d7fc4` o terceiro colocado. Fonte única: Bricolage Grotesque.
 
+### Cenários para 2028 (R)
+
+A seção 11 do estudo traz cenários de "e se" para 2028, calculados em **R base** (sem pacotes extras) por
+`analysis/cenarios_2028.R`. Não é previsão: são hipóteses declaradas (tendência do eleitorado, oscilação uniforme do
+percentual do grupo, terceiro candidato de 0, 5 ou 10%). O script grava `output/r_cenarios_2028_*.csv`, que
+`scripts/export_frontend_data.py` lê para os gráficos das Figuras 27 a 29. Para rodar (requer o R instalado):
+
+```bash
+Rscript analysis/cenarios_2028.R
+python scripts/export_frontend_data.py
+```
+
 ### Baixar o estudo em PDF
 
 O botão **Baixar estudo em PDF** baixa um arquivo estático (`a-metamorfose-do-poder-em-alfredo-chaves.pdf`
