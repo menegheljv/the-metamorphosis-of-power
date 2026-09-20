@@ -90,7 +90,7 @@
   h1.title {
     font-family: "Bricolage Grotesque", sans-serif; font-weight: 700;
     font-size: clamp(1.4rem, 4.2vw, 2.05rem);
-    line-height: 1.22;
+    line-height: 1.12;
     letter-spacing: 0.01em;
     text-transform: uppercase;
     text-align: center;
@@ -101,7 +101,7 @@
     display: block;
     font-size: 1em;
     color: inherit;
-    margin-top: 12px;
+    margin-top: 6px;
     white-space: normal;
   }
   .dek {
@@ -130,6 +130,7 @@
     font-size: 12.5px;
   }
   .ichart { min-height: 40px; }
+  @media print { .exhibit:has([data-chart="distritos_votos"]) { break-inside: auto; } }
   .ichart .chart-fallback { margin: 0; font-size: 13px; color: var(--caption); }
   .print-actions .pdf-btn {
     border: 1px solid var(--blue-deep);
@@ -191,7 +192,7 @@
   h2 {
     font-family: "Bricolage Grotesque", sans-serif; font-weight: 700;
     font-size: clamp(1.05rem, 3.2vw, 1.4rem);
-    line-height: 1.25;
+    line-height: 1.15;
     letter-spacing: 0.015em;
     text-transform: uppercase;
     text-align: center;

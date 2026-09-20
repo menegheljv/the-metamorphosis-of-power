@@ -13,7 +13,7 @@
 
 .ichart .chart-title {
   margin: 0; text-align: center; text-transform: uppercase; text-wrap: balance;
-  font: 700 clamp(0.98rem, 2.6vw, 1.2rem)/1.25 "Bricolage Grotesque", sans-serif; letter-spacing: 0.02em; color: var(--title-gray);
+  font: 700 clamp(0.98rem, 2.6vw, 1.2rem)/1.18 "Bricolage Grotesque", sans-serif; letter-spacing: 0.02em; color: var(--title-gray);
 }
 .ichart .chart-sub {
   margin: 6px auto 18px; max-width: 640px; text-align: center; text-wrap: balance;
@@ -23,6 +23,21 @@
 .ichart .chart-box { width: 100%; }
 .ichart .recharts-text, .ichart .recharts-label, .ichart .recharts-cartesian-axis-tick-value { font-family: "Bricolage Grotesque", sans-serif; }
 .ichart .recharts-wrapper, .ichart .recharts-surface { outline: none; }
+
+/* barras: animam ao passar o mouse (sem linha pontilhada) e as demais recuam um pouco */
+.ichart .recharts-bar-rectangle { cursor: pointer; }
+.ichart .recharts-bar-rectangle path, .ichart .recharts-bar-rectangle rect {
+  transform-box: fill-box; transform-origin: 50% 100%;
+  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.2s ease, opacity 0.2s ease;
+}
+.ichart .recharts-bar-rectangle:hover path, .ichart .recharts-bar-rectangle:hover rect {
+  transform: scale(1.08, 1.035);
+  filter: brightness(1.08) saturate(1.12) drop-shadow(0 5px 7px rgba(23, 23, 26, 0.24));
+}
+.ichart .recharts-bar:hover .recharts-bar-rectangle:not(:hover) path,
+.ichart .recharts-bar:hover .recharts-bar-rectangle:not(:hover) rect { opacity: 0.55; }
+.ichart .panels .recharts-bar-rectangle path { transform-origin: 0 50%; }
+.ichart .panels .recharts-bar-rectangle:hover path { transform: scale(1.04, 1.16); }
 
 /* legenda clicavel */
 .ichart .legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 10px; margin: 14px 0 4px; }
@@ -56,9 +71,10 @@
 .ichart .panel-title { margin: 0 0 6px; text-align: center; font: 600 14px "Bricolage Grotesque", sans-serif; color: var(--ink, #17171a); }
 
 /* multiplos pequenos (um por distrito) */
-.ichart .multiples { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px 18px; }
-.ichart .multiple { min-width: 0; padding: 12px 8px 4px; border: 1px solid var(--border, rgba(23, 23, 26, 0.12)); border-radius: 10px; background: #fff; }
-.ichart .multiple .panel-title { margin: 0 0 2px; }
+.ichart .multiples { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 20px; }
+.ichart .multiple:first-child { grid-column: 1 / -1; }
+.ichart .multiple { min-width: 0; padding: 16px 12px 8px; border: 1px solid var(--border, rgba(23, 23, 26, 0.12)); border-radius: 10px; background: #fff; }
+.ichart .multiple .panel-title { margin: 0 0 4px; font-size: 15px; }
 .ichart .scale-note { margin: 10px 0 0; text-align: center; font: 500 11.5px "Bricolage Grotesque", sans-serif; letter-spacing: 0.04em; text-transform: uppercase; color: var(--caption, rgba(23, 23, 26, 0.5)); }
 
 /* mapa de calor */
@@ -116,12 +132,13 @@
 
 @media (prefers-reduced-motion: reduce) {
   .ichart .chart-tooltip { animation: none; }
-  .ichart .tile, .ichart table.heat td, .ichart .slope-line { transition: none; }
+  .ichart .tile, .ichart table.heat td, .ichart .slope-line, .ichart .recharts-bar-rectangle path, .ichart .recharts-bar-rectangle rect { transition: none; }
 }
 
 /* PDF (?print): sem dicas de interacao */
 .print-mode .ichart .hover-readout { display: none; }
 .print-mode .ichart button.legend-chip { cursor: default; }
-.print-mode .ichart .multiples { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-.print-mode .ichart .multiple { break-inside: avoid; padding: 8px 4px 2px; }
-.print-mode .ichart .multiple > div { height: 165px !important; }
+.print-mode .ichart .multiples { gap: 14px; }
+.print-mode .ichart .multiple { break-inside: avoid; padding: 10px 8px 4px; }
+.print-mode .ichart .multiple:first-child > div { height: 230px !important; }
+.print-mode .ichart .multiple:not(:first-child) > div { height: 200px !important; }

@@ -184,7 +184,7 @@ function CartesianChart({ spec }: { spec: CartesianSpec }) {
                 tickFormatter={(v: number) => fmtAxis(rightUnit, v)}
               />
             )}
-            <Tooltip content={<CartesianTip />} cursor={{ fill: "rgba(23,23,26,0.05)", stroke: "rgba(31,157,99,0.45)", strokeDasharray: "4 4" }} />
+            <Tooltip content={<CartesianTip />} cursor={bars.length ? { fill: "rgba(23,23,26,0.04)" } : { stroke: "rgba(23,23,26,0.22)", strokeWidth: 1 }} />
             {bars.map((l) => (
               <Bar
                 key={l.key}
@@ -263,16 +263,16 @@ function MultiplesChart({ spec }: { spec: MultiplesSpec }) {
   return (
     <>
       <div className="multiples">
-        {spec.panels.map((panel) => (
+        {spec.panels.map((panel, pi) => (
           <div key={panel.title} className="multiple">
             <h4 className="panel-title">{panel.title}</h4>
-            <div style={{ height: narrow ? 190 : 200 }}>
+            <div style={{ height: pi === 0 ? (narrow ? 250 : 320) : narrow ? 230 : 270 }}>
               <ResponsiveContainer width="100%" height="100%">
-                <ComposedChart data={panel.rows} margin={{ top: 20, right: 8, left: 0, bottom: 0 }}>
+                <ComposedChart data={panel.rows} margin={{ top: 22, right: narrow ? 14 : 22, left: 0, bottom: 0 }}>
                   <CartesianGrid stroke={GRID} vertical={false} />
-                  <XAxis dataKey="x" tick={{ ...tick, fontSize: 10 }} tickLine={false} axisLine={{ stroke: GRID }} interval={0} tickFormatter={(v: string) => `’${String(v).slice(2)}`} />
-                  <YAxis tick={{ ...tick, fontSize: 10 }} tickLine={false} axisLine={false} width={38} allowDecimals={false} domain={[0, "auto"]} tickFormatter={(v: number) => fmtAxis(spec.unit, v)} />
-                  <Tooltip content={<PanelTip />} cursor={{ stroke: "rgba(31,157,99,0.45)", strokeDasharray: "4 4" }} />
+                  <XAxis dataKey="x" tick={{ ...tick, fontSize: narrow ? 10 : 11 }} tickLine={false} axisLine={{ stroke: GRID }} interval={0} tickFormatter={(v: string) => (narrow ? `’${String(v).slice(2)}` : String(v))} />
+                  <YAxis tick={{ ...tick, fontSize: narrow ? 10 : 11 }} tickLine={false} axisLine={false} width={narrow ? 40 : 48} allowDecimals={false} domain={[0, "auto"]} tickFormatter={(v: number) => fmtAxis(spec.unit, v)} />
+                  <Tooltip content={<PanelTip />} cursor={{ stroke: "rgba(23,23,26,0.22)", strokeWidth: 1 }} />
                   {spec.layers.map((l) => (
                     <Line
                       key={l.key}
@@ -297,7 +297,7 @@ function MultiplesChart({ spec }: { spec: MultiplesSpec }) {
                             const above = Number(row?.[top.key]) >= Number(row?.[spec.layers[1]?.key]) || Number(p.y) > 118; // perto do eixo X, o rotulo sobe
                             const anchor = p.index === 0 ? "start" : p.index === last ? "end" : "middle";
                             return (
-                              <text x={Number(p.x)} y={Number(p.y) + (above ? -9 : 17)} textAnchor={anchor} style={{ ...labelStyle, fontSize: 9.5 }}>
+                              <text x={Number(p.x)} y={Number(p.y) + (above ? -9 : 17)} textAnchor={anchor} style={{ ...labelStyle, fontSize: narrow ? 10 : 11 }}>
                                 {fmt(spec.unit, Number(p.value))}
                               </text>
                             );
@@ -535,7 +535,7 @@ function ScatterView({ spec }: { spec: ScatterSpec }) {
             <ZAxis range={[54, 54]} />
             <ReferenceLine segment={[{ x: lo, y: lo }, { x: hi, y: hi }]} stroke="rgba(23,23,26,0.35)" strokeDasharray="6 5"
               label={{ value: t.sameShare, position: "insideTopLeft", fill: "rgba(23,23,26,0.5)", fontSize: 10.5, fontFamily: FONT }} />
-            <Tooltip content={<ScatterTip />} cursor={{ strokeDasharray: "3 3", stroke: "rgba(23,23,26,0.3)" }} />
+            <Tooltip content={<ScatterTip />} cursor={{ stroke: "rgba(23,23,26,0.22)", strokeWidth: 1 }} />
             {spec.series.map((s) => (
               <Scatter key={s.key} name={s.label} data={s.points} fill={COLORS[s.color]} fillOpacity={0.72} stroke="#ffffff" hide={hidden.has(s.key)} isAnimationActive={!reduce} />
             ))}
