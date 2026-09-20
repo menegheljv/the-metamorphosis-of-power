@@ -436,7 +436,7 @@ def build(lang: str) -> list[dict]:
             {"label": short.get(r["Candidato"], r["Candidato"]), "value": float(r[col]), "side": side_of[r["Candidato"]]}
             for _, r in fin[fin["Ano"] == ano].sort_values(col, ascending=False).iterrows()]} for ano in (2020, 2024)]
 
-    charts.append(spec("financeiro_chapa", "12", L("RECEITA DECLARADA", "DECLARED REVENUE"),
+    charts.append(spec("financeiro_chapa", "12", L("RECEITA DECLARADA", "DECLARED CAMPAIGN REVENUE"),
                        L("candidatos a prefeito, em reais", "mayoral candidates, in reais"), "panels", unit="brl",
                        panels=fin_panels("Receita")))
     charts.append(spec("custo_por_voto", "13", L("CUSTO POR VOTO", "COST PER VOTE"),
@@ -446,7 +446,7 @@ def build(lang: str) -> list[dict]:
     origem = [("Partido político", "Political party", 57460.0, 166372.43), ("Recursos próprios", "Own funds", 22030.8, 34547.11),
               ("Pessoas físicas", "Individual donors", 14440.2, 18648.65), ("Outros candidatos", "Other candidates", 2625.0, 7000.0)]
     charts.append(spec(
-        "origem_receitas", "14", L("ORIGEM DAS RECEITAS DA CHAPA", "WHERE THE TICKET'S MONEY CAME FROM"),
+        "origem_receitas", "14", L("ORIGEM DAS RECEITAS DA CHAPA", "WHERE THE SLATE'S MONEY CAME FROM"),
         L("em reais, 2020 vs. 2024", "in reais, 2020 vs. 2024"), "cartesian",
         layers=[{"type": "bar", "key": "y2020", "label": "2020", "color": "adversario"},
                 {"type": "bar", "key": "y2024", "label": "2024", "color": "grupo"}],
@@ -502,7 +502,7 @@ def build(lang: str) -> list[dict]:
                 {"type": "bar", "key": "c20", "label": L("Candidatos 2020", "Candidates 2020"), "color": "adversario"},
                 {"type": "bar", "key": "c24", "label": L("Candidatos 2024", "Candidates 2024"), "color": "grupo"}],
         rows=[{"x": L("Branca", "White"), "pop": 61.4, "c20": 61.3, "c24": 69.7},
-              {"x": L("Parda", "Brown"), "pop": 34.3, "c20": 29.3, "c24": 22.4},
+              {"x": L("Parda", "Mixed-race (pardo)"), "pop": 34.3, "c20": 29.3, "c24": 22.4},
               {"x": L("Preta", "Black"), "pop": 4.2, "c20": 6.7, "c24": 7.9}],
         unit="pct"))
 
@@ -549,7 +549,7 @@ def build(lang: str) -> list[dict]:
                                           {"label": "Boldrini", "value": 61, "side": "terceiro"},
                                           {"label": "Hugo Luiz", "value": 25, "side": "grupo"}]}]))
     charts.append(spec(
-        "patrimonio_candidatos", "24", L("PATRIMÔNIO DECLARADO", "DECLARED NET WORTH"),
+        "patrimonio_candidatos", "24", L("PATRIMÔNIO DECLARADO", "DECLARED ASSETS"),
         L("candidatos a prefeito, em reais", "mayoral candidates, in reais"), "panels", unit="brl",
         panels=[{"title": "2020", "rows": [{"label": "Armando Zanata", "value": pat20["ARMANDO ZANATA"], "side": "terceiro"},
                                           {"label": "Fernando", "value": pat20["DR FERNANDO"], "side": "adversario"},
