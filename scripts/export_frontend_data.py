@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import html
 import json
+import math
 import re
 from pathlib import Path
 
@@ -113,6 +114,85 @@ posts = posts.sort_values("data").reset_index(drop=True)
 OPOSICAO_2024 = ("Rolmar Boteccia", 31.9)
 
 
+# --------------------------------------------------------------------------
+# Mapa dos distritos: limites do IBGE (Censo 2022) projetados para SVG
+# --------------------------------------------------------------------------
+DISTRITO_NOME = {"Alfredo Chaves": "Sede", "Urânia": "São Bento de Urânia"}
+
+
+def _rdp(points, tol):
+    if len(points) < 3:
+        return points
+    (x1, y1), (x2, y2) = points[0], points[-1]
+    dx, dy = x2 - x1, y2 - y1
+    norm = math.hypot(dx, dy) or 1e-12
+    idx, dmax = 0, 0.0
+    for i in range(1, len(points) - 1):
+        d = abs(dy * points[i][0] - dx * points[i][1] + x2 * y1 - y2 * x1) / norm
+        if d > dmax:
+            idx, dmax = i, d
+    if dmax > tol:
+        return _rdp(points[: idx + 1], tol)[:-1] + _rdp(points[idx:], tol)
+    return [points[0], points[-1]]
+
+
+def _inside(x, y, ring):
+    ins = False
+    for (x1, y1), (x2, y2) in zip(ring, ring[1:] + ring[:1]):
+        if (y1 > y) != (y2 > y) and x < (x2 - x1) * (y - y1) / (y2 - y1) + x1:
+            ins = not ins
+    return ins
+
+
+def _dist_to_ring(x, y, ring):
+    best = 1e18
+    for (x1, y1), (x2, y2) in zip(ring, ring[1:] + ring[:1]):
+        dx, dy = x2 - x1, y2 - y1
+        t = 0 if dx == dy == 0 else max(0, min(1, ((x - x1) * dx + (y - y1) * dy) / (dx * dx + dy * dy)))
+        best = min(best, math.hypot(x - (x1 + t * dx), y - (y1 + t * dy)))
+    return best
+
+
+def _label_point(ring, step=5):
+    xs, ys = [p[0] for p in ring], [p[1] for p in ring]
+    best, bx, by = -1, sum(xs) / len(xs), sum(ys) / len(ys)
+    y = min(ys)
+    while y <= max(ys):
+        x = min(xs)
+        while x <= max(xs):
+            if _inside(x, y, ring):
+                d = _dist_to_ring(x, y, ring)
+                if d > best:
+                    best, bx, by = d, x, y
+            x += step
+        y += step
+    return bx, by
+
+
+def district_shapes(width=1000):
+    geo = json.loads((DATA / "ibge" / "malha_distritos_alfredo_chaves.geojson").read_text(encoding="utf-8"))
+    rings = {DISTRITO_NOME.get(f["properties"]["nome"], f["properties"]["nome"]): f["geometry"]["coordinates"][0] for f in geo["features"]}
+    lat0 = sum(y for r in rings.values() for _, y in r) / sum(len(r) for r in rings.values())
+    k = math.cos(math.radians(lat0))
+    proj = {n: [(x * k, -y) for x, y in r] for n, r in rings.items()}
+    minx = min(x for r in proj.values() for x, _ in r)
+    maxx = max(x for r in proj.values() for x, _ in r)
+    miny = min(y for r in proj.values() for _, y in r)
+    maxy = max(y for r in proj.values() for _, y in r)
+    sc = (width - 20) / (maxx - minx)
+    height = round((maxy - miny) * sc + 20)
+    out = {}
+    for n, r in proj.items():
+        pts = [((x - minx) * sc + 10, (y - miny) * sc + 10) for x, y in r]
+        if pts[0] == pts[-1]:
+            pts = pts[:-1]
+        far = max(range(len(pts)), key=lambda i: math.hypot(pts[i][0] - pts[0][0], pts[i][1] - pts[0][1]))
+        pts = _rdp(pts[: far + 1], 0.45)[:-1] + _rdp(pts[far:] + [pts[0]], 0.45)[:-1]  # anel fechado: simplifica cada metade
+        lx, ly = _label_point(pts)
+        out[n] = {"path": "M" + " L".join(f"{x:.1f},{y:.1f}" for x, y in pts) + " Z", "lx": round(lx, 1), "ly": round(ly, 1)}
+    return width, height, out
+
+
 def vereadores(year: int):
     df = pd.read_csv(OUT / f"vereadores_eleitos_{year}_com_lado.csv", dtype=str)
     df.columns = [c.strip().upper() for c in df.columns]
@@ -172,7 +252,7 @@ def build(lang: str) -> list[dict]:
         })
     g = {int(r.ano): float(r.pct_candidato_do_grupo) for r in resumo.itertuples()}
     charts.append(spec(
-        "historical_arc", L("Arco histórico", "Historical arc"),
+        "historical_arc", "0.1",
         L("CINCO DERROTAS E A VIRADA", "FIVE LOSSES AND THE TURNAROUND"),
         L("% dos votos válidos para prefeito: grupo vs. oposição, 2004–2024",
           "% of valid votes for mayor: group vs. opposition, 2004–2024"),
@@ -199,6 +279,43 @@ def build(lang: str) -> list[dict]:
             "from 2004 to 2024. The group goes from 26.4% in 2004 to 48.0% in 2016, falls to 40.0% in 2020 and reaches 58.1% "
             "in 2024; the opposition stays above the group through 2020 (from 66.9% to 56.4%) and drops to 31.9% in 2024."),
     ))
+
+    # ---- 5.1 Uma legenda diferente a cada eleicao -----------------------------------------
+    espectro = {2004: L("Esquerda", "Left"), 2008: L("Centro-direita", "Center-right"), 2012: L("Centro-direita", "Center-right"),
+                2016: L("Centro", "Center"), 2020: L("Direita", "Right"), 2024: L("Direita", "Right")}
+    coligacao = {2004: "PPS / PT / PSDB / PTN / PT do B", 2008: "PTB / PSDB / PMDB / PT do B / PPS", 2012: "PT / PTB / PMDB / PPS / DEM / PSD",
+                 2016: "PMDB / PPS / PSD / PTB / PT / PDT / PATRIOTA / REDE / DEM", 2020: "PTB / REPUBLICANOS / PATRIOTA",
+                 2024: "REPUBLICANOS / PP / MDB / Federação PSDB-Cidadania"}
+    parts = pd.read_csv(OUT / "powerbi" / "partido_por_ano.csv")
+    rows51 = []
+    for r in parts.itertuples():
+        ano = int(r.Ano)
+        win = r.Resultado == "Vitoria"
+        rows51.append({
+            "x": str(ano), "sub": r.Partido_Grupo, "v": int(r.Num_Partidos_Coligacao), "side": "grupo" if win else "adversario",
+            "note": f"{espectro[ano]} · {coligacao[ano]} · " + L(f"{'vitória' if win else 'derrota'}, {dec(g[ano])}% dos votos",
+                                                                 f"{'win' if win else 'loss'}, {dec(g[ano])}% of the vote"),
+        })
+    sizes = [x["v"] for x in rows51]
+    assert max(sizes) == 9 and min(sizes) == 3 and rows51[3]["v"] == 9 and rows51[4]["v"] == 3 and sorted(sizes)[len(sizes) // 2 - 1: len(sizes) // 2 + 1] == [5, 5]
+    charts.append(spec(
+        "partidos_coligacao", "5.1", L("UMA LEGENDA DIFERENTE A CADA ELEIÇÃO", "A DIFFERENT PARTY EVERY ELECTION"),
+        L("partido do candidato do grupo (sob o ano) e número de partidos na coligação",
+          "the group candidate's party (under the year) and number of parties in the coalition"),
+        "cartesian",
+        layers=[{"type": "bar", "key": "v", "label": L("Partidos na coligação", "Parties in the coalition"), "color": "grupo", "colorBySide": True}],
+        rows=rows51, unit="int", yDomain=[0, 10], yTicks=[0, 2, 4, 6, 8, 10], subKey="sub",
+        sideLegend={"adversario": L("Derrota", "Loss"), "grupo": L("Vitória", "Win")},
+        cap=L("Partido do candidato do grupo e tamanho da coligação, 2004–2024",
+              "The group candidate's party and coalition size, 2004–2024"),
+        caption=L("O candidato do grupo trocou de partido a cada eleição, do PT (esquerda) em 2004 ao PP (direita) em 2024. O tamanho da coligação não acompanha o resultado: "
+                  "a maior (9 partidos, em 2016) e a menor (3, em 2020) terminaram em derrota, e a única vitória, em 2024, veio com uma coligação mediana, de 5 partidos.",
+                  "The group's candidate changed party at every election, from PT (left) in 2004 to PP (right) in 2024. Coalition size does not track the result: "
+                  "the largest (9 parties, in 2016) and the smallest (3, in 2020) both ended in defeat, and the only win, in 2024, came with a median-sized coalition of 5 parties."),
+        alt=L("Gráfico de barras com o número de partidos na coligação do candidato do grupo em cada eleição: 5 em 2004 (PT), 5 em 2008 (PSDB), 6 em 2012 (PSD), "
+              "9 em 2016 (PMDB), 3 em 2020 (Republicanos) e 5 em 2024 (PP). As cinco primeiras são derrotas, em vermelho, e 2024 é a vitória, em verde.",
+              "Bar chart with the number of parties in the group candidate's coalition at each election: 5 in 2004 (PT), 5 in 2008 (PSDB), 6 in 2012 (PSD), "
+              "9 in 2016 (PMDB), 3 in 2020 (Republicanos) and 5 in 2024 (PP). The first five are losses, in red, and 2024 is the win, in green.")))
 
     # ---- 04 Da derrota generalizada a vitoria ------------------------------------------
     slope_rows = [{
@@ -239,13 +356,25 @@ def build(lang: str) -> list[dict]:
         alt=L("Gráfico de barras: 3.681 votos (37,8%) em 2020 e 5.779 votos (56,4%) em 2024.",
               "Bar chart: 3,681 votes (37.8%) in 2020 and 5,779 votes (56.4%) in 2024.")))
 
+    mw, mh, shapes = district_shapes()
+    order_ = ["Sede", "Crubixá", "Ibitiruí", "Matilde", "Ribeirão do Cristo", "Sagrada Família", "São Bento de Urânia"]
+    anos = sorted(int(a) for a in dist_votos["ano"].unique())
+    dmap = []
+    for d in order_:
+        sub = dist_votos[dist_votos["distrito"] == d]
+        dmap.append({"name": d, **shapes[d],
+                     "values": {str(int(r.ano)): [int(r.votos_grupo), int(r.votos_validos)] for r in sub.itertuples()}})
     charts.append(spec(
         "distritos_heatmap", "6", L("ONDE O GRUPO ERA FORTE", "WHERE THE GROUP WAS STRONG"),
-        L("% do candidato do grupo para prefeito, por distrito, 2004–2024",
-          "% for the group's mayoral candidate, by district, 2004–2024"),
-        "heatmap", columns=[str(c) for c in distritos.columns[1:]],
-        rows=[{"label": r["distrito"], "values": [clean(round(float(r[c]), 1)) for c in distritos.columns[1:]]}
-              for _, r in distritos.iterrows()]))
+        L("% do candidato do grupo para prefeito, por distrito: escolha a eleição",
+          "% for the group's mayoral candidate, by district: choose the election"),
+        "districtmap", viewBox=f"0 0 {mw} {mh}", years=anos, districts=dmap,
+        alt=L("Mapa dos sete distritos de Alfredo Chaves, cada um colorido entre vermelho e verde conforme o percentual dos votos para prefeito "
+              "recebido pelo candidato do grupo, com um botão para cada eleição de 2004 a 2024, e uma tabela com os mesmos percentuais. "
+              "Em 2024 o grupo passa de 47% em todos os distritos e de 50% em seis dos sete; em 2020 só Ribeirão do Cristo ficou acima de 50%.",
+              "Map of the seven districts of Alfredo Chaves, each colored between red and green according to the share of mayoral votes "
+              "won by the group's candidate, with one button per election from 2004 to 2024, and a table with the same percentages. "
+              "In 2024 the group is above 47% in every district and above 50% in six of seven; in 2020 only Ribeirão do Cristo was above 50%.")))
 
     charts.append(spec(
         "distritos_vereadores_heatmap", "6.1", L("ONDE A CHAPA DE VEREADOR ERA FORTE", "WHERE THE COUNCIL SLATE WAS STRONG"),

@@ -130,7 +130,7 @@
     font-size: 12.5px;
   }
   .ichart { min-height: 40px; }
-  @media print { .exhibit:has([data-chart="distritos_votos"]) { break-inside: auto; } }
+  @media print { .exhibit:has([data-chart="distritos_votos"]), .exhibit:has([data-chart="distritos_heatmap"]) { break-inside: auto; } }
   .ichart .chart-fallback { margin: 0; font-size: 13px; color: var(--caption); }
   .print-actions .pdf-btn {
     border: 1px solid var(--blue-deep);
@@ -519,12 +519,19 @@
     pre.code { font-size: 11.5px; }
   }
   @media print {
-    @page { size: A4; margin: 14mm; }
+    @page { size: A4; margin: 16mm 15mm 18mm; }
+    :root { --ink-soft: rgba(23,23,26,0.94); --caption: rgba(23,23,26,0.78); --border: rgba(23,23,26,0.2); }
     .print-actions, .lang-switch { display: none !important; }
-    body { background: #fff; font-size: 11pt; }
+    body { background: #fff; font-size: 12pt; line-height: 1.55; }
     .wrap { max-width: none; padding: 0; }
     .masthead { padding-top: 0; }
-    section, figure, table, .card { break-inside: avoid; }
+    /* as secoes podem quebrar: so figuras, tabelas e cartoes ficam inteiros (sem paginas em branco) */
+    section { break-inside: auto; padding: 26px 0; border-bottom: 0; }
+    figure, table, .card, .callout, .stat, .mini-stat, .pipeline, .pipestep, .mini-stat-grid, .ribbon, pre.code { break-inside: avoid; }
+    h1, h2, h3, .eyebrow, .kicker { break-after: avoid; }
+    p, li { orphans: 3; widows: 3; }
+    figcaption { font-size: 11pt; color: rgba(23,23,26,0.86); }
+    table.data { font-size: 10pt; }
     a { color: inherit; text-decoration: none; }
   }
 </style>
@@ -595,8 +602,12 @@
     <div class="prose">
       <p>Antes da virada de 2020&rarr;2024 documentada abaixo, esse mesmo município conta uma história mais longa. De 2004 a 2020, o grupo por trás desta candidatura perdeu cinco eleições consecutivas para prefeito em Alfredo Chaves, ES. Em 2004 o candidato foi Jorge Gabriel Meneghel, meu pai. A linhagem familiar e política atravessa cada ciclo desde então, até chegar no meu irmão Hugo Luiz em 2024. O gráfico abaixo é montado com os mesmos dados oficiais do TSE por seção eleitoral, em cada uma das seis eleições, e mostra a votação fechando o intervalo, ciclo a ciclo, até 2024.</p>
     </div>
-    <figure class="chart-block">
-      <div class="ichart" data-chart="historical_arc"><p class="chart-fallback">Gráfico de linha mostrando a votação do candidato do grupo para prefeito em Alfredo Chaves ao longo de seis eleições: 26,4% em 2004, 33,1% em 2008, 36,4% em 2012, 48,0% em 2016, 40,0% em 2020, e 58,1% em 2024, a única vitória.</p></div>
+        <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 0.1</span><span class="cap">Votação do grupo e da principal candidatura de oposição, 2004–2024</span></div>
+      <div class="exhibit-body">
+        <div class="ichart" data-chart="historical_arc"><p class="chart-fallback">Gráfico de linhas com a votação para prefeito do grupo e da principal candidatura de oposição em seis eleições, de 2004 a 2024. O grupo vai de 26,4% em 2004 a 48,0% em 2016, cai a 40,0% em 2020 e chega a 58,1% em 2024; a oposição fica acima do grupo até 2020 (de 66,9% a 56,4%) e cai a 31,9% em 2024.</p></div>
+      </div>
+      <figcaption>Em cinco eleições consecutivas a principal candidatura de oposição superou o grupo, com a distância caindo de 66,9% a 26,4% em 2004 para 52,0% a 48,0% em 2016. Em 2024 a relação se inverte: o candidato do grupo obtém 58,1% e a principal oposição, 31,9%.</figcaption>
     </figure>
     <div class="callout warn">
       <strong>Divulgação completa.</strong> Jorge Gabriel Meneghel, candidato em 2004, é meu pai. Hugo Luiz, vencedor em 2024, é meu irmão, e eu dirigi a campanha dele naquele ano. O projeto nasceu desse trabalho; o pipeline de dados veio depois, para entender o que realmente moveu o resultado.
@@ -723,6 +734,14 @@
     <p>O tamanho da coligação, porém, <strong>não explica a vitória sozinho</strong>: em 2016, o candidato concorreu pela maior coligação de toda a série (9 partidos) e mesmo assim perdeu, com 48,0% dos votos. Em 2020, com a menor coligação (3 partidos), também perdeu. A coligação de 2024 (5 partidos: Republicanos, PP, MDB e Federação PSDB&#8209;Cidadania) tem tamanho mediano na série, nem a maior nem a menor.</p>
     <p>Do lado adversário, o padrão é o oposto. Nas cinco eleições perdidas por este grupo, entre 2004 e 2020, quem venceu foi sempre o <strong>PSB</strong>: Dr. Fernando levou 2004, 2008, 2016 e 2020, e Roberto Fiorin, também PSB, levou 2012, quatro mandatos e dois nomes diferentes sob a mesma legenda, vinte anos seguidos. Essa sequência só se rompe em 2024, quando Rolmar Boteccia tenta manter o PSB no poder e perde para o PP de Hugo Luiz. Ou seja, enquanto o lado que perdia trocava de partido a cada pleito, o lado que vencia tinha uma legenda estável havia duas décadas. Foi justamente essa estabilidade que quebrou em 2024, junto com o resultado.</p>
 
+        <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figura 5.1</span><span class="cap">Partido do candidato do grupo e tamanho da coligação, 2004–2024</span></div>
+      <div class="exhibit-body">
+        <div class="ichart" data-chart="partidos_coligacao"><p class="chart-fallback">Gráfico de barras com o número de partidos na coligação do candidato do grupo em cada eleição: 5 em 2004 (PT), 5 em 2008 (PSDB), 6 em 2012 (PSD), 9 em 2016 (PMDB), 3 em 2020 (Republicanos) e 5 em 2024 (PP). As cinco primeiras são derrotas, em vermelho, e 2024 é a vitória, em verde.</p></div>
+      </div>
+      <figcaption>O candidato do grupo trocou de partido a cada eleição, do PT (esquerda) em 2004 ao PP (direita) em 2024. O tamanho da coligação não acompanha o resultado: a maior (9 partidos, em 2016) e a menor (3, em 2020) terminaram em derrota, e a única vitória, em 2024, veio com uma coligação mediana, de 5 partidos.</figcaption>
+    </figure>
+
     <div class="table-scroll">
       <table class="data stack-mobile">
         <thead>
@@ -763,11 +782,11 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figura 6</span><span class="cap">% do candidato do grupo para prefeito, por distrito, 2004&ndash;2024</span></div>
       <div class="exhibit-body">
-        <div class="ichart" data-chart="distritos_heatmap"><p class="chart-fallback">Mapa de calor com 7 distritos de Alfredo Chaves nas linhas e as seis eleições (2004 a 2024) nas colunas, mostrando o percentual de votos válidos do candidato do grupo para prefeito em cada combinação. Ribeirão do Cristo salta de 8,8% em 2004 e 9,4% em 2012 (as piores marcas do grupo em qualquer distrito e ano) para 58,2% em 2020 e 72,3% em 2024 (a melhor marca de 2024). São Bento de Urânia e Ibitiruí também terminam acima de 63% em 2024. Todos os sete distritos ficam acima de 47% em 2024, sinal de uma virada disseminada, não concentrada.</p></div>
+        <div class="ichart" data-chart="distritos_heatmap"><p class="chart-fallback">Mapa dos sete distritos de Alfredo Chaves, cada um colorido entre vermelho e verde conforme o percentual dos votos para prefeito recebido pelo candidato do grupo, com um botão para cada eleição de 2004 a 2024, e uma tabela com os mesmos percentuais. Em 2024 o grupo passa de 47% em todos os distritos e de 50% em seis dos sete; em 2020 só Ribeirão do Cristo ficou acima de 50%.</p></div>
       </div>
       <figcaption>Ribeirão do Cristo foi, de longe, o distrito mais resistente ao grupo em 2004 e 2012 (8,8% e 9,4%, os piores números do estudo inteiro), e virou o mais favorável em 2020 e 2024 (58,2% e 72,3%). Em 2024, todos os sete distritos passam de 47%: a virada não veio de um reduto específico, veio do território inteiro.</figcaption>
     </figure>
-    <p style="font-size:13px;color:var(--caption)">Fonte: <code>votacao_secao</code>, TSE, todas as seis eleições. Distrito de cada seção determinado pelo local de votação de 2024, cruzado com a lista oficial de localidades da <a href="https://www.alfredochaves.es.gov.br/detalhe-da-materia/info/6517/localidades-e-distancia/" target="_blank" rel="noopener">Prefeitura de Alfredo Chaves</a>. Os números de seção são estáveis ao longo do tempo neste município (só entram seções novas, nenhuma é renumerada), então o local de 2024 vale para todos os anos em que aquela seção existiu. Percentuais ponderados pelo total de votos válidos de cada seção.</p>
+    <p style="font-size:13px;color:var(--caption)">Fonte: <code>votacao_secao</code>, TSE, todas as seis eleições. Distrito de cada seção determinado pelo local de votação de 2024, cruzado com a lista oficial de localidades da <a href="https://www.alfredochaves.es.gov.br/detalhe-da-materia/info/6517/localidades-e-distancia/" target="_blank" rel="noopener">Prefeitura de Alfredo Chaves</a>. Os números de seção são estáveis ao longo do tempo neste município (só entram seções novas, nenhuma é renumerada), então o local de 2024 vale para todos os anos em que aquela seção existiu. Percentuais ponderados pelo total de votos válidos de cada seção. Limites dos distritos: IBGE, malha de distritos do Censo 2022. A divisão em sete distritos (Alfredo Chaves, Crubixá, Ibitiruí, Matilde, Ribeirão do Cristo, Sagrada Família e Urânia, chamado São Bento de Urânia na lista da prefeitura) consta do Plano Municipal de Saneamento Básico, item 5.1 (Lei Municipal nº 633/2017, revogada pela Lei nº 668/2019), com base no IBGE.</p>
 
     <h3>E na eleição para vereador?</h3>
     <p>O mesmo cruzamento seção&rarr;distrito, agora para a <strong>chapa completa de vereador do grupo</strong> (todos os candidatos da coligação, eleitos ou não &mdash; 35 nomes em 2020, 30 em 2024, identificados pelo partido de registro), como % dos votos válidos para vereador em cada distrito. Só dá pra fazer para 2020 e 2024: foram as duas únicas eleições em que a candidatura da família também lançou chapa de vereador.</p>

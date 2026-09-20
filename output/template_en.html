@@ -130,7 +130,7 @@
     font-size: 12.5px;
   }
   .ichart { min-height: 40px; }
-  @media print { .exhibit:has([data-chart="distritos_votos"]) { break-inside: auto; } }
+  @media print { .exhibit:has([data-chart="distritos_votos"]), .exhibit:has([data-chart="distritos_heatmap"]) { break-inside: auto; } }
   .ichart .chart-fallback { margin: 0; font-size: 13px; color: var(--caption); }
   .print-actions .pdf-btn {
     border: 1px solid var(--blue-deep);
@@ -519,12 +519,19 @@
     pre.code { font-size: 11.5px; }
   }
   @media print {
-    @page { size: A4; margin: 14mm; }
+    @page { size: A4; margin: 16mm 15mm 18mm; }
+    :root { --ink-soft: rgba(23,23,26,0.94); --caption: rgba(23,23,26,0.78); --border: rgba(23,23,26,0.2); }
     .print-actions, .lang-switch { display: none !important; }
-    body { background: #fff; font-size: 11pt; }
+    body { background: #fff; font-size: 12pt; line-height: 1.55; }
     .wrap { max-width: none; padding: 0; }
     .masthead { padding-top: 0; }
-    section, figure, table, .card { break-inside: avoid; }
+    /* as secoes podem quebrar: so figuras, tabelas e cartoes ficam inteiros (sem paginas em branco) */
+    section { break-inside: auto; padding: 26px 0; border-bottom: 0; }
+    figure, table, .card, .callout, .stat, .mini-stat, .pipeline, .pipestep, .mini-stat-grid, .ribbon, pre.code { break-inside: avoid; }
+    h1, h2, h3, .eyebrow, .kicker { break-after: avoid; }
+    p, li { orphans: 3; widows: 3; }
+    figcaption { font-size: 11pt; color: rgba(23,23,26,0.86); }
+    table.data { font-size: 10pt; }
     a { color: inherit; text-decoration: none; }
   }
 </style>
@@ -595,8 +602,12 @@
     <div class="prose">
       <p>Before the 2020&rarr;2024 turnaround documented below, this same municipality carries a longer story. From 2004 to 2020, the group behind this candidacy lost five consecutive mayoral elections in Alfredo Chaves, Brazil. In 2004 the candidate was Jorge Gabriel Meneghel, my father. The family and political lineage runs through every cycle since, up to my brother Hugo Luiz in 2024. The chart below is built from the same official TSE data by voting precinct, across all six elections, and shows the vote share closing the gap, cycle by cycle, until 2024.</p>
     </div>
-    <figure class="chart-block">
-      <div class="ichart" data-chart="historical_arc"><p class="chart-fallback">Line chart showing the group's mayoral candidate vote share in Alfredo Chaves across six elections: 26.4% in 2004, 33.1% in 2008, 36.4% in 2012, 48.0% in 2016, 40.0% in 2020, and 58.1% in 2024, the only win.</p></div>
+        <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figure 0.1</span><span class="cap">Vote share of the group and of the main opposition candidacy, 2004–2024</span></div>
+      <div class="exhibit-body">
+        <div class="ichart" data-chart="historical_arc"><p class="chart-fallback">Line chart with the mayoral vote share of the group and of the main opposition candidacy in six elections, from 2004 to 2024. The group goes from 26.4% in 2004 to 48.0% in 2016, falls to 40.0% in 2020 and reaches 58.1% in 2024; the opposition stays above the group through 2020 (from 66.9% to 56.4%) and drops to 31.9% in 2024.</p></div>
+      </div>
+      <figcaption>In five consecutive elections the main opposition candidacy beat the group, with the gap narrowing from 66.9% to 26.4% in 2004 to 52.0% to 48.0% in 2016. In 2024 the relationship flips: the group's candidate gets 58.1% and the main opposition, 31.9%.</figcaption>
     </figure>
     <div class="callout warn">
       <strong>Full disclosure.</strong> Jorge Gabriel Meneghel, the 2004 candidate, is my father. Hugo Luiz, who won in 2024, is my brother, and I directed his campaign that year. The project grew out of that work; the data pipeline came after, to understand what actually moved the result.
@@ -723,6 +734,14 @@
     <p>Coalition size, though, <strong>doesn't explain the win on its own</strong>: in 2016, the candidate ran with the largest coalition of the whole series (9 parties) and still lost, with 48.0% of the vote. In 2020, with the smallest coalition (3 parties), he also lost. The 2024 coalition (5 parties: Republicanos, PP, MDB and the PSDB&#8209;Cidadania federation) is mid-sized within the series, neither the largest nor the smallest.</p>
     <p>On the opposing side, the pattern is the reverse. In the five elections this group lost, between 2004 and 2020, the winner was always <strong>PSB</strong>: Dr. Fernando took 2004, 2008, 2016 and 2020, and Roberto Fiorin, also PSB, took 2012, four terms and two different names under the same party label, twenty years straight. That streak only breaks in 2024, when Rolmar Boteccia tries to keep PSB in power and loses to Hugo Luiz's PP. In other words, while the losing side changed parties every election, the winning side had a stable label for two decades. It was precisely that stability that broke in 2024, along with the result.</p>
 
+        <figure class="exhibit">
+      <div class="exhibit-head"><span class="tag">Figure 5.1</span><span class="cap">The group candidate's party and coalition size, 2004–2024</span></div>
+      <div class="exhibit-body">
+        <div class="ichart" data-chart="partidos_coligacao"><p class="chart-fallback">Bar chart with the number of parties in the group candidate's coalition at each election: 5 in 2004 (PT), 5 in 2008 (PSDB), 6 in 2012 (PSD), 9 in 2016 (PMDB), 3 in 2020 (Republicanos) and 5 in 2024 (PP). The first five are losses, in red, and 2024 is the win, in green.</p></div>
+      </div>
+      <figcaption>The group's candidate changed party at every election, from PT (left) in 2004 to PP (right) in 2024. Coalition size does not track the result: the largest (9 parties, in 2016) and the smallest (3, in 2020) both ended in defeat, and the only win, in 2024, came with a median-sized coalition of 5 parties.</figcaption>
+    </figure>
+
     <div class="table-scroll">
       <table class="data stack-mobile">
         <thead>
@@ -763,11 +782,11 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 6</span><span class="cap">Group's mayoral candidate share, by district, 2004&ndash;2024</span></div>
       <div class="exhibit-body">
-        <div class="ichart" data-chart="distritos_heatmap"><p class="chart-fallback">Heatmap with Alfredo Chaves' 7 districts in the rows and the six elections (2004 to 2024) in the columns, showing the group's mayoral candidate's share of valid votes in each combination. Ribeirão do Cristo jumps from 8.8% in 2004 and 9.4% in 2012 (the group's worst marks in any district and year) to 58.2% in 2020 and 72.3% in 2024 (the best mark of 2024). São Bento de Urânia and Ibitiruí also end above 63% in 2024. All seven districts are above 47% in 2024, a sign of a widespread turnaround, not a concentrated one.</p></div>
+        <div class="ichart" data-chart="distritos_heatmap"><p class="chart-fallback">Map of the seven districts of Alfredo Chaves, each colored between red and green according to the share of mayoral votes won by the group's candidate, with one button per election from 2004 to 2024, and a table with the same percentages. In 2024 the group is above 47% in every district and above 50% in six of seven; in 2020 only Ribeirão do Cristo was above 50%.</p></div>
       </div>
       <figcaption>Ribeirão do Cristo was by far the district most resistant to the group in 2004 and 2012 (8.8% and 9.4%, the worst numbers in the whole study), and became the most favorable in 2020 and 2024 (58.2% and 72.3%). By 2024, all seven districts are above 47%: the turnaround didn't come from one stronghold, it came from the entire territory.</figcaption>
     </figure>
-    <p style="font-size:13px;color:var(--caption)">Source: <code>votacao_secao</code>, TSE, all six elections. Each precinct's district determined by its 2024 polling location, cross-referenced with the official locality list from the <a href="https://www.alfredochaves.es.gov.br/detalhe-da-materia/info/6517/localidades-e-distancia/" target="_blank" rel="noopener">Alfredo Chaves city hall</a>. Precinct numbers are stable over time in this municipality (only new precincts are added, none are renumbered), so each precinct's 2024 location applies to every year it existed. Percentages weighted by each precinct's total valid votes.</p>
+    <p style="font-size:13px;color:var(--caption)">Source: <code>votacao_secao</code>, TSE, all six elections. Each precinct's district determined by its 2024 polling location, cross-referenced with the official locality list from the <a href="https://www.alfredochaves.es.gov.br/detalhe-da-materia/info/6517/localidades-e-distancia/" target="_blank" rel="noopener">Alfredo Chaves city hall</a>. Precinct numbers are stable over time in this municipality (only new precincts are added, none are renumbered), so each precinct's 2024 location applies to every year it existed. Percentages weighted by each precinct's total valid votes. District boundaries: IBGE, 2022 Census district mesh. The division into seven districts (Alfredo Chaves, Crubixá, Ibitiruí, Matilde, Ribeirão do Cristo, Sagrada Família and Urânia, listed as São Bento de Urânia by the city hall) appears in the Municipal Basic Sanitation Plan, item 5.1 (Municipal Law No. 633/2017, repealed by Law No. 668/2019), based on IBGE.</p>
 
     <h3>What about the council race?</h3>
     <p>The same precinct&rarr;district mapping, now for the group's <strong>full council slate</strong> (every candidate in the coalition, elected or not &mdash; 35 names in 2020, 30 in 2024, identified by registered party), as a % of valid council votes in each district. Only possible for 2020 and 2024: the only two elections where the family's candidacy also ran a council slate.</p>

@@ -28,16 +28,16 @@
 .ichart .recharts-bar-rectangle { cursor: pointer; }
 .ichart .recharts-bar-rectangle path, .ichart .recharts-bar-rectangle rect {
   transform-box: fill-box; transform-origin: 50% 100%;
-  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.2s ease, opacity 0.2s ease;
+  transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1), filter 0.42s ease, opacity 0.42s ease;
 }
 .ichart .recharts-bar-rectangle:hover path, .ichart .recharts-bar-rectangle:hover rect {
-  transform: scale(1.08, 1.035);
-  filter: brightness(1.08) saturate(1.12) drop-shadow(0 5px 7px rgba(23, 23, 26, 0.24));
+  transform: scale(1.05, 1.025);
+  filter: brightness(1.06) saturate(1.1) drop-shadow(0 4px 6px rgba(23, 23, 26, 0.2));
 }
 .ichart .recharts-bar:hover .recharts-bar-rectangle:not(:hover) path,
 .ichart .recharts-bar:hover .recharts-bar-rectangle:not(:hover) rect { opacity: 0.55; }
 .ichart .panels .recharts-bar-rectangle path { transform-origin: 0 50%; }
-.ichart .panels .recharts-bar-rectangle:hover path { transform: scale(1.04, 1.16); }
+.ichart .panels .recharts-bar-rectangle:hover path { transform: scale(1.025, 1.12); }
 
 /* legenda clicavel */
 .ichart .legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 10px; margin: 14px 0 4px; }
@@ -132,7 +132,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .ichart .chart-tooltip { animation: none; }
-  .ichart .tile, .ichart table.heat td, .ichart .slope-line, .ichart .recharts-bar-rectangle path, .ichart .recharts-bar-rectangle rect { transition: none; }
+  .ichart .dpath, .ichart .year-btn, .ichart .tile, .ichart table.heat td, .ichart .slope-line, .ichart .recharts-bar-rectangle path, .ichart .recharts-bar-rectangle rect { transition: none; }
 }
 
 /* PDF (?print): sem dicas de interacao */
@@ -142,3 +142,40 @@
 .print-mode .ichart .multiple { break-inside: avoid; padding: 10px 8px 4px; }
 .print-mode .ichart .multiple:first-child > div { height: 230px !important; }
 .print-mode .ichart .multiple:not(:first-child) > div { height: 200px !important; }
+
+/* mapa dos distritos */
+.ichart .year-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 2px 0 14px; }
+.ichart .year-btn {
+  min-width: 62px; padding: 8px 14px; border: 1px solid var(--border, rgba(23, 23, 26, 0.12)); border-radius: 999px; cursor: pointer;
+  background: #fff; color: var(--ink, #17171a); font: 600 13px/1 "Bricolage Grotesque", sans-serif;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+.ichart .year-btn:hover { border-color: var(--blue, #1f9d63); transform: translateY(-1px); }
+.ichart .year-btn.on { background: var(--blue-deep, #157a4d); border-color: var(--blue-deep, #157a4d); color: #fff; }
+.ichart .dmaps { position: relative; width: 100%; max-width: 760px; margin: 0 auto; }
+.ichart .dmaps.two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: none; }
+.ichart .dmap-year { text-align: center; font: 700 14px "Bricolage Grotesque", sans-serif; color: var(--ink, #17171a); }
+.ichart svg.dmap { display: block; width: 100%; height: auto; }
+.ichart .dpath { transition: fill 0.55s ease, opacity 0.35s ease, stroke-width 0.3s ease; cursor: pointer; }
+.ichart .dist { outline: none; }
+.ichart .dlabel { pointer-events: none; font-family: "Bricolage Grotesque", sans-serif; text-anchor: middle; }
+.ichart .dlabel tspan { text-anchor: middle; }
+.ichart .table-title { margin: 22px 0 8px; text-align: center; font: 600 13px "Bricolage Grotesque", sans-serif; color: var(--ink-soft, rgba(23, 23, 26, 0.72)); }
+.ichart table.heat th.sel, .ichart table.heat td.sel { box-shadow: inset 0 0 0 2px var(--ink, #17171a); }
+.ichart table.heat tr.on th[scope="row"] { color: var(--blue-deep, #157a4d); }
+.ichart .th-btn { padding: 0; border: 0; background: none; cursor: pointer; font: inherit; color: inherit; }
+.ichart .th-btn:hover { text-decoration: underline; }
+@media (max-width: 640px) { .ichart .year-btn { min-width: 0; padding: 8px 11px; } }
+
+/* grafico inicial: titulo em verde */
+.ichart[data-chart="historical_arc"] .chart-title { color: var(--blue-deep, #157a4d); }
+
+/* PDF: texto dos graficos maior (12,5px = 9,4pt) e cores mais firmes */
+.print-mode .ichart .recharts-wrapper text { font-size: 12.5px !important; }
+.print-mode .ichart .chart-sub { font-size: 14px; color: rgba(23, 23, 26, 0.8); }
+.print-mode .ichart .chart-title { font-size: 1.3rem; }
+.print-mode .ichart .legend-chip { font-size: 13px; }
+.print-mode .ichart .heat-scale, .print-mode .ichart .scale-note, .print-mode .ichart .table-title { color: rgba(23, 23, 26, 0.8); font-size: 12.5px; }
+.print-mode .ichart table.heat { font-size: 14px; }
+.print-mode .ichart .dmaps.two { grid-template-columns: 1fr; gap: 12px; }
+.print-mode .ichart .dmap-wrap { width: 100%; max-width: 580px; margin: 0 auto; break-inside: avoid; }

@@ -19,6 +19,7 @@ import {
 import type {
   CartesianSpec,
   ChartSpec,
+  DistrictMapSpec,
   GridSpec,
   HeatmapSpec,
   MultiplesSpec,
@@ -30,7 +31,7 @@ import type {
   Unit,
 } from "./types";
 import { useI18n } from "./i18n";
-import { COLORS, FONT, GRID, INK, heatColor, prefersReducedMotion } from "./theme";
+import { COLORS, FONT, GRID, HEAT_HI, HEAT_LO, INK, heatColor, prefersReducedMotion } from "./theme";
 
 const tick = { fontSize: 11, fill: INK, fontFamily: FONT };
 const labelStyle = { fontSize: 11, fill: INK, fontFamily: FONT, fontWeight: 600 };
@@ -114,19 +115,30 @@ function CartesianChart({ spec }: { spec: CartesianSpec }) {
   const stacked = bars.some((b) => b.stackId);
   const showBarLabels = spec.rows.length <= (narrow ? 5 : 8) && !hasRight && !stacked && bars.length > 0 && lines.length === 0;
   const maxLen = Math.max(...spec.rows.map((r) => String(r.x).length));
-  const tilt = spec.tiltX || (spec.rows.length > 3 && maxLen > (narrow ? 8 : 12));
+  const tilt = !spec.subKey && (spec.tiltX || (spec.rows.length > 3 && maxLen > (narrow ? 8 : 12)));
   const interval = spec.denseX ? Math.ceil(spec.rows.length / (narrow ? 5 : 9)) : 0;
   const yW = narrow ? 44 : hasRight ? 60 : 64;
 
   const legendItems: LegendItem[] = singleColored
     ? [
-        ...(spec.rows.some((r) => r.side === "adversario") ? [{ key: "adv", label: t.before, color: COLORS.adversario }] : []),
-        ...(spec.rows.some((r) => r.side === "grupo") ? [{ key: "grp", label: t.after, color: COLORS.grupo }] : []),
+        ...(spec.rows.some((r) => r.side === "adversario") ? [{ key: "adv", label: spec.sideLegend?.adversario ?? t.before, color: COLORS.adversario }] : []),
+        ...(spec.rows.some((r) => r.side === "grupo") ? [{ key: "grp", label: spec.sideLegend?.grupo ?? t.after, color: COLORS.grupo }] : []),
         ...(spec.rows.some((r) => r.side === "neutro") ? [{ key: "ref", label: t.reference, color: COLORS.neutro }] : []),
       ]
     : spec.layers.map((l) => ({ key: l.key, label: l.label, color: COLORS[l.color] }));
 
   const sideFill = (row: (typeof spec.rows)[number], fallback: Side) => COLORS[(row.side as Side) ?? fallback] ?? COLORS[fallback];
+
+  /** Rotulo do eixo X em duas linhas: valor de x e, embaixo, o texto de spec.subKey. */
+  const SubTick = ({ x, y, payload }: any) => {
+    const row = spec.rows.find((r) => String(r.x) === String(payload.value));
+    return (
+      <g transform={`translate(${x},${y})`}>
+        <text dy={16} textAnchor="middle" style={{ ...tick, fontWeight: 600 }}>{payload.value}</text>
+        <text dy={31} textAnchor="middle" style={{ ...tick, fontSize: narrow ? 9.5 : 10.5, fill: "rgba(23,23,26,0.62)" }}>{String(row?.[spec.subKey ?? ""] ?? "")}</text>
+      </g>
+    );
+  };
 
   const CartesianTip = ({ active, payload, label }: any) => {
     if (!active || !payload?.length) return null;
@@ -148,17 +160,17 @@ function CartesianChart({ spec }: { spec: CartesianSpec }) {
     <>
       <div className="chart-box" style={{ height: tilt ? (narrow ? 360 : 380) : narrow ? 300 : 340 }}>
         <ResponsiveContainer width="100%" height="100%">
-          <ComposedChart data={spec.rows} margin={{ top: 22, right: hasRight ? 4 : narrow ? 8 : 16, left: 0, bottom: tilt ? 4 : 8 }} barCategoryGap={spec.denseX ? 0 : "22%"} barGap={4}>
+          <ComposedChart data={spec.rows} margin={{ top: 22, right: hasRight ? 4 : yW - 4, left: 0, bottom: tilt ? 4 : 8 }} barCategoryGap={spec.denseX ? 0 : "22%"} barGap={4}>
             <CartesianGrid stroke={GRID} vertical={false} />
             <XAxis
               dataKey="x"
-              tick={{ ...tick, fontSize: narrow ? 10 : 11 }}
+              tick={spec.subKey ? <SubTick /> : { ...tick, fontSize: narrow ? 10 : 11 }}
               tickLine={false}
               axisLine={{ stroke: GRID }}
               interval={interval}
-              angle={tilt ? -35 : 0}
-              textAnchor={tilt ? "end" : "middle"}
-              height={tilt ? (narrow ? 84 : 78) : 30}
+              angle={tilt && !spec.subKey ? -35 : 0}
+              textAnchor={tilt && !spec.subKey ? "end" : "middle"}
+              height={spec.subKey ? 46 : tilt ? (narrow ? 84 : 78) : 30}
               tickMargin={6}
             />
             <YAxis
@@ -168,6 +180,7 @@ function CartesianChart({ spec }: { spec: CartesianSpec }) {
               axisLine={false}
               width={yW}
               domain={spec.yDomain ?? [0, "auto"]}
+              ticks={spec.yTicks}
               allowDecimals={false}
               tickFormatter={(v: number) => fmtAxis(spec.unit, v)}
             />
@@ -184,7 +197,7 @@ function CartesianChart({ spec }: { spec: CartesianSpec }) {
                 tickFormatter={(v: number) => fmtAxis(rightUnit, v)}
               />
             )}
-            <Tooltip content={<CartesianTip />} cursor={bars.length ? { fill: "rgba(23,23,26,0.04)" } : { stroke: "rgba(23,23,26,0.22)", strokeWidth: 1 }} />
+            <Tooltip content={<CartesianTip />} cursor={bars.length ? false : { stroke: "rgba(23,23,26,0.22)", strokeWidth: 1 }} />
             {bars.map((l) => (
               <Bar
                 key={l.key}
@@ -352,7 +365,7 @@ function PanelsChart({ spec }: { spec: PanelsSpec }) {
                     <CartesianGrid horizontal={false} stroke={GRID} />
                     <XAxis type="number" domain={[0, max]} hide />
                     <YAxis type="category" dataKey="label" width={labelW} tick={{ ...tick, fontSize: narrow ? 10.5 : 11 }} tickLine={false} axisLine={false} interval={0} />
-                    <Tooltip content={<PanelTip />} cursor={{ fill: "rgba(23,23,26,0.05)" }} />
+                    <Tooltip content={<PanelTip />} cursor={false} />
                     <Bar dataKey="value" radius={[0, 4, 4, 0]} barSize={22} isAnimationActive={!reduce} animationDuration={700}>
                       {panel.rows.map((r, i) => <Cell key={i} fill={COLORS[r.side]} />)}
                       <LabelList dataKey="value" content={(props: any) => <text x={Number(props.x) + Number(props.width) + 8} y={Number(props.y) + Number(props.height) / 2} dy={4} style={labelStyle}>{fmt(spec.unit, Number(props.value))}</text>} />
@@ -400,8 +413,119 @@ function HeatmapChart({ spec }: { spec: HeatmapSpec }) {
           </tbody>
         </table>
       </div>
-      <div className="heat-scale" aria-hidden="true"><span>0%</span><div className="heat-bar" /><span>100%</span></div>
+      <div className="heat-scale" aria-hidden="true"><span>≤{HEAT_LO}%</span><div className="heat-bar" /><span>≥{HEAT_HI}%</span></div>
     </div>
+  );
+}
+
+
+/* ------------------------------------------------------------------ */
+/* Mapa dos distritos: cada distrito entre vermelho e verde, um botao por eleicao */
+/* ------------------------------------------------------------------ */
+
+const LABEL_LINES: Record<string, string[]> = {
+  "São Bento de Urânia": ["São Bento", "de Urânia"],
+  "Ribeirão do Cristo": ["Ribeirão", "do Cristo"],
+  "Sagrada Família": ["Sagrada", "Família"],
+};
+
+function DistrictMapChart({ spec }: { spec: DistrictMapSpec }) {
+  const { t, fmt } = useI18n();
+  const narrow = useNarrow();
+  const printing = typeof document !== "undefined" && document.documentElement.classList.contains("print-mode");
+  const [year, setYear] = useState(spec.years[spec.years.length - 1]);
+  const [active, setActive] = useState<string | null>(null);
+  const shown = printing ? [2020, 2024].filter((y) => spec.years.includes(y)) : [year];
+  const pct = (name: string, y: number) => {
+    const v = spec.districts.find((d) => d.name === name)?.values[String(y)];
+    return v ? (v[0] / v[1]) * 100 : null;
+  };
+  const cur = spec.districts.find((d) => d.name === active);
+  const curVals = cur?.values[String(year)];
+  const [, , vw, vh] = spec.viewBox.split(" ").map(Number);
+  const labelFont = narrow ? 30 : 19;
+
+  const renderMap = (y: number) => (
+    <svg key={y} className="dmap" viewBox={spec.viewBox} role="group" aria-label={`${t.mapAria}, ${y}`}>
+      {spec.districts.map((d) => {
+        const v = pct(d.name, y);
+        const c = v === null ? { bg: "#e6e6e6", fg: INK } : heatColor(v);
+        const on = active === d.name;
+        const dim = active !== null && !on && !printing;
+        const parts = LABEL_LINES[d.name] ?? [d.name];
+        const showName = !narrow;
+        const nameSize = labelFont * 0.78;
+        const pctSize = labelFont * 1.05;
+        const total = showName ? parts.length * nameSize * 1.1 + pctSize * 1.15 : pctSize;
+        const top = d.ly - total / 2 + nameSize * 0.85;
+        return (
+          <g key={d.name} tabIndex={0} role="img" aria-label={`${d.name}, ${y}: ${fmt("pct", v)}`} className={`dist${on ? " on" : ""}`}
+            onMouseEnter={() => setActive(d.name)} onMouseLeave={() => setActive(null)} onFocus={() => setActive(d.name)} onBlur={() => setActive(null)} onClick={() => setActive(d.name)}>
+            <path d={d.path} fill={c.bg} stroke="#ffffff" strokeWidth={on ? 5 : 3} strokeLinejoin="round" opacity={dim ? 0.55 : 1} className="dpath" />
+            <text className="dlabel" fill={c.fg} opacity={dim ? 0.7 : 1}>
+              {showName && parts.map((p, i) => (
+                <tspan key={i} x={d.lx} y={top + i * nameSize * 1.1} style={{ fontWeight: 500, fontSize: nameSize }}>{p}</tspan>
+              ))}
+              <tspan x={d.lx} y={showName ? top + parts.length * nameSize * 1.1 + pctSize * 0.15 : d.ly + pctSize * 0.35} style={{ fontWeight: 700, fontSize: pctSize }}>{fmt("pct", v)}</tspan>
+            </text>
+          </g>
+        );
+      })}
+    </svg>
+  );
+
+  return (
+    <>
+      {!printing && (
+        <div className="year-buttons" role="group" aria-label={t.electionButtons}>
+          {spec.years.map((y) => (
+            <button key={y} type="button" className={`year-btn${y === year ? " on" : ""}`} aria-pressed={y === year} onClick={() => setYear(y)}>{y}</button>
+          ))}
+        </div>
+      )}
+      <div className={`dmaps${printing ? " two" : ""}`} style={printing ? undefined : { aspectRatio: `${vw} / ${vh}` }}>
+        {shown.map((y) => (
+          <div key={y} className="dmap-wrap">
+            {printing && <div className="dmap-year">{y}</div>}
+            {renderMap(y)}
+          </div>
+        ))}
+      </div>
+      <p className="hover-readout" aria-live="polite">
+        {cur ? (
+          <><b>{cur.name}</b> · {year}: <b>{fmt("pct", curVals ? (curVals[0] / curVals[1]) * 100 : null)}</b> {t.ofValid}
+            {curVals && <> ({t.votesOf(curVals[0], curVals[1])})</>}</>
+        ) : t.mapHint}
+      </p>
+      <div className="heat-scale" aria-hidden="true"><span>≤{HEAT_LO}% · {t.scaleLow}</span><div className="heat-bar" /><span>{t.scaleHigh} · ≥{HEAT_HI}%</span></div>
+      <p className="table-title">{t.tableTitle}</p>
+      <div className="table-scroll heat-wrap">
+        <table className="heat">
+          <thead>
+            <tr>
+              <th scope="col" className="corner">{t.district}</th>
+              {spec.years.map((y) => (
+                <th key={y} scope="col" className={!printing && y === year ? "sel" : ""}>
+                  {printing ? y : <button type="button" className="th-btn" onClick={() => setYear(y)}>{y}</button>}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {spec.districts.map((d) => (
+              <tr key={d.name} className={!printing && active === d.name ? "on" : ""} onMouseEnter={() => setActive(d.name)} onMouseLeave={() => setActive(null)}>
+                <th scope="row">{d.name}</th>
+                {spec.years.map((y) => {
+                  const v = pct(d.name, y);
+                  const c = v === null ? null : heatColor(v);
+                  return <td key={y} className={!printing && y === year ? "sel" : ""} style={c ? { background: c.bg, color: c.fg } : undefined} title={`${d.name}, ${y}: ${fmt("pct", v)}`}>{fmt("pct", v)}</td>;
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 }
 
@@ -609,6 +733,7 @@ export function ChartBody({ spec }: { spec: ChartSpec }) {
     case "cartesian": return <CartesianChart spec={spec} />;
     case "panels": return <PanelsChart spec={spec} />;
     case "multiples": return <MultiplesChart spec={spec} />;
+    case "districtmap": return <DistrictMapChart spec={spec} />;
     case "heatmap": return <HeatmapChart spec={spec} />;
     case "slope": return <SlopeChart spec={spec} />;
     case "grid": return <GridChart spec={spec} />;

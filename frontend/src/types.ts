@@ -32,10 +32,15 @@ export interface CartesianSpec extends Base {
   rows: Row[];
   unit: Unit;
   yDomain?: [number, number];
+  yTicks?: number[];
   rightUnit?: Unit;
   rightDomain?: [number, number];
   denseX?: boolean;
   tiltX?: boolean;
+  /** Chave da linha exibida em segunda linha sob o rotulo do eixo X (ex.: o partido sob o ano). */
+  subKey?: string;
+  /** Nomes da legenda por cor quando o grafico pinta cada barra pelo lado (ex.: Derrota / Vitoria). */
+  sideLegend?: Partial<Record<Side, string>>;
 }
 
 export interface PanelRow {
@@ -56,6 +61,13 @@ export interface MultiplesSpec extends Base {
   layers: Layer[];
   unit: Unit;
   panels: { title: string; rows: Row[] }[];
+}
+
+export interface DistrictMapSpec extends Base {
+  kind: "districtmap";
+  viewBox: string;
+  years: number[];
+  districts: { name: string; path: string; lx: number; ly: number; values: Record<string, [number, number]> }[];
 }
 
 export interface HeatmapSpec extends Base {
@@ -87,4 +99,4 @@ export interface TimelineSpec extends Base {
   polls: { registro: string; instituto: string; data: string }[];
 }
 
-export type ChartSpec = CartesianSpec | PanelsSpec | MultiplesSpec | HeatmapSpec | SlopeSpec | GridSpec | ScatterSpec | TimelineSpec;
+export type ChartSpec = CartesianSpec | PanelsSpec | MultiplesSpec | DistrictMapSpec | HeatmapSpec | SlopeSpec | GridSpec | ScatterSpec | TimelineSpec;
