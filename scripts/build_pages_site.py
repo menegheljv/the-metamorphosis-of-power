@@ -26,13 +26,13 @@ SITE = BASE / "site"
 PAGES = {
     "pt": {
         "src": OUT / "case_study.html", "dest": "index.html", "lang": "pt-BR", "prefix": "./",
-        "switch": ("en/", "Read in English"), "pdf": "metamorfose-do-poder-2004-2024.pdf",
+        "switch": ("en/", "Read in English"), "pdf": "a-metamorfose-do-poder-em-alfredo-chaves.pdf",
         "description": "A metamorfose do poder em Alfredo Chaves (ES): estudo de caso sobre as eleições municipais de 2004 a 2024, "
                        "com gráficos interativos, a partir de dados abertos do TSE e do IBGE.",
     },
     "en": {
         "src": OUT / "case_study_en.html", "dest": "en/index.html", "lang": "en", "prefix": "../",
-        "switch": ("../", "Ler em Português"), "pdf": "the-metamorphosis-of-power-2004-2024.pdf",
+        "switch": ("../", "Ler em Português"), "pdf": "the-metamorphosis-of-power-in-alfredo-chaves.pdf",
         "description": "The metamorphosis of power in Alfredo Chaves, ES, Brazil: a case study on the 2004-2024 municipal elections, "
                        "with interactive charts, built from TSE and IBGE open data.",
     },
@@ -98,10 +98,6 @@ def main() -> None:
     (SITE / "study" / "en").mkdir(parents=True)
     (SITE / "study" / "index.html").write_text(redirect("../"), encoding="utf-8")
     (SITE / "study" / "en" / "index.html").write_text(redirect("../../en/"), encoding="utf-8")
-    pt_pdf = OUT / PAGES["pt"]["pdf"]
-    if pt_pdf.exists():
-        shutil.copy2(pt_pdf, SITE / "study" / pt_pdf.name)
-
     total = sum(f.stat().st_size for f in SITE.rglob("*") if f.is_file())
     print(f"Site montado em {SITE} ({total / 1e6:.1f} MB)")
 

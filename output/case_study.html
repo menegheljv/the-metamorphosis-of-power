@@ -1,4 +1,4 @@
-<title>A Metamorfose do Poder</title>
+<title>A Metamorfose do Poder em Alfredo Chaves</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
@@ -132,6 +132,13 @@
   .ichart { min-height: 40px; }
   @media print { .exhibit:has([data-chart="distritos_votos"]), .exhibit:has([data-chart="distritos_heatmap"]) { break-inside: auto; } }
   .ichart .chart-fallback { margin: 0; font-size: 13px; color: var(--caption); }
+  .table-exhibit .table-title { margin: 0; text-align: center; text-transform: uppercase; text-wrap: balance; font: 700 clamp(0.98rem, 2.6vw, 1.2rem)/1.18 "Bricolage Grotesque", sans-serif; letter-spacing: 0.02em; color: #4d4d4d; }
+  .table-exhibit .table-sub { margin: 6px auto 6px; text-align: center; font-size: 13px; color: var(--caption); }
+  .table-exhibit .table-label { margin: 22px 0 8px; text-align: center; font: 600 14px "Bricolage Grotesque", sans-serif; color: var(--ink); }
+  .table-exhibit .table-scroll { border: 0; border-radius: 0; }
+  .table-exhibit table.data td:last-child, .table-exhibit table.data th:last-child { text-align: left; }
+  .table-exhibit figcaption span { display: block; }
+  .table-exhibit figcaption span + span { margin-top: 6px; }
   .print-actions .pdf-btn {
     border: 1px solid var(--blue-deep);
     border-radius: 999px;
@@ -531,7 +538,12 @@
     h1, h2, h3, .eyebrow, .kicker { break-after: avoid; }
     p, li { orphans: 3; widows: 3; }
     figcaption { font-size: 11pt; color: rgba(23,23,26,0.86); }
-    table.data { font-size: 10pt; }
+    .table-scroll { overflow: visible; }
+    table.data { font-size: 9pt; min-width: 0; }
+    table.data td, table.data th { white-space: normal; padding: 3px 6px; }
+    .table-exhibit .exhibit-body { padding: 14px 12px 8px; }
+    .table-exhibit .table-label { margin: 12px 0 4px; }
+    .table-exhibit figcaption { font-size: 9.5pt; padding: 8px 14px 12px; }
     a { color: inherit; text-decoration: none; }
   }
 </style>
@@ -549,7 +561,7 @@
       <span><strong>Fonte:</strong> dadosabertos.tse.jus.br</span>
     </div>
     <div class="print-actions">
-      <a class="pdf-btn" href="metamorfose-do-poder-2004-2024.pdf" download>Baixar estudo em PDF</a>
+      <a class="pdf-btn" href="a-metamorfose-do-poder-em-alfredo-chaves.pdf" download="A Metamorfose do Poder em Alfredo Chaves.pdf">Baixar estudo em PDF</a>
       <span>PDF estático, com os mesmos gráficos do estudo.</span>
     </div>
 
@@ -734,15 +746,13 @@
     <p>O tamanho da coligação, porém, <strong>não explica a vitória sozinho</strong>: em 2016, o candidato concorreu pela maior coligação de toda a série (9 partidos) e mesmo assim perdeu, com 48,0% dos votos. Em 2020, com a menor coligação (3 partidos), também perdeu. A coligação de 2024 (5 partidos: Republicanos, PP, MDB e Federação PSDB&#8209;Cidadania) tem tamanho mediano na série, nem a maior nem a menor.</p>
     <p>Do lado adversário, o padrão é o oposto. Nas cinco eleições perdidas por este grupo, entre 2004 e 2020, quem venceu foi sempre o <strong>PSB</strong>: Dr. Fernando levou 2004, 2008, 2016 e 2020, e Roberto Fiorin, também PSB, levou 2012, quatro mandatos e dois nomes diferentes sob a mesma legenda, vinte anos seguidos. Essa sequência só se rompe em 2024, quando Rolmar Boteccia tenta manter o PSB no poder e perde para o PP de Hugo Luiz. Ou seja, enquanto o lado que perdia trocava de partido a cada pleito, o lado que vencia tinha uma legenda estável havia duas décadas. Foi justamente essa estabilidade que quebrou em 2024, junto com o resultado.</p>
 
-        <figure class="exhibit">
-      <div class="exhibit-head"><span class="tag">Figura 5.1</span><span class="cap">Partido do candidato do grupo e tamanho da coligação, 2004–2024</span></div>
+    <figure class="exhibit table-exhibit">
+      <div class="exhibit-head"><span class="tag">Tabela 5.1</span><span class="cap">Partido, espectro e coligação do grupo e de quem venceu, 2004–2024</span></div>
       <div class="exhibit-body">
-        <div class="ichart" data-chart="partidos_coligacao"><p class="chart-fallback">Gráfico de barras com o número de partidos na coligação do candidato do grupo em cada eleição: 5 em 2004 (PT), 5 em 2008 (PSDB), 6 em 2012 (PSD), 9 em 2016 (PMDB), 3 em 2020 (Republicanos) e 5 em 2024 (PP). As cinco primeiras são derrotas, em vermelho, e 2024 é a vitória, em verde.</p></div>
-      </div>
-      <figcaption>O candidato do grupo trocou de partido a cada eleição, do PT (esquerda) em 2004 ao PP (direita) em 2024. O tamanho da coligação não acompanha o resultado: a maior (9 partidos, em 2016) e a menor (3, em 2020) terminaram em derrota, e a única vitória, em 2024, veio com uma coligação mediana, de 5 partidos.</figcaption>
-    </figure>
-
-    <div class="table-scroll">
+        <div class="table-title">PARTIDO, ESPECTRO E COLIGAÇÃO A CADA ELEIÇÃO</div>
+        <p class="table-sub">o candidato do grupo e o vencedor da disputa, eleição a eleição</p>
+        <h4 class="table-label">Candidato do grupo</h4>
+        <div class="table-scroll">
       <table class="data stack-mobile">
         <thead>
           <tr><th>Ano</th><th>Partido do grupo</th><th>Espectro</th><th class="num">Partidos</th><th>Coligação</th></tr>
@@ -757,9 +767,8 @@
         </tbody>
       </table>
     </div>
-    <p style="font-size:13px;color:var(--caption)">Fonte: <code>consulta_cand</code>, campo <code>DS_COMPOSICAO_COLIGACAO</code>, TSE, por ano. Espectro classificado pelo partido de registro da candidatura (legenda principal), não pela coligação inteira. Linha em verde é a única vitória da série; as outras cinco são derrota (o tamanho da coligação de cada uma está discutido no texto acima).</p>
-
-    <div class="table-scroll">
+        <h4 class="table-label">Candidato vencedor</h4>
+        <div class="table-scroll">
       <table class="data stack-mobile">
         <thead>
           <tr><th>Ano</th><th>Vencedor</th><th>Partido</th><th>Espectro</th><th class="num">Partidos</th><th>Coligação</th></tr>
@@ -774,7 +783,9 @@
         </tbody>
       </table>
     </div>
-    <p style="font-size:13px;color:var(--caption)">Fonte: <code>consulta_cand</code>, campos <code>SG_PARTIDO</code>, <code>DS_COMPOSICAO_COLIGACAO</code> e <code>DS_SIT_TOT_TURNO</code>, TSE, por ano. Espectro classificado pelo partido de registro do vencedor, não pela coligação inteira.</p>
+      </div>
+      <figcaption><span>Fonte: <code>consulta_cand</code>, campo <code>DS_COMPOSICAO_COLIGACAO</code>, TSE, por ano. Espectro classificado pelo partido de registro da candidatura (legenda principal), não pela coligação inteira. Linha em verde é a única vitória da série; as outras cinco são derrota (o tamanho da coligação de cada uma está discutido no texto acima).</span><span>Fonte: <code>consulta_cand</code>, campos <code>SG_PARTIDO</code>, <code>DS_COMPOSICAO_COLIGACAO</code> e <code>DS_SIT_TOT_TURNO</code>, TSE, por ano. Espectro classificado pelo partido de registro do vencedor, não pela coligação inteira.</span></figcaption>
+    </figure>
 
     <h3>Onde o grupo era forte, onde era fraco</h3>
     <p>Alfredo Chaves tem 7 distritos oficiais: a sede e mais seis distritos rurais (Crubixá, Ibitiruí, Matilde, Ribeirão do Cristo, Sagrada Família e São Bento de Urânia). Cruzamos o local de votação de cada seção, e por ele o distrito, com a votação do candidato do grupo em cada uma das seis eleições, para ver se a virada foi uniforme pelo território ou concentrada em algum canto do município.</p>

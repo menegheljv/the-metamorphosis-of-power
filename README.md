@@ -49,8 +49,8 @@ Paleta semântica: verde `#1f9d63` é o grupo, vermelho `#c8433a` o adversário,
 
 ### Baixar o estudo em PDF
 
-O botão **Baixar estudo em PDF** baixa um arquivo estático (`metamorfose-do-poder-2004-2024.pdf`
-em português, `the-metamorphosis-of-power-2004-2024.pdf` em inglês) com os gráficos no
+O botão **Baixar estudo em PDF** baixa um arquivo estático (`a-metamorfose-do-poder-em-alfredo-chaves.pdf`
+em português, `the-metamorphosis-of-power-in-alfredo-chaves.pdf` em inglês) com os gráficos no
 mesmo estilo dos interativos. Ele é gerado imprimindo a própria página (`?print`, sem
 animação, todos os gráficos montados) no Chrome/Edge headless:
 

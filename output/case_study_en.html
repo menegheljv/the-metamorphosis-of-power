@@ -1,4 +1,4 @@
-<title>The Metamorphosis of Power</title>
+<title>The Metamorphosis of Power in Alfredo Chaves</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
@@ -132,6 +132,13 @@
   .ichart { min-height: 40px; }
   @media print { .exhibit:has([data-chart="distritos_votos"]), .exhibit:has([data-chart="distritos_heatmap"]) { break-inside: auto; } }
   .ichart .chart-fallback { margin: 0; font-size: 13px; color: var(--caption); }
+  .table-exhibit .table-title { margin: 0; text-align: center; text-transform: uppercase; text-wrap: balance; font: 700 clamp(0.98rem, 2.6vw, 1.2rem)/1.18 "Bricolage Grotesque", sans-serif; letter-spacing: 0.02em; color: #4d4d4d; }
+  .table-exhibit .table-sub { margin: 6px auto 6px; text-align: center; font-size: 13px; color: var(--caption); }
+  .table-exhibit .table-label { margin: 22px 0 8px; text-align: center; font: 600 14px "Bricolage Grotesque", sans-serif; color: var(--ink); }
+  .table-exhibit .table-scroll { border: 0; border-radius: 0; }
+  .table-exhibit table.data td:last-child, .table-exhibit table.data th:last-child { text-align: left; }
+  .table-exhibit figcaption span { display: block; }
+  .table-exhibit figcaption span + span { margin-top: 6px; }
   .print-actions .pdf-btn {
     border: 1px solid var(--blue-deep);
     border-radius: 999px;
@@ -531,7 +538,12 @@
     h1, h2, h3, .eyebrow, .kicker { break-after: avoid; }
     p, li { orphans: 3; widows: 3; }
     figcaption { font-size: 11pt; color: rgba(23,23,26,0.86); }
-    table.data { font-size: 10pt; }
+    .table-scroll { overflow: visible; }
+    table.data { font-size: 9pt; min-width: 0; }
+    table.data td, table.data th { white-space: normal; padding: 3px 6px; }
+    .table-exhibit .exhibit-body { padding: 14px 12px 8px; }
+    .table-exhibit .table-label { margin: 12px 0 4px; }
+    .table-exhibit figcaption { font-size: 9.5pt; padding: 8px 14px 12px; }
     a { color: inherit; text-decoration: none; }
   }
 </style>
@@ -549,7 +561,7 @@
       <span><strong>Source:</strong> dadosabertos.tse.jus.br</span>
     </div>
     <div class="print-actions">
-      <a class="pdf-btn" href="the-metamorphosis-of-power-2004-2024.pdf" download>Download study as PDF</a>
+      <a class="pdf-btn" href="the-metamorphosis-of-power-in-alfredo-chaves.pdf" download="The Metamorphosis of Power in Alfredo Chaves.pdf">Download study as PDF</a>
       <span>Static PDF with the same charts as the study.</span>
     </div>
 
@@ -734,15 +746,13 @@
     <p>Coalition size, though, <strong>doesn't explain the win on its own</strong>: in 2016, the candidate ran with the largest coalition of the whole series (9 parties) and still lost, with 48.0% of the vote. In 2020, with the smallest coalition (3 parties), he also lost. The 2024 coalition (5 parties: Republicanos, PP, MDB and the PSDB&#8209;Cidadania federation) is mid-sized within the series, neither the largest nor the smallest.</p>
     <p>On the opposing side, the pattern is the reverse. In the five elections this group lost, between 2004 and 2020, the winner was always <strong>PSB</strong>: Dr. Fernando took 2004, 2008, 2016 and 2020, and Roberto Fiorin, also PSB, took 2012, four terms and two different names under the same party label, twenty years straight. That streak only breaks in 2024, when Rolmar Boteccia tries to keep PSB in power and loses to Hugo Luiz's PP. In other words, while the losing side changed parties every election, the winning side had a stable label for two decades. It was precisely that stability that broke in 2024, along with the result.</p>
 
-        <figure class="exhibit">
-      <div class="exhibit-head"><span class="tag">Figure 5.1</span><span class="cap">The group candidate's party and coalition size, 2004–2024</span></div>
+    <figure class="exhibit table-exhibit">
+      <div class="exhibit-head"><span class="tag">Table 5.1</span><span class="cap">Party, spectrum and coalition of the group and of the winner, 2004–2024</span></div>
       <div class="exhibit-body">
-        <div class="ichart" data-chart="partidos_coligacao"><p class="chart-fallback">Bar chart with the number of parties in the group candidate's coalition at each election: 5 in 2004 (PT), 5 in 2008 (PSDB), 6 in 2012 (PSD), 9 in 2016 (PMDB), 3 in 2020 (Republicanos) and 5 in 2024 (PP). The first five are losses, in red, and 2024 is the win, in green.</p></div>
-      </div>
-      <figcaption>The group's candidate changed party at every election, from PT (left) in 2004 to PP (right) in 2024. Coalition size does not track the result: the largest (9 parties, in 2016) and the smallest (3, in 2020) both ended in defeat, and the only win, in 2024, came with a median-sized coalition of 5 parties.</figcaption>
-    </figure>
-
-    <div class="table-scroll">
+        <div class="table-title">PARTY, SPECTRUM AND COALITION AT EACH ELECTION</div>
+        <p class="table-sub">the group's candidate and the winner of each race, election by election</p>
+        <h4 class="table-label">Group's candidate</h4>
+        <div class="table-scroll">
       <table class="data stack-mobile">
         <thead>
           <tr><th>Year</th><th>Group's party</th><th>Spectrum</th><th class="num">Parties</th><th>Coalition</th></tr>
@@ -757,9 +767,8 @@
         </tbody>
       </table>
     </div>
-    <p style="font-size:13px;color:var(--caption)">Source: <code>consulta_cand</code>, field <code>DS_COMPOSICAO_COLIGACAO</code>, TSE, per year. Spectrum classified by the candidacy's party of registration (lead party), not the whole coalition. The green row is the only win in the series; the other five are losses (each coalition's size is discussed in the text above).</p>
-
-    <div class="table-scroll">
+        <h4 class="table-label">Winning candidate</h4>
+        <div class="table-scroll">
       <table class="data stack-mobile">
         <thead>
           <tr><th>Year</th><th>Winner</th><th>Party</th><th>Spectrum</th><th class="num">Parties</th><th>Coalition</th></tr>
@@ -774,7 +783,9 @@
         </tbody>
       </table>
     </div>
-    <p style="font-size:13px;color:var(--caption)">Source: <code>consulta_cand</code>, fields <code>SG_PARTIDO</code>, <code>DS_COMPOSICAO_COLIGACAO</code> and <code>DS_SIT_TOT_TURNO</code>, TSE, per year. Spectrum classified by the winner's party of registration, not the whole coalition.</p>
+      </div>
+      <figcaption><span>Source: <code>consulta_cand</code>, field <code>DS_COMPOSICAO_COLIGACAO</code>, TSE, per year. Spectrum classified by the candidacy's party of registration (lead party), not the whole coalition. The green row is the only win in the series; the other five are losses (each coalition's size is discussed in the text above).</span><span>Source: <code>consulta_cand</code>, fields <code>SG_PARTIDO</code>, <code>DS_COMPOSICAO_COLIGACAO</code> and <code>DS_SIT_TOT_TURNO</code>, TSE, per year. Spectrum classified by the winner's party of registration, not the whole coalition.</span></figcaption>
+    </figure>
 
     <h3>Where the group was strong, where it was weak</h3>
     <p>Alfredo Chaves has 7 official districts: the seat and six rural districts (Crubixá, Ibitiruí, Matilde, Ribeirão do Cristo, Sagrada Família and São Bento de Urânia). We cross-referenced each precinct's polling location, and through it its district, with the group's candidate's vote share in each of the six elections, to see whether the turnaround was even across the territory or concentrated in one corner of the municipality.</p>

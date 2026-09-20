@@ -280,43 +280,6 @@ def build(lang: str) -> list[dict]:
             "in 2024; the opposition stays above the group through 2020 (from 66.9% to 56.4%) and drops to 31.9% in 2024."),
     ))
 
-    # ---- 5.1 Uma legenda diferente a cada eleicao -----------------------------------------
-    espectro = {2004: L("Esquerda", "Left"), 2008: L("Centro-direita", "Center-right"), 2012: L("Centro-direita", "Center-right"),
-                2016: L("Centro", "Center"), 2020: L("Direita", "Right"), 2024: L("Direita", "Right")}
-    coligacao = {2004: "PPS / PT / PSDB / PTN / PT do B", 2008: "PTB / PSDB / PMDB / PT do B / PPS", 2012: "PT / PTB / PMDB / PPS / DEM / PSD",
-                 2016: "PMDB / PPS / PSD / PTB / PT / PDT / PATRIOTA / REDE / DEM", 2020: "PTB / REPUBLICANOS / PATRIOTA",
-                 2024: "REPUBLICANOS / PP / MDB / Federação PSDB-Cidadania"}
-    parts = pd.read_csv(OUT / "powerbi" / "partido_por_ano.csv")
-    rows51 = []
-    for r in parts.itertuples():
-        ano = int(r.Ano)
-        win = r.Resultado == "Vitoria"
-        rows51.append({
-            "x": str(ano), "sub": r.Partido_Grupo, "v": int(r.Num_Partidos_Coligacao), "side": "grupo" if win else "adversario",
-            "note": f"{espectro[ano]} · {coligacao[ano]} · " + L(f"{'vitória' if win else 'derrota'}, {dec(g[ano])}% dos votos",
-                                                                 f"{'win' if win else 'loss'}, {dec(g[ano])}% of the vote"),
-        })
-    sizes = [x["v"] for x in rows51]
-    assert max(sizes) == 9 and min(sizes) == 3 and rows51[3]["v"] == 9 and rows51[4]["v"] == 3 and sorted(sizes)[len(sizes) // 2 - 1: len(sizes) // 2 + 1] == [5, 5]
-    charts.append(spec(
-        "partidos_coligacao", "5.1", L("UMA LEGENDA DIFERENTE A CADA ELEIÇÃO", "A DIFFERENT PARTY EVERY ELECTION"),
-        L("partido do candidato do grupo (sob o ano) e número de partidos na coligação",
-          "the group candidate's party (under the year) and number of parties in the coalition"),
-        "cartesian",
-        layers=[{"type": "bar", "key": "v", "label": L("Partidos na coligação", "Parties in the coalition"), "color": "grupo", "colorBySide": True}],
-        rows=rows51, unit="int", yDomain=[0, 10], yTicks=[0, 2, 4, 6, 8, 10], subKey="sub",
-        sideLegend={"adversario": L("Derrota", "Loss"), "grupo": L("Vitória", "Win")},
-        cap=L("Partido do candidato do grupo e tamanho da coligação, 2004–2024",
-              "The group candidate's party and coalition size, 2004–2024"),
-        caption=L("O candidato do grupo trocou de partido a cada eleição, do PT (esquerda) em 2004 ao PP (direita) em 2024. O tamanho da coligação não acompanha o resultado: "
-                  "a maior (9 partidos, em 2016) e a menor (3, em 2020) terminaram em derrota, e a única vitória, em 2024, veio com uma coligação mediana, de 5 partidos.",
-                  "The group's candidate changed party at every election, from PT (left) in 2004 to PP (right) in 2024. Coalition size does not track the result: "
-                  "the largest (9 parties, in 2016) and the smallest (3, in 2020) both ended in defeat, and the only win, in 2024, came with a median-sized coalition of 5 parties."),
-        alt=L("Gráfico de barras com o número de partidos na coligação do candidato do grupo em cada eleição: 5 em 2004 (PT), 5 em 2008 (PSDB), 6 em 2012 (PSD), "
-              "9 em 2016 (PMDB), 3 em 2020 (Republicanos) e 5 em 2024 (PP). As cinco primeiras são derrotas, em vermelho, e 2024 é a vitória, em verde.",
-              "Bar chart with the number of parties in the group candidate's coalition at each election: 5 in 2004 (PT), 5 in 2008 (PSDB), 6 in 2012 (PSD), "
-              "9 in 2016 (PMDB), 3 in 2020 (Republicanos) and 5 in 2024 (PP). The first five are losses, in red, and 2024 is the win, in green.")))
-
     # ---- 04 Da derrota generalizada a vitoria ------------------------------------------
     slope_rows = [{
         "secao": int(r["NR_SECAO"]),

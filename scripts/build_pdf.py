@@ -8,8 +8,8 @@ usa exatamente o visual dos graficos interativos (mesmas cores, fonte e rotulos)
 Antes:  python scripts/build_artifact.py && python scripts/build_artifact_en.py
         (cd frontend && npm run build) && python scripts/build_pages_site.py
 Uso:    python scripts/build_pdf.py            # PT e EN
-Saida:  output/metamorfose-do-poder-2004-2024.pdf
-        output/the-metamorphosis-of-power-2004-2024.pdf
+Saida:  output/a-metamorfose-do-poder-em-alfredo-chaves.pdf
+        output/the-metamorphosis-of-power-in-alfredo-chaves.pdf
 Requer o Chrome ou o Edge instalado (CHROME_PATH sobrescreve a busca).
 """
 from __future__ import annotations
@@ -27,8 +27,8 @@ SITE = BASE / "site"
 OUT = BASE / "output"
 
 JOBS = [
-    ("/?print", OUT / "metamorfose-do-poder-2004-2024.pdf"),
-    ("/en/?print", OUT / "the-metamorphosis-of-power-2004-2024.pdf"),
+    ("/?print", OUT / "a-metamorfose-do-poder-em-alfredo-chaves.pdf"),
+    ("/en/?print", OUT / "the-metamorphosis-of-power-in-alfredo-chaves.pdf"),
 ]
 
 CANDIDATES = [
