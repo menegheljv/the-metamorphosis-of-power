@@ -438,6 +438,10 @@
   table.data.locais td:nth-child(2), table.data.locais th:nth-child(2) { text-align: left; white-space: normal; }
   @media (max-width: 640px) { table.data.locais { min-width: 0; } table.data.locais td, table.data.locais th { white-space: normal; padding: 8px 6px; } }
   table.data.stack-mobile td:nth-child(2), table.data.stack-mobile th:nth-child(2) { text-align: center; white-space: normal; }
+  table.data.skills { table-layout: fixed; width: 100%; min-width: 0; }
+  table.data.skills.stack-mobile td:nth-child(n), table.data.skills.stack-mobile th:nth-child(n) { text-align: left; white-space: normal; vertical-align: top; padding: 10px 12px; line-height: 1.45; }
+  table.data.skills td:first-child { color: var(--ink); }
+  table.data.skills code { overflow-wrap: anywhere; word-break: break-word; }
   @media (max-width: 640px) {
     table.data.stack-mobile { min-width: 0; width: 100%; }
     table.data.stack-mobile thead { display: none; }
@@ -572,7 +576,7 @@
   <header class="masthead">
     <div class="kicker">Estudo de caso &middot; Análise de dados eleitorais</div>
     <h1 class="title">A metamorfose do poder em&nbsp;Alfredo&nbsp;Chaves:<span class="subtitle">não vivemos mais como nossos pais</span></h1>
-    <p class="dek">De 2004 a 2020, cinco eleições para prefeito perdidas em Alfredo Chaves. Em 2024, a virada: candidatura derrotada em 35 das 36 seções eleitorais de 2020 venceu nas 42 seções de 2024. Reconstruído a partir de dados públicos e oficiais do TSE e do IBGE, com pipeline próprio em Python, SQL e visualização.</p>
+    <p class="dek">Uma base política que perdeu cinco eleições seguidas para prefeito venceu as 42 seções de 2024 (58,1% dos votos válidos) sem que o comparecimento mudasse: os dados indicam que a virada veio de eleitores que já votavam, em todo o território. Feita só com dados abertos, a reconstrução serve de método para qualquer município brasileiro.</p>
     <div class="meta-row">
       <span><strong>Autor:</strong> João Victor Meneghel</span>
       <span><strong>Município:</strong> Alfredo Chaves &ndash; ES</span>
@@ -590,8 +594,8 @@
         <div class="l">seções eleitorais vencidas pela candidatura a prefeito, de 2020 para 2024 (de um total de 42 seções ativas em 2024)</div>
       </div>
       <div class="stat">
-        <div class="n">37,8% <span class="after">&rarr; 56,4%</span></div>
-        <div class="l">votação válida do candidato a prefeito no município, no primeiro turno de cada eleição</div>
+        <div class="n">40,0% <span class="after">&rarr; 58,1%</span></div>
+        <div class="l">votos válidos (sem brancos e nulos) do candidato a prefeito no município, no primeiro turno de cada eleição</div>
       </div>
       <div class="stat">
         <div class="n">3/9 <span class="after">&rarr; 5/9</span></div>
@@ -618,6 +622,7 @@
       <a href="#conclusao"><span class="toc-num">10</span>Conclusão</a>
       <a href="#cenarios-2028"><span class="toc-num">11</span>Cenários para 2028</a>
       <a href="#limitacoes"><span class="toc-num">12</span>Limitações e viés</a>
+      <a href="#demonstra"><span class="toc-num">13</span>O que este estudo demonstra</a>
     </div>
   </nav>
 
@@ -727,14 +732,14 @@
   <section id="metodologia">
     <div class="eyebrow">03 &middot; Metodologia</div>
     <h2>Pipeline de tratamento de dados</h2>
-    <p>Os extratos brutos passam por cinco etapas antes de qualquer análise comparativa: um pipeline padrão de ingestão, limpeza e carga, implementado em Python (pandas), com a camada analítica em SQL (SQLite). O banco SQLite guarda só o comparativo seção a seção de 2020 e 2024; a série das seis eleições e as análises de financiamento, patrimônio, perfil e IBGE leem os CSVs filtrados diretamente em pandas, com as mesmas regras de limpeza. Os gráficos interativos que ilustram o estudo são escritos em TypeScript (React e Recharts) e estilizados em CSS.</p>
+    <p>Os extratos brutos passam por cinco etapas antes de qualquer análise comparativa: um pipeline padrão de ingestão, limpeza e carga, implementado em Python (pandas), com a camada analítica em SQL (SQLite). Um banco SQLite reúne as seis eleições (votos por seção, candidatos, comparecimento e distritos) e cinco consultas em SQL reproduzem os resultados centrais do estudo; um script confere cada resultado contra o pipeline em pandas. As análises de financiamento, patrimônio, perfil e IBGE leem os CSVs filtrados diretamente em pandas, com as mesmas regras de limpeza. Os gráficos interativos que ilustram o estudo são escritos em TypeScript (React e Recharts) e estilizados em CSS.</p>
 
     <div class="pipeline">
       <div class="pipestep"><div class="num">01</div><div class="name">Ingestão</div><div class="desc">Leitura dos CSVs oficiais (separador <code>;</code>, UTF-8), tipagem bruta como texto</div></div>
       <div class="pipestep"><div class="num">02</div><div class="name">Limpeza</div><div class="desc">Conversão de tipos (zona, seção, votos), normalização de nomes e cargos, remoção de colunas administrativas</div></div>
       <div class="pipestep"><div class="num">03</div><div class="name">Normalização</div><div class="desc">Padronização de chaves (seção, zona, ano) para permitir a junção entre eleições</div></div>
-      <div class="pipestep"><div class="num">04</div><div class="name">Carga</div><div class="desc">Escrita em SQLite do comparativo 2020&harr;2024: 4 tabelas (<code>secao_2020</code>, <code>secao_2024</code>, <code>candidatos_2020</code>, <code>candidatos_2024</code>)</div></div>
-      <div class="pipestep"><div class="num">05</div><div class="name">Análise SQL</div><div class="desc">Agregações por seção, identificação de vencedor, cálculo de variação percentual</div></div>
+      <div class="pipestep"><div class="num">04</div><div class="name">Carga</div><div class="desc">Escrita em SQLite das seis eleições: 5 tabelas (<code>votos_secao</code>, <code>candidatos</code>, <code>detalhe_votacao</code>, <code>local_secao</code>, <code>grupo_eleicao</code>) e 2 views</div></div>
+      <div class="pipestep"><div class="num">05</div><div class="name">Análise SQL</div><div class="desc">Cinco consultas (CTEs, funções de janela, junções), conferidas automaticamente contra o pandas</div></div>
     </div>
 
 
@@ -768,21 +773,18 @@
     <div class="exhibit">
       <div class="exhibit-head"><span class="tag">Figura 1</span><span class="cap">clean_secao(): trecho do pipeline</span></div>
       <div class="exhibit-body tight">
-<pre class="code"><span class="k">def</span> clean_secao(df, ano):
-    keep = [<span class="s">'NR_ZONA'</span>, <span class="s">'NR_SECAO'</span>, <span class="s">'CD_CARGO'</span>, <span class="s">'DS_CARGO'</span>,
-            <span class="s">'NR_VOTAVEL'</span>, <span class="s">'NM_VOTAVEL'</span>, <span class="s">'QT_VOTOS'</span>]
-    df = df[keep].copy()
-    df[<span class="s">'NR_SECAO'</span>]  = pd.to_numeric(df[<span class="s">'NR_SECAO'</span>], errors=<span class="s">'coerce'</span>).astype(<span class="s">'Int64'</span>)
-    df[<span class="s">'QT_VOTOS'</span>]  = pd.to_numeric(df[<span class="s">'QT_VOTOS'</span>], errors=<span class="s">'coerce'</span>).fillna(<span class="k">0</span>).astype(<span class="k">int</span>)
-    df[<span class="s">'NM_VOTAVEL'</span>] = df[<span class="s">'NM_VOTAVEL'</span>].str.strip().str.upper()
-    df[<span class="s">'ANO'</span>] = ano
-    <span class="k">return</span> df.dropna(subset=[<span class="s">'NR_SECAO'</span>])</pre>
+<pre class="code"><span class="c">-- seções vencidas pelo grupo, por ano (sql/02_secoes_vencidas.sql, 2004 a 2024)</span>
+<span class="k">SELECT</span> ano, <span class="k">COUNT</span>(*) <span class="k">AS</span> secoes,
+       <span class="k">SUM</span>(<span class="k">CASE WHEN</span> votos_grupo &gt; <span class="k">0</span> <span class="k">AND</span> votos_grupo = max_secao <span class="k">THEN</span> <span class="k">1</span> <span class="k">ELSE</span> <span class="k">0</span> <span class="k">END</span>) <span class="k">AS</span> secoes_vencidas
+<span class="k">FROM</span> v_prefeito_secao   <span class="c">-- votos válidos: exclui brancos (95) e nulos (96)</span>
+<span class="k">GROUP BY</span> ano
+<span class="c">-- resultado: 2020 = 1 de 36 seções; 2024 = 42 de 42</span></pre>
       </div>
     </div>
 
     <h3>Análise comparativa (SQL)</h3>
     <div class="exhibit">
-      <div class="exhibit-head"><span class="tag">Figura 2</span><span class="cap">vencedor por seção, por ano</span></div>
+      <div class="exhibit-head"><span class="tag">Figura 2</span><span class="cap">seções vencidas pelo grupo, por ano</span></div>
       <div class="exhibit-body tight">
 <pre class="code"><span class="c">-- vencedor de cada seção, por ano (maior nº de votos nominais ao cargo de Prefeito)</span>
 <span class="k">SELECT</span> NR_SECAO, NM_VOTAVEL, <span class="k">SUM</span>(QT_VOTOS) <span class="k">AS</span> votos
@@ -799,7 +801,7 @@
     <div class="eyebrow">04 &middot; Principais achados</div>
     <h2>Da derrota generalizada à vitória em todas as urnas</h2>
 
-    <p>Em 2020, a candidatura majoritária desta base política venceu em <strong>apenas 1 das 36 seções comparáveis</strong> (seção&nbsp;9), obtendo 37,8% dos votos válidos no município (3.681 votos), contra 53,4% do candidato eleito. Em 2024, a mesma base, agora sob a coligação <strong>&ldquo;Renovação e Juventude&rdquo;</strong> (Republicanos / PP / MDB / Federação PSDB&#8209;Cidadania), venceu nas <strong>42 seções</strong> do município, com 56,4% dos votos válidos (5.779 votos).</p>
+    <p>Em 2020, a candidatura majoritária desta base política venceu em <strong>apenas 1 das 36 seções comparáveis</strong> (seção&nbsp;9), obtendo 40,0% dos votos válidos no município (3.681 votos), contra 56,4% do candidato eleito. Em 2024, a mesma base, agora sob a coligação <strong>&ldquo;Renovação e Juventude&rdquo;</strong> (Republicanos / PP / MDB / Federação PSDB&#8209;Cidadania), venceu nas <strong>42 seções</strong> do município, com 58,1% dos votos válidos (5.779 votos).</p>
 
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figura 3</span><span class="cap">% de votos por seção, 2020 vs. 2024</span></div>
@@ -809,7 +811,7 @@
       <figcaption>Cada linha é uma seção eleitoral. Em <strong style="color:var(--red)">2020</strong> quase todas ficam abaixo dos 50% (derrota); em <strong style="color:var(--blue)">2024</strong> a maioria cruza a linha de maioria absoluta. Seções sem dado em 2020 não existiam ainda naquele pleito.</figcaption>
     </figure>
 
-    <p>Das 36 seções comparáveis, <strong>28 passaram de minoria (&lt;50%) para maioria absoluta (&ge;50%)</strong> dos votos válidos entre uma eleição e outra, uma virada de 20,9 pontos percentuais em média nessas seções.</p>
+    <p>Das 36 seções comparáveis, <strong>31 passaram de minoria (&lt;50%) para maioria absoluta (&ge;50%)</strong> dos votos válidos entre uma eleição e outra, uma virada de 17,9 pontos percentuais em média nessas seções.</p>
 
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figura 4</span><span class="cap">Todas as 42 seções de Alfredo Chaves em 2024</span></div>
@@ -822,7 +824,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figura 5</span><span class="cap">Resultado agregado do município</span></div>
       <div class="exhibit-body">
-        <div class="ichart" data-chart="municipio"><p class="chart-fallback">Gráfico de barras comparando o total de votos válidos do candidato a prefeito em 2020 (3.681 votos, 37,8%) e em 2024 (5.779 votos, 56,4%).</p></div>
+        <div class="ichart" data-chart="municipio"><p class="chart-fallback">Gráfico de barras comparando o total de votos válidos do candidato a prefeito em 2020 (3.681 votos, 40,0%) e em 2024 (5.779 votos, 58,1%).</p></div>
       </div>
     </figure>
 
@@ -1394,6 +1396,28 @@ margem &lt;- (share_grupo - share_oposicao) / 100 * votos_validos</pre>
       </ul>
       <h3>A posição de quem escreve</h3>
       <p>Fui diretor da campanha de 2024, sou filho de um candidato de 2004 e irmão do candidato eleito em 2024. Isso pode inclinar as escolhas do que analisar e de como enquadrar o resultado. Para reduzir o risco, usei só dados públicos e reproduzíveis, sem planilhas ou registros internos da campanha; deixei o código no repositório para quem quiser refazer as contas com os mesmos extratos; mantive no estudo os resultados desfavoráveis ao grupo (as cinco derrotas consecutivas, de 2004 a 2020); e usei linguagem neutra, &ldquo;grupo&rdquo; e &ldquo;oposição&rdquo;. Isso não elimina o viés. Só permite que ele seja conferido.</p>
+    </div>
+  </section>
+
+  <section id="demonstra">
+    <div class="eyebrow">13 &middot; O que este estudo demonstra</div>
+    <h2>Habilidades, uma a uma, e onde aparecem</h2>
+    <div class="prose">
+      <p>Este quadro liga cada habilidade a um trecho verificável do estudo e do repositório. Nada aqui deixa de poder ser conferido no código ou nos dados.</p>
+    </div>
+    <div class="table-scroll">
+      <table class="data stack-mobile skills">
+        <colgroup><col style="width:20%"><col style="width:56%"><col style="width:24%"></colgroup>
+        <thead><tr><th>Habilidade</th><th>O que foi feito</th><th>Onde ver</th></tr></thead>
+        <tbody>
+          <tr><td data-label="Habilidade"><strong>SQL</strong></td><td data-label="O que foi feito">Banco SQLite com as seis eleições (5 tabelas e 2 views) e cinco consultas com CTEs, funções de janela e junções, conferidas automaticamente contra o pipeline em pandas.</td><td data-label="Onde ver">Seção 03; pasta <code>sql/</code> e <code>scripts/sql_estudo.py</code></td></tr>
+          <tr><td data-label="Habilidade"><strong>Pipeline e qualidade dos dados</strong></td><td data-label="O que foi feito">Ingestão de extratos do TSE e do IBGE que mudam de formato entre 2004 e 2024, regras de limpeza explícitas e cobertura declarada. A conferência cruzada entre SQL e pandas apontou e corrigiu um erro de base nos percentuais por seção (brancos e nulos dentro do total).</td><td data-label="Onde ver">Seções 02 e 03; Tabela 3.1</td></tr>
+          <tr><td data-label="Habilidade"><strong>Visualização</strong></td><td data-label="O que foi feito">Gráficos interativos em TypeScript, React e Recharts, mapa dos distritos com polígonos do IBGE, texto alternativo nos gráficos, leitura em celular e PDF gerado da própria página.</td><td data-label="Onde ver">Seções 04 a 11</td></tr>
+          <tr><td data-label="Habilidade"><strong>Estatística</strong></td><td data-label="O que foi feito">Variações em pontos percentuais por seção e distrito, coerência entre o voto para prefeito e para vereador em cada seção, cenários de sensibilidade para 2028 em R com hipóteses declaradas e limites de inferência explícitos.</td><td data-label="Onde ver">Seções 05, 11 e 12</td></tr>
+          <tr><td data-label="Habilidade"><strong>Narrativa com dados</strong></td><td data-label="O que foi feito">Arco de vinte anos (cinco derrotas, a virada, o território, o financiamento, os cenários), figuras numeradas com legenda que dá a conclusão, versões em português e inglês e conflito de interesse declarado.</td><td data-label="Onde ver">Seções 00 a 12</td></tr>
+          <tr><td data-label="Habilidade"><strong>Reprodutibilidade</strong></td><td data-label="O que foi feito">Cada número liga a um extrato público do TSE ou do IBGE, os passos de execução estão no repositório e os resultados desfavoráveis ao grupo foram mantidos.</td><td data-label="Onde ver">Seções 02 e 12; README do repositório</td></tr>
+        </tbody>
+      </table>
     </div>
   </section>
 

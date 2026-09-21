@@ -1,11 +1,24 @@
 # A Metamorfose do Poder em Alfredo Chaves (2004–2024)
 
+> **Uma base política que perdeu cinco eleições seguidas para prefeito venceu as 42 seções de 2024 (58,1% dos votos válidos) sem que o comparecimento mudasse: os dados indicam que a virada veio de eleitores que já votavam, em todo o território. Feita só com dados abertos, a reconstrução serve de método para qualquer município brasileiro.**
+
 Estudo de caso com dados eleitorais reais: seis eleições municipais (2004 a 2024) em Alfredo Chaves (ES), construído com dados abertos do TSE e do IBGE. Todos os gráficos são interativos; há também PDF e versão em inglês.
 
 - **Estudo (português):** https://menegheljv.github.io/the-metamorphosis-of-power/
 - **Study (English):** https://menegheljv.github.io/the-metamorphosis-of-power/en/
 - **PDF:** [português](https://menegheljv.github.io/the-metamorphosis-of-power/a-metamorfose-do-poder-em-alfredo-chaves.pdf) · [English](https://menegheljv.github.io/the-metamorphosis-of-power/en/the-metamorphosis-of-power-in-alfredo-chaves.pdf)
 - Limites do estudo e a posição do autor: seção 12 ("Limitações e viés").
+
+## O que este estudo demonstra
+
+| Habilidade | O que foi feito | Onde ver |
+|---|---|---|
+| **SQL** | Banco SQLite com as seis eleições (5 tabelas e 2 views) e cinco consultas com CTEs, funções de janela e junções, conferidas automaticamente contra o pipeline em pandas. | [`sql/`](sql/), [`scripts/build_database.py`](scripts/build_database.py), [`scripts/sql_estudo.py`](scripts/sql_estudo.py) |
+| **Pipeline e qualidade dos dados** | Ingestão de extratos do TSE e do IBGE que mudam de formato entre 2004 e 2024, regras de limpeza explícitas e cobertura declarada (Tabela 3.1). A conferência entre SQL e pandas apontou e corrigiu um erro de base nos percentuais por seção: brancos e nulos estavam dentro do total. | [`scripts/pipeline.py`](scripts/pipeline.py), [`scripts/prefeitos_todos.py`](scripts/prefeitos_todos.py) |
+| **Visualização** | Gráficos interativos em TypeScript, React e Recharts, mapa dos distritos com polígonos do IBGE, texto alternativo nos gráficos, leitura em celular e PDF gerado da própria página. | [`frontend/src/charts.tsx`](frontend/src/charts.tsx), [`scripts/build_pdf.py`](scripts/build_pdf.py) |
+| **Estatística** | Variações em pontos percentuais por seção e distrito, coerência entre o voto para prefeito e para vereador em cada seção, cenários de sensibilidade para 2028 em R com hipóteses declaradas e limites de inferência explícitos (seção 12 do estudo). | [`scripts/coerencia_voto.py`](scripts/coerencia_voto.py), [`analysis/cenarios_2028.R`](analysis/cenarios_2028.R) |
+| **Narrativa com dados** | Arco de vinte anos (cinco derrotas, a virada, o território, o financiamento, os cenários), figuras numeradas com legenda que dá a conclusão, versões em português e inglês e conflito de interesse declarado. | [`output/template.html`](output/template.html), [`output/template_en.html`](output/template_en.html) |
+| **Reprodutibilidade** | Cada número liga a um extrato público do TSE ou do IBGE; os passos de execução estão abaixo e os resultados desfavoráveis ao grupo foram mantidos. | [`data/`](data/), seção "How to run" abaixo e seção 12 do estudo |
 
 > Este repositório também guarda um **dashboard demonstrativo com dados sintéticos** (abaixo, "Dashboard demonstrativo"). Ele é independente do estudo, e nenhum dado dele descreve eleições reais. A documentação do estudo, com as fontes de dados e os passos para reproduzi-lo, está na seção "The Metamorphosis of Power (2004–2024)" mais abaixo.
 
@@ -72,6 +85,32 @@ percentual do grupo, terceiro candidato de 0, 5 ou 10%). O script grava `output/
 Rscript analysis/cenarios_2028.R
 python scripts/export_frontend_data.py
 ```
+
+### SQL sobre as seis eleições
+
+O SQL cobre 2004, 2008, 2012, 2016, 2020 e 2024. `scripts/build_database.py` carrega os extratos do TSE em
+`output/eleicoes_alfredo_chaves.db` (SQLite, não versionado) com o esquema de `sql/00_schema.sql`: `votos_secao`,
+`candidatos`, `detalhe_votacao`, `local_secao`, `grupo_eleicao` e as views `v_votos_prefeito` e `v_prefeito_secao`.
+Votos válidos excluem branco (`nr_votavel` 95) e nulo (96), como em todo o estudo. As consultas:
+
+| Arquivo | Pergunta | Onde aparece no estudo |
+|---|---|---|
+| `sql/01_resultado_prefeito.sql` | Quem disputou cada eleição, com quantos votos válidos e de que lado (`RANK()` e subconsulta) | Tabela 0.1, Figura 0.1 |
+| `sql/02_secoes_vencidas.sql` | Em quantas seções o grupo teve mais votos que qualquer outro | "1 de 36" em 2020, "42 de 42" em 2024 |
+| `sql/03_virada_2020_2024.sql` | Quanto o grupo ganhou em cada uma das 36 seções presentes nas duas eleições | Figuras 3 e 4 |
+| `sql/04_comparecimento.sql` | Comparecimento, abstenção, brancos e nulos por eleição | Figura de comparecimento |
+| `sql/05_distritos.sql` | Votos do grupo por distrito e eleição (junção seção, local e distrito) | Figuras 6 e 6.2 |
+
+`scripts/sql_estudo.py` reconstrói o banco, roda as cinco consultas (resultados em `output/sql/`) e **confere cada uma
+contra os CSVs do pipeline em pandas**; qualquer divergência encerra com erro:
+
+```bash
+python scripts/sql_estudo.py
+```
+
+Foi essa conferência que apontou um erro antigo: `scripts/pipeline.py` somava os votos brancos e nulos ao total de cada
+seção. O total agora exclui 95 e 96, e os números por seção do estudo foram corrigidos (31 das 36 seções comparáveis
+passaram de minoria para maioria, com 17,9 p.p. em média nessas seções; antes o texto dizia 28 e 20,9).
 
 ### Baixar o estudo em PDF
 
@@ -147,14 +186,11 @@ de acessibilidade antes de publicar qualquer indicador.
 
 *"A metamorfose do poder em Alfredo Chaves: não vivemos mais como nossos pais"* (a nod to Belchior's "Como Nossos Pais"). A case study analyzing municipal election data in Alfredo Chaves, ES (Brazil), built entirely from official public data from the TSE (Brazil's Superior Electoral Court) and cross-referenced with IBGE population, sex, race/color and income data.
 
-**Visualização pública principal:** https://menegheljv.github.io/the-metamorphosis-of-power/
+**Estudo interativo (português):** https://menegheljv.github.io/the-metamorphosis-of-power/
 
-**Estudo editorial:** https://menegheljv.github.io/the-metamorphosis-of-power/study/
+**Interactive study (English):** https://menegheljv.github.io/the-metamorphosis-of-power/en/
 
-The public landing page includes the interactive dashboard; the original
-editorial study is preserved at `/study/`.
-
-Both are the same full case study — same sections, charts, and interactive map — kept in sync with each other.
+There is one page per language, and both are the same full case study (same sections, charts and interactive map), kept in sync with each other. The old `/study/` addresses only redirect to them.
 
 ## Context
 
@@ -164,7 +200,8 @@ Between 2004 and 2020, the political group behind this project lost five mayoral
 
 ## What's here
 
-- **`scripts/`**: the Python (pandas) and SQL pipeline. Ingestion, cleaning, normalization and joins, chart generation, and the final HTML build. Covers both the 2020 vs 2024 comparison and the full 2004-2024 historical arc, cross-referenced with IBGE population estimates.
+- **`scripts/`**: the Python (pandas) pipeline. Ingestion, cleaning, normalization and joins, chart generation, and the final HTML build. Covers both the 2020 vs 2024 comparison and the full 2004-2024 historical arc, cross-referenced with IBGE population estimates.
+- **`sql/`**: the SQL layer. A SQLite database with all six elections and five analytical queries (results by candidate, precincts won, the 2020-2024 swing, turnout, districts), run and cross-checked against the pandas results by `scripts/sql_estudo.py`.
 - **`data/`**: raw CSVs pulled from [dadosabertos.tse.jus.br](https://dadosabertos.tse.jus.br), filtered down to Alfredo Chaves, ES, covering every municipal election from 2004 to 2024: votes by section, results by candidate, campaign finance, turnout and abstention, electorate profile, and candidate profile and declared assets.
 - **`output/`**: what the pipeline produces. Intermediate tables (CSV), the HTML template, and the final `case_study.html`.
 
@@ -195,12 +232,13 @@ Fetched from the [SIDRA API](https://sidra.ibge.gov.br), municipality code 32003
 
 ## Methodology
 
-Ingestion and cleaning in `pandas`, joins and aggregations in `SQLite`, static charts in `matplotlib`, interactive charts in `TypeScript` (React + Recharts) styled with `CSS`, final build as static HTML. Every finding in the case study traces back to a public TSE dataset. When a number wasn't publicly available, that's stated in the text instead of estimated.
+Ingestion and cleaning in `pandas`, joins and aggregations in `SQLite` (all six elections, checked against pandas), static charts in `matplotlib`, interactive charts in `TypeScript` (React + Recharts) styled with `CSS`, final build as static HTML. Every finding in the case study traces back to a public TSE dataset. When a number wasn't publicly available, that's stated in the text instead of estimated.
 
 ## How to run
 
 ```bash
 python scripts/pipeline.py
+python scripts/sql_estudo.py        # SQL over the six elections, cross-checked against pandas
 python scripts/vereadores_analysis.py
 python scripts/add_locations.py
 python scripts/extra_analysis.py

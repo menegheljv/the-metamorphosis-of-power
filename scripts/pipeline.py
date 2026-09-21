@@ -2,6 +2,11 @@
 Pipeline de tratamento de dados eleitorais - TSE Dados Abertos
 Alfredo Chaves-ES | Eleicoes Municipais 2020 vs 2024
 Etapas: Ingestao -> Limpeza -> Normalizacao -> Carga em SQLite -> Analise comparativa
+
+Atencao: o banco desta etapa cobre so 2020 e 2024. O banco com as SEIS eleicoes e as consultas do estudo
+ficam em scripts/build_database.py, sql/ e scripts/sql_estudo.py.
+
+Percentuais usam VOTOS VALIDOS (sem brancos, 95, e nulos, 96), como no restante do estudo.
 """
 import pandas as pd
 import sqlite3
@@ -88,7 +93,7 @@ print(f"\n=== SQLITE CARREGADO: {db_path} ===")
 sql_prefeito_2020 = """
 SELECT NR_SECAO, NM_VOTAVEL, SUM(QT_VOTOS) as votos
 FROM secao_2020
-WHERE DS_CARGO = 'Prefeito' AND NR_VOTAVEL > 0
+WHERE DS_CARGO = 'Prefeito' AND NR_VOTAVEL NOT IN (95, 96)  -- 95 = voto branco, 96 = voto nulo: fora dos votos validos
 GROUP BY NR_SECAO, NM_VOTAVEL
 """
 sql_prefeito_2024 = sql_prefeito_2020.replace('secao_2020', 'secao_2024')

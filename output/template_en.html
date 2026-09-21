@@ -438,6 +438,10 @@
   table.data.locais td:nth-child(2), table.data.locais th:nth-child(2) { text-align: left; white-space: normal; }
   @media (max-width: 640px) { table.data.locais { min-width: 0; } table.data.locais td, table.data.locais th { white-space: normal; padding: 8px 6px; } }
   table.data.stack-mobile td:nth-child(2), table.data.stack-mobile th:nth-child(2) { text-align: center; white-space: normal; }
+  table.data.skills { table-layout: fixed; width: 100%; min-width: 0; }
+  table.data.skills.stack-mobile td:nth-child(n), table.data.skills.stack-mobile th:nth-child(n) { text-align: left; white-space: normal; vertical-align: top; padding: 10px 12px; line-height: 1.45; }
+  table.data.skills td:first-child { color: var(--ink); }
+  table.data.skills code { overflow-wrap: anywhere; word-break: break-word; }
   @media (max-width: 640px) {
     table.data.stack-mobile { min-width: 0; width: 100%; }
     table.data.stack-mobile thead { display: none; }
@@ -572,7 +576,7 @@
   <header class="masthead">
     <div class="kicker">Case study &middot; Electoral data analysis</div>
     <h1 class="title">The metamorphosis of power in&nbsp;Alfredo&nbsp;Chaves:<span class="subtitle">we no longer live like our parents</span></h1>
-    <p class="dek">From 2004 to 2020, five mayoral elections lost in Alfredo Chaves, Brazil. In 2024, the turnaround: a candidacy defeated in 35 of the 36 voting precincts of 2020 won in all 42 precincts of 2024. Rebuilt entirely from public, official TSE and IBGE data, with an in-house Python, SQL and visualization pipeline.</p>
+    <p class="dek">A political base that had lost five straight mayoral elections won all 42 precincts in 2024 (58.1% of valid votes) with no change in turnout: the data indicate the turnaround came from people who already voted, across the whole territory. Built only from open data, the reconstruction works as a method for any Brazilian municipality.</p>
     <div class="meta-row">
       <span><strong>Author:</strong> João Victor Meneghel</span>
       <span><strong>Municipality:</strong> Alfredo Chaves, Espírito Santo, Brazil</span>
@@ -590,8 +594,8 @@
         <div class="l">voting precincts won by the mayoral candidacy, from 2020 to 2024 (out of 42 active precincts in 2024)</div>
       </div>
       <div class="stat">
-        <div class="n">37.8% <span class="after">&rarr; 56.4%</span></div>
-        <div class="l">valid vote share of the mayoral candidate citywide, first round of each election</div>
+        <div class="n">40.0% <span class="after">&rarr; 58.1%</span></div>
+        <div class="l">valid votes (blank and null ballots excluded) for the mayoral candidate citywide, first round of each election</div>
       </div>
       <div class="stat">
         <div class="n">3/9 <span class="after">&rarr; 5/9</span></div>
@@ -618,6 +622,7 @@
       <a href="#conclusao"><span class="toc-num">10</span>Conclusion</a>
       <a href="#cenarios-2028"><span class="toc-num">11</span>Scenarios for 2028</a>
       <a href="#limitacoes"><span class="toc-num">12</span>Limitations and bias</a>
+      <a href="#demonstra"><span class="toc-num">13</span>What this study demonstrates</a>
     </div>
   </nav>
 
@@ -727,14 +732,14 @@
   <section id="metodologia">
     <div class="eyebrow">03 &middot; Methodology</div>
     <h2>Data-processing pipeline</h2>
-    <p>The raw extracts go through five steps before any comparative analysis: a standard ingestion, cleaning, and load pipeline, implemented in Python (pandas), with the analytical layer in SQL (SQLite). The SQLite database holds only the precinct-by-precinct comparison of 2020 and 2024; the six-election series and the financing, assets, profile and IBGE analyses read the filtered CSVs directly in pandas, with the same cleaning rules. The interactive charts illustrating the study are written in TypeScript (React and Recharts) and styled with CSS.</p>
+    <p>The raw extracts go through five steps before any comparative analysis: a standard ingestion, cleaning, and load pipeline, implemented in Python (pandas), with the analytical layer in SQL (SQLite). A SQLite database gathers all six elections (votes by precinct, candidates, turnout and districts) and five SQL queries reproduce the study's central results; a script checks each result against the pandas pipeline. The financing, assets, profile and IBGE analyses read the filtered CSVs directly in pandas, with the same cleaning rules. The interactive charts illustrating the study are written in TypeScript (React and Recharts) and styled with CSS.</p>
 
     <div class="pipeline">
       <div class="pipestep"><div class="num">01</div><div class="name">Ingestion</div><div class="desc">Read the official CSVs (<code>;</code>-separated, UTF-8), raw typing as text</div></div>
       <div class="pipestep"><div class="num">02</div><div class="name">Cleaning</div><div class="desc">Type conversion (zone, precinct, votes), name/office normalization, drop administrative columns</div></div>
       <div class="pipestep"><div class="num">03</div><div class="name">Normalization</div><div class="desc">Standardize keys (precinct, zone, year) to allow joins across elections</div></div>
-      <div class="pipestep"><div class="num">04</div><div class="name">Load</div><div class="desc">Write the 2020&harr;2024 comparison to SQLite: 4 tables (<code>secao_2020</code>, <code>secao_2024</code>, <code>candidatos_2020</code>, <code>candidatos_2024</code>)</div></div>
-      <div class="pipestep"><div class="num">05</div><div class="name">SQL analysis</div><div class="desc">Per-precinct aggregations, winner identification, percentage-change calculation</div></div>
+      <div class="pipestep"><div class="num">04</div><div class="name">Load</div><div class="desc">Write all six elections to SQLite: 5 tables (<code>votos_secao</code>, <code>candidatos</code>, <code>detalhe_votacao</code>, <code>local_secao</code>, <code>grupo_eleicao</code>) and 2 views</div></div>
+      <div class="pipestep"><div class="num">05</div><div class="name">SQL analysis</div><div class="desc">Five queries (CTEs, window functions, joins), automatically checked against pandas</div></div>
     </div>
 
 
@@ -768,15 +773,12 @@
     <div class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 1</span><span class="cap">clean_secao(): pipeline excerpt</span></div>
       <div class="exhibit-body tight">
-<pre class="code"><span class="k">def</span> clean_secao(df, year):
-    keep = [<span class="s">'NR_ZONA'</span>, <span class="s">'NR_SECAO'</span>, <span class="s">'CD_CARGO'</span>, <span class="s">'DS_CARGO'</span>,
-            <span class="s">'NR_VOTAVEL'</span>, <span class="s">'NM_VOTAVEL'</span>, <span class="s">'QT_VOTOS'</span>]
-    df = df[keep].copy()
-    df[<span class="s">'NR_SECAO'</span>]  = pd.to_numeric(df[<span class="s">'NR_SECAO'</span>], errors=<span class="s">'coerce'</span>).astype(<span class="s">'Int64'</span>)
-    df[<span class="s">'QT_VOTOS'</span>]  = pd.to_numeric(df[<span class="s">'QT_VOTOS'</span>], errors=<span class="s">'coerce'</span>).fillna(<span class="k">0</span>).astype(<span class="k">int</span>)
-    df[<span class="s">'NM_VOTAVEL'</span>] = df[<span class="s">'NM_VOTAVEL'</span>].str.strip().str.upper()
-    df[<span class="s">'ANO'</span>] = year
-    <span class="k">return</span> df.dropna(subset=[<span class="s">'NR_SECAO'</span>])</pre>
+<pre class="code"><span class="c">-- precincts won by the group, by year (sql/02_secoes_vencidas.sql, 2004 to 2024)</span>
+<span class="k">SELECT</span> ano, <span class="k">COUNT</span>(*) <span class="k">AS</span> secoes,
+       <span class="k">SUM</span>(<span class="k">CASE WHEN</span> votos_grupo &gt; <span class="k">0</span> <span class="k">AND</span> votos_grupo = max_secao <span class="k">THEN</span> <span class="k">1</span> <span class="k">ELSE</span> <span class="k">0</span> <span class="k">END</span>) <span class="k">AS</span> secoes_vencidas
+<span class="k">FROM</span> v_prefeito_secao   <span class="c">-- valid votes: excludes blank (95) and null (96) ballots</span>
+<span class="k">GROUP BY</span> ano
+<span class="c">-- result: 2020 = 1 of 36 precincts; 2024 = 42 of 42</span></pre>
       </div>
     </div>
 
@@ -799,7 +801,7 @@
     <div class="eyebrow">04 &middot; Key findings</div>
     <h2>From a broad defeat to a win in every precinct</h2>
 
-    <p>In 2020, this political base's majoritarian candidacy won <strong>just 1 of 36 comparable precincts</strong> (precinct&nbsp;9), taking 37.8% of the valid vote citywide (3,681 votes), against 53.4% for the winning candidate. In 2024, the same base, now under the coalition <strong>&ldquo;Renovação e Juventude&rdquo;</strong> (&ldquo;Renewal and Youth&rdquo;; Republicanos / PP / MDB / PSDB&#8209;Cidadania federation), won <strong>all 42 precincts</strong> in the municipality, with 56.4% of the valid vote (5,779 votes).</p>
+    <p>In 2020, this political base's majoritarian candidacy won <strong>just 1 of 36 comparable precincts</strong> (precinct&nbsp;9), taking 40.0% of the valid vote citywide (3,681 votes), against 56.4% for the winning candidate. In 2024, the same base, now under the coalition <strong>&ldquo;Renovação e Juventude&rdquo;</strong> (&ldquo;Renewal and Youth&rdquo;; Republicanos / PP / MDB / PSDB&#8209;Cidadania federation), won <strong>all 42 precincts</strong> in the municipality, with 58.1% of the valid vote (5,779 votes).</p>
 
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 3</span><span class="cap">% of votes by precinct, 2020 vs. 2024</span></div>
@@ -809,7 +811,7 @@
       <figcaption>Each line is one voting precinct. In <strong style="color:var(--red)">2020</strong> nearly all sit below 50% (a loss); by <strong style="color:var(--blue)">2024</strong> most cross the absolute-majority line. Precincts with no 2020 data didn't exist yet in that election.</figcaption>
     </figure>
 
-    <p>Of the 36 comparable precincts, <strong>28 moved from a minority (&lt;50%) to an absolute majority (&ge;50%)</strong> of the valid vote between the two elections, a swing averaging 20.9 percentage points in those precincts.</p>
+    <p>Of the 36 comparable precincts, <strong>31 moved from a minority (&lt;50%) to an absolute majority (&ge;50%)</strong> of the valid vote between the two elections, a swing averaging 17.9 percentage points in those precincts.</p>
 
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 4</span><span class="cap">All 42 precincts of Alfredo Chaves in 2024</span></div>
@@ -822,7 +824,7 @@
     <figure class="exhibit">
       <div class="exhibit-head"><span class="tag">Figure 5</span><span class="cap">Citywide aggregate result</span></div>
       <div class="exhibit-body">
-        <div class="ichart" data-chart="municipio"><p class="chart-fallback">Bar chart comparing the mayoral candidate's total valid votes in 2020 (3,681 votes, 37.8%) and 2024 (5,779 votes, 56.4%).</p></div>
+        <div class="ichart" data-chart="municipio"><p class="chart-fallback">Bar chart comparing the mayoral candidate's total valid votes in 2020 (3,681 votes, 40.0%) and 2024 (5,779 votes, 58.1%).</p></div>
       </div>
     </figure>
 
@@ -1394,6 +1396,28 @@ margem &lt;- (share_grupo - share_oposicao) / 100 * votos_validos</pre>
       </ul>
       <h3>The author's position</h3>
       <p>I was the 2024 campaign director, the child of a 2004 candidate and the brother of the candidate elected in 2024. That can tilt what I chose to analyze and how I framed the result. To reduce the risk, I used only public, reproducible data, with no internal campaign spreadsheets or records; I left the code in the repository so anyone can redo the calculations from the same extracts; I kept in the study the results that are unfavorable to the group (the five consecutive defeats from 2004 to 2020); and I used neutral language, &ldquo;group&rdquo; and &ldquo;opposition&rdquo;. This does not remove the bias. It only makes it checkable.</p>
+    </div>
+  </section>
+
+  <section id="demonstra">
+    <div class="eyebrow">13 &middot; What this study demonstrates</div>
+    <h2>Skills, one by one, and where they show up</h2>
+    <div class="prose">
+      <p>This table ties each skill to a verifiable part of the study and the repository. Everything here can be checked in the code or the data.</p>
+    </div>
+    <div class="table-scroll">
+      <table class="data stack-mobile skills">
+        <colgroup><col style="width:20%"><col style="width:56%"><col style="width:24%"></colgroup>
+        <thead><tr><th>Skill</th><th>What was done</th><th>Where to look</th></tr></thead>
+        <tbody>
+          <tr><td data-label="Skill"><strong>SQL</strong></td><td data-label="What was done">A SQLite database with all six elections (5 tables and 2 views) and five queries using CTEs, window functions and joins, automatically checked against the pandas pipeline.</td><td data-label="Where to look">Section 03; <code>sql/</code> folder and <code>scripts/sql_estudo.py</code></td></tr>
+          <tr><td data-label="Skill"><strong>Pipeline and data quality</strong></td><td data-label="What was done">Ingestion of TSE and IBGE extracts whose format changes between 2004 and 2024, explicit cleaning rules and declared coverage. The cross-check between SQL and pandas caught and fixed a denominator error in the per-precinct percentages (blank and null ballots inside the total).</td><td data-label="Where to look">Sections 02 and 03; Table 3.1</td></tr>
+          <tr><td data-label="Skill"><strong>Visualization</strong></td><td data-label="What was done">Interactive charts in TypeScript, React and Recharts, a district map with IBGE polygons, alternative text on the charts, mobile reading and a PDF generated from the page itself.</td><td data-label="Where to look">Sections 04 to 11</td></tr>
+          <tr><td data-label="Skill"><strong>Statistics</strong></td><td data-label="What was done">Percentage-point changes by precinct and district, coherence between the mayoral and council vote in each precinct, sensitivity scenarios for 2028 in R with declared assumptions, and explicit limits of inference.</td><td data-label="Where to look">Sections 05, 11 and 12</td></tr>
+          <tr><td data-label="Skill"><strong>Data storytelling</strong></td><td data-label="What was done">A twenty-year arc (five defeats, the turnaround, the territory, the financing, the scenarios), numbered figures whose captions state the conclusion, versions in Portuguese and English, and a declared conflict of interest.</td><td data-label="Where to look">Sections 00 to 12</td></tr>
+          <tr><td data-label="Skill"><strong>Reproducibility</strong></td><td data-label="What was done">Every number links to a public TSE or IBGE extract, the run steps are in the repository, and results unfavorable to the group were kept.</td><td data-label="Where to look">Sections 02 and 12; the repository README</td></tr>
+        </tbody>
+      </table>
     </div>
   </section>
 

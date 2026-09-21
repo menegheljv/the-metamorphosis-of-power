@@ -21,3 +21,6 @@ data/*_b64.txt
 
 site/
 frontend/dist/
+
+# banco SQLite gerado por scripts/build_database.py
+output/eleicoes_alfredo_chaves.db

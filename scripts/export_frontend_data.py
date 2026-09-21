@@ -342,13 +342,13 @@ def build(lang: str) -> list[dict]:
         "cartesian",
         layers=[{"type": "bar", "key": "votos", "label": L("Votos do candidato do grupo", "Votes for the group's candidate"),
                  "color": "grupo", "colorBySide": True}],
-        rows=[{"x": "2020", "votos": 3681, "side": "adversario", "note": L("37,8% da votação", "37.8% of the vote")},
-              {"x": "2024", "votos": 5779, "side": "grupo", "note": L("56,4% da votação", "56.4% of the vote")}],
+        rows=[{"x": "2020", "votos": 3681, "side": "adversario", "note": L("40,0% dos votos válidos", "40.0% of valid votes")},
+              {"x": "2024", "votos": 5779, "side": "grupo", "note": L("58,1% dos votos válidos", "58.1% of valid votes")}],
         unit="int",
-        caption=L("Em 2024, o candidato do grupo somou 5.779 votos (56,4%), contra 3.681 (37,8%) em 2020: mais de 2.000 votos a mais no mesmo município.",
-                  "In 2024 the group's candidate totaled 5,779 votes (56.4%), against 3,681 (37.8%) in 2020: more than 2,000 additional votes in the same city."),
-        alt=L("Gráfico de barras: 3.681 votos (37,8%) em 2020 e 5.779 votos (56,4%) em 2024.",
-              "Bar chart: 3,681 votes (37.8%) in 2020 and 5,779 votes (56.4%) in 2024.")))
+        caption=L("Em 2024, o candidato do grupo somou 5.779 votos (58,1% dos votos válidos), contra 3.681 (40,0%) em 2020: mais de 2.000 votos a mais no mesmo município.",
+                  "In 2024 the group's candidate totaled 5,779 votes (58.1% of valid votes), against 3,681 (40.0%) in 2020: more than 2,000 additional votes in the same city."),
+        alt=L("Gráfico de barras: 3.681 votos (40,0%) em 2020 e 5.779 votos (58,1%) em 2024.",
+              "Bar chart: 3,681 votes (40.0%) in 2020 and 5,779 votes (58.1%) in 2024.")))
 
     mw, mh, shapes = district_shapes()
     order_ = ["Sede", "Crubixá", "Ibitiruí", "Matilde", "Ribeirão do Cristo", "Sagrada Família", "São Bento de Urânia"]
