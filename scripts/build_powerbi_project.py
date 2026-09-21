@@ -388,10 +388,10 @@ def build_report():
     pages.append(page("Distritos", v))
 
     # ---- 4. Dinheiro e perfil
-    v = header("Dinheiro e perfil dos candidatos", "Receita declarada, custo por voto, idade e patrimônio de todos os candidatos a prefeito, 2004–2024")
+    v = header("Dinheiro e perfil dos candidatos", "Receita declarada, eficiência de investimento por voto, idade e patrimônio de todos os candidatos a prefeito, 2004–2024")
     v += [slicer(24, 90, 120, 240, "Eleição")]
     v += [bar_by_candidate(160, 90, 546, 470, "Receita_Declarada", "Receita declarada (R$)"),
-          bar_by_candidate(722, 90, 534, 470, "Custo_Por_Voto", "Custo por voto (R$ pagos por voto)"),
+          bar_by_candidate(722, 90, 534, 470, "Custo_Por_Voto", "Eficiência: R$ pagos por voto (menor = mais eficiente)"),
           bar_by_candidate(160, 576, 546, 440, "Idade", "Idade no dia da eleição (anos)"),
           bar_by_candidate(722, 576, 534, 440, "Patrimonio_Declarado", "Patrimônio declarado (R$; a base de 2004 não traz bens)")]
     pages.append(page("Dinheiro e perfil", v, height=1040))

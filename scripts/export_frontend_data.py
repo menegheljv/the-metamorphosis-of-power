@@ -473,8 +473,8 @@ def build(lang: str) -> list[dict]:
     charts.append(spec("financeiro_chapa", "12", L("RECEITA DECLARADA", "DECLARED CAMPAIGN REVENUE"),
                        L("todos os candidatos a prefeito, 2004–2024, em reais", "every mayoral candidate, 2004–2024, in reais"), "panels", unit="brl",
                        panels=pref_panels("receita")))
-    charts.append(spec("custo_por_voto", "13", L("CUSTO POR VOTO", "COST PER VOTE"),
-                       L("reais gastos por voto, todos os candidatos a prefeito, 2004–2024", "reais spent per vote, every mayoral candidate, 2004–2024"), "panels",
+    charts.append(spec("custo_por_voto", "13", L("EFICIÊNCIA DE INVESTIMENTO POR VOTO", "SPENDING EFFICIENCY PER VOTE"),
+                       L("reais gastos por voto (quanto menor, mais eficiente), todos os candidatos a prefeito, 2004–2024", "reais spent per vote (the lower, the more efficient), every mayoral candidate, 2004–2024"), "panels",
                        unit="brl2", panels=pref_panels("custo_por_voto")))
 
     origem = [("Partido político", "Political party", 57460.0, 166372.43), ("Recursos próprios", "Own funds", 22030.8, 34547.11),

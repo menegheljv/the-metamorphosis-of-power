@@ -358,7 +358,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Custo por voto (R$ pagos por voto)'"
+                  "Value": "'Eficiência: R$ pagos por voto (menor = mais eficiente)'"
                 }
               }
             },
