@@ -26,10 +26,10 @@ Para gerar de novo: `python scripts/prefeitos_todos.py && python scripts/build_d
 ## Tableau (4 painéis, 9 planilhas)
 
 1. **Cinco derrotas e a virada** (planilha "Arco histórico" + "Todos os candidatos"): mesma leitura do Power BI, cores fixas por candidato/lado.
-2. **Distritos** ("Votos por distrito"): resultado por distrito. Sem seletor de ano ainda — o filtro está fixo em 2024 (pendente: adicionar um filtro rápido interativo).
+2. **Distritos** ("Votos por distrito"): resultado por distrito, com **filtro de Ano interativo** (abre em 2024; dá pra marcar mais de um ano ao mesmo tempo, que empilha os candidatos).
 3. **Dinheiro e perfil** ("Receita declarada", "Eficiência de investimento", "Idade", "Patrimônio declarado").
 4. **Câmara e campanha digital** ("Câmara Municipal", "Engajamento por fase").
 
-Cores por valor conferidas na saída do gerador: Grupo `#1f9d63` (verde), Principal oposição `#c8433a` (vermelho), Demais candidatos `#3d7fc4` (azul), e uma paleta própria por candidato — as mesmas do estudo e do Power BI. Legendas não foram conferidas visualmente (dependem de abrir o Tableau).
+Cores e legendas conferidas manualmente no Tableau Public, planilha por planilha, nos 4 painéis: verde = grupo, vermelho = principal oposição, azul = demais candidatos, e uma paleta própria por candidato — as mesmas do estudo e do Power BI (o Tableau Public não deixa fixar o hex exato pela interface; as cores usadas são as mais próximas disponíveis no seletor). O gerador (`build_tableau_workbook.py`) tinha deixado "Demais candidatos" sem cor própria (herdava o vermelho da oposição por engano) — corrigido manualmente depois de gerar; se o `.twbx` for regenerado do zero, conferir nas planilhas "Todos os candidatos" e "Votos por distrito" antes de publicar.
 
-Para gerar de novo: `python scripts/build_dashboards_data.py && python scripts/build_tableau_workbook.py` (usa `tableauhyperapi`; não precisa do Tableau instalado).
+Para gerar de novo: `python scripts/build_dashboards_data.py && python scripts/build_tableau_workbook.py` (usa `tableauhyperapi`; não precisa do Tableau instalado) — mas isso **sobrescreve** as correções de cor e o filtro de ano feitos manualmente na interface, que não são gerados por código. Depois de regenerar, refazer os dois ajustes no Tableau antes de publicar.
