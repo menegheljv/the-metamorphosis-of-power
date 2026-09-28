@@ -122,6 +122,7 @@
   .meta-row strong { color: var(--ink-soft); font-weight: 500; }
   .print-actions {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     gap: 12px;
@@ -165,6 +166,9 @@
     font: 600 13px/1 "Bricolage Grotesque", sans-serif;
   }
   .print-actions .pdf-btn:hover { background: var(--blue); }
+  .print-actions.panel-actions { margin-top: 12px; }
+  .print-actions .pdf-btn.alt { background: transparent; color: var(--blue-deep); }
+  .print-actions .pdf-btn.alt:hover { background: var(--blue-deep); color: #fff; }
 
   /* ---------- Stat ribbon ---------- */
   .ribbon {
@@ -587,6 +591,7 @@
       <a class="pdf-btn" href="the-metamorphosis-of-power-in-alfredo-chaves.pdf" download="The Metamorphosis of Power in Alfredo Chaves.pdf">Download study as PDF</a>
       <span>Static PDF with the same charts as the study.</span>
     </div>
+    <!--PAINEIS-->
 
     <div class="ribbon">
       <div class="stat">

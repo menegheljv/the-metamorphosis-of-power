@@ -7,6 +7,7 @@ bundle de graficos (frontend/dist/assets/study-charts.js).
   /                  estudo em portugues
   /en/               estudo em ingles
   /*.pdf, /en/*.pdf  PDFs estaticos (gerados por scripts/build_pdf.py, com o mesmo visual)
+  /paineis/          paineis para baixar: Power BI (.pbix) e Tableau (.twbx), de dashboards/
   /study/...         redirecionamentos dos enderecos antigos
 
 Antes:  python scripts/build_artifact.py && python scripts/build_artifact_en.py
@@ -23,20 +24,44 @@ OUT = BASE / "output"
 DIST = BASE / "frontend" / "dist"
 SITE = BASE / "site"
 
+# Paineis para baixar (dashboards/): copiados para site/paineis/. Botao so aparece se o arquivo existir.
+PANELS = [
+    ("powerbi", BASE / "dashboards" / "powerbi" / "AMetamorfoseDoPoder.pbix", "AMetamorfoseDoPoder.pbix"),
+    ("tableau", BASE / "dashboards" / "tableau" / "AMetamorfoseDoPoder.twbx", "AMetamorfoseDoPoder.twbx"),
+]
+
 PAGES = {
     "pt": {
         "src": OUT / "case_study.html", "dest": "index.html", "lang": "pt-BR", "prefix": "./",
         "switch": ("en/", "Read in English"), "pdf": "a-metamorfose-do-poder-em-alfredo-chaves.pdf",
+        "panels": {"powerbi": ("Baixar painel do Power BI", "Painel de Power BI - A Metamorfose do Poder.pbix"),
+                   "tableau": ("Baixar painel do Tableau", "Painel de Tableau - A Metamorfose do Poder.twbx")},
+        "panels_note": "Painéis interativos com os mesmos dados: abrem no Power BI Desktop e no Tableau Public.",
         "description": "A metamorfose do poder em Alfredo Chaves (ES): estudo de caso sobre as eleições municipais de 2004 a 2024, "
                        "com gráficos interativos, a partir de dados abertos do TSE e do IBGE.",
     },
     "en": {
         "src": OUT / "case_study_en.html", "dest": "en/index.html", "lang": "en", "prefix": "../",
         "switch": ("../", "Ler em Português"), "pdf": "the-metamorphosis-of-power-in-alfredo-chaves.pdf",
+        "panels": {"powerbi": ("Download Power BI dashboard", "Power BI dashboard - The Metamorphosis of Power.pbix"),
+                   "tableau": ("Download Tableau dashboard", "Tableau dashboard - The Metamorphosis of Power.twbx")},
+        "panels_note": "Interactive dashboards with the same data: open in Power BI Desktop and Tableau Public.",
         "description": "The metamorphosis of power in Alfredo Chaves, ES, Brazil: a case study on the 2004-2024 municipal elections, "
                        "with interactive charts, built from TSE and IBGE open data.",
     },
 }
+
+
+def panel_buttons(cfg: dict) -> str:
+    """Linha de botoes dos paineis (Power BI, Tableau); so entram os que existem em dashboards/."""
+    links = [
+        f'<a class="pdf-btn alt" href="{cfg["prefix"]}paineis/{fname}" download="{cfg["panels"][key][1]}">{cfg["panels"][key][0]}</a>'
+        for key, src, fname in PANELS if src.exists()
+    ]
+    if not links:
+        return ""
+    return ('<div class="print-actions panel-actions">\n      ' + "\n      ".join(links)
+            + f'\n      <span>{cfg["panels_note"]}</span>\n    </div>')
 
 
 def wrap(html: str, cfg: dict) -> str:
@@ -46,6 +71,7 @@ def wrap(html: str, cfg: dict) -> str:
     prefix = cfg["prefix"]
     href, label = cfg["switch"]
     body = body.replace('<div class="wrap">', f'<div class="wrap">\n  <a class="lang-switch" href="{href}">{label}</a>', 1)
+    body = body.replace("<!--PAINEIS-->", panel_buttons(cfg), 1)
     return (
         "<!DOCTYPE html>\n"
         f'<html lang="{cfg["lang"]}">\n<head>\n'
@@ -84,6 +110,13 @@ def main() -> None:
     for icon in ("favicon.svg", "favicon.ico", "apple-touch-icon.png", "icon-192.png"):  # frontend/public (scripts/build_favicon.py)
         shutil.copy2(DIST / icon, SITE / icon)
     (SITE / ".nojekyll").write_text("", encoding="utf-8")
+
+    for _, src, fname in PANELS:
+        if src.exists():
+            (SITE / "paineis").mkdir(exist_ok=True)
+            shutil.copy2(src, SITE / "paineis" / fname)
+        else:
+            print(f"AVISO: {src.relative_to(BASE)} nao existe; sem botao para ele")
 
     for cfg in PAGES.values():
         (SITE / cfg["dest"]).write_text(wrap(cfg["src"].read_text(encoding="utf-8"), cfg), encoding="utf-8")
