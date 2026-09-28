@@ -132,44 +132,44 @@ def cover_css() -> str:
 @media screen { .pdf-front { display: none !important; } }
 @media print {
   @page { size: A4; margin: 22mm 17mm 25mm 22mm;
-    @bottom-left { content: "__FOOT__"; font: 500 8.5pt "Bricolage Grotesque", sans-serif; color: #5b6473; vertical-align: top; padding-top: 6mm; }
-    @bottom-right { content: counter(page); font: 600 9.5pt "Bricolage Grotesque", sans-serif; color: #1a2540; vertical-align: top; padding-top: 6mm; }
+    @bottom-left { content: "__FOOT__"; font: 500 8.5pt "Bricolage Grotesque", sans-serif; color: #6b6f76; vertical-align: top; padding-top: 6mm; }
+    @bottom-right { content: counter(page); font: 600 9.5pt "Bricolage Grotesque", sans-serif; color: #17171a; vertical-align: top; padding-top: 6mm; }
   }
   @page cover { size: A4; margin: 0; @bottom-left { content: none; } @bottom-right { content: none; } }
   nav.toc { display: none !important; }
   .pdf-front { display: block; }
   .pdf-cover {
     page: cover; box-sizing: border-box; width: 210mm; height: 296mm; padding: 32mm 22mm 24mm 24mm; position: relative; overflow: hidden;
-    display: flex; flex-direction: column; color: #f2f5fb; break-after: page;
-    background: radial-gradient(ellipse 70% 60% at 82% 8%, #1a3566, transparent 60%), linear-gradient(160deg, #05070f 20%, #0b1730 75%);
+    display: flex; flex-direction: column; color: #f5f6f3; break-after: page;
+    background: radial-gradient(ellipse 70% 60% at 82% 8%, #1f9d63 0%, transparent 60%), linear-gradient(160deg, #0d100e 20%, #171f19 75%);
     -webkit-print-color-adjust: exact; print-color-adjust: exact;
   }
-  .pdf-cover .map { position: absolute; right: -14mm; top: 30mm; width: 120mm; opacity: 0.16; }
-  .pdf-cover .map path { fill: none; stroke: #d7ab5a; stroke-width: 0.9; }
-  .pdf-cover .kick { display: flex; align-items: center; gap: 10px; font: 600 9.5pt "Bricolage Grotesque", sans-serif; letter-spacing: 0.14em; color: #d7ab5a; }
-  .pdf-cover .kick::before { content: ""; width: 26px; height: 1px; background: #d7ab5a; }
+  .pdf-cover .map { position: absolute; right: -14mm; top: 30mm; width: 120mm; opacity: 0.18; }
+  .pdf-cover .map path { fill: none; stroke: #3ecb8a; stroke-width: 0.9; }
+  .pdf-cover .kick { display: flex; align-items: center; gap: 10px; font: 600 9.5pt "Bricolage Grotesque", sans-serif; letter-spacing: 0.14em; color: #3ecb8a; }
+  .pdf-cover .kick::before { content: ""; width: 26px; height: 1px; background: #3ecb8a; }
   .pdf-cover h1.wm { margin: 22mm 0 0; display: flex; flex-direction: column; gap: 2mm; line-height: 0.98; position: relative; }
-  .pdf-cover .wm-a { font: 800 44pt/1.0 "Bricolage Grotesque", -apple-system, "Segoe UI", Arial, sans-serif; letter-spacing: 0.01em; color: #f2f5fb; }
-  .pdf-cover .wm-b { font: 400 40pt/1.1 Georgia, "Iowan Old Style", "Palatino Linotype", "Times New Roman", serif; font-style: normal; color: #f2f5fb; }
-  .pdf-cover .sub { margin: 10mm 0 0; font: 600 15pt/1.3 "Bricolage Grotesque", sans-serif; color: #d7ab5a; position: relative; }
-  .pdf-cover .rule { width: 34mm; height: 1.4px; background: #d7ab5a; margin: 10mm 0 8mm; }
-  .pdf-cover .dek { font: 400 11.5pt/1.55 "Bricolage Grotesque", sans-serif; color: #b6c2de; max-width: 132mm; text-align: justify; margin: 0; position: relative; }
-  .pdf-cover .meta { margin-top: auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 5mm 10mm; border-top: 1px solid rgba(255,255,255,0.18); padding-top: 8mm; position: relative; }
-  .pdf-cover .meta div { font: 400 10.5pt/1.35 "Bricolage Grotesque", sans-serif; color: #f2f5fb; }
-  .pdf-cover .meta span { display: block; font: 600 8pt "Bricolage Grotesque", sans-serif; letter-spacing: 0.12em; text-transform: uppercase; color: #d7ab5a; margin-bottom: 1mm; }
-  .pdf-cover .year { position: absolute; right: 22mm; bottom: 24mm; font: 400 11pt Georgia, serif; color: #d7ab5a; }
+  .pdf-cover .wm-a { font: 800 44pt/1.0 "Bricolage Grotesque", -apple-system, "Segoe UI", Arial, sans-serif; letter-spacing: 0.01em; color: #f5f6f3; }
+  .pdf-cover .wm-b { font: 400 40pt/1.1 Georgia, "Iowan Old Style", "Palatino Linotype", "Times New Roman", serif; font-style: normal; color: #f5f6f3; }
+  .pdf-cover .sub { margin: 10mm 0 0; font: 600 15pt/1.3 "Bricolage Grotesque", sans-serif; color: #3ecb8a; position: relative; }
+  .pdf-cover .rule { width: 34mm; height: 1.4px; background: #3ecb8a; margin: 10mm 0 8mm; }
+  .pdf-cover .dek { font: 400 11.5pt/1.55 "Bricolage Grotesque", sans-serif; color: #cfd3cd; max-width: 132mm; text-align: justify; margin: 0; position: relative; }
+  .pdf-cover .meta { margin-top: auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 5mm 10mm; border-top: 1px solid rgba(245,246,243,0.18); padding-top: 8mm; position: relative; }
+  .pdf-cover .meta div { font: 400 10.5pt/1.35 "Bricolage Grotesque", sans-serif; color: #f5f6f3; }
+  .pdf-cover .meta span { display: block; font: 600 8pt "Bricolage Grotesque", sans-serif; letter-spacing: 0.12em; text-transform: uppercase; color: #3ecb8a; margin-bottom: 1mm; }
+  .pdf-cover .year { position: absolute; right: 22mm; bottom: 24mm; font: 400 11pt Georgia, serif; color: #3ecb8a; }
 
-  .pdf-page { break-after: page; font-family: "Bricolage Grotesque", sans-serif; color: #111; }
-  .pdf-page h2.pdf-h { font: 700 13pt/1.3 "Bricolage Grotesque", sans-serif; letter-spacing: 0.08em; text-align: center; text-transform: uppercase; margin: 0 0 9mm; color: #111; white-space: normal; }
-  .pdf-page h3.pdf-h3 { font: 700 10.5pt "Bricolage Grotesque", sans-serif; margin: 8mm 0 2mm; color: #111; text-align: left; }
-  .pdf-page p { font-size: 11.5pt; line-height: 1.6; color: #111; text-align: justify; }
-  .pdf-page .kw { font-size: 11pt; color: #111; text-align: left; }
-  .pdf-page .cite { border-left: 3px solid #d7ab5a; padding: 2mm 0 2mm 5mm; background: #faf7ef; text-align: left; }
+  .pdf-page { break-after: page; font-family: "Bricolage Grotesque", sans-serif; color: #17171a; }
+  .pdf-page h2.pdf-h { font: 700 13pt/1.3 "Bricolage Grotesque", sans-serif; letter-spacing: 0.08em; text-align: center; text-transform: uppercase; margin: 0 0 9mm; color: #17171a; white-space: normal; }
+  .pdf-page h3.pdf-h3 { font: 700 10.5pt "Bricolage Grotesque", sans-serif; margin: 8mm 0 2mm; color: #17171a; text-align: left; }
+  .pdf-page p { font-size: 11.5pt; line-height: 1.6; color: #17171a; text-align: justify; }
+  .pdf-page .kw { font-size: 11pt; color: #17171a; text-align: left; }
+  .pdf-page .cite { border-left: 3px solid #157a4d; padding: 2mm 0 2mm 5mm; background: #faf9f7; text-align: left; }
   .pdf-list { list-style: none; margin: 0; padding: 0; }
-  .pdf-list li { display: flex; align-items: baseline; gap: 6px; padding: 1.7mm 0; font-size: 11pt; line-height: 1.35; color: #111; break-inside: avoid; }
+  .pdf-list li { display: flex; align-items: baseline; gap: 6px; padding: 1.7mm 0; font-size: 11pt; line-height: 1.35; color: #17171a; break-inside: avoid; }
   .pdf-list .n { flex: none; width: 13mm; font-weight: 700; }
   .pdf-list .t { flex: none; max-width: 78%; }
-  .pdf-list .d { flex: 1; border-bottom: 1.5px dotted #888; transform: translateY(-3px); min-width: 8mm; }
+  .pdf-list .d { flex: 1; border-bottom: 1.5px dotted #a8aca4; transform: translateY(-3px); min-width: 8mm; }
   .pdf-list .p { flex: none; width: 9mm; text-align: right; font-variant-numeric: tabular-nums; }
   .pdf-list.lof li { font-size: 9.5pt; padding: 1.1mm 0; }
   .pdf-list.lof .n { width: 24mm; font-weight: 600; }
