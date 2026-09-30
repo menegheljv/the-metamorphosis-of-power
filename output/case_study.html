@@ -572,6 +572,28 @@
     a { color: inherit; text-decoration: none; }
     .table-exhibit table.data.cands td, .table-exhibit table.data.cands th { padding: 2px 6px; }
     pre.code { white-space: pre-wrap; overflow: visible; overflow-wrap: anywhere; font-size: 9pt; padding: 12px 14px; }
+    /* diagramacao do PDF: sem celulas cortadas e sem paginas pela metade */
+    .exhibit { margin: 18px 0; overflow: visible; }
+    .exhibit-body { padding: 16px 18px; }
+    .ichart table.heat { width: 100%; table-layout: fixed; border-spacing: 2px; font-size: 8.5pt; }
+    .ichart table.heat td { min-width: 0; padding: 7px 1px; }
+    .ichart table.heat th { padding: 4px 2px; font-size: 8.5pt; }
+    .ichart table.heat th[scope="row"] { white-space: normal; text-align: right; padding-right: 6px; }
+    .ichart .heat-wrap, .ichart .dmaps, .ichart .dmap-wrap { max-width: 100%; overflow: visible; }
+    /* tabelas longas podem quebrar entre linhas (cabecalho repete); graficos continuam inteiros */
+    figure.table-exhibit, table.data, .table-scroll { break-inside: auto; }
+    table.data tr { break-inside: avoid; }
+    table.data thead { display: table-header-group; }
+    /* graficos mais baixos no PDF (mais de um por pagina, sem espaco vazio); os graficos de barras horizontais, que crescem com o numero de itens, ficam como estao */
+    .ichart .chart-box[style*="height: 340px"], .ichart .chart-box[style*="height: 380px"],
+    .ichart .chart-box[style*="height: 384px"], .ichart .chart-box[style*="height: 420px"] { height: 235px !important; }
+    .ichart .panel > div[style*="height: 144px"] { height: 104px !important; }
+    .ichart .panel > div[style*="height: 184px"] { height: 132px !important; }
+    .ichart .panel > div[style*="height: 104px"] { height: 78px !important; }
+    .ichart .chart-box[style*="height: 400px"] { height: 330px !important; }
+    .exhibit-head { padding: 8px 14px; }
+    .exhibit-body { padding: 10px 14px; }
+    .exhibit figcaption { padding: 8px 14px 10px; }
   }
 </style>
 
