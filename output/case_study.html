@@ -587,6 +587,17 @@
     /* graficos mais baixos no PDF (mais de um por pagina, sem espaco vazio); os graficos de barras horizontais, que crescem com o numero de itens, ficam como estao */
     .ichart .chart-box[style*="height: 340px"], .ichart .chart-box[style*="height: 380px"],
     .ichart .chart-box[style*="height: 384px"], .ichart .chart-box[style*="height: 420px"] { height: 235px !important; }
+    /* figuras de barras empilhadas por ano podem quebrar entre os paineis (cada painel continua inteiro) */
+    .exhibit:has([data-chart="financeiro_chapa"]), .exhibit:has([data-chart="custo_por_voto"]),
+    .exhibit:has([data-chart="idade_candidatos"]), .exhibit:has([data-chart="patrimonio_candidatos"]) { break-inside: auto; }
+    .ichart .panel { break-inside: avoid; }
+    .exhibit:has([data-chart="pesquisas_timeline"]) { break-inside: auto; }
+    /* titulo e cabecalho da figura nunca ficam sozinhos no pe da pagina */
+    .exhibit-head, .ichart .chart-title, .ichart .chart-sub { break-after: avoid; }
+    .exhibit-body { break-before: avoid; }
+    .ichart .dmap-wrap { break-inside: avoid; }
+    .exhibit:has([data-chart="distritos_heatmap"]) { break-before: page; }
+    .ichart svg.dmap { max-width: 76%; height: auto; margin-left: auto; margin-right: auto; display: block; }
     .ichart .panel > div[style*="height: 144px"] { height: 104px !important; }
     .ichart .panel > div[style*="height: 184px"] { height: 132px !important; }
     .ichart .panel > div[style*="height: 104px"] { height: 78px !important; }
