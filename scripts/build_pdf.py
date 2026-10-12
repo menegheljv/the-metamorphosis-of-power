@@ -53,7 +53,7 @@ LANGS = {
     "pt": {
         "page": SITE / "index.html", "temp": "_print_pt.html", "url_path": "/_print_pt.html?print",
         "pdf": OUT / "a-metamorfose-do-poder-em-alfredo-chaves.pdf", "template": OUT / "template.html",
-        "kicker": "ESTUDO DE CASO · ANÁLISE DE DADOS ELEITORAIS",
+        "kicker": "ESTUDO DE CASO: ANÁLISE DE DADOS ELEITORAIS",
         "title_a": "A METAMORFOSE<br>DO PODER", "title_b": "em Alfredo Chaves",
         "subtitle": "não vivemos mais como nossos pais",
         "meta": [("Autor", "João Victor Meneghel"), ("Município", "Alfredo Chaves, ES"),
@@ -74,7 +74,7 @@ LANGS = {
     "en": {
         "page": SITE / "en" / "index.html", "temp": "_print_en.html", "url_path": "/en/_print_en.html?print",
         "pdf": OUT / "the-metamorphosis-of-power-in-alfredo-chaves.pdf", "template": OUT / "template_en.html",
-        "kicker": "CASE STUDY · ELECTORAL DATA ANALYSIS",
+        "kicker": "CASE STUDY: ELECTORAL DATA ANALYSIS",
         "title_a": "THE METAMORPHOSIS<br>OF POWER", "title_b": "in Alfredo Chaves",
         "subtitle": "we no longer live like our parents",
         "meta": [("Author", "João Victor Meneghel"), ("Municipality", "Alfredo Chaves, ES, Brazil"),
