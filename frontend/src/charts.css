@@ -3,7 +3,7 @@
    Bricolage Grotesque (a mesma do estudo). */
 
 .ichart {
-  --title-gray: #4d4d4d;
+  --title-gray: #0d6a3d;
   background: #fff;
   padding: 16px 14px 12px;
   font-family: "Bricolage Grotesque", system-ui, sans-serif;
@@ -177,7 +177,6 @@
 }
 
 /* grafico inicial: titulo em verde */
-.ichart[data-chart="historical_arc"] .chart-title { color: var(--blue-deep, #157a4d); }
 
 /* PDF: texto dos graficos maior (12,5px = 9,4pt) e cores mais firmes */
 .print-mode .ichart .recharts-wrapper text { font-size: 12.5px !important; }

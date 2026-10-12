@@ -53,7 +53,7 @@ LANGS = {
     "pt": {
         "page": SITE / "index.html", "temp": "_print_pt.html", "url_path": "/_print_pt.html?print",
         "pdf": OUT / "a-metamorfose-do-poder-em-alfredo-chaves.pdf", "template": OUT / "template.html",
-        "kicker": "ESTUDO DE CASO · ANÁLISE DE DADOS ELEITORAIS",
+        "kicker": "ESTUDO DE CASO: ANÁLISE DE DADOS ELEITORAIS",
         "title_a": "A METAMORFOSE<br>DO PODER", "title_b": "em Alfredo Chaves",
         "subtitle": "não vivemos mais como nossos pais",
         "meta": [("Autor", "João Victor Meneghel"), ("Município", "Alfredo Chaves, ES"),
@@ -74,7 +74,7 @@ LANGS = {
     "en": {
         "page": SITE / "en" / "index.html", "temp": "_print_en.html", "url_path": "/en/_print_en.html?print",
         "pdf": OUT / "the-metamorphosis-of-power-in-alfredo-chaves.pdf", "template": OUT / "template_en.html",
-        "kicker": "CASE STUDY · ELECTORAL DATA ANALYSIS",
+        "kicker": "CASE STUDY: ELECTORAL DATA ANALYSIS",
         "title_a": "THE METAMORPHOSIS<br>OF POWER", "title_b": "in Alfredo Chaves",
         "subtitle": "we no longer live like our parents",
         "meta": [("Author", "João Victor Meneghel"), ("Municipality", "Alfredo Chaves, ES, Brazil"),
@@ -147,7 +147,6 @@ def cover_css() -> str:
   .pdf-cover .map { position: absolute; right: -14mm; top: 30mm; width: 120mm; opacity: 0.18; }
   .pdf-cover .map path { fill: none; stroke: #3ecb8a; stroke-width: 0.9; }
   .pdf-cover .kick { display: flex; align-items: center; gap: 10px; font: 600 9.5pt "Bricolage Grotesque", sans-serif; letter-spacing: 0.14em; color: #3ecb8a; }
-  .pdf-cover .kick::before { content: ""; width: 26px; height: 1px; background: #3ecb8a; }
   .pdf-cover h1.wm { margin: 22mm 0 0; display: flex; flex-direction: column; gap: 2mm; line-height: 0.98; position: relative; }
   .pdf-cover .wm-a { font: 800 44pt/1.0 "Bricolage Grotesque", -apple-system, "Segoe UI", Arial, sans-serif; letter-spacing: 0.01em; color: #f5f6f3; }
   .pdf-cover .wm-b { font: 400 40pt/1.1 Georgia, "Iowan Old Style", "Palatino Linotype", "Times New Roman", serif; font-style: normal; color: #f5f6f3; }

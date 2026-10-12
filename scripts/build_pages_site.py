@@ -23,6 +23,7 @@ BASE = Path(__file__).resolve().parents[1]
 OUT = BASE / "output"
 DIST = BASE / "frontend" / "dist"
 SITE = BASE / "site"
+PHOTO = "alfredo-chaves-vista-aerea.jpg"  # frontend/public; credito: Expedia
 
 # Paineis para baixar (dashboards/): copiados para site/paineis/. Botao so aparece se o arquivo existir.
 PANELS = [
@@ -36,7 +37,7 @@ PAGES = {
         "switch": ("en/", "Read in English"), "pdf": "a-metamorfose-do-poder-em-alfredo-chaves.pdf",
         "panels": {"powerbi": ("Baixar painel do Power BI", "Painel de Power BI - A Metamorfose do Poder.pbix"),
                    "tableau": ("Baixar painel do Tableau", "Painel de Tableau - A Metamorfose do Poder.twbx")},
-        "panels_note": "Painéis interativos com os mesmos dados: abrem no Power BI Desktop e no Tableau Public.",
+        "photo": ("Vista aérea da área urbana de Alfredo Chaves (ES), entre montanhas cobertas de mata.", "Vista aérea de Alfredo Chaves (ES). Foto: Expedia."),
         "description": "A metamorfose do poder em Alfredo Chaves (ES): estudo de caso sobre as eleições municipais de 2004 a 2024, "
                        "com gráficos interativos, a partir de dados abertos do TSE e do IBGE.",
     },
@@ -45,7 +46,7 @@ PAGES = {
         "switch": ("../", "Ler em Português"), "pdf": "the-metamorphosis-of-power-in-alfredo-chaves.pdf",
         "panels": {"powerbi": ("Download Power BI dashboard", "Power BI dashboard - The Metamorphosis of Power.pbix"),
                    "tableau": ("Download Tableau dashboard", "Tableau dashboard - The Metamorphosis of Power.twbx")},
-        "panels_note": "Interactive dashboards with the same data: open in Power BI Desktop and Tableau Public.",
+        "photo": ("Aerial view of the urban area of Alfredo Chaves, ES, Brazil, among forested mountains.", "Aerial view of Alfredo Chaves, ES. Photo: Expedia."),
         "description": "The metamorphosis of power in Alfredo Chaves, ES, Brazil: a case study on the 2004-2024 municipal elections, "
                        "with interactive charts, built from TSE and IBGE open data.",
     },
@@ -53,15 +54,18 @@ PAGES = {
 
 
 def panel_buttons(cfg: dict) -> str:
-    """Linha de botoes dos paineis (Power BI, Tableau); so entram os que existem em dashboards/."""
-    links = [
+    """Botoes dos paineis (Power BI, Tableau), na mesma linha do botao de PDF; so entram os que existem em dashboards/."""
+    return "\n      ".join(
         f'<a class="pdf-btn alt" href="{cfg["prefix"]}paineis/{fname}" download="{cfg["panels"][key][1]}">{cfg["panels"][key][0]}</a>'
         for key, src, fname in PANELS if src.exists()
-    ]
-    if not links:
-        return ""
-    return ('<div class="print-actions panel-actions">\n      ' + "\n      ".join(links)
-            + f'\n      <span>{cfg["panels_note"]}</span>\n    </div>')
+    )
+
+
+def hero_photo(cfg: dict) -> str:
+    """Foto de abertura (frontend/public) com credito, atras do titulo; so entra se o arquivo existir."""
+    alt, caption = cfg["photo"]
+    return (f'<img class="hero-img" src="{cfg["prefix"]}{PHOTO}" alt="{alt}" width="2000" height="1500" fetchpriority="high">'
+            f'<span class="hero-credit">{caption}</span>')
 
 
 def wrap(html: str, cfg: dict) -> str:
@@ -72,6 +76,8 @@ def wrap(html: str, cfg: dict) -> str:
     href, label = cfg["switch"]
     body = body.replace('<div class="wrap">', f'<div class="wrap">\n  <a class="lang-switch" href="{href}">{label}</a>', 1)
     body = body.replace("<!--PAINEIS-->", panel_buttons(cfg), 1)
+    if (DIST / PHOTO).exists():
+        body = body.replace('<div class="hero"><!--FOTO-->', '<div class="hero has-photo">' + hero_photo(cfg), 1)
     return (
         "<!DOCTYPE html>\n"
         f'<html lang="{cfg["lang"]}">\n<head>\n'
@@ -110,6 +116,8 @@ def main() -> None:
     for icon in ("favicon.svg", "favicon.ico", "apple-touch-icon.png", "icon-192.png"):  # frontend/public (scripts/build_favicon.py)
         shutil.copy2(DIST / icon, SITE / icon)
     (SITE / ".nojekyll").write_text("", encoding="utf-8")
+    if (DIST / PHOTO).exists():
+        shutil.copy2(DIST / PHOTO, SITE / PHOTO)
 
     for _, src, fname in PANELS:
         if src.exists():
