@@ -52,10 +52,12 @@
   .hero.has-photo .hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 58%; }
   .hero.has-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7,32,20,0.18) 0%, rgba(7,32,20,0.52) 48%, rgba(7,32,20,0.9) 100%); }
   .hero.has-photo .hero-text { position: relative; z-index: 1; }
-  .hero.has-photo .kicker { color: #c2f5d9; font-weight: 600; }
+  .hero.has-photo .kicker { color: #fff; font-weight: 600; }
   .hero.has-photo h1.title { color: #fff; margin-bottom: 0; }
   .hero-credit { position: absolute; z-index: 1; right: 14px; bottom: 10px; font: 500 11.5px "Bricolage Grotesque", sans-serif; letter-spacing: 0.02em; color: rgba(255,255,255,0.86); }
   .hero + .dek { margin-top: 26px; }
+  @media (min-width: 641px) { .hero.has-photo h1.title, .hero.has-photo h1.title .subtitle { white-space: nowrap; } .hero.has-photo h1.title { font-size: clamp(1rem, 3.1vw, 1.9rem); } }
+  @media print { .hero.has-photo h1.title { font-size: 1.28rem; } }
   @media (max-width: 640px) { .hero.has-photo { min-height: 360px; padding: 48px 18px 44px; border-radius: 10px; } }
   .masthead {
     border-bottom: 1px solid var(--border);
@@ -171,8 +173,6 @@
   }
   .print-actions .pdf-btn:hover { background: var(--blue); }
   .print-actions.panel-actions { margin-top: 12px; }
-  .print-actions .pdf-btn.alt { background: transparent; color: var(--blue-deep); }
-  .print-actions .pdf-btn.alt:hover { background: var(--blue-deep); color: #fff; }
 
   /* ---------- Stat ribbon ---------- */
   .ribbon {
@@ -258,19 +258,19 @@
     align-items: baseline;
     gap: 12px;
     padding: 14px 20px;
-    border-bottom: 1px solid var(--border);
-    background: var(--blue-tint);
+    border-bottom: 1px solid var(--blue-deep);
+    background: var(--blue-deep);
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
   }
   .exhibit-head .tag {
     font-family: "Bricolage Grotesque", sans-serif;
     font-size: 11.5px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--blue-deep);
-    font-weight: 600;
+    color: #fff;
+    font-weight: 700;
   }
-  :not([data-theme="light"]) .exhibit-head .tag, [data-theme="dark"] .exhibit-head .tag { color: var(--blue); }
-  .exhibit-head .cap { font-size: 13px; color: var(--ink-soft); }
+  .exhibit-head .cap { font-size: 13px; color: #fff; }
   .exhibit-body { padding: 28px; }
   .exhibit-body.tight { padding: 0; }
   .exhibit img { width: 100%; height: auto; display: block; border-radius: 4px; }
