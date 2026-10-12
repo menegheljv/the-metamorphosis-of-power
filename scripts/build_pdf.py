@@ -147,7 +147,6 @@ def cover_css() -> str:
   .pdf-cover .map { position: absolute; right: -14mm; top: 30mm; width: 120mm; opacity: 0.18; }
   .pdf-cover .map path { fill: none; stroke: #3ecb8a; stroke-width: 0.9; }
   .pdf-cover .kick { display: flex; align-items: center; gap: 10px; font: 600 9.5pt "Bricolage Grotesque", sans-serif; letter-spacing: 0.14em; color: #3ecb8a; }
-  .pdf-cover .kick::before { content: ""; width: 26px; height: 1px; background: #3ecb8a; }
   .pdf-cover h1.wm { margin: 22mm 0 0; display: flex; flex-direction: column; gap: 2mm; line-height: 0.98; position: relative; }
   .pdf-cover .wm-a { font: 800 44pt/1.0 "Bricolage Grotesque", -apple-system, "Segoe UI", Arial, sans-serif; letter-spacing: 0.01em; color: #f5f6f3; }
   .pdf-cover .wm-b { font: 400 40pt/1.1 Georgia, "Iowan Old Style", "Palatino Linotype", "Times New Roman", serif; font-style: normal; color: #f5f6f3; }

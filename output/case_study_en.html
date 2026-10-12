@@ -6,9 +6,9 @@
     --paper: #faf9f7;
     --paper-raised: #ffffff;
     --ink: #17171a;
-    --ink-soft: rgba(23,23,26,0.72);
-    --caption: rgba(23,23,26,0.5);
-    --border: rgba(23,23,26,0.12);
+    --ink-soft: rgba(23,23,26,0.86);
+    --caption: rgba(23,23,26,0.68);
+    --border: rgba(23,23,26,0.18);
     --blue: #1f9d63;
     --blue-deep: #157a4d;
     --blue-tint: rgba(31,157,99,0.1);
@@ -47,11 +47,16 @@
   .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px 120px; }
 
   /* ---------- Masthead ---------- */
-  .hero-photo { margin: 64px 0 26px; }
-  .hero-photo + .masthead { padding-top: 36px; }
-  @media print { .hero-photo { margin-top: 0; } }
-  .hero-photo img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; object-position: 50% 62%; border-radius: 10px; border: 1px solid var(--border); }
-  .hero-photo figcaption { margin-top: 8px; text-align: right; font-size: 12px; color: var(--caption); }
+  .hero { margin: 0 0 28px; }
+  .hero.has-photo { position: relative; overflow: hidden; border-radius: 12px; min-height: 430px; display: flex; flex-direction: column; justify-content: flex-end; padding: 64px 36px 52px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .hero.has-photo .hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 58%; }
+  .hero.has-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7,32,20,0.18) 0%, rgba(7,32,20,0.52) 48%, rgba(7,32,20,0.9) 100%); }
+  .hero.has-photo .hero-text { position: relative; z-index: 1; }
+  .hero.has-photo .kicker { color: #c2f5d9; font-weight: 600; }
+  .hero.has-photo h1.title { color: #fff; margin-bottom: 0; }
+  .hero-credit { position: absolute; z-index: 1; right: 14px; bottom: 10px; font: 500 11.5px "Bricolage Grotesque", sans-serif; letter-spacing: 0.02em; color: rgba(255,255,255,0.86); }
+  .hero + .dek { margin-top: 26px; }
+  @media (max-width: 640px) { .hero.has-photo { min-height: 360px; padding: 48px 18px 44px; border-radius: 10px; } }
   .masthead {
     border-bottom: 1px solid var(--border);
     padding: 56px 0 40px;
@@ -86,12 +91,6 @@
     margin-bottom: 20px;
   }
   :not([data-theme="light"]) .kicker, [data-theme="dark"] .kicker { color: var(--blue); }
-  .kicker::before {
-    content: "";
-    width: 22px; height: 1px;
-    background: currentColor;
-    display: inline-block;
-  }
   h1.title {
     font-family: "Bricolage Grotesque", sans-serif; font-weight: 700;
     font-size: clamp(1.4rem, 3.7vw, 1.8rem);
@@ -138,7 +137,7 @@
   .ichart { min-height: 40px; }
   @media print { .exhibit:has([data-chart="distritos_votos"]), .exhibit:has([data-chart="distritos_heatmap"]) { break-inside: auto; } }
   .ichart .chart-fallback { margin: 0; font-size: 13px; color: var(--caption); }
-  .table-exhibit .table-title { margin: 0; text-align: center; text-transform: uppercase; text-wrap: balance; font: 700 clamp(0.98rem, 2.6vw, 1.2rem)/1.18 "Bricolage Grotesque", sans-serif; letter-spacing: 0.02em; color: #4d4d4d; }
+  .table-exhibit .table-title { margin: 0; text-align: center; text-transform: uppercase; text-wrap: balance; font: 700 clamp(0.98rem, 2.6vw, 1.2rem)/1.18 "Bricolage Grotesque", sans-serif; letter-spacing: 0.02em; color: #0d6a3d; }
   .table-exhibit .table-sub { margin: 6px auto 6px; text-align: center; font-size: 13px; color: var(--caption); }
   .table-exhibit .table-label { margin: 22px 0 8px; text-align: center; font: 600 14px "Bricolage Grotesque", sans-serif; color: var(--ink); }
   .table-exhibit .table-scroll { border: 0; border-radius: 0; }
@@ -615,23 +614,24 @@
 
 <div class="wrap">
 
-  <!--FOTO-->
-
   <header class="masthead">
-    <div class="kicker">Case study: electoral data analysis</div>
-    <h1 class="title">The metamorphosis of power in&nbsp;Alfredo&nbsp;Chaves:<span class="subtitle">we no longer live like our parents</span></h1>
+    <div class="hero"><!--FOTO-->
+      <div class="hero-text">
+      <div class="kicker">Case study: electoral data analysis</div>
+      <h1 class="title">The metamorphosis of power in&nbsp;Alfredo&nbsp;Chaves:<span class="subtitle">we no longer live like our parents</span></h1>
+      </div>
+    </div>
     <p class="dek">A political base that had lost five straight mayoral elections won all 42 precincts in 2024 (58.1% of valid votes) with no change in turnout: the data indicate the turnaround came from people who already voted, across the whole territory. Built only from open data, the reconstruction works as a method for any Brazilian municipality.</p>
     <div class="meta-row">
       <span><strong>Author:</strong> João Victor Meneghel</span>
-      <span><strong>Municipality:</strong> Alfredo Chaves, Espírito Santo, Brazil</span>
-      <span><strong>Elections:</strong> Municipal, 2004 to 2024 (six races)</span>
-      <span><strong>Source:</strong> dadosabertos.tse.jus.br</span>
+      <span><strong>Municipality:</strong> Alfredo Chaves, ES, Brazil</span>
+      <span><strong>Elections:</strong> Municipal, 2004 to 2024</span>
+      <span><strong>Source:</strong> TSE and IBGE</span>
     </div>
     <div class="print-actions">
       <a class="pdf-btn" href="the-metamorphosis-of-power-in-alfredo-chaves.pdf" download="The Metamorphosis of Power in Alfredo Chaves.pdf">Download study as PDF</a>
-      <span>Static PDF with the same charts as the study.</span>
+      <!--PAINEIS-->
     </div>
-    <!--PAINEIS-->
 
     <div class="ribbon">
       <div class="stat">
