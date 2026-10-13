@@ -161,7 +161,7 @@ def cover_css() -> str:
   .pdf-cover .year { position: absolute; right: 22mm; bottom: 24mm; font: 400 11pt Georgia, serif; color: #3ecb8a; }
 
   .pdf-page { break-after: page; font-family: "Bricolage Grotesque", sans-serif; color: #17171a; }
-  .pdf-page h2.pdf-h { font: 700 13pt/1.3 "Bricolage Grotesque", sans-serif; letter-spacing: 0.08em; text-align: center; text-transform: uppercase; margin: 0 0 9mm; color: #fff; white-space: normal; }
+  .pdf-page h2.pdf-h { font: 700 13pt/1.3 "Bricolage Grotesque", sans-serif; letter-spacing: 0.08em; text-align: center; text-transform: uppercase; margin: 0 auto 9mm; color: #fff; white-space: normal; }
   .pdf-page h3.pdf-h3 { font: 700 10.5pt "Bricolage Grotesque", sans-serif; margin: 8mm 0 2mm; color: #17171a; text-align: left; }
   .pdf-page p { font-size: 11.5pt; line-height: 1.6; color: #17171a; text-align: justify; }
   .pdf-page .kw { font-size: 11pt; color: #17171a; text-align: left; }
