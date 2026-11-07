@@ -33,7 +33,7 @@ DISPLAY = {
     "JORGE GABRIEL MENEGHEL": "Jorge Meneghel", "FERNANDO VIDEIRA LAFAYETTE": "Dr. Fernando",
     "DANIEL ORLANDI": "Daniel Orlandi", "ROBERTO FORTUNATO FIORIN": "Roberto Fiorin", "SERGIO BIANCHI": "Sergio Bianchi",
     "RONALDO BIANCHI": "Ronaldo Bianchi", "ARMANDO NOLASCO RIBEIRO": "Armando Zanata", "LUIZ CLAUDIO BOLDRINI": "Boldrini",
-    "ROLMAR BOTECCHIA": "Rolmar Boteccia", "HUGO LUIZ PICOLI MENEGHEL": "Hugo Luiz",
+    "ROLMAR BOTECCHIA": "Rolmar Botecchia", "HUGO LUIZ PICOLI MENEGHEL": "Hugo Luiz",
 }
 
 

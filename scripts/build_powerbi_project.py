@@ -25,7 +25,7 @@ THEME_SRC = os.path.join(BASE, "dashboards", "powerbi_assets", "Fluent2-CY26SU08
 GRP, OPP, OTH, INK, MUTED, BG, CARD, LINE = "#1F9D63", "#C8433A", "#3D7FC4", "#17171A", "#6B6F76", "#FAF9F6", "#FFFFFF", "#E2E0DA"
 CAND_COLOR = {
     "Jorge Meneghel": "#0F7A4A", "Daniel Orlandi": "#2FB37A", "Sergio Bianchi": "#66C79E", "Ronaldo Bianchi": "#1F9D63", "Hugo Luiz": "#0B5E38",
-    "Dr. Fernando": "#C8433A", "Roberto Fiorin": "#E07B72", "Rolmar Boteccia": "#8F2A23",
+    "Dr. Fernando": "#C8433A", "Roberto Fiorin": "#E07B72", "Rolmar Botecchia": "#8F2A23",
     "Luiz Teixeira": "#3D7FC4", "Nelsão Togneri": "#7FB0E0", "Armando Zanata": "#2A5C94", "Boldrini": "#5E96CF",
 }
 LADO_COLOR = {"Grupo": GRP, "Principal oposição": OPP, "Demais candidatos": OTH}

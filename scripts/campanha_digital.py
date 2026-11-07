@@ -95,7 +95,7 @@ ax.scatter(df["data"], df["views"], s=32, color=GREEN, zorder=3)
 ax.plot(df["data"], df["views"], color=GRID, linewidth=1, zorder=1)
 
 milestones = [
-    ("2024-03-27", "Filiação ao PP"),
+    ("2024-03-21", "Filiação ao PP"),
     ("2024-06-07", "Lançamento da\npré-candidatura"),
     ("2024-08-03", "Anúncio do\nvice-prefeito"),
     ("2024-10-06", "Vitória"),

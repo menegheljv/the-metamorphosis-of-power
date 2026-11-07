@@ -24,7 +24,7 @@ LADO_PAL = {"Grupo": GRP, "Principal oposição": OPP, "Demais candidatos": OTH}
 CAM_PAL = {"Grupo": GRP, "Adversários": OPP}
 CAND_PAL = {
     "Jorge Meneghel": "#0f7a4a", "Daniel Orlandi": "#2fb37a", "Sergio Bianchi": "#66c79e", "Ronaldo Bianchi": "#1f9d63", "Hugo Luiz": "#0b5e38",
-    "Dr. Fernando": "#c8433a", "Roberto Fiorin": "#e07b72", "Rolmar Boteccia": "#8f2a23",
+    "Dr. Fernando": "#c8433a", "Roberto Fiorin": "#e07b72", "Rolmar Botecchia": "#8f2a23",
     "Luiz Teixeira": "#3d7fc4", "Nelsão Togneri": "#7fb0e0", "Armando Zanata": "#2a5c94", "Boldrini": "#5e96cf",
 }
 
