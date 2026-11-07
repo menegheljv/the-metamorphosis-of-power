@@ -112,7 +112,7 @@ posts = posts.sort_values("data").reset_index(drop=True)
 
 # Principal candidatura de oposicao ao grupo em cada eleicao: quem venceu (2004-2020) e,
 # em 2024, quando o grupo venceu, o segundo colocado (resultado oficial do TSE: 31,91%).
-OPOSICAO_2024 = ("Rolmar Boteccia", 31.9)
+OPOSICAO_2024 = ("Rolmar Botecchia", 31.9)
 
 
 # --------------------------------------------------------------------------
@@ -597,7 +597,7 @@ def build(lang: str) -> list[dict]:
         L("% estimulada entre os candidatos citados; último ponto é o resultado oficial",
           "% prompted among named candidates; the last point is the official result"), "cartesian",
         layers=[{"type": "line", "key": "hugo", "label": L("Hugo Luiz (grupo)", "Hugo Luiz (group)"), "color": "grupo"},
-                {"type": "line", "key": "rolmar", "label": "Rolmar Boteccia", "color": "adversario"},
+                {"type": "line", "key": "rolmar", "label": "Rolmar Botecchia", "color": "adversario"},
                 {"type": "line", "key": "boldrini", "label": "Boldrini", "color": "terceiro"}],
         rows=[{"x": L("16/abr · Solução", "Apr 16 · Solução"), "hugo": 54.8, "rolmar": 21.6, "boldrini": None},
               {"x": L("30/ago · Veritá", "Aug 30 · Veritá"), "hugo": 57.4, "rolmar": 30.8, "boldrini": 11.8},

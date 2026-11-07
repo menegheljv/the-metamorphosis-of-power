@@ -7,7 +7,7 @@ Estudo de caso com dados eleitorais reais: seis eleições municipais (2004 a 20
 - **Estudo (português):** https://menegheljv.github.io/the-metamorphosis-of-power/
 - **Study (English):** https://menegheljv.github.io/the-metamorphosis-of-power/en/
 - **PDF:** [português](https://menegheljv.github.io/the-metamorphosis-of-power/a-metamorfose-do-poder-em-alfredo-chaves.pdf) · [English](https://menegheljv.github.io/the-metamorphosis-of-power/en/the-metamorphosis-of-power-in-alfredo-chaves.pdf)
-- Limites do estudo e a posição do autor: seção 12 ("Limitações e viés").
+- Limites do estudo e a posição do autor: seção 14 ("Limitações e viés").
 
 ## O que este estudo demonstra
 
