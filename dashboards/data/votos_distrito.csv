@@ -13,7 +13,7 @@ Sede,2020,Dr. Fernando,PSB,Principal oposição,3456,6157,56.1
 Sede,2020,Ronaldo Bianchi,Republicanos,Grupo,2480,6157,40.3
 Sede,2020,Armando Zanata,PDT,Demais candidatos,221,6157,3.6
 Sede,2024,Hugo Luiz,PP,Grupo,3811,6653,57.3
-Sede,2024,Rolmar Boteccia,PSB,Principal oposição,2109,6653,31.7
+Sede,2024,Rolmar Botecchia,PSB,Principal oposição,2109,6653,31.7
 Sede,2024,Boldrini,PL,Demais candidatos,733,6653,11.0
 Crubixá,2004,Dr. Fernando,PSB,Principal oposição,468,679,68.9
 Crubixá,2004,Jorge Meneghel,PT,Grupo,164,679,24.2
@@ -29,7 +29,7 @@ Crubixá,2020,Dr. Fernando,PSB,Principal oposição,406,641,63.3
 Crubixá,2020,Ronaldo Bianchi,Republicanos,Grupo,218,641,34.0
 Crubixá,2020,Armando Zanata,PDT,Demais candidatos,17,641,2.7
 Crubixá,2024,Hugo Luiz,PP,Grupo,327,690,47.4
-Crubixá,2024,Rolmar Boteccia,PSB,Principal oposição,269,690,39.0
+Crubixá,2024,Rolmar Botecchia,PSB,Principal oposição,269,690,39.0
 Crubixá,2024,Boldrini,PL,Demais candidatos,94,690,13.6
 Ibitiruí,2004,Dr. Fernando,PSB,Principal oposição,372,523,71.1
 Ibitiruí,2004,Jorge Meneghel,PT,Grupo,124,523,23.7
@@ -45,7 +45,7 @@ Ibitiruí,2020,Dr. Fernando,PSB,Principal oposição,309,587,52.6
 Ibitiruí,2020,Ronaldo Bianchi,Republicanos,Grupo,234,587,39.9
 Ibitiruí,2020,Armando Zanata,PDT,Demais candidatos,44,587,7.5
 Ibitiruí,2024,Hugo Luiz,PP,Grupo,385,608,63.3
-Ibitiruí,2024,Rolmar Boteccia,PSB,Principal oposição,179,608,29.4
+Ibitiruí,2024,Rolmar Botecchia,PSB,Principal oposição,179,608,29.4
 Ibitiruí,2024,Boldrini,PL,Demais candidatos,44,608,7.2
 Matilde,2004,Dr. Fernando,PSB,Principal oposição,343,447,76.7
 Matilde,2004,Jorge Meneghel,PT,Grupo,86,447,19.2
@@ -61,7 +61,7 @@ Matilde,2020,Dr. Fernando,PSB,Principal oposição,297,511,58.1
 Matilde,2020,Ronaldo Bianchi,Republicanos,Grupo,203,511,39.7
 Matilde,2020,Armando Zanata,PDT,Demais candidatos,11,511,2.2
 Matilde,2024,Hugo Luiz,PP,Grupo,307,531,57.8
-Matilde,2024,Rolmar Boteccia,PSB,Principal oposição,181,531,34.1
+Matilde,2024,Rolmar Botecchia,PSB,Principal oposição,181,531,34.1
 Matilde,2024,Boldrini,PL,Demais candidatos,43,531,8.1
 Ribeirão do Cristo,2004,Dr. Fernando,PSB,Principal oposição,156,261,59.8
 Ribeirão do Cristo,2004,Luiz Teixeira,PV,Demais candidatos,82,261,31.4
@@ -76,7 +76,7 @@ Ribeirão do Cristo,2020,Ronaldo Bianchi,Republicanos,Grupo,142,244,58.2
 Ribeirão do Cristo,2020,Dr. Fernando,PSB,Principal oposição,96,244,39.3
 Ribeirão do Cristo,2020,Armando Zanata,PDT,Demais candidatos,6,244,2.5
 Ribeirão do Cristo,2024,Hugo Luiz,PP,Grupo,191,264,72.3
-Ribeirão do Cristo,2024,Rolmar Boteccia,PSB,Principal oposição,61,264,23.1
+Ribeirão do Cristo,2024,Rolmar Botecchia,PSB,Principal oposição,61,264,23.1
 Ribeirão do Cristo,2024,Boldrini,PL,Demais candidatos,12,264,4.5
 Sagrada Família,2004,Dr. Fernando,PSB,Principal oposição,409,534,76.6
 Sagrada Família,2004,Jorge Meneghel,PT,Grupo,100,534,18.7
@@ -92,7 +92,7 @@ Sagrada Família,2020,Dr. Fernando,PSB,Principal oposição,368,577,63.8
 Sagrada Família,2020,Ronaldo Bianchi,Republicanos,Grupo,186,577,32.2
 Sagrada Família,2020,Armando Zanata,PDT,Demais candidatos,23,577,4.0
 Sagrada Família,2024,Hugo Luiz,PP,Grupo,347,601,57.7
-Sagrada Família,2024,Rolmar Boteccia,PSB,Principal oposição,213,601,35.4
+Sagrada Família,2024,Rolmar Botecchia,PSB,Principal oposição,213,601,35.4
 Sagrada Família,2024,Boldrini,PL,Demais candidatos,41,601,6.8
 São Bento de Urânia,2004,Dr. Fernando,PSB,Principal oposição,274,354,77.4
 São Bento de Urânia,2004,Jorge Meneghel,PT,Grupo,68,354,19.2
@@ -108,5 +108,5 @@ São Bento de Urânia,2020,Dr. Fernando,PSB,Principal oposição,264,496,53.2
 São Bento de Urânia,2020,Ronaldo Bianchi,Republicanos,Grupo,218,496,44.0
 São Bento de Urânia,2020,Armando Zanata,PDT,Demais candidatos,14,496,2.8
 São Bento de Urânia,2024,Hugo Luiz,PP,Grupo,411,608,67.6
-São Bento de Urânia,2024,Rolmar Boteccia,PSB,Principal oposição,165,608,27.1
+São Bento de Urânia,2024,Rolmar Botecchia,PSB,Principal oposição,165,608,27.1
 São Bento de Urânia,2024,Boldrini,PL,Demais candidatos,32,608,5.3
