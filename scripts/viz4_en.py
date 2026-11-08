@@ -59,7 +59,7 @@ cand2020 = [("Ronaldo Bianchi", 58, S['patrimonio_prefeito_2020'].get('RONALDO B
             ("Fernando (Dr Fernando)", 73, S['patrimonio_prefeito_2020'].get('DR FERNANDO', 0), "adversario"),
             ("Armando Zanata", 64, S['patrimonio_prefeito_2020'].get('ARMANDO ZANATA', 0), "terceiro")]
 cand2024 = [("Hugo Luiz", 25, S['patrimonio_prefeito_2024'].get('HUGO LUIZ', 0), "nossos"),
-            ("Rolmar Boteccia", 71, S['patrimonio_prefeito_2024'].get('ROLMAR BOTECCHIA', 0), "adversario"),
+            ("Rolmar Botecchia", 71, S['patrimonio_prefeito_2024'].get('ROLMAR BOTECCHIA', 0), "adversario"),
             ("Boldrini", 61, S['patrimonio_prefeito_2024'].get('BOLDRINI', 0), "terceiro")]
 
 # =====================================================================

@@ -62,7 +62,7 @@ cand2020 = [("Fernando\n(PSB — elected)", 108642.29, "adversario"),
             ("Bianchi\n(Republicanos)", 53120.00, "nossos"),
             ("Zanata\n(PDT)", 32722.09, "terceiro")]
 cand2024 = [("Hugo Luiz\n(PP — elected)", 155597.43, "nossos"),
-            ("Boteccia\n(PSB)", 119400.00, "adversario"),
+            ("Botecchia\n(PSB)", 119400.00, "adversario"),
             ("Boldrini\n(PL)", 141130.00, "terceiro")]
 
 COR_LADO = {"nossos": BLUE, "adversario": RED, "terceiro": "#3d7fc4"}
@@ -94,7 +94,7 @@ cvcand2020 = [("Fernando\n5,196 votes", 102342.29/5196, "adversario"),
               ("Bianchi\n3,681 votes", 50000.00/3681, "nossos"),
               ("Zanata\n336 votes", 26999.56/336, "terceiro")]
 cvcand2024 = [("Hugo Luiz\n5,779 votes", 154237.43/5779, "nossos"),
-              ("Boteccia\n3,177 votes", 115000.00/3177, "adversario"),
+              ("Botecchia\n3,177 votes", 115000.00/3177, "adversario"),
               ("Boldrini\n999 votes", 141130.00/999, "terceiro")]
 
 fig, axes = plt.subplots(1, 2, figsize=(11.5, 5.4), sharey=False)
